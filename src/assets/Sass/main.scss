@@ -1,0 +1,107 @@
+@import "mixin";
+@import "header";
+@import "footer";
+@import "products";
+@import "LoginSign";
+@import "home";
+
+body {
+  width: 100vw;
+  background-color: #161820;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+.container-fluid {
+  width: 100%;
+  max-width: 93em;
+}
+
+hr {
+  border: 2px solid #0d0e10;
+  padding: 0;
+  margin: 0;
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #1d212a;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 2px solid #4d4d4d;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #e0e0e0;
+}
+
+.destek-canli {
+  width: 31em;
+  align-content: end;
+  .canli-buton {
+    display: flex;
+  }
+  .platform-destek {
+    width: 100%;
+    height: 33em;
+    display: none;
+  }
+  .message-input:focus {
+    outline: 0;
+  }
+  .message-input::placeholder {
+    color: rgb(205, 205, 205);
+  }
+}
+
+.destek-canli-opened {
+  .canli-buton {
+    display: none !important;
+  }
+  .platform-destek {
+    display: block !important;
+  }
+}
+
+.turqoise-blue {
+  background-color: #32a0db;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.path {
+  margin-top: 20px;
+  span {
+    background-color: #1f2a2d;
+    color: white;
+    padding: 6px;
+    padding-top: 2px !important;
+    padding-bottom: 2px !important;
+    border-radius: 5px;
+    align-content: center;
+    text-align: center;
+  }
+  .active-path{
+    background-color: white;
+    color: black;
+  }
+}
+
+.hovering-behaviour{
+  transition: .3s;
+}
+.hovering-behaviour:hover{
+  cursor: pointer;
+  transform: translateY(-3%);
+}

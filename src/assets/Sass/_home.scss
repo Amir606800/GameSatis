@@ -1,0 +1,59 @@
+.top-vitrin {
+  img {
+    border-radius: 10px;
+    height: 21em;
+  }
+  .col-8 {
+    .carousel-control-prev {
+      left: -50px;
+      filter: invert(100%);
+    }
+
+    .carousel-control-next {
+      filter: invert(100%);
+      right: -50px;
+    }
+    .carousel-indicators [data-bs-target] {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: white;
+      border: none;
+      opacity: 0.5;
+      margin: 5px;
+    }
+
+    .carousel-indicators .active {
+      opacity: 1;
+      background-color: white;
+    }
+
+    .carousel-indicators {
+      bottom: -10px;
+    }
+  }
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: rgb(132, 130, 130) !important; /* Change arrow color */
+  border-radius: 50%; /* Make it round */
+  width: 40px;
+  height: 40px;
+  transition: 0.5s;
+}
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  color: white !important;
+}
+.swiper-pagination-bullet {
+  background-color: white; /* Change dot color */
+  width: 123px;
+  height: 12px;
+  opacity: 1; /* Make them fully visible */
+}
+
+.swiper-pagination-bullet-active {
+  background-color: orange; /* Active dot color */
+  transform: scale(1.3); /* Make active dot bigger */
+}

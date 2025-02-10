@@ -1,0 +1,127 @@
+.header {
+  transform: translate(0%,-100%);
+  animation: slide_top 1.3s forwards;
+  animation-delay: 1s;
+  .top-head {
+    ul {
+      font-family: Roboto, sans-serif;
+      font-size: 11px;
+      li:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  .mid-head {
+    .brand {
+      max-width: 33%;
+      width: 100%;
+      span {
+        font-size: 12px;
+        padding: 0;
+        margin: 0;
+      }
+    }
+    .search {
+      max-width: 40%;
+      width: 100%;
+      .lupa {
+        left: 9px;
+        font-size: 19px;
+      }
+      input {
+        background-color: #171a21;
+        width: 84%;
+        padding: 6px;
+        border: none;
+        border-radius: 7px;
+        padding-left: 40px;
+        color: white !important;
+      }
+      input::placeholder {
+        font-size: 14px;
+        color: rgb(177, 177, 177);
+      }
+      input:focus {
+        outline: none;
+        box-shadow: none;
+      }
+    }
+    .account {
+      max-width: 27%;
+      width: 100%;
+      button:hover {
+        background: none;
+      }
+    }
+  }
+  .btn-info {
+    background-color: #32a0dc;
+  }
+}
+.nav-head-top {
+  transform: translate(0%,-350%);
+  animation: slide_top 1.3s forwards;
+  animation-delay: 1s;
+  margin: 0;
+  padding: 0;
+  gap: 2px;
+  .nav-element {
+    cursor: pointer;
+    background-color: #212630;
+    font-weight: bolder;
+    font-size: 14px;
+    border-radius: 9px;
+    text-align: center;
+    align-content: center;
+    width: 200px;
+    height: 40px;
+  }
+  .nav-element:hover {
+    background-color: white;
+    color: black;
+  }
+}
+  .nav-head-bot {
+    animation: slide_left 2s linear;
+    .nav-element {
+      cursor: pointer;
+      border-radius: 5%;
+      background-color: #212630;
+      @include center;
+      width: 150px;
+      height: 60px;
+      margin-left: 10px;
+      img {
+        width: 80%;
+        height: 60%;
+        object-fit: contain;
+      }
+    }
+    .nav-element:hover {
+      background-color: white;
+      img {
+          filter: brightness(0);
+        }
+    }
+}
+  .bg-dark {
+    background-color: #212630 !important;
+  }
+
+@keyframes slide_top{
+  0%{
+    transform: translate(0%,-300%);
+  }
+  100%{
+    transform: translate(0%,0%);
+  }
+}
+
+@keyframes slide_left{
+  0%{
+    transform: translate(100%);
+  }
+  100%{
+    transform: translate(0%);
+  }
+}
