@@ -9,7 +9,7 @@ import StreamerCard from "../components/CardCompon/StreamerCard";
 import {StreamerContext}  from "../Context/StreamerProvider";
 import { Link } from "react-router-dom";
 import InfiniteSlider from "../components/Home/InfiniteSlider";
-
+ 
 const Home = () => {
   const {streamData} = useContext(StreamerContext);
   const [products, setProducts] = useState([]);
