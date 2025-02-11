@@ -9,16 +9,11 @@ import StreamerCard from "../components/CardCompon/StreamerCard";
 import {StreamerContext}  from "../Context/StreamerProvider";
 import { Link } from "react-router-dom";
 import InfiniteSlider from "../components/Home/InfiniteSlider";
+import { ProductContext } from "../Context/ProductsProvider";
  
 const Home = () => {
   const {streamData} = useContext(StreamerContext);
-  const [products, setProducts] = useState([]);
-  useEffect(() => {
-    axios
-      .get("https://dummyjson.com/products")
-      .then((res) => setProducts(res.data.products))
-      .catch((err) => console.log("ha;;;" + err));
-  }, []);
+  const products = useContext(ProductContext)
 
   return (
     <>

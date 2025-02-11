@@ -1,0 +1,65 @@
+.detail-page {
+    $darker-background:#171a21;
+  .area {
+    display: grid;
+    grid-template-areas:
+      "image image image description description description description creator creator"
+      "image image image description description description description creator creator"
+      "image image image information information information information payment payment";
+    grid-template-columns: repeat(9.9, 1fr); /* 9 equal-width columns */
+    grid-template-rows: auto;
+    gap: 15px; /* Optional: Adjust spacing */
+  }
+
+  .area-part {
+    border-radius: 7px;
+    overflow: hidden;
+    background-color: #222631;
+    padding: 15px;
+  }
+
+  .image {
+    grid-area: image;
+    border-radius: 7px;
+    overflow: hidden;
+  }
+
+  .description {
+    grid-area: description;
+    #teslimat{
+        background-color: $darker-background;
+        padding: 4px;
+        color: lightgreen;
+        border-radius: 5px;
+    }
+  }
+
+  .creator {
+    grid-area: creator;
+    gap:22px;
+    .status{
+        background-color: $darker-background;
+        padding: 4px;
+        @include center();
+        border-radius: 5px;
+    }
+    .likes{
+        border-radius: 5px;
+        padding: 10px;
+        font-size:11px;
+        background-color: $darker-background;
+    }
+  }
+
+  .information {
+    grid-area: information;
+    .boxes-info{
+        border-radius: 10px;
+        background-color: $darker-background;
+    }
+}
+
+  .payment {
+    grid-area: payment;
+  }
+}

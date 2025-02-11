@@ -18,13 +18,13 @@ const StreamerCard = (props) => {
             <p className="card-text w-100 d-flex justify-content-center align-items-center gap-2 fs-4 mt-2">
               {props.platform.map((item, i) => {
                 if (item == "Twitch") {
-                  return <BsTwitch />;
+                  return <BsTwitch key={i} />;
                 }
                 if (item == "YouTube") {
-                  return <BsYoutube />;
+                  return <BsYoutube key={i} />;
                 }
                 if (item == "Facebook") {
-                  return <BsFacebook />;
+                  return <BsFacebook key={i} />;
                 }
               })}
             </p>
