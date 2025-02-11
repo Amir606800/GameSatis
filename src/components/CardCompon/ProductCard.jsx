@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { GoVerified } from "react-icons/go";
+import { Link } from "react-router-dom";
+import slugify from "slugify";
 
 const ProductCard = ({ main, vitrinIndex }) => {
   const shadows = [
@@ -53,6 +55,7 @@ const ProductCard = ({ main, vitrinIndex }) => {
   }, [main.id, vitrinIndex]); 
   return (
     <div className="col-sm-4 col-lg-2 t">
+      <Link to={`/products/${slugify(main.title).toLowerCase()}`}>
       <div
         className="card prod-card rounded-3 overflow-hidden h-100"
         style={{
@@ -96,6 +99,7 @@ const ProductCard = ({ main, vitrinIndex }) => {
           <div className="price">${main.price}</div>
         </div>
       </div>
+      </Link>
     </div>
   );
 };

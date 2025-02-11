@@ -8,6 +8,7 @@ import Home from "./Pages/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Donate from "./Pages/Donate";
 import NotFoundPage from "./Pages/NotFoundPage";
+import { ProductDetails } from "./Pages/ProductDetails";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/donate" element={<Donate />}></Route>
+          <Route path="/products/:slug" element={<ProductDetails />}></Route>
           <Route path="/*" element={<NotFoundPage />}></Route>
         </Routes>
         <Footer />

@@ -60,7 +60,7 @@ const Home = () => {
         <div className="product-list mb-4">
           <div className="row g-3">
             {products.map((item, index) => (
-              <ProductCard vitrinIndex={11} key={index} main={item} />
+              <ProductCard vitrinIndex={11} key={index} main={item} /> 
             ))}
           </div>
         </div>
