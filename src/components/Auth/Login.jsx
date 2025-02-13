@@ -1,7 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaArrowRotateRight } from "react-icons/fa6";
+import supabase from "../../helpers/supabaseClient";
 
 const Login = (props) => {
+  const [email,setEmail] = useState("")
+  const [password,setPassword] = useState("")
+  const [verCode,setVerCode] = useState("")
+  const handleSubmit = async (e)=>{
+    e.preventDefault();
+    if(verCode != props.random){
+      alert("Verification code doesn't matches");
+      props.settingRandom();
+      return;
+    }
+
+    const {data,error} =await supabase.auth.signInWithPassword({
+      email:email,
+      password:password
+    })
+
+    if(error){
+      alert("Error: "+error.message);
+      return;
+    }
+    if(data){
+      alert("Succesfully Logged in!")
+    }
+    setEmail("");
+    setPassword("");
+    props.settingRandom()
+  }
   return (
     <>
       <div className="sub-head mt-3">
@@ -11,21 +39,18 @@ const Login = (props) => {
         <div className="telefon text-danger">Telefon ile Giris</div>
       </div>
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
+        onSubmit={handleSubmit}
         className="login-form gap-3 mt-4 d-flex flex-column justify-content-center align-items-center"
       >
-        <input type="email" placeholder="E-Posta Adresi: " />
-        <input type="password" placeholder="Şifre: " />
+        <input onChange={(e)=>setEmail(e.target.value)} type="email" placeholder="E-Posta Adresi: " value={email} required/>
+        <input onChange={(e)=>setPassword(e.target.value)} type="password" placeholder="Şifre: " value={password} required/>
         <div className="guvenlik-arenasi d-flex gap-2 justify-content-center">
-          <input type="text" className="w-50" placeholder="Güvenlik kodu:" />
+          <input onChange={(e)=>setVerCode(e.target.value)} type="text" className="w-50" placeholder="Güvenlik kodu:" value={verCode} required/>
           <div className="security-code d-flex justify-content-between align-items-center w-50">
             <div className="area-code w-100 text-center">{props.random}</div>
             <button
               onClick={() => {
                 props.settingRandom();
-                console.log("sdawd");
               }}
               className="regenerate btn btn-info text-white"
             >

@@ -9,12 +9,15 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Donate from "./Pages/Donate";
 import NotFoundPage from "./Pages/NotFoundPage";
 import { ProductDetails } from "./Pages/ProductDetails";
+import ScrollBehaviour from "./components/ScrollBehaviour";
 
 function App() {
+  
   return (
     <>
       <BrowserRouter>
         <Header />
+        <ScrollBehaviour />
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/donate" element={<Donate />}></Route>

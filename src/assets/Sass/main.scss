@@ -92,10 +92,11 @@ a {
     border-radius: 5px;
     align-content: center;
     text-align: center;
+    cursor: pointer;
   }
   .active-path{
-    background-color: white;
-    color: black;
+    background-color: white !important;
+    color: black !important;
   }
 }
 

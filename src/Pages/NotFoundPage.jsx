@@ -1,4 +1,5 @@
 import React from 'react'
+import Path from '../components/Path'
 
 const NotFoundPage = () => {
   return (
