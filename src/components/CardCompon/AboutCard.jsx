@@ -2,8 +2,8 @@ import React from "react";
 
 const AboutCard = () => {
   return (
-    <div className="card">
-      <div className="card-head p-3 rounded-4 h5 text-white" style={{backgroundColor:"#0d0d12"}}>
+    <div className="card border-0">
+      <div className="card-head p-3 rounded-3 h5 text-white" style={{backgroundColor:"#121318"}}>
         Türkiye'nin En Büyük Oyuncu Pazarı
       </div>
       <div className="card-body overflow-y-scroll" style={{height:"10em"}}>

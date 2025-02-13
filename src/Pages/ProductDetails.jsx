@@ -5,20 +5,23 @@ import { ProductContext } from "../Context/ProductsProvider";
 import slugify from "slugify";
 import { IoEyeOutline, IoShareSocialSharp } from "react-icons/io5";
 import { BiHeart, BiSolidDislike, BiSolidLike } from "react-icons/bi";
+import { BsLightningChargeFill } from "react-icons/bs";
+
 import {
   IoIosCheckmarkCircle,
   IoIosCheckmarkCircleOutline,
 } from "react-icons/io";
 import { FaCircleCheck } from "react-icons/fa6";
 import { GoDotFill } from "react-icons/go";
+import { BsShieldFillCheck } from "react-icons/bs";
+import Lent from "../components/Lent";
 
 export const ProductDetails = () => {
   const products = useContext(ProductContext);
-  const slugName = useParams().slug;
+  const {slugName} = useParams();
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
   );
-  console.log(foundedProduct);
   const text = `Bu İlanı Satın Aldığınızda Sizlere İçerisinde Marvel Spider-man 2 Deluxe Edition Bulunan Bir Steam Hesabı Teslim Edilir.
 DRM Denuvo koruması ile karşılaşmadan sorunsuz bir oyun deneyimi yaşayacaksınız.
 Hesap Etrafta Dolaşan Public Hesaplardan Değildir.
@@ -33,6 +36,7 @@ Herhangi bir oyundan atma sorunu söz konusu bile değildir
 Oyunu orijinal platformdan indirip oynuyorsunuz.
 XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VERİYORUZ. Yorumlarımız sizlere gerekli güveni sağlayacaktır.
 14,000+ Satış Güvencesiyle`;
+
   return (
     <>
       <Path />
@@ -42,12 +46,19 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
         ) : (
           <>
             <div className="area">
-              <div className="image">
+              <div className="image position-relative">
                 <img
-                  src="https://img.gamesatis.com/images/2528080/istediginiz-eloya-maximum-1-gunde-cikartiyoruz.webp"
+                  src="https://img.gamesatis.com/images/1065295/valorant-250-tl-89423.webp"
                   alt={foundedProduct.title}
                   style={{ height: "100%", width: "100%" }}
                 />
+                <div
+                  className="del position-absolute bg-success p-1 rounded-1"
+                  style={{ left: "20px", top: "12px", fontSize: "14px" }}
+                >
+                  {" "}
+                  <BsLightningChargeFill /> Hemen Teslim
+                </div>
               </div>
               <div className="description d-flex flex-column justify-content-between align-items-start area-part ">
                 <div>
@@ -83,22 +94,22 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
               </div>
               <div className="information area-part d-flex gap-4 flex-row justify-content-around">
                 <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
-                  <span>İlan No:</span>
+                  <span className="box-headings">İlan No:</span>
                   <span className="fw-bold">#12344</span>
                 </div>
                 <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
-                  <span>Görülme: </span>
+                  <span className="box-headings">Görülme: </span>
                   <span className="fw-bold d-flex justify-content-center align-items-center gap-1">
                     <IoEyeOutline />
                     455
                   </span>
                 </div>
                 <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
-                  <span>Güncelleme: </span>
+                  <span className="box-headings">Güncelleme: </span>
                   <span className="fw-bold">13.04.2025</span>
                 </div>
                 <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
-                  <span>Stok: </span>
+                  <span className="box-headings">Stok: </span>
                   <span className="fw-bold" style={{ fontSize: "22px" }}>
                     <IoIosCheckmarkCircleOutline />
                   </span>
@@ -153,11 +164,65 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
                   <span style={{ fontSize: "14px" }}>Çevrimiçi</span>
                 </div>
               </div>
-              <div className="payment area-part"></div>
+              <div className="payment d-flex flex-column align-items-center justify-content-between p-3 gap-3 area-part">
+                <div className="d-flex w-100 justify-content-between align-items-center">
+                  <div
+                    style={{ width: "65%" }}
+                    className=" d-flex align-items-center gap-1"
+                  >
+                    <BsShieldFillCheck className="text-info fs-4" />
+                    <span
+                      className="d-flex justify-content-center flex-column"
+                      style={{ fontSize: "10px", fontWeight: "bold" }}
+                    >
+                      <span>Paranız %100 GameSatış</span>{" "}
+                      <span>güvencesi altındadır.</span>
+                    </span>
+                  </div>
+                  <div className="price">
+                    <div className="discount">
+                      <span id="disc_price">124,356$</span>
+                      <span
+                        id="disc_percent"
+                        className="px-2 d-flex justify-content-center align-items-center "
+                      >
+                        %5
+                      </span>
+                    </div>
+                    <span style={{ fontWeight: "bolder", fontSize: "27px" }}>
+                      227,50$
+                    </span>
+                  </div>
+                </div>
+                <div className="d-flex w-100 justify-content-between gap-2 align-items-center">
+                  <div className="amount d-flex align-items-center justify-content-center">
+                    <span style={{ width: "5em" }}>Adet: </span>
+                    <div className="d-flex ingredients justify-content-between align-items-center p-2 ">
+                      <div className="decrease btn p-0 w-25 text-center">-</div>
+                      <div className="amount w-50 text-center">4</div>
+                      <div className="increase btn p-0 w-25 text-center">+</div>
+                    </div>
+                  </div>
+                  <button className="purchase btn btn-success px-3">
+                    Satın Al
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="card my-3 border-0">
+              <div className="card-head">
+                <Lent
+                  back={"https://www.gamesatis.com/assets/header-bg-icon-game.png"}
+                  leftHead={`${foundedProduct.title} Hakkında`}
+                  rightHead={""}
+                />
+              </div>
+              <div className="card-body">{text}</div>
             </div>
           </>
         )}
-      </div>
+            
+        </div>
     </>
   );
 };

@@ -53,6 +53,9 @@
 
   .information {
     grid-area: information;
+    .box-headings{
+      font-size: small;
+    }
     .boxes-info{
         border-radius: 10px;
         background-color: $darker-background;
@@ -61,5 +64,43 @@
 
   .payment {
     grid-area: payment;
+    .price{
+      .discount{
+        margin-bottom: -8px;
+        text-align: center;
+        display: flex;
+        justify-content:end;
+        align-items: center;
+        gap:4px;
+        #disc_price{
+          color: rgb(230, 23, 0);
+          text-decoration: line-through;
+          font-size: 15px;
+
+        }
+        #disc_percent{
+          background-color: red;
+          color: white;
+          font-weight: 900;
+          border-radius: 5px;
+          font-size: 11px;
+          width: fit-content;
+          height: fit-content;
+        }
+      }
+    }
+    .amount{
+      background-color: rgba(28, 32, 40, 0.248);
+      width: 67%;
+      .ingredients{
+        background-color: $darker-background;
+        width: 100%;
+        border-radius: 3px;
+        .decrease,.increase{
+          background-color: #222631;
+        }
+      }
+    }
+    
   }
 }
