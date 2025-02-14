@@ -8,8 +8,7 @@ import { BiHeart, BiSolidDislike, BiSolidLike } from "react-icons/bi";
 import { BsLightningChargeFill } from "react-icons/bs";
 
 import {
-  IoIosCheckmarkCircle,
-  IoIosCheckmarkCircleOutline,
+  IoIosCheckmarkCircleOutline
 } from "react-icons/io";
 import { FaCircleCheck } from "react-icons/fa6";
 import { GoDotFill } from "react-icons/go";
@@ -48,21 +47,14 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
             <div className="area">
               <div className="image position-relative">
                 <img
-                  src="https://img.gamesatis.com/images/1065295/valorant-250-tl-89423.webp"
-                  alt={foundedProduct.title}
-                  style={{ height: "100%", width: "100%" }}
-                />
-                <div
-                  className="del position-absolute bg-success p-1 rounded-1"
-                  style={{ left: "20px", top: "12px", fontSize: "14px" }}
-                >
-                  {" "}
-                  <BsLightningChargeFill /> Hemen Teslim
-                </div>
+                  src="https://img.gamesatis.com/images/2528080/istediginiz-eloya-maximum-1-gunde-cikartiyoruz.webp" //Item image
+                  alt={foundedProduct.title} 
+                  style={{ height: "100%",width:"100%" }}
+                /> 
               </div>
               <div className="description d-flex flex-column justify-content-between align-items-start area-part ">
                 <div>
-                  <span className="h5 fw-bolder">{foundedProduct.title}</span>
+                  <span className="h5 fw-bolder">{foundedProduct.title}</span>  
                   <div style={{ fontSize: "13px" }} className="fw-bold mt-1">
                     Ürün açıklaması:{" "}
                   </div>
@@ -70,7 +62,7 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
                     style={{ fontSize: "13px", maxHeight: "1em" }}
                     className="aciklama"
                   >
-                    {text.substring(0, 250) + "..."}
+                    {text.substring(0, 250) + "..."} 
                   </div>
                 </div>
                 <div
@@ -82,36 +74,36 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
                       <IoShareSocialSharp />
                     </div>
                     <div className="btn btn-outline-light text-center ">
-                      <BiHeart /> <i style={{ fontSize: "12px" }}>1 Favori</i>
+                      <BiHeart /> <i style={{ fontSize: "12px" }}>1 Favori</i> 
                     </div>
                   </div>
                   <div className="right ">
                     <div id="teslimat" className="px-3">
-                      Teslimat: 12 Saat İçinde Gerçekleşir
+                      Teslimat: 12 Saat İçinde Gerçekleşir  
                     </div>
                   </div>
                 </div>
               </div>
               <div className="information area-part d-flex gap-4 flex-row justify-content-around">
                 <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
-                  <span className="box-headings">İlan No:</span>
+                  <span>İlan No:</span>
                   <span className="fw-bold">#12344</span>
                 </div>
                 <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
                   <span className="box-headings">Görülme: </span>
                   <span className="fw-bold d-flex justify-content-center align-items-center gap-1">
                     <IoEyeOutline />
-                    455
+                    455 
                   </span>
                 </div>
                 <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
-                  <span className="box-headings">Güncelleme: </span>
-                  <span className="fw-bold">13.04.2025</span>
+                  <span>Güncelleme: </span>
+                  <span className="fw-bold">13.04.2025</span> 
                 </div>
                 <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
                   <span className="box-headings">Stok: </span>
                   <span className="fw-bold" style={{ fontSize: "22px" }}>
-                    <IoIosCheckmarkCircleOutline />
+                    <IoIosCheckmarkCircleOutline /> 
                   </span>
                 </div>
               </div>
@@ -120,12 +112,12 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
                   <img
                     style={{ width: "5em" }}
                     className=" rounded-3 "
-                    src="https://img.gamesatis.com/assets/avatar-set/avatar--1.jpg"
-                    alt="Global Game"
+                    src="https://img.gamesatis.com/assets/avatar-set/avatar--1.jpg" 
+                    alt="Global Game" 
                   />
                   <div>
                     <span className="h5">
-                      Global Game <FaCircleCheck className="text-info" />
+                      Global Game <FaCircleCheck className="text-info" /> 
                     </span>
                     <div className="d-flex justify-content-center align-items-center gap-2">
                       <div
@@ -147,33 +139,29 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
                       <span style={{ fontSize: "13px" }}>%100</span>
                     </div>
                     <div style={{ fontSize: "12px" }}>
-                      Magaza yorumlari: (123)
+                      Magaza yorumlari: (123) 
                     </div>
                     <div style={{ fontSize: "12px" }}>
-                      Magazanin Diger Urunleri: (342)
+                      Magazanin Diger Urunleri: (342) 
                     </div>
                   </div>
                 </div>
                 <div className="likes d-flex justify-content-between align-items-center">
-                  <span>Toplam işlem adedi: 75221</span>
+                  <span>Toplam işlem adedi: 75221</span> 
                   <div className="d-flex gap-2">
                     <div className="text-center align-content-center">
-                      <BiSolidLike
-                        style={{ fontSize: "14px", color: "green" }}
-                      />
-                      (75221)
+                      <BiSolidLike style={{fontSize:"14px",color:"green"}} /> 
+                      (75221) 
                     </div>
                     <span>
-                      <BiSolidDislike
-                        style={{ fontSize: "14px", color: "red" }}
-                      />
-                      (0)
+                      <BiSolidDislike style={{fontSize:"14px",color:"red"}} />
+                      (0) 
                     </span>
                   </div>
                 </div>
                 <div className="status">
                   <GoDotFill color="green" />
-                  <span style={{ fontSize: "14px" }}>Çevrimiçi</span>
+                  <span style={{fontSize:"14px"}}>Çevrimiçi</span> 
                 </div>
               </div>
               <div className="payment d-flex flex-column align-items-center justify-content-between p-3 gap-3 area-part">
@@ -224,9 +212,7 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
             <div className="card my-3 border-0">
               <div className="card-head">
                 <Lent
-                  back={
-                    "https://www.gamesatis.com/assets/header-bg-icon-game.png"
-                  }
+                  back={"https://www.gamesatis.com/assets/header-bg-icon-game.png"}
                   leftHead={`${foundedProduct.title} Hakkında`}
                   rightHead={""}
                 />
