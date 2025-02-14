@@ -18,7 +18,7 @@ import Lent from "../components/Lent";
 
 export const ProductDetails = () => {
   const products = useContext(ProductContext);
-  const {slugName} = useParams();
+  const { slugName } = useParams();
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
   );
@@ -129,9 +129,21 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
                     </span>
                     <div className="d-flex justify-content-center align-items-center gap-2">
                       <div
-                        style={{ height: "9px", width: "170px" }}
-                        className="percent my-2 rounded-pill bg-danger"
-                      />
+                      style={{width:"170px",height:"8px"}}
+                        className="progress"
+                        role="progressbar"
+                        aria-label="Basic example"
+                        aria-valuenow={100}
+                        aria-valuemin={0}
+                        aria-valuemax={100}
+                      >
+                        <div
+                          className="progress-bar"
+                          style={{ width: "100%",background: "rgb(255,0,0)",
+                            background: "linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(255,252,0,1) 50%, rgba(35,255,0,1) 100%)" }}
+                        />
+                      </div>
+
                       <span style={{ fontSize: "13px" }}>%100</span>
                     </div>
                     <div style={{ fontSize: "12px" }}>
@@ -212,7 +224,9 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
             <div className="card my-3 border-0">
               <div className="card-head">
                 <Lent
-                  back={"https://www.gamesatis.com/assets/header-bg-icon-game.png"}
+                  back={
+                    "https://www.gamesatis.com/assets/header-bg-icon-game.png"
+                  }
                   leftHead={`${foundedProduct.title} Hakkında`}
                   rightHead={""}
                 />
@@ -221,8 +235,7 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
             </div>
           </>
         )}
-            
-        </div>
+      </div>
     </>
   );
 };

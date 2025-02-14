@@ -10,7 +10,6 @@ body {
   background-color: #161820;
   overflow-x: hidden;
   scroll-behavior: smooth;
-  
 }
 
 .container-fluid {
@@ -94,16 +93,28 @@ a {
     text-align: center;
     cursor: pointer;
   }
-  .active-path{
+  .active-path {
     background-color: white !important;
     color: black !important;
   }
 }
 
-.hovering-behaviour{
-  transition: .3s;
+.hovering-behaviour {
+  transition: 0.3s;
 }
-.hovering-behaviour:hover{
+.hovering-behaviour:hover {
   cursor: pointer;
   transform: translateY(-3%);
+}
+
+.progress {
+  .progress-bar {
+    background: rgb(255, 0, 0);
+    background: linear-gradient(
+      90deg,
+      rgba(255, 0, 0, 1) 0%,
+      rgba(255, 252, 0, 1) 50%,
+      rgba(35, 255, 0, 1) 100%
+    );
+  }
 }
