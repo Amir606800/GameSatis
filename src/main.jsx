@@ -5,11 +5,9 @@ import { StreamerProvider } from "./Context/StreamerProvider.jsx";
 import { ProductsProvider } from "./Context/ProductsProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
     <ProductsProvider>
       <StreamerProvider>
         <App />
       </StreamerProvider>
     </ProductsProvider>
-  </StrictMode>
 );

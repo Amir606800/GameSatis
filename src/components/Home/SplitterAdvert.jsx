@@ -4,33 +4,31 @@ const SplitterAdvert = (props) => {
   return (
     <>
       <div
-        className="d-flex flex-row align-items-center w-100 justify-content-center pb-2 gap-3"
-        style={{ height: "7em" }}
-      >
-        <div className="cardd h-100 w-25 hovering-behaviour">
+        className="splitter-advert row w-100 g-4 mb-4">
+        <div className="cardd col-12 col-md-6 col-xl-3 hovering-behaviour">
           <img
-            className="w-100 h-100 object-fit-contain rounded-1"
+            className="w-100  rounded-1"
             src={props.img1}
             alt="LeagueOfLegends"
           />
         </div>
-        <div className="cardd h-100 w-25 hovering-behaviour">
+        <div className="cardd col-12 col-md-6 col-xl-3 hovering-behaviour">
           <img
-            className="w-100 h-100 object-fit-contain rounded-1"
+            className="w-100  rounded-1"
             src={props.img2}
             alt="LeagueOfLegends"
           />
         </div>
-        <div className="cardd h-100 w-25 hovering-behaviour">
+        <div className="cardd col-12 col-md-6 col-xl-3 hovering-behaviour">
           <img
-            className="w-100 h-100 object-fit-contain rounded-1"
+            className="w-100  rounded-1"
             src={props.img3}
             alt="LeagueOfLegends"
           />
         </div>
-        <div className="cardd h-100 w-25 hovering-behaviour">
+        <div className="cardd col-12 col-md-6 col-xl-3 hovering-behaviour">
           <img
-            className="w-100 h-100 object-fit-contain rounded-1"
+            className="w-100  rounded-1"
             src={props.img4}
             alt="LeagueOfLegends"
           />

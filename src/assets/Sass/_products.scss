@@ -12,6 +12,17 @@
     }
 }
 
+.Lent{
+    .alphabet-item{
+        transition: all .3s;
+        cursor: pointer;
+        z-index: 100;
+    }
+    .alphabet-item:hover{
+        transform: translate(0%,-10%) scale(1.3);
+    }
+}
+
 .prod-card:hover{
     transform: translate(0%,-2%);
     .details{

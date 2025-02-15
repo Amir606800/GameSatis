@@ -83,7 +83,7 @@ const Home = () => {
               }
             />
           </Link>
-          <div className="row">
+          <div className="row g-3">
             {!streamData
               ? "Loading..."
               : streamData

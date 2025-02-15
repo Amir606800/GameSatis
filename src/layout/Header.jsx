@@ -62,7 +62,7 @@ const Header = () => {
       </div>
       <div className="container-fluid d-lg-flex d-none mt-0 pt-0">
         <div className="nav-head-top d-flex flex-row mt-0 pt-0 w-100 py-2">
-          <div className="nav-element">OYUNLAR</div>
+          <div className="nav-element"><Link to={"/oyunlar"}>OYUNLAR</Link></div>
           <div className="nav-element">OYUNCU PAZARI</div>
           <div className="nav-element">KNIGHT ONLINE</div>
           <div className="nav-element position-relative">

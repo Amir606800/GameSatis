@@ -5,8 +5,8 @@ const Lent = (props) => {
   return (
     <>
       <div
-        style={{ height: "3em", backgroundColor: "#121318", cursor: "pointer",padding:"30px" }}
-        className="d-flex fw-bold overflow-hidden position-relative px-4 rounded-3 justify-content-between align-items-center  w-100 "
+        style={{ height: "3em", backgroundColor: "#121318",padding:"30px",justifyContent:props.center?"center":"space-between" }}
+        className="d-flex fw-bold overflow-hidden position-relative px-4 rounded-3 align-items-center w-100  Lent"
       >
         <div
           className="backg position-absolute w-100  start-0 "
@@ -20,11 +20,11 @@ const Lent = (props) => {
             backgroundSize: "30px",
           }}
         ></div>
-        <div className="left fs-5" style={{ cursor: "pointer" }}>
+        <div className="left fs-5 d-flex gap-1" >
           {props.leftHead}
         </div>
         <div className="right">
-          {props.rightHead} {props.rightHead?<FaArrowRightLong />:""}
+           {props.rightHead?<>{props.rightHead}<FaArrowRightLong /></>:""}
         </div>
       </div>
     </>
