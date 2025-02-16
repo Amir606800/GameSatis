@@ -2,6 +2,7 @@ import { useContext } from "react";
 import Lent from "../components/Lent";
 import Path from "../components/Path";
 import { ProductContext } from "../Context/ProductsProvider";
+import ShowOffCard from "../components/CardCompon/ShowOffCard"
 
 const VitrinShowOFF = ()=>{
     const alphabet = ()=>{
@@ -28,19 +29,11 @@ const VitrinShowOFF = ()=>{
             <Lent 
             center={true}
             back={"https://www.gamesatis.com/assets/header-bg-icon-game.png"} 
-            leftHead={
-            <>
-            {alphabet()}
-            </>} />
+            leftHead={alphabet()} />
         </div>
-        <div className="list row g-4 my-5">
-                    {products.map((item,index)=>(
-                    <div key={index} className="col-12 col-md-6 col-lg-3 col-xl-2" >
-                        <div className="card position-relative" style={{cursor:"pointer"}}>
-                            <div className="card-image"><img className="w-100" src="https://img.gamesatis.com/categories/images/20513/cs-go-counter-strike-global-offensive-419.webp" alt="Black Desert" /></div>
-                            <div className="title position-absolute fw-bolder w-100 bottom-0 start-50 translate-middle text-center" style={{fontSize:"13px"}}>Black Desert Online Acoin</div>
-                        </div>
-                    </div>
+        <div className="list row g-4 my-5 justify-content-center">
+                    {products.map((_,i)=>(
+                        <ShowOffCard key={i}  />
                     ))}
         </div>
     </div>

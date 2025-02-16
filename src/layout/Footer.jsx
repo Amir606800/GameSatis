@@ -64,10 +64,10 @@ const Footer = () => {
             </div>
           </div>
           <hr />
-          <div className="row">
-            <div className="col-9 p-2">
+          <div className="row justify-content-center">
+            <div className="col-9 p-2 ">
               <div className="row left-side g-0">
-                <div className="col-2">
+                <div className="col">
                   <h5>GameSatis</h5>
                   <ul>
                     <li>Hakkımızda</li>
@@ -78,7 +78,7 @@ const Footer = () => {
                     <li>Künye</li>
                   </ul>
                 </div>
-                <div className="col-3">
+                <div className="col">
                   <h5>Kullanici</h5>
                   <ul>
                     <li>Üye ol</li>
@@ -91,7 +91,7 @@ const Footer = () => {
                     <li>Mağaza Kuralları</li>
                   </ul>
                 </div>
-                <div className="col-2">
+                <div className="col">
                   <h5>Odeme</h5>
                   <ul>
                     <li>Ödeme Yöntemleri</li>
@@ -102,7 +102,7 @@ const Footer = () => {
                     <li>İade-İptal Koşulları</li>
                   </ul>
                 </div>
-                <div className="col-2">
+                <div className="col">
                   <h5>Oyuncu Pazari</h5>
                   <ul>
                     <li>Ödeme Yöntemleri</li>
@@ -113,7 +113,7 @@ const Footer = () => {
                     <li>İade-İptal Koşulları</li>
                   </ul>
                 </div>
-                <div className="col-3">
+                <div className="col">
                   <h5>Popüler Sayfalar</h5>
                   <ul>
                     <li>Valorant</li>
@@ -128,7 +128,7 @@ const Footer = () => {
               </div>
             </div>
 
-            <div className="col-3 p-2">
+            <div className="col p-2">
               <div className="justify-content-center align-items-center d-flex flex-column h-100">
                 <div className="d-flex flex-column justify-content-center fs-5 align-items-center gap-1 h-75">
                   <button className="btn btn-outline-light">
@@ -160,21 +160,26 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="bottom-footer py-3 container-fluid d-flex justify-content-between align-items-center">
-        <img
-          width={110}
-          src="https://images.gamesatis.com/assets/logo-light.svg"
-          alt="Logo"
-        ></img>
-        <div style={{ fontSize: "11px", marginRight: "-200px" }}>
-          Copyright © 2005 - 2025 | GameSatış (Biradım Game LTD.) Gizlilik ve
-          Çerez Politikası | Kullanıcı Sözleşmesi
+      <div className="bottom-footer py-3 container-fluid align-items-center justify-content-center ">
+        <div className="row">
+        <div className=" text-center col">
+          <img
+            width={110}
+            src="https://images.gamesatis.com/assets/logo-light.svg"
+            alt="Logo"
+          ></img>
         </div>
-        <img
-          width={400}
-          src="https://www.gamesatis.com/assets/footer-banks-78ee04f3a23f61bb2f733708b3bf6258ac258deb8d60f72fd9c789bfad101512.png"
-          alt="SPONSORS"
-        ></img>
+        <div className="col" style={{ fontSize: "9px"}}>
+          Copyright © 2005 - 2025 | GameSatış (Biradım Game LTD.) Gizlilik ve Çerez Politikası | Kullanıcı Sözleşmesi
+        </div>
+        <div className="col text-center">
+          <img
+            width={300}
+            src="https://www.gamesatis.com/assets/footer-banks-78ee04f3a23f61bb2f733708b3bf6258ac258deb8d60f72fd9c789bfad101512.png"
+            alt="SPONSORS"
+          ></img>
+        </div>
+        </div>
       </div>
     </>
   );

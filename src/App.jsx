@@ -11,6 +11,8 @@ import NotFoundPage from "./Pages/NotFoundPage";
 import { ProductDetails } from "./Pages/ProductDetails";
 import ScrollBehaviour from "./components/ScrollBehaviour";
 import VitrinShowOFF from "./Pages/VitrinShowOFF";
+import Profile from "./Pages/Profile";
+import Informations from "./components/DashboardPages/Informations";
 
 function App() {
   
@@ -25,6 +27,9 @@ function App() {
           <Route path="/products/:slugName" element={<ProductDetails />}></Route>
           <Route path="/*" element={<NotFoundPage />}></Route>
           <Route path="/oyunlar" element={<VitrinShowOFF />}></Route>
+          <Route path="/profilim" element={<Profile section={<Informations />} />}></Route>
+          <Route path="/siparislerim" element={<Profile section={<>Helloooo</>} />}></Route>
+
         </Routes>
         <Footer />
       </BrowserRouter>
