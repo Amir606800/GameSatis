@@ -13,6 +13,7 @@ import ScrollBehaviour from "./components/ScrollBehaviour";
 import VitrinShowOFF from "./Pages/VitrinShowOFF";
 import Profile from "./Pages/Profile";
 import Informations from "./components/DashboardPages/Informations";
+import Siparisler from "./components/DashboardPages/Siparisler";
 
 function App() {
   
@@ -28,7 +29,7 @@ function App() {
           <Route path="/*" element={<NotFoundPage />}></Route>
           <Route path="/oyunlar" element={<VitrinShowOFF />}></Route>
           <Route path="/profilim" element={<Profile section={<Informations />} />}></Route>
-          <Route path="/siparislerim" element={<Profile section={<>Helloooo</>} />}></Route>
+          <Route path="/siparislerim" element={<Profile section={<Siparisler />} />}></Route>
 
         </Routes>
         <Footer />

@@ -119,7 +119,9 @@ a {
   }
 }
 
-.profile-section-element:hover{
+.profile-section-element-active,.profile-section-element:hover{
   background-color: white !important;
   color: black !important;
 }
+
+
