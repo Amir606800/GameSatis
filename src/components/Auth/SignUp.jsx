@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { FaArrowRotateRight } from "react-icons/fa6";
 import supabase from "../../helpers/supabaseClient";
+import Swal from "sweetalert2";
+import { UserAuth } from "../../Context/AuthContext";
 
-const SignUp = (props) => {
+const SignUpSec = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordAgain, setPasswordAgain] = useState("");
@@ -10,31 +12,52 @@ const SignUp = (props) => {
   const [lastName, setLastName] = useState("");
   const [verCode, setVerCode] = useState("");
 
+  const {signUp} = UserAuth()
+
+  const resetInputFields = ()=>{
+    setEmail("");
+    setPassword("");
+    setPasswordAgain("");
+    setVerCode("");
+    props.settingRandom(); 
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
 
     if (password !== passwordAgain) {
-      alert("Passwords do not match");
+      Swal.fire({
+        title: 'Account could not created!',
+        text: 'Passwords do not match!',
+        icon: 'info',
+        background: '#222631', // Custom dark background (optional)
+        color: '#fff', // Text color for dark theme
+        confirmButtonText: 'Try Again',
+        confirmButtonColor: '#3085d6',
+      });
+      resetInputFields()
       return;
     }
 
     if (verCode !== props.random) {
-      alert("Verification code does not match");
-      props.settingRandom(); 
+      Swal.fire({
+        title: 'Account could not created!',
+        text: 'Verification code is wrong!',
+        icon: 'info',
+        background: '#222631', // Custom dark background (optional)
+        color: '#fff', // Text color for dark theme
+        confirmButtonText: 'Try Again',
+        confirmButtonColor: '#3085d6',
+      });
+      resetInputFields()
       return;
     }
 
-    const { data, error } = await supabase.auth.signUp({
-      email: email,
-      password: password,
-    });
-
-    if (error) {
-      alert("Sign-up error: " + error.message);
-      return;
-    }
-
-    const user = data.user;
+    const result = await signUp(email,password)
+    console.log(result);
+    
+    if (result.success) {
+      const user = result.data.user;
 
     const { profileError } = await supabase.from("profiles").insert([
       {
@@ -46,20 +69,53 @@ const SignUp = (props) => {
     ]);
 
     if (profileError) {
-      alert("Error creating profile: " + profileError.message);
+      Swal.fire({
+        title: 'Error occured while creating the account!',
+        text: profileError.message,
+        icon: 'error',
+        background: '#222631', // Custom dark background (optional)
+        color: '#fff', // Text color for dark theme
+        confirmButtonText: 'Try Again',
+        confirmButtonColor: '#3085d6',
+      });
+      resetInputFields()
+      return;
+    }
+      Swal.fire({
+        title: 'Account created succesfully!',
+        text: 'Please, verify your account from your email',
+        icon: 'success',
+        background: '#222631', // Custom dark background (optional)
+        color: '#fff', // Text color for dark theme
+        confirmButtonText: 'Login',
+        confirmButtonColor: '#3085d6',
+      });
+  
+      props.settingAuthState(true);
+      document.querySelector(".login-buton").classList.add("login-btn-active");
+      document.querySelector(".sign-buton").classList.remove("login-btn-active");
+      resetInputFields()
+      
+    }else{
+      Swal.fire({
+        title: 'Sign-up Error',
+        text: result.error,
+        icon: 'error',
+        background: '#222631', // Custom dark background (optional)
+        color: '#fff', // Text color for dark theme
+        confirmButtonText: 'Try Again',
+        confirmButtonColor: '#3085d6',
+      });
+      resetInputFields()
       return;
     }
 
-    alert("Account created successfully");
+    
 
-    setEmail("");
-    setPassword("");
-    setPasswordAgain("");
-    setFirstName("");
-    setLastName("");
-    setVerCode("");
 
-    props.settingRandom();
+
+    
+
   };
   return (
     <>
@@ -72,29 +128,35 @@ const SignUp = (props) => {
           type="text"
           placeholder="Ad: "
           required
+          value={firstName}
+          autoFocus
         />
         <input
           onChange={(e) => setLastName(e.target.value)}
           type="text"
           placeholder="Soyad: "
           required
+          value={lastName}
         />
         <input
           onChange={(e) => setEmail(e.target.value)}
           type="email"
           placeholder="E-Posta Adresi: "
+          value={email}
           required
         />
         <input
           onChange={(e) => setPassword(e.target.value)}
           type="password"
           placeholder="Şifre: "
+          value={password}
           required
         />
         <input
           onChange={(e) => setPasswordAgain(e.target.value)}
           type="password"
           placeholder="Şifre Tekrar: "
+          value={passwordAgain}
           required
         />
         <div className="guvenlik-arenasi d-flex gap-2 justify-content-center">
@@ -103,6 +165,7 @@ const SignUp = (props) => {
             type="text"
             className="w-50"
             placeholder="Güvenlik kodu:"
+            value={verCode}
             required
           />
           <div className="security-code d-flex justify-content-between align-items-center w-50">
@@ -163,4 +226,4 @@ const SignUp = (props) => {
   );
 };
 
-export default SignUp;
+export default SignUpSec;

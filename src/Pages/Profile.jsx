@@ -1,8 +1,29 @@
 import { FaCartArrowDown } from "react-icons/fa6";
 import { LuSquarePen } from "react-icons/lu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { UserAuth } from "../Context/AuthContext";
+import React from "react";
+import { useMemo } from "react";
 
-const Profile = (props) => {
+
+const Profile = React.memo((props) => {
+  const navigate = useNavigate()
+  const {userProfile,signOut} = UserAuth()
+
+  const memoizedUserProfile = useMemo(() => userProfile, [userProfile]);
+  console.log(memoizedUserProfile);
+
+  const handleCloseAccount = async ()=>{
+    try{
+      await signOut();
+      navigate("/")
+    }catch(err){
+      alert(err)
+    }
+  }
+  if(memoizedUserProfile === undefined || memoizedUserProfile === null){
+    return(<>Loading...</>)
+  }
   return (
     <div className="container-fluid my-4">
       <div
@@ -21,20 +42,21 @@ const Profile = (props) => {
               <img
                 width={60}
                 className="rounded-2"
-                src="https://img.gamesatis.com/assets/avatar-set/avatar-0.jpg"
+                src={memoizedUserProfile.profile_photo}
                 alt="Profil-Photo"
               />
               <div className="d-flex flex-column  align-items-start justify-content-center ">
-                <span className="fs-6 fw-bolder m-0 p-0 ">Amir A.</span>
+                <span className="fs-6 fw-bolder m-0 p-0 ">{memoizedUserProfile.first_name} {memoizedUserProfile.last_name[0]}.</span>
                 <span
                   className="text-warning mb-1 p-0"
                   style={{ fontSize: "14px" }}
                 >
-                  0,00TL
+                  {memoizedUserProfile.balance.toFixed(2)}TL
                 </span>
                 <button
                   className="btn btn-outline-danger px-3 m-0 py-1"
                   style={{ fontSize: "9px", width: "fit-content" }}
+                  onClick={handleCloseAccount}
                 >
                   ÇIKIŞ YAP
                 </button>
@@ -65,7 +87,7 @@ const Profile = (props) => {
       </div>
     </div>
   );
-};
+});
 
 export default Profile;
 

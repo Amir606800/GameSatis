@@ -5,8 +5,14 @@ import { IoIosSearch } from "react-icons/io";
 import { IoWalletSharp } from "react-icons/io5";
 import Authentication from "../components/Auth/Authentication";
 import { Link } from "react-router-dom";
+import { UserAuth } from "../Context/AuthContext";
+import { CgMail } from "react-icons/cg";
+import { BiHeart } from "react-icons/bi";
 
 const Header = () => {
+  const {session,userProfile} = UserAuth()
+  console.log(userProfile,session);
+  
   return (
     <>
       <div className="header mb-0 pb-0 h-auto flex-column bg-dark">
@@ -51,7 +57,19 @@ const Header = () => {
                 <IoWalletSharp />
                 <span>Satış Yap</span>
               </button>
-              <Authentication />
+              {userProfile
+              ?<Link to={"/profilim"}><button style={{ fontSize: "13px",width:"13em" }}
+              className="btn border border-1 d-flex align-items-center justify-content-between d-lg-flex d-none gap-1 rounded-1 fw-bold text-white sell">
+                <img className="rounded-2" width={25} src={userProfile.profile_photo} alt="profil photo" />
+                <div>
+                  <div style={{fontSize:"12px",fontFamily:"Roboto,sans-serif"}} className="name fw-bold">Hesabim</div>
+                  <div className="balance text-warning" style={{fontSize:"11px"}}>{userProfile.balance.toFixed(2)}TL</div>
+                </div>
+                <Link to="/"><CgMail className="fs-5" /></Link>
+                <Link to="/giris-yap"><BiHeart className="fs-5" /></Link>
+              </button></Link>
+              :<Authentication />}
+              
               <div className="cart fs-4">
                 <FaCartShopping />
               </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Path = () => {
   const locationWindow = window.location.pathname.split("/");
@@ -32,7 +32,7 @@ const Path = () => {
           } else {
             if (index == locationWindow.length - 1) {
               return (
-                <>
+                <div key={index}>
                   {">"}{" "}
                   <span
                     key={index}
@@ -43,21 +43,21 @@ const Path = () => {
                   >
                     {capitalize(item)}
                   </span>
-                </>
+                </div>
               );
             } else {
               return (
-                <>
+                <div key={index}>
                   {">"}{" "}
                   <span
-                    key={index}
+                    
                     onClick={() => {
                       navHandle(item);
                     }}
                   >
                     {capitalize(item)}
                   </span>
-                </>
+                </div>
               );
             }
           }

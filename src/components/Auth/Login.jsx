@@ -1,48 +1,84 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { FaArrowRotateRight } from "react-icons/fa6";
 import supabase from "../../helpers/supabaseClient";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import { UserAuth } from "../../Context/AuthContext";
 
 const Login = (props) => {
   const [email,setEmail] = useState("")
   const [password,setPassword] = useState("")
   const [verCode,setVerCode] = useState("")
+  const [inputStatus,setInputStatus] = useState("email")
+  const navigate = useNavigate()
+  const {session,signIn} = UserAuth()
+
+  const resetInputFields = ()=>{
+    setEmail("");
+    setPassword("");
+    setVerCode("");
+    props.settingRandom(); 
+  }
+
   const handleSubmit = async (e)=>{
     e.preventDefault();
     if(verCode != props.random){
-      alert("Verification code doesn't matches");
-      props.settingRandom();
+      Swal.fire({
+              title: 'Login unsuccessfull',
+              text: 'Verification code is wrong!',
+              icon: 'info',
+              background: '#222631', // Custom dark background (optional)
+              color: '#fff', // Text color for dark theme
+              confirmButtonText: 'Try Again',
+              confirmButtonColor: '#3085d6',
+            });
+      resetInputFields()      
       return;
     }
 
-    const {data,error} =await supabase.auth.signInWithPassword({
-      email:email,
-      password:password
-    })
+   const result = await signIn(email,password)
 
-    if(error){
-      alert("Error: "+error.message);
-      return;
+    if(result.success){
+      Swal.fire({
+        title: 'Successfully logged in!',
+        icon: 'success',
+        background: '#222631', // Custom dark background (optional)
+        color: '#fff', // Text color for dark theme
+        confirmButtonText: 'Continue',
+        confirmButtonColor: '#3085d6',
+      });
+      navigate("/profilim")
+    }else{
+      Swal.fire({
+        title: 'Error Occured',
+        text: error.message,
+        icon: 'error',
+        background: '#222631', // Custom dark background (optional)
+        color: '#fff', // Text color for dark theme
+        confirmButtonText: 'Try Again',
+        confirmButtonColor: '#3085d6',
+      });
+      resetInputFields()
     }
-    if(data){
-      alert("Succesfully Logged in!")
-    }
-    setEmail("");
-    setPassword("");
-    props.settingRandom()
+    
+    resetInputFields();
+    props.handleClose()
   }
   return (
     <>
       <div className="sub-head mt-3">
-        <div className="e-posta" style={{ color: "#33FF33" }}>
+        <div onClick={(e)=>{setInputStatus("email");e.target.style.color="#33FF33";document.querySelector(".giris-telefon").style.color="red"}} className="giris-ePosta" style={{ color: "#33FF33",cursor:"pointer" }}>
           E-posta ile Giris
         </div>
-        <div className="telefon text-danger">Telefon ile Giris</div>
+        <div onClick={(e)=>{setInputStatus("tel");e.target.style.color="#33FF33";document.querySelector(".giris-ePosta").style.color="red"}} className="giris-telefon" style={{color:"red",cursor:"pointer"}}>Telefon ile Giris</div>
       </div>
       <form
         onSubmit={handleSubmit}
         className="login-form gap-3 mt-4 d-flex flex-column justify-content-center align-items-center"
       >
-        <input onChange={(e)=>setEmail(e.target.value)} type="email" placeholder="E-Posta Adresi: " value={email} required/>
+        {inputStatus=="email"
+        ?<input onChange={(e)=>setEmail(e.target.value)} type="email" placeholder="E-Posta Adresi: " value={email} required/>
+        :<div className="d-flex align-items-center gap-3 w-100"><span>+994</span><input  type="phone" placeholder="5X XXX XX XX" required /> </div> }
         <input onChange={(e)=>setPassword(e.target.value)} type="password" placeholder="Şifre: " value={password} required/>
         <div className="guvenlik-arenasi d-flex gap-2 justify-content-center">
           <input onChange={(e)=>setVerCode(e.target.value)} type="text" className="w-50" placeholder="Güvenlik kodu:" value={verCode} required/>
