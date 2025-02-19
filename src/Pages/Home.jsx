@@ -21,23 +21,27 @@ const Home = () => {
         <InfiniteSlider />
       </div>
       <div className="main container-fluid py-3">
-        <div className="top-vitrin container-">
-          <div className="row " style={{ height: "23em" }}>
-            <div className="col-xl-2  col-sm-3 d-sm-block d-none hovering-behaviour">
+        <div className="top-vitrin mb-4">
+          <div className="d-flex  gap-4" style={{ maxHeight: "23em" }}>
+           
+            <div className=" d-lg-block d-none hovering-behaviour">
               <img
                 src="https://img.gamesatis.com/showcase/732/banner_side_ko_yenisunucu_zerolu_v2_right-72163.webp"
                 alt="Banner1"
               />
             </div>
-            <div className="col-xl-8 col-6 ">
-              <Slider />
-            </div>
-            <div className="col-xl-2 col-sm-1 d-sm-block d-none hovering-behaviour">
+            
+            
+            <Slider />
+            
+           
+            <div className=" d-lg-block d-none hovering-behaviour">
               <img
                 src="https://img.gamesatis.com/showcase/733/banner_side_supercell_oyunlar_left-24781.webp"
                 alt="Banner3"
               />
             </div>
+          
           </div>
         </div>
         <SplitterAdvert
@@ -83,7 +87,7 @@ const Home = () => {
               }
             />
           </Link>
-          <div className="row g-3">
+          <div className="row g-3 mt-1">
             {!streamData
               ? "Loading..."
               : streamData

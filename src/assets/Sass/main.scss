@@ -123,5 +123,12 @@ a {
   background-color: white !important;
   color: black !important;
 }
+.swiper-slide img {
+  width: 100%;
+  height: fit-content; /* Maintain aspect ratio */
+  max-height: 80vh; /* Prevent huge images */
+  object-fit: contain;
+}
+
 
 

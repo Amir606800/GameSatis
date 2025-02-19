@@ -1,5 +1,4 @@
 import React from "react";
-import { Carousel } from "react-bootstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import {
   Navigation,
@@ -31,7 +30,7 @@ const Slider = () => {
         loop={true}
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
-        
+        style={{height:"fit-content",maxHeight:"90vh",overflow:"hidden"}}
       >
         <SwiperSlide>
           <img src="https://img.gamesatis.com/slider/1501/razergold-bizesat-39570.webp" />
@@ -43,7 +42,7 @@ const Slider = () => {
           <img src="https://img.gamesatis.com/slider/1513/banner_valorant_helezon-20579.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1517/banner_lol_efsanebaz_v2-23560.webp" />
+          <img  src="https://img.gamesatis.com/slider/1517/banner_lol_efsanebaz_v2-23560.webp" />
         </SwiperSlide>
         <SwiperSlide>
           <img src="https://img.gamesatis.com/slider/1518/banner_cs2_seckinmodu-29889.webp" />
@@ -51,7 +50,7 @@ const Slider = () => {
         <SwiperSlide>
           <img src="https://img.gamesatis.com/slider/1467/wartune-ultra-elmas-24669.webp" />
         </SwiperSlide>
-        <SwiperSlide>
+        <SwiperSlide className="text-center">
           <img src="https://img.gamesatis.com/slider/1499/cs2-hizli-sat-15036.webp" />
         </SwiperSlide>
       </Swiper> 
