@@ -16,7 +16,7 @@ const Authentication = () => {
       <Button
         onClick={handleShow}
         style={{ fontSize: "13px" }}
-        className="btn btn-info d-flex align-items-center justify-content-center d-lg-flex d-none gap-1 fw-bold text-white sell"
+        className="btn btn-info d-flex align-items-center justify-content-center gap-1 fw-bold text-white sell"
       >
         <FaUser />
         <span>Giriş/Kayıt</span>

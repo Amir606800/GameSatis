@@ -13,7 +13,7 @@ const CanliDestek = () => {
   return (
     <div
       className="destek-canli d-flex justify-content-end position-fixed position-relative"
-      style={{ right: "7px", bottom: "10px", zIndex: "100" }}
+      style={{ right: "7px", bottom: "10px", zIndex: "100",maxWidth:"94vw" }}
     >
       <button onClick={()=>{setHidden(true)}} className="canli-buton btn btn-info  align-items-center justify-content-center text-white gap-2">
         <RiCustomerService2Fill />

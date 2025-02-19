@@ -49,56 +49,51 @@ const ProductCard = ({ main, vitrinIndex }) => {
       const productKey = main.id;
       const shadowIndex = (productKey - 1) % shadows.length;
 
-        setSelectedShadow(shadows[shadowIndex]);
-      
+      setSelectedShadow(shadows[shadowIndex]);
     }
-  }, [main.id, vitrinIndex]); 
+  }, [main.id, vitrinIndex]);
   return (
     <div className="col-sm-4 col-lg-2 col-6 t">
       <Link to={`/products/${slugify(main.title).toLowerCase()}`}>
-      <div
-        className="card prod-card rounded-3 overflow-hidden h-100"
-        style={{
-          border: `${selectedShadow.border}`,
-          boxShadow: selectedShadow.shadow,
-        }}
-      >
-        <div className="card-img mb-4 position-relative text-center">
-          <div
-            className="vitrin z-1 w-auto position-absolute translate-middle-x fw-bold px-3 pb-1 rounded-bottom-3 start-50"
-            style={{
-              backgroundColor: selectedShadow.firstLayerColor,
-              fontSize: "12px",
-            }}
-          >
-            {main.id < vitrinIndex?"Vitrin İlani":""}
-          </div>
-          <img
-            src="https://img.gamesatis.com/images/2473981/istediginiz-2-oyun-garanti.webp"
-            alt={main.title}
-            className="w-100"
-          />
-          <div
-            className="manufacturer z-1 fw-bold rounded-2 position-absolute bg-white px-5 start-50 translate-middle-x text-success"
-            style={{ bottom: "-10px" }}
-          >
-            XEOSPIN
-          </div>
-          <div className="details position-absolute h-100 translate-middle justify-content-center align-items-center top-50 start-50 w-100">
-            <div className=" bg-white text-black py-1 px-2 rounded-2 fw-bold z-2">
-              Detaylar
+        <div
+          className="card prod-card rounded-3 overflow-hidden h-100"
+          style={{
+            border: `${selectedShadow.border}`,
+            boxShadow: selectedShadow.shadow,
+          }}
+        >
+          <div className="card-img mb-4 position-relative text-center">
+            <div
+              className="vitrin z-1 w-auto position-absolute translate-middle-x fw-bold px-3 pb-1 rounded-bottom-3 start-50"
+              style={{
+                backgroundColor: selectedShadow.firstLayerColor,
+                fontSize: "12px",
+              }}
+            >
+              {main.id < vitrinIndex ? "Vitrin İlani" : ""}
             </div>
-            <div className="background-details"></div>
+            <img src={main.thumbnail} alt={main.title} className="w-100" />
+            <div
+              className="manufacturer z-1 fw-bold rounded-2 position-absolute bg-white px-5 start-50 translate-middle-x text-success"
+              style={{ bottom: "-10px" }}
+            >
+              XEOSPIN
+            </div>
+            <div className="details position-absolute h-100 translate-middle justify-content-center align-items-center top-50 start-50 w-100">
+              <div className=" bg-white text-black py-1 px-2 rounded-2 fw-bold z-2">
+                Detaylar
+              </div>
+              <div className="background-details"></div>
+            </div>
+          </div>
+          <div className="card-head text-start h6 px-2">{main.title}</div>
+          <div className="card-body d-flex justify-content-between align-items-center">
+            <div className="verf text-success">
+              <GoVerified />
+            </div>
+            <div className="price">${main.price}</div>
           </div>
         </div>
-        <div className="card-head text-start h6 px-2">{main.title}</div>
-        <div className="card-body d-flex justify-content-between align-items-center">
-          <div className="verf text-success">
-            <GoVerified />
-          </div>
-          <div className="price">${main.price}</div>
-        </div>
-      </div>
       </Link>
     </div>
   );

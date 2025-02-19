@@ -15,9 +15,9 @@ const AuthContent=(props)=>{
     useEffect(() => {
       generatorRandom()
     }, []);
-    return(<div  className={!props.modalmi?"container-fluid my-4":""} style={!props.modalmi?{width:"60vw",maxWidth:"50em"}:{}}>
+    return(<div  className={!props.modalmi?"container-fluid my-4":""} style={!props.modalmi?{width:"70vw",maxWidth:"50em"}:{}}>
             <div className="sign-box  d-flex  w-100 ">
-              <div className="left p-4 w-50">
+              <div className="left p-4  w-100">
                 <div className="head">
                   <button
                     onClick={(e) => {
@@ -61,7 +61,7 @@ const AuthContent=(props)=>{
                   />
                 )}
               </div>
-              <div className="right w-50 d-flex align-items-center justify-content-center">
+              <div className="right w-75 d-md-flex align-items-center justify-content-center d-none">
                 <img
                   className="w-100 h-100"
                   src="https://www.gamesatis.com/assets/sign-box-banner"

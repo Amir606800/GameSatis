@@ -2,7 +2,7 @@ import { Accordion } from "react-bootstrap";
 
 const Informations = () => {
   return (
-    <div className="Information-profile text-center d-flex justify-content-center align-items-start h-100">
+    <div className="Information-profile text-center d-flex justify-content-center align-items-start h-100 ">
     <Accordion className="h-100 w-100 bg-dark" defaultActiveKey="0" flush={true}>
       <Accordion.Item className="bg-dark" eventKey="0">
         <Accordion.Header className="bg-dark">Accordion Item #1</Accordion.Header>

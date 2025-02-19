@@ -1,5 +1,5 @@
 .header {
-  transform: translate(0%,-100%);
+  transform: translate(0%, -100%);
   animation: slide_top 1.3s forwards;
   animation-delay: 1s;
   .top-head {
@@ -13,25 +13,24 @@
   }
   .mid-head {
     .brand {
-      max-width: 33%;
-      width: 100%;
+      
       span {
-        font-size: 12px;
+        font-size: 70%;
         padding: 0;
         margin: 0;
       }
     }
     .search {
-      max-width: 40%;
-      width: 100%;
+      
       .lupa {
         left: 9px;
         font-size: 19px;
       }
       input {
         background-color: #171a21;
-        width: 84%;
+        width: 100%;
         padding: 6px;
+
         border: none;
         border-radius: 7px;
         padding-left: 40px;
@@ -47,8 +46,7 @@
       }
     }
     .account {
-      max-width: 27%;
-      width: 100%;
+      
       button:hover {
         background: none;
       }
@@ -59,11 +57,11 @@
   }
 }
 .nav-head-top {
-  transform: translate(0%,-350%);
+  transform: translate(0%, -350%);
   animation: slide_top 1.3s forwards;
   animation-delay: 1s;
   margin: 0;
-  padding: 0; 
+  padding: 0;
   gap: 3px;
   .nav-element {
     cursor: pointer;
@@ -82,47 +80,87 @@
     color: black !important;
   }
 }
-  .nav-head-bot {
-    animation: slide_left 2s linear;
-    .nav-element {
-      cursor: pointer;
-      border-radius: 5%;
-      background-color: #212630;
-      @include center;
-      width: 150px;
-      height: 60px;
-      margin-left: 10px;
-      img {
-        width: 80%;
-        height: 60%;
-        object-fit: contain;
-      }
+.nav-head-bot {
+  animation: slide_left 2s linear;
+  .nav-element {
+    cursor: pointer;
+    border-radius: 5%;
+    background-color: #212630;
+    @include center;
+    width: 150px;
+    height: 60px;
+    margin-left: 10px;
+    img {
+      width: 80%;
+      height: 60%;
+      object-fit: contain;
     }
-    .nav-element:hover {
-      background-color: white;
-      img {
-          filter: brightness(0);
-        }
+  }
+  .nav-element:hover {
+    background-color: white;
+    img {
+      filter: brightness(0);
     }
-}
-  .bg-dark {
-    background-color: #212630 !important;
-  }
-
-@keyframes slide_top{
-  0%{
-    transform: translate(0%,-300%);
-  }
-  100%{
-    transform: translate(0%,0%);
   }
 }
+.bg-dark {
+  background-color: #212630 !important;
+}
 
-@keyframes slide_left{
-  0%{
+@keyframes slide_top {
+  0% {
+    transform: translate(0%, -300%);
+  }
+  100% {
+    transform: translate(0%, 0%);
+  }
+}
+
+@keyframes slide_left {
+  0% {
     transform: translate(100%);
   }
-  100%{
+  100% {
     transform: translate(0%);
+  }
+}
+
+.mid-head {
+  display: grid;
+  grid-template-areas: "logo logo logo search search search search account account account";
+  grid-template-columns: repeat(10,1fr);
+  grid-template-rows: auto;
+  
+}
+.grid-logo {
+  grid-area: logo;
+}
+.grid-search {
+  grid-area: search;
+  padding-right: 20px;
+}
+.grid-account {
+  grid-area: account;
+}
+
+@media (max-width:991px) {
+  .mid-head {
+    grid-template-areas: 
+    "account"
+    "logo"
+    "search"
+    ;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    justify-content: center;
+    
+  }
+  .grid-logo{
+    img{
+      width: 7em;
+    }
+    span{
+      font-size: smaller ;
+    }
   }
 }
