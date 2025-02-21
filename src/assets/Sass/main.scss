@@ -5,12 +5,15 @@
 @import "LoginSign";
 @import "home";
 @import "detailPage";
+@import "Profile";
+@import "Responsiveness";
 body {
   width: 100vw;
   background-color: #161820;
   overflow-x: hidden;
   scroll-behavior: smooth;
 }
+
 
 .container-fluid {
   width: 100%;
@@ -24,6 +27,7 @@ hr {
 }
 
 ::-webkit-scrollbar {
+  
   width: 11px;
   height: 12px;
 }

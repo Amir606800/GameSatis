@@ -26,6 +26,7 @@
 
   .description {
     grid-area: description;
+    height: fit-content;
     #teslimat{
         background-color: $darker-background;
         padding: 4px;
@@ -64,6 +65,8 @@
 
   .payment {
     grid-area: payment;
+    gap: 15px;
+    padding: 18px;
     .price{
       .discount{
         margin-bottom: -8px;

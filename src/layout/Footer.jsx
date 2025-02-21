@@ -67,17 +67,7 @@ const Footer = () => {
           <div className="row justify-content-center">
             <div className="col-9 p-2 ">
               <div className="row left-side g-0">
-                <div className="col">
-                  <h5>GameSatis</h5>
-                  <ul>
-                    <li>Hakkımızda</li>
-                    <li>Kurumsal</li>
-                    <li>Blog</li>
-                    <li>Yorumlar</li>
-                    <li>İletişim</li>
-                    <li>Künye</li>
-                  </ul>
-                </div>
+                
                 <div className="col">
                   <h5>Kullanici</h5>
                   <ul>
@@ -115,7 +105,7 @@ const Footer = () => {
                 </div>
                 <div className="col">
                   <h5>Popüler Sayfalar</h5>
-                  <ul>
+                  <ul >
                     <li>Valorant</li>
                     <li>Knight Online</li>
                     <li>Pubg Mobile UC</li>
@@ -123,6 +113,17 @@ const Footer = () => {
                     <li>League of Legends</li>
                     <li>CS2 Skin</li>
                     <li>Tüm Oyunlar</li>
+                  </ul>
+                </div>
+                <div className="col">
+                  <h5>GameSatis</h5>
+                  <ul>
+                    <li>Hakkımızda</li>
+                    <li>Kurumsal</li>
+                    <li>Blog</li>
+                    <li>Yorumlar</li>
+                    <li>İletişim</li>
+                    <li>Künye</li>
                   </ul>
                 </div>
               </div>

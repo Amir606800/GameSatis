@@ -107,23 +107,7 @@
   background-color: #212630 !important;
 }
 
-@keyframes slide_top {
-  0% {
-    transform: translate(0%, -300%);
-  }
-  100% {
-    transform: translate(0%, 0%);
-  }
-}
 
-@keyframes slide_left {
-  0% {
-    transform: translate(100%);
-  }
-  100% {
-    transform: translate(0%);
-  }
-}
 
 .mid-head {
   display: grid;
@@ -143,24 +127,22 @@
   grid-area: account;
 }
 
-@media (max-width:991px) {
-  .mid-head {
-    grid-template-areas: 
-    "account"
-    "logo"
-    "search"
-    ;
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-    justify-content: center;
-    
+
+
+@keyframes slide_top {
+  0% {
+    transform: translate(0%, -300%);
   }
-  .grid-logo{
-    img{
-      width: 7em;
-    }
-    span{
-      font-size: smaller ;
-    }
+  100% {
+    transform: translate(0%, 0%);
+  }
+}
+
+@keyframes slide_left {
+  0% {
+    transform: translate(100%);
+  }
+  100% {
+    transform: translate(0%);
   }
 }

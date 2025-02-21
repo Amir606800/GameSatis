@@ -67,7 +67,7 @@ const Login = (props) => {
   return (
     <>
       <div className="sub-head mt-3">
-        <div onClick={(e)=>{setInputStatus("email");e.target.style.color="#33FF33";document.querySelector(".giris-telefon").style.color="red"}} className="giris-ePosta" style={{ color: "#33FF33",cursor:"pointer" }}>
+        <div onClick={(e)=>{setInputStatus("email");e.target.style.color="#33FF33";document.querySelector(".giris-telefon").style.color="red"}} className="giris-ePosta" style={{ color: "#33FF33"}}>
           E-posta ile Giris
         </div>
         <div onClick={(e)=>{setInputStatus("tel");e.target.style.color="#33FF33";document.querySelector(".giris-ePosta").style.color="red"}} className="giris-telefon" style={{color:"red",cursor:"pointer"}}>Telefon ile Giris</div>

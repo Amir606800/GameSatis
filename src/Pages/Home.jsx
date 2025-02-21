@@ -22,9 +22,9 @@ const Home = () => {
       </div>
       <div className="main container-fluid py-3">
         <div className="top-vitrin mb-4">
-          <div className="d-flex  gap-4" style={{ maxHeight: "23em" }}>
+          <div className="d-flex  gap-4 align-items-center" style={{ maxHeight: "23em" }}>
            
-            <div className=" d-lg-block d-none hovering-behaviour">
+            <div className=" d-lg-block d-none hovering-behaviour" style={{height: "fit-content",maxHeight: "90vh"}}>
               <img
                 src="https://img.gamesatis.com/showcase/732/banner_side_ko_yenisunucu_zerolu_v2_right-72163.webp"
                 alt="Banner1"

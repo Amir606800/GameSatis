@@ -11,7 +11,6 @@ const Profile = React.memo((props) => {
   const {userProfile,signOut} = UserAuth()
 
   const memoizedUserProfile = useMemo(() => userProfile, [userProfile]);
-  console.log(memoizedUserProfile);
 
   const handleCloseAccount = async ()=>{
     try{
@@ -24,10 +23,41 @@ const Profile = React.memo((props) => {
   if(memoizedUserProfile === undefined || memoizedUserProfile === null){
     return(<>Loading...</>)
   }
+
+  const iconPackJSON = [
+    {
+      title:"Siparisler",
+      icon:<><FaCartArrowDown className="fs-4" /></>
+    },{
+      title:"Mesajlarım",
+      icon:<><FaCartArrowDown className="fs-4" /></>
+    },{
+      title:"Youtmlarım",
+      icon:<><FaCartArrowDown className="fs-4" /></>
+    },{
+      title:"Siparisler",
+      icon:<><FaCartArrowDown className="fs-4" /></>
+    },{
+      title:"Siparisler",
+      icon:<><FaCartArrowDown className="fs-4" /></>
+    },{
+      title:"Siparisler",
+      icon:<><FaCartArrowDown className="fs-4" /></>
+    },{
+      title:"Siparisler",
+      icon:<><FaCartArrowDown className="fs-4" /></>
+    },{
+      title:"Siparisler",
+      icon:<><FaCartArrowDown className="fs-4" /></>
+    },{
+      title:"Siparisler",
+      icon:<><FaCartArrowDown className="fs-4" /></>
+    }
+  ]
   return (
-    <div className="container-fluid my-4">
+    <div className="User-Profile container-fluid mt-2 mb-4">
       <div
-        className="area w-100 gap-4  rounded-2 py-4 px-4 d-flex justify-content-around flex-column align-items-center flex-md-row"
+        className="area w-100 gap-2  rounded-2 py-4 px-4 d-flex justify-content-around flex-column align-items-center align-items-md-start flex-md-row"
         style={{ backgroundColor: "#111318",minHeight:"30em",height:'fit-content' }}
       >
         <div
@@ -76,12 +106,25 @@ const Profile = React.memo((props) => {
           </div>
           <div className="middle-part d-flex align-items-center justify-content-center " >
             <div className="row g-3 h-100">
-              <IconSection />
+              {iconPackJSON.map((item,index)=>(
+                <div key={index} className=" col-4 d-flex justify-content-center align-items-center ">
+                <Link
+                  style={{ cursor: "pointer",minWidth:"6em",width:"8em",height:"6em" }}
+                  to="/siparislerim"
+                  className="bg-dark d-flex rounded-3 justify-content-center align-items-center flex-column  profile-section-element"
+                >
+                  {item.icon}
+                  <span className="fw-bold" style={{ fontSize: "12px" }}>
+                    {item.title}
+                  </span>
+                </Link>
+              </div>
+              ))}
             </div>
           </div>
         </div>
 
-        <div className="right px-2  mt-5 h-100" style={{ width: "78%",minHeight:"24em" }}>
+        <div className="right px-2 mt-md-0 mt-4 " style={{ width: "78%",minHeight:"24em", maxHeight:"100em",height:"100%" }}>
           {props.section}
         </div>
       </div>
@@ -91,96 +134,4 @@ const Profile = React.memo((props) => {
 
 export default Profile;
 
-
-
-
-
-const IconSection = () =>(
-    <>
-    <div className=" col-4 d-flex justify-content-center align-items-center">
-                <Link
-                  style={{ cursor: "pointer",minWidth:"6em",width:"8em",height:"6em" }}
-                  to="/siparislerim"
-                  className="bg-dark d-flex   justify-content-center align-items-center flex-column  profile-section-element"
-                >
-                  <FaCartArrowDown className="fs-4" />
-                  <span className="fw-bold" style={{ fontSize: "12px" }}>
-                    Siparisler
-                  </span>
-                </Link>
-              </div>
-              <div className=" col-4 d-flex justify-content-center align-items-center">
-                <Link
-                  style={{ cursor: "pointer",minWidth:"6em",width:"8em",height:"6em" }}
-                  to="/siparislerim"
-                  className="bg-dark d-flex   justify-content-center align-items-center flex-column  profile-section-element"
-                >
-                  <FaCartArrowDown className="fs-4" />
-                  <span className="fw-bold" style={{ fontSize: "12px" }}>
-                    Siparisler
-                  </span>
-                </Link>
-              </div>
-              <div className=" col-4 d-flex justify-content-center align-items-center">
-                <Link
-                  style={{ cursor: "pointer",minWidth:"6em",width:"8em",height:"6em" }}
-                  to="/siparislerim"
-                  className="bg-dark d-flex   justify-content-center align-items-center flex-column  profile-section-element"
-                >
-                  <FaCartArrowDown className="fs-4" />
-                  <span className="fw-bold" style={{ fontSize: "12px" }}>
-                    Siparisler
-                  </span>
-                </Link>
-              </div>
-              <div className=" col-4 d-flex justify-content-center align-items-center">
-                <Link
-                  style={{ cursor: "pointer",minWidth:"6em",width:"8em",height:"6em" }}
-                  to="/siparislerim"
-                  className="bg-dark d-flex   justify-content-center align-items-center flex-column  profile-section-element"
-                >
-                  <FaCartArrowDown className="fs-4" />
-                  <span className="fw-bold" style={{ fontSize: "12px" }}>
-                    Siparisler
-                  </span>
-                </Link>
-              </div>
-              <div className=" col-4 d-flex justify-content-center align-items-center">
-                <Link
-                  style={{ cursor: "pointer",minWidth:"6em",width:"8em",height:"6em" }}
-                  to="/siparislerim"
-                  className="bg-dark d-flex   justify-content-center align-items-center flex-column  profile-section-element"
-                >
-                  <FaCartArrowDown className="fs-4" />
-                  <span className="fw-bold" style={{ fontSize: "12px" }}>
-                    Siparisler
-                  </span>
-                </Link>
-              </div>
-              <div className=" col-4 d-flex justify-content-center align-items-center">
-                <Link
-                  style={{ cursor: "pointer",minWidth:"6em",width:"8em",height:"6em" }}
-                  to="/siparislerim"
-                  className="bg-dark d-flex   justify-content-center align-items-center flex-column  profile-section-element"
-                >
-                  <FaCartArrowDown className="fs-4" />
-                  <span className="fw-bold" style={{ fontSize: "12px" }}>
-                    Siparisler
-                  </span>
-                </Link>
-              </div>
-              <div className=" col-4 d-flex justify-content-center align-items-center">
-                <Link
-                  style={{ cursor: "pointer",minWidth:"6em",width:"8em",height:"6em" }}
-                  to="/siparislerim"
-                  className="bg-dark d-flex   justify-content-center align-items-center flex-column  profile-section-element"
-                >
-                  <FaCartArrowDown className="fs-4" />
-                  <span className="fw-bold" style={{ fontSize: "12px" }}>
-                    Siparisler
-                  </span>
-                </Link>
-              </div>
-    </>
-)
 

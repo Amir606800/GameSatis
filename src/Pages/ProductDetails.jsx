@@ -49,44 +49,44 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
                 <img
                   src="https://img.gamesatis.com/images/2528080/istediginiz-eloya-maximum-1-gunde-cikartiyoruz.webp" //Item image
                   alt={foundedProduct.title} 
-                  style={{ height: "100%",width:"100%" }}
+                  style={{ height: "100%",width:"100%",minWidth:"50%" }}
                 /> 
               </div>
-              <div className="description d-flex flex-column justify-content-between align-items-start area-part ">
-                <div>
+              <div className="description d-flex flex-column justify-content-between align-items-start area-part h-100 gap-5" >
+                <div className="h-100">
                   <span className="h5 fw-bolder">{foundedProduct.title}</span>  
                   <div style={{ fontSize: "13px" }} className="fw-bold mt-1">
                     Ürün açıklaması:{" "}
                   </div>
                   <div
-                    style={{ fontSize: "13px", maxHeight: "1em" }}
+                    style={{ fontSize: "13px" }}
                     className="aciklama"
                   >
                     {text.substring(0, 250) + "..."} 
                   </div>
                 </div>
                 <div
-                  style={{ height: "2em" }}
-                  className="d-flex w-100 justify-content-between align-items-center"
+                  style={{ maxHeight: "2em" }}
+                  className="d-flex w-100 justify-content-between gap-5 align-items-center"
                 >
                   <div className="left d-flex justify-content-center align-items-center gap-2">
-                    <div className="btn btn-outline-light text-center">
+                    <div className="share-buton btn btn-outline-light text-center">
                       <IoShareSocialSharp />
                     </div>
-                    <div className="btn btn-outline-light text-center ">
+                    <div className="heart-buton btn btn-outline-light text-center ">
                       <BiHeart /> <i style={{ fontSize: "12px" }}>1 Favori</i> 
                     </div>
                   </div>
-                  <div className="right ">
-                    <div id="teslimat" className="px-3">
+                  
+                    <span id="teslimat" className="px-3 ">
                       Teslimat: 12 Saat İçinde Gerçekleşir  
-                    </div>
-                  </div>
+                    </span>
+                  
                 </div>
               </div>
               <div className="information area-part d-flex gap-4 flex-row justify-content-around">
                 <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
-                  <span>İlan No:</span>
+                  <span className="box-headings">İlan No:</span>
                   <span className="fw-bold">#12344</span>
                 </div>
                 <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
@@ -97,7 +97,7 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
                   </span>
                 </div>
                 <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
-                  <span>Güncelleme: </span>
+                  <span className="box-headings">Güncelleme: </span>
                   <span className="fw-bold">13.04.2025</span> 
                 </div>
                 <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
@@ -163,7 +163,7 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
                   <span style={{fontSize:"14px"}}>Çevrimiçi</span> 
                 </div>
               </div>
-              <div className="payment d-flex flex-column align-items-center justify-content-between p-3 gap-3 area-part">
+              <div className="payment d-flex flex-column align-items-center justify-content-between  area-part">
                 <div className="d-flex w-100 justify-content-between align-items-center">
                   <div
                     style={{ width: "65%" }}
