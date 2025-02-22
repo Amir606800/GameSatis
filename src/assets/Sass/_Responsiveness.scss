@@ -100,7 +100,41 @@
         .area{
             .right{
                 width: 100% !important;
+                .Information-profile{
+                  .Wrapped-div{
+                    
+                    flex-wrap: wrap !important;
+                  }
+                }
             }
         }
     }
+    
+}
+@media (max-width:767px){
+  .User-Profile{
+    .area{
+        .right{
+            .Information-profile{
+              .Wrapped-div{
+             
+                flex-wrap: nowrap !important;
+              }
+            }
+        }
+    }
+}
+}
+@media (max-width:655px) {
+  .User-Profile{
+    .area{
+        .right{
+            .Information-profile{
+              .Wrapped-div{
+                flex-wrap: wrap !important;
+              }
+            }
+        }
+    }
+}
 }

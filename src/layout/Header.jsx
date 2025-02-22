@@ -11,8 +11,7 @@ import { BiHeart } from "react-icons/bi";
 import OffCanvas from "../Addons/OffCanvas";
 
 const Header = () => {
-  const { session, userProfile } = UserAuth();
-
+  const { session, userProfile,privacyStatus } = UserAuth();
 
   return (
     <>
@@ -60,7 +59,6 @@ const Header = () => {
               >
                 <IoWalletSharp />
                 <span>Satış Yap</span>
-                
               </button>
               <div className="header-account-button d-none d-lg-flex">
                 {userProfile ? (
@@ -89,7 +87,7 @@ const Header = () => {
                           className="balance text-warning"
                           style={{ fontSize: "11px" }}
                         >
-                          {userProfile.balance.toFixed(2)}TL
+                          {privacyStatus?"#####":<>{userProfile.balance.toFixed(2)}TL</>}
                         </div>
                       </div>
                       <Link to="/">
@@ -108,20 +106,22 @@ const Header = () => {
                 <FaCartShopping />
               </div>
               <div className="d-flex gap-4 d-lg-none">
-                {userProfile
-                ?(<div
-                  className="cart fs-6 px-2 py-1 text-center align-content-center rounded-3"
-                  style={{ backgroundColor: "#FF5F1F" }}
-                >
-                  <FaCartShopping /> <span style={{fontWeight:"bolder"}}>Sepet</span>
-                </div>)
-                :<Authentication />}
+                {userProfile ? (
+                  <div
+                    className="cart fs-6 px-2 py-1 text-center align-content-center rounded-3"
+                    style={{ backgroundColor: "#FF5F1F" }}
+                  >
+                    <FaCartShopping />{" "}
+                    <span style={{ fontWeight: "bolder" }}>Sepet</span>
+                  </div>
+                ) : (
+                  <Authentication />
+                )}
                 <div className="offCanvas  d-block d-lg-none ">
                   <OffCanvas />
                 </div>
               </div>
             </div>
-            
           </div>
         </div>
         <hr />
@@ -148,7 +148,6 @@ const Header = () => {
             <span className="fs-6">+</span>BAKİYE YÜKLE
           </div>
         </div>
-        
       </div>
     </>
   );

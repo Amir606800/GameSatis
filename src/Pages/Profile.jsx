@@ -8,7 +8,7 @@ import { useMemo } from "react";
 
 const Profile = React.memo((props) => {
   const navigate = useNavigate()
-  const {userProfile,signOut} = UserAuth()
+  const {userProfile,signOut,privacyStatus} = UserAuth()
 
   const memoizedUserProfile = useMemo(() => userProfile, [userProfile]);
 
@@ -76,12 +76,12 @@ const Profile = React.memo((props) => {
                 alt="Profil-Photo"
               />
               <div className="d-flex flex-column  align-items-start justify-content-center ">
-                <span className="fs-6 fw-bolder m-0 p-0 ">{memoizedUserProfile.first_name} {memoizedUserProfile.last_name[0]}.</span>
+                <span className="fs-6 fw-bolder m-0 p-0 ">{privacyStatus?"#####":memoizedUserProfile.first_name} {privacyStatus?"#####":memoizedUserProfile.last_name[0]}.</span>
                 <span
                   className="text-warning mb-1 p-0"
                   style={{ fontSize: "14px" }}
                 >
-                  {memoizedUserProfile.balance.toFixed(2)}TL
+                  {privacyStatus?"#####":<>{memoizedUserProfile.balance.toFixed(2)}TL</>}
                 </span>
                 <button
                   className="btn btn-outline-danger px-3 m-0 py-1"

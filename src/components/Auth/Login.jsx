@@ -51,7 +51,7 @@ const Login = (props) => {
     }else{
       Swal.fire({
         title: 'Error Occured',
-        text: error.message,
+        text: result.error,
         icon: 'error',
         background: '#222631', // Custom dark background (optional)
         color: '#fff', // Text color for dark theme

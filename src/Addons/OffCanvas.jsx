@@ -14,7 +14,7 @@ function OffCanvas() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const {userProfile} = UserAuth()
+  const {userProfile,privacyStatus} = UserAuth()
   return (
     <>
       <Button variant="primary" onClick={handleShow} className="me-2 bg-info">
@@ -52,7 +52,7 @@ function OffCanvas() {
                           Hesabim
                         </div>
                         <div  className="balance text-warning"  style={{ fontSize: "11px" }}>
-                          {userProfile.balance.toFixed(2)}TL
+                        {privacyStatus?"#####":<>{userProfile.balance.toFixed(2)}TL</>}
                         </div>
                       </div>
                       <Link className="p-3 rounded-3 bg-dark" to="/">  <CgMail className="fs-6" /></Link>

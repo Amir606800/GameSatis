@@ -8,6 +8,8 @@ export const AuthProvider = ({children})=>{
     const [session,setSession] = useState(undefined)
     const [userProfile,setUserProfile] = useState(undefined)
 
+    const [privacyStatus,setPrivacyStatus] = useState(false)
+
     const fetchUserProfile = async (userId)=>{
         const {data , error} = await supabase.from("profiles").select("*").eq("id",userId).single();
         if(error){
@@ -20,7 +22,7 @@ export const AuthProvider = ({children})=>{
 
     const signUp = async (email,password)=>{
         const {data,error} = await supabase.auth.signUp({
-            email:email,password:password
+            email:email,password:password,phone:"+994556628495",
         })
 
         if(error){
@@ -60,6 +62,7 @@ export const AuthProvider = ({children})=>{
     };
 
     useEffect(()=>{
+        
         supabase.auth.getSession().then(({data })=>{
             setSession(data.session)
             if(data?.session?.user){
@@ -89,7 +92,7 @@ export const AuthProvider = ({children})=>{
         }
     }
 
-    return (<AuthContext.Provider value={{session,userProfile,signUp,signIn,signOut}}>{children}</AuthContext.Provider>)
+    return (<AuthContext.Provider value={{session,userProfile,signUp,signIn,signOut,privacyStatus,setPrivacyStatus}}>{children}</AuthContext.Provider>)
 }
 
 export const UserAuth = ()=>{

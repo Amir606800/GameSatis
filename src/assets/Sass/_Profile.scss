@@ -37,7 +37,12 @@
             }
             
         }
-
+        .Profile_input_fields{
+            cursor: default;
+            padding: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
 
         .accordion-button {
           @include center;
