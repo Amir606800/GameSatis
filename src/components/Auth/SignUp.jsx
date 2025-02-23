@@ -57,8 +57,7 @@ const SignUpSec = (props) => {
     console.log(result);
     
     if (result.success) {
-      const user = result.data.user;
-
+    const user = result.data.user;
     const { profileError } = await supabase.from("profiles").insert([
       {
         id: user.id, 
@@ -67,8 +66,12 @@ const SignUpSec = (props) => {
         display_name: `${firstName} ${lastName}`, 
       },
     ]);
-
-    if (profileError) {
+    const {user_settings_error} = await supabase.from("user_settings").insert([
+      {
+        user_setting_id:user.id
+      }
+    ])
+    if (profileError || user_settings_error) {
       Swal.fire({
         title: 'Error occured while creating the account!',
         text: profileError.message,
@@ -109,12 +112,6 @@ const SignUpSec = (props) => {
       resetInputFields()
       return;
     }
-
-    
-
-
-
-    
 
   };
   return (

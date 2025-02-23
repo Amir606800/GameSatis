@@ -12,17 +12,18 @@ export const AuthProvider = ({children})=>{
 
     const fetchUserProfile = async (userId)=>{
         const {data , error} = await supabase.from("profiles").select("*").eq("id",userId).single();
-        if(error){
-            console.log("Some error occured while fetching data",error);
-            setUserProfile(null)
-        }else{
-            setUserProfile(data)
-        }
+        
+    if (error) {
+        console.log("Some error occurred while fetching data", error);
+        setUserProfile(null);
+    } else {
+        setUserProfile(data);
+    }
     }
 
     const signUp = async (email,password)=>{
         const {data,error} = await supabase.auth.signUp({
-            email:email,password:password,phone:"+994556628495",
+            email:email,password:password
         })
 
         if(error){
@@ -31,7 +32,7 @@ export const AuthProvider = ({children})=>{
         }
         
         if(data?.user){
-            fetchUserProfile(data.user.id)
+            await fetchUserProfile(data.user.id)
         }
         console.log("succesfully logged in",data);
         return ({success:true,data})
@@ -63,12 +64,15 @@ export const AuthProvider = ({children})=>{
 
     useEffect(()=>{
         
-        supabase.auth.getSession().then(({data })=>{
-            setSession(data.session)
-            if(data?.session?.user){
-                fetchUserProfile(data.session.user.id)
+        const fetchSessionData = async () => {
+            const { data } = await supabase.auth.getSession();
+            setSession(data.session);
+            if (data?.session?.user) {
+                await fetchUserProfile(data.session.user.id); // Await profile fetch here
             }
-        });
+        };
+    
+        fetchSessionData();
 
         const {data:listener} = supabase.auth.onAuthStateChange((_event,session)=>{
             setSession(session)

@@ -1,53 +1,55 @@
 .User-Profile {
   .area {
-    .right {
-      .Information-profile {
-        /* Remove background and blue highlight when expanded */
-        .accordion{
-            border-radius: 10px !important ;
-            overflow: hidden;
-        }
-        .accordion-button {
-          background-color: transparent !important; /* Removes default background */
-          color: white !important; /* Optional: Customize text color */
-          border: none; /* Removes borders */
-          font-weight: normal !important; /* Optional: Customize font weight */
-        }
-
-        .accordion-button:focus {
-          box-shadow: none !important; /* Removes default outline */
-          background-color: transparent !important; /* Ensures no blue background */
-        }
-
-        /* When accordion item is expanded */
-        .accordion-button:not(.collapsed) {
-          background-color: transparent !important;
-        }
-
-        /* Optional: Style for accordion body */
-        .accordion-collapsed{
-            border: none;
-        }
-        .accordion-body {
-            color: #fff; /* White text */
-            border: none;
-            input,.Privacy-button{
-                border: none;
-                background-color: #171a21;
-            }
-            
-        }
-        .Profile_input_fields{
-            cursor: default;
-            padding: 12px;
-            font-size: 12px;
-            font-weight: bold;
-        }
-
-        .accordion-button {
-          @include center;
-          gap: 10px;
-        }
+    .Profile_input_fields {
+      cursor: default;
+      padding: 12px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+    .accordion {
+      border-radius: 10px !important ;
+      overflow: hidden;
+      background-color: rgb(33, 37, 41);
+    }
+    .accordion-button {
+      background-color: transparent !important; 
+      color: white !important; 
+      border: none;
+      font-weight: normal !important; 
+    }
+    .accordion-item{
+      border: none;
+    }
+    .accordion-button:focus {
+      box-shadow: none !important; 
+      background-color: transparent !important; 
+    }
+    
+    .accordion-button:not(.collapsed) {
+      background-color: transparent !important;
+    }
+    
+    .accordion-collapsed {
+      border: none;
+    }
+    .accordion-body {
+      color: #fff; 
+      border: none;
+      border-top: 1px solid rgb(98, 98, 98);
+      input,
+      .Privacy-button {
+        border: none;
+        background-color: #171a21;
+      }
+      .accordion-button {
+        @include center;
+        gap: 10px;
+      }
+      ::placeholder {
+        color: rgb(184, 184, 184);
+      }
+      input {
+        outline: none;
       }
     }
   }
