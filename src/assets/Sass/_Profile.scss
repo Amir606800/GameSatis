@@ -6,34 +6,66 @@
       font-size: 12px;
       font-weight: bold;
     }
+    
+    .siparis-accordion-item {
+      overflow: hidden;
+      
+      .check-icon {
+        background-color: green;
+        width: 30px;
+        height: 30px;
+        border-radius: 3px;
+        color: white;
+        font-weight: bolder;
+        @include center();
+        font-size: smaller;
+        .check-icon-itself {
+          padding: 3px;
+          font-size: 21px;
+          border-radius: 100%;
+          border: 1px solid white;
+        }
+      }
+
+      .siparisler-accordion-head{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap:10px;
+      }
+
+    }
+
     .accordion {
       border-radius: 10px !important ;
       overflow: hidden;
-      background-color: rgb(33, 37, 41);
+      background:none;
     }
     .accordion-button {
-      background-color: transparent !important; 
-      color: white !important; 
+      background-color: transparent !important;
+      color: white !important;
       border: none;
-      font-weight: normal !important; 
+      font-weight: normal !important;
     }
-    .accordion-item{
+    .accordion-item {
       border: none;
+      border-radius: 10px;
+      background-color: #212630 !important;
     }
     .accordion-button:focus {
-      box-shadow: none !important; 
-      background-color: transparent !important; 
+      box-shadow: none !important;
+      background-color: transparent !important;
     }
-    
+
     .accordion-button:not(.collapsed) {
       background-color: transparent !important;
     }
-    
+
     .accordion-collapsed {
       border: none;
     }
     .accordion-body {
-      color: #fff; 
+      color: #fff;
       border: none;
       border-top: 1px solid rgb(98, 98, 98);
       input,

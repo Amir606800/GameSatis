@@ -12,7 +12,7 @@ const SplitterAdvert = (props) => {
             alt="LeagueOfLegends"
           />
         </div>
-        <div className="cardd col-12 col-md-6 col-xl-3 hovering-behaviour">
+        <div className="cardd col-12 col-md-6 col-xl-3 hovering-behaviour d-none d-md-block">
           <img
             className="w-100  rounded-1"
             src={props.img2}
@@ -26,7 +26,7 @@ const SplitterAdvert = (props) => {
             alt="LeagueOfLegends"
           />
         </div>
-        <div className="cardd col-12 col-md-6 col-xl-3 hovering-behaviour">
+        <div className="cardd col-12 col-md-6 col-xl-3 hovering-behaviour d-none d-md-block">
           <img
             className="w-100  rounded-1"
             src={props.img4}

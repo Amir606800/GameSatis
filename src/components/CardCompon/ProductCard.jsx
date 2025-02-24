@@ -53,7 +53,7 @@ const ProductCard = ({ main, vitrinIndex }) => {
     }
   }, [main.id, vitrinIndex]);
   return (
-    <div className="col-sm-4 col-lg-2 col-6 t">
+    <div className="col-6 col-md-4 col-lg-3 col-xl-2  t">
       <Link to={`/products/${slugify(main.title).toLowerCase()}`}>
         <div
           className="card prod-card rounded-3 overflow-hidden h-100"
