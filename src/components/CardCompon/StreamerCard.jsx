@@ -4,7 +4,7 @@ import { BsFacebook, BsTwitch, BsYoutube } from "react-icons/bs";
 const StreamerCard = (props) => {
   return (
     <>
-      <div className="col d-flex justify-content-center ">
+      <div className="col-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center ">
         <div className="card  border-0 rounded-2" style={{ width: "14rem",cursor:"pointer" }}>
           <img src={props.img} className="card-img-top" alt={props.names} />
 
