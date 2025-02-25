@@ -11,7 +11,7 @@ import { BiHeart } from "react-icons/bi";
 import OffCanvas from "../Addons/OffCanvas";
 
 const Header = () => {
-  const { session, userProfile,privacyStatus } = UserAuth();
+  const { session, userProfile, privacyStatus } = UserAuth();
 
   return (
     <>
@@ -87,15 +87,16 @@ const Header = () => {
                           className="balance text-warning"
                           style={{ fontSize: "11px" }}
                         >
-                          {privacyStatus?"#####":<>{userProfile.balance.toFixed(2)}TL</>}
+                          {privacyStatus ? (
+                            "#####"
+                          ) : (
+                            <>{userProfile.balance.toFixed(2)}TL</>
+                          )}
                         </div>
                       </div>
-                      <Link to="/">
-                        <CgMail className="fs-5" />
-                      </Link>
-                      <Link to="/giris-yap">
-                        <BiHeart className="fs-5" />
-                      </Link>
+                      <CgMail className="fs-5" />
+
+                      <BiHeart className="fs-5" />
                     </button>
                   </Link>
                 ) : (
@@ -128,20 +129,20 @@ const Header = () => {
       </div>
       <div className="container-fluid d-lg-flex d-none mt-0 pt-0">
         <div className="nav-head-top d-flex flex-row mt-0 pt-0 w-100 py-2">
-          <div className="nav-element">
-            <Link to={"/oyunlar"}>OYUNLAR </Link>
-          </div>
+          <Link to={"/oyunlar"} className="nav-element">
+            OYUNLAR
+          </Link>
           <div className="nav-element">OYUNCU PAZARI</div>
           <div className="nav-element">KNIGHT ONLINE</div>
           <div className="nav-element position-relative">
-            MOBILE LEGENDS{" "}
+            League Of Legends{" "}
             <span className="position-absolute top-0 end-0 translate-middle-y badge  bg-danger">
               EN UYGUN
             </span>{" "}
           </div>
           <div className="nav-element">PUBG UC</div>
           <div className="nav-element">VALORANT VP</div>
-          <div className="nav-element">CS2 SKIN</div>
+          <div className="nav-element">Supercell</div>
           <div className="nav-element">RAZER AL-SAT</div>
           <div className="nav-element">AÇIK ARTIRMA</div>
           <div style={{ color: "#75ba15" }} className="nav-element fw-bolder">

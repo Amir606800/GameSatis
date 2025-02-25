@@ -8,13 +8,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Donate from "./Pages/Donate";
 import NotFoundPage from "./Pages/NotFoundPage";
 import { ProductDetails } from "./Pages/ProductDetails";
-import VitrinShowOFF from "./Pages/VitrinShowOFF";
+import Oyunlar from "./Pages/Oyunlar";
 import Profile from "./Pages/Profile";
 import Informations from "./components/DashboardPages/Informations";
 import Siparisler from "./components/DashboardPages/Siparisler";
 import AuthContent from "./components/Auth/AuthContent";
 import Wrapper from "./Addons/Wrapper";
 import Additionals from "./Addons/Additionals";
+import OyunlarSubCat from "./Pages/OyunlarSubCat";
 
 function App() {
   
@@ -27,7 +28,8 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/donate" element={<Donate />}></Route>
           <Route path="/products/:slugName" element={<ProductDetails />}></Route>
-          <Route path="/oyunlar" element={<VitrinShowOFF />}></Route>
+          <Route path="/oyunlar" element={<Oyunlar />}></Route>
+          <Route path="/oyunlar/:sub_name" element={<OyunlarSubCat />}></Route>
           {""}
           <Route path="/profilim" element={<Wrapper><Profile section={<Informations />} /></Wrapper>} > </Route>
           <Route path="/siparislerim" element={<Wrapper><Profile section={<Siparisler />} /></Wrapper>}></Route>

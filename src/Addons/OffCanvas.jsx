@@ -55,8 +55,8 @@ function OffCanvas() {
                         {privacyStatus?"#####":<>{userProfile.balance.toFixed(2)}TL</>}
                         </div>
                       </div>
-                      <Link className="p-3 rounded-3 bg-dark" to="/">  <CgMail className="fs-6" /></Link>
-                      <Link className="p-3 rounded-3 bg-dark" to="/giris-yap">  <BiHeart className="fs-6" /></Link>
+                      <div className="p-3 rounded-3 bg-dark" >  <CgMail className="fs-6" /></div>
+                      <div className="p-3 rounded-3 bg-dark" >  <BiHeart className="fs-6" /></div>
                     </div>
                   </Link>
                 ) : ""}

@@ -84,23 +84,23 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
                   
                 </div>
               </div>
-              <div className="information area-part d-flex gap-4 flex-row justify-content-around">
-                <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
+              <div className="information area-part d-flex flex-wrap flex-sm-nowrap gap-4 flex-row justify-content-around">
+                <div className="boxes-info w-100 d-flex flex-sm-column justify-content-center align-items-center">
                   <span className="box-headings">İlan No:</span>
                   <span className="fw-bold">#12344</span>
                 </div>
-                <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
+                <div className="boxes-info w-100 d-flex  flex-sm-column justify-content-center align-items-center">
                   <span className="box-headings">Görülme: </span>
                   <span className="fw-bold d-flex justify-content-center align-items-center gap-1">
                     <IoEyeOutline />
                     455 
                   </span>
                 </div>
-                <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
+                <div className="boxes-info w-100 d-flex  flex-sm-column justify-content-center align-items-center">
                   <span className="box-headings">Güncelleme: </span>
                   <span className="fw-bold">13.04.2025</span> 
                 </div>
-                <div className="boxes-info w-100 d-flex flex-column justify-content-center align-items-center">
+                <div className="boxes-info w-100 d-flex  flex-sm-column justify-content-center align-items-center">
                   <span className="box-headings">Stok: </span>
                   <span className="fw-bold" style={{ fontSize: "22px" }}>
                     <IoIosCheckmarkCircleOutline /> 
