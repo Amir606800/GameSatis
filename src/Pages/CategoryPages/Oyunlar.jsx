@@ -1,28 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import {  useNavigate, useParams } from "react-router-dom";
-import Lent from "../components/Lent";
-import Path from "../components/Path";
-
+import { useContext, useEffect, useState } from "react";
+import Lent from "../../components/Lent";
+import Path from "../../components/Path";
+import { useNavigate } from "react-router-dom";
 import slugify from "slugify";
-import Loading from "../Addons/Loading";
-import { CategoryContext } from "../Context/CategoryContext";
 
-const OyunlarSubCat = () => {
-  const { sub_name } = useParams();
-  const navigate = useNavigate()
-  const {loading,subCat,fetchSubCategory,mainCat} =useContext(CategoryContext)
-  
-    useEffect(()=>{
-      const category = mainCat.find((item)=>slugify(item.name) == sub_name) 
-      setTimeout(() => {
-        
-        fetchSubCategory(category.id)
-      }, 100);
+import Loading from "../../Addons/Loading";
+import { CategoryContext } from "../../Context/CategoryContext";
 
-    },[mainCat])
-  
-
-  if(loading) return <Loading />
+const Oyunlar = () => {
+  const navigate = useNavigate();
+  const { mainCat, loading } = useContext(CategoryContext);
   const alphabet = () => {
     return Array.from({ length: 26 }, (_, i) => (
       <span className="alphabet-item" key={i}>
@@ -32,9 +19,11 @@ const OyunlarSubCat = () => {
       .reduce((acc, ins) => [...acc, ins, "-"], [])
       .slice(0, -1);
   };
-  const handleCategory = (item)=>{
-      navigate(`/oyunlar/${sub_name}/${slugify(`${item.name}`)}`)
-    } 
+  const handleCategory = (item) => {
+    navigate(`/oyunlar/${slugify(`${item.name}`)}`);
+  };
+
+  if (loading) return <Loading />;
   return (
     <div className="container-fluid">
       <Path />
@@ -54,9 +43,9 @@ const OyunlarSubCat = () => {
         />
       </div>
       <div className="list row g-4 my-5 justify-content-center">
-        {subCat.map((item, i) => (
+        {mainCat.map((item, i) => (
           <div
-          onClick={()=>handleCategory(item)}
+            onClick={() => handleCategory(item)}
             key={i}
             className="col-6 col-md-4 col-lg-3 col-xl-2 "
           >
@@ -80,5 +69,4 @@ const OyunlarSubCat = () => {
     </div>
   );
 };
-
-export default OyunlarSubCat;
+export default Oyunlar;

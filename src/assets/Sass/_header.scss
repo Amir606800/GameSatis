@@ -56,6 +56,11 @@
     background-color: #32a0dc;
   }
 }
+.scroll-nav-head-top{
+  ::-webkit-scrollbar{
+    display: none;
+  }
+}
 .nav-head-top {
   transform: translate(0%, -350%);
   animation: slide_top 1.3s forwards;
@@ -70,6 +75,7 @@
     font-size: 14px;
     text-align: center;
     align-content: center;
+    min-width: 100px;
     width: 200px;
     height: 50px;
     border-bottom-right-radius: 10px !important;

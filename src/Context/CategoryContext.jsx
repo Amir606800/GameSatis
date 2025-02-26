@@ -16,7 +16,6 @@ export const CatehoryProvider = ({children})=>{
         }
         fetchMainCategory()
     },[])
-    console.log(mainCat)
 
     const fetchSubCategory = async (category_id)=>{
         const {data,error} = await supabase.from("categories").select("*").eq("parent_id",category_id)

@@ -127,26 +127,23 @@ const Header = () => {
         </div>
         <hr />
       </div>
-      <div className="container-fluid d-lg-flex d-none mt-0 pt-0">
-        <div className="nav-head-top d-flex flex-row mt-0 pt-0 w-100 py-2">
-          <Link to={"/oyunlar"} className="nav-element">
-            OYUNLAR
-          </Link>
-          <div className="nav-element">OYUNCU PAZARI</div>
-          <div className="nav-element">KNIGHT ONLINE</div>
-          <div className="nav-element position-relative">
-            League Of Legends{" "}
-            <span className="position-absolute top-0 end-0 translate-middle-y badge  bg-danger">
-              EN UYGUN
-            </span>{" "}
-          </div>
-          <div className="nav-element">PUBG UC</div>
-          <div className="nav-element">VALORANT VP</div>
-          <div className="nav-element">Supercell</div>
-          <div className="nav-element">RAZER AL-SAT</div>
-          <div className="nav-element">AÇIK ARTIRMA</div>
-          <div style={{ color: "#75ba15" }} className="nav-element fw-bolder">
-            <span className="fs-6">+</span>BAKİYE YÜKLE
+      <div className="scroll-nav-head-top  mt-0 pt-0">
+        <div className="container-fluid d-flex overflow-x-scroll overflow-y-visible mt-0 pt-0">
+          <div className="nav-head-top d-flex flex-row mt-0 pt-0 w-100 py-2">
+            <Link to={"/oyunlar"} className="nav-element">
+              OYUNLAR
+            </Link>
+            <div className="nav-element">OYUNCU PAZARI</div>
+            <div className="nav-element">KNIGHT ONLINE</div>
+            <div className="nav-element">League Of Legends</div>
+            <div className="nav-element">PUBG UC</div>
+            <div className="nav-element">VALORANT VP</div>
+            <div className="nav-element">Supercell</div>
+            <div className="nav-element">RAZER AL-SAT</div>
+            <div className="nav-element">AÇIK ARTIRMA</div>
+            <div style={{ color: "#75ba15" }} className="nav-element fw-bolder">
+              <span className="fs-6">+</span>BAKİYE YÜKLE
+            </div>
           </div>
         </div>
       </div>

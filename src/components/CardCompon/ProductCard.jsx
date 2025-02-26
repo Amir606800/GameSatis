@@ -58,20 +58,26 @@ const ProductCard = ({ main, vitrinIndex }) => {
         <div
           className="card prod-card rounded-3 overflow-hidden h-100"
           style={{
-            border: `${selectedShadow.border}`,
-            boxShadow: selectedShadow.shadow,
+            border: `${main.is_vitrin?selectedShadow.border:""}`,
+            boxShadow: `${main.is_vitrin?selectedShadow.shadow:""}`
           }}
         >
           <div className="card-img mb-4 position-relative text-center">
-            <div
-              className="vitrin z-1 w-auto position-absolute translate-middle-x fw-bold px-3 pb-1 rounded-bottom-3 start-50"
-              style={{
-                backgroundColor: selectedShadow.firstLayerColor,
-                fontSize: "12px",
-              }}
-            >
-              {main.id < vitrinIndex ? "Vitrin İlani" : ""}
-            </div>
+            {main.is_vitrin ? (
+              <div
+                className="vitrin z-1 w-auto position-absolute translate-middle-x fw-bold px-3 pb-1 rounded-bottom-3 start-50"
+                style={{
+                  backgroundColor: selectedShadow.firstLayerColor,
+                  fontSize: "12px",
+                  minWidth:"100px"
+                }}
+              >
+                {main.id < vitrinIndex ? "Vitrin İlani" : ""}
+              </div>
+            ) : (
+              <></>
+            )}
+
             <img src={main.image_url} alt={main.title} className="w-100" />
             <div
               className="manufacturer z-1 fw-bold rounded-2 position-absolute bg-white px-5 start-50 translate-middle-x text-success"
