@@ -54,7 +54,7 @@ const ProductCard = ({ main, vitrinIndex }) => {
   }, [main.id, vitrinIndex]);
   return (
     <div className="col-6 col-md-4 col-lg-3 col-xl-2  t">
-      <Link to={`/products/${slugify(main.title).toLowerCase()}`}>
+      <Link to={`/${slugify(main.title).toLowerCase()}`}>
         <div
           className="card prod-card rounded-3 overflow-hidden h-100"
           style={{
@@ -72,7 +72,7 @@ const ProductCard = ({ main, vitrinIndex }) => {
             >
               {main.id < vitrinIndex ? "Vitrin İlani" : ""}
             </div>
-            <img src={main.thumbnail} alt={main.title} className="w-100" />
+            <img src={main.image_url} alt={main.title} className="w-100" />
             <div
               className="manufacturer z-1 fw-bold rounded-2 position-absolute bg-white px-5 start-50 translate-middle-x text-success"
               style={{ bottom: "-10px" }}

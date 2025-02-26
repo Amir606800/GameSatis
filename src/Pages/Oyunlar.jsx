@@ -1,14 +1,15 @@
 import { useContext, useEffect, useState } from "react";
 import Lent from "../components/Lent";
 import Path from "../components/Path";
-import supabase from "../helpers/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import slugify from "slugify";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchMainCategory } from "../tools/Slices/CategorySlice";
+
+import Loading from "../Addons/Loading";
+import { CategoryContext } from "../Context/CategoryContext";
 
 const Oyunlar = ()=>{
   const navigate = useNavigate();
+  const {mainCat,loading} =useContext(CategoryContext)
     const alphabet = ()=>{
         return Array.from({length:26},(_,i)=>(
             <span className="alphabet-item" key={i}>{String.fromCharCode(65+i)}</span>
@@ -16,18 +17,12 @@ const Oyunlar = ()=>{
          
         
     }
-    const {categories,loading,error} = useSelector((state)=>state.categories)
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(fetchMainCategory())
-  }, []);
-
   const handleCategory = (item)=>{
+    
     navigate(`/oyunlar/${slugify(`${item.name}`)}`)
   } 
 
-    if(loading) return<>BEKLE .....</>  
-    if(error) return<>{error}</>  
+    if(loading) return <Loading /> 
     return(
     <div className="container-fluid">
         <Path />
@@ -46,7 +41,7 @@ const Oyunlar = ()=>{
             leftHead={alphabet()} />
         </div>
         <div className="list row g-4 my-5 justify-content-center">
-                    {categories.map((item,i)=>(
+                    {mainCat.map((item,i)=>(
                         <div onClick={()=>handleCategory(item)} key={i} className="col-6 col-md-4 col-lg-3 col-xl-2 ">
                         <div className="card border-0 position-relative" style={{ cursor: "pointer" }}>
                           <div className="card-image">

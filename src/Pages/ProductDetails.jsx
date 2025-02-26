@@ -16,25 +16,11 @@ import { BsShieldFillCheck } from "react-icons/bs";
 import Lent from "../components/Lent";
 
 export const ProductDetails = () => {
-  const products = useContext(ProductContext);
+  const {products} = useContext(ProductContext);
   const { slugName } = useParams();
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
   );
-  const text = `Bu İlanı Satın Aldığınızda Sizlere İçerisinde Marvel Spider-man 2 Deluxe Edition Bulunan Bir Steam Hesabı Teslim Edilir.
-DRM Denuvo koruması ile karşılaşmadan sorunsuz bir oyun deneyimi yaşayacaksınız.
-Hesap Etrafta Dolaşan Public Hesaplardan Değildir.
-Hesaplara Çift doğrulama ile giriş yapılmaktadır.
-XeoSpin Güvencesiyle Sınırsız Bir şekilde Save Dosyalarınız Karışmadan Oyununuzu Rahatlıkla Oynayabilirsiniz.
-Hesaplar Yalnızca Çevrimdışı modları Destekler
-Satın Aldıktan Sonra Hemen Teslimatlı Sağlanır
-Ürünü Satın aldıktan sonra sizlere Steam Hesabı ID-Şifre İle Birlikte Kullanım Talimatlarıda Teslim edilecektir.
-Hesaplar Tek 1 PCye özeldir Başka bir Pc için tekrardan satın almanız gerekmektedir.
-Aktivasyon ve aktivatör kullanımı yoktur!
-Herhangi bir oyundan atma sorunu söz konusu bile değildir
-Oyunu orijinal platformdan indirip oynuyorsunuz.
-XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VERİYORUZ. Yorumlarımız sizlere gerekli güveni sağlayacaktır.
-14,000+ Satış Güvencesiyle`;
 
   return (
     <>
@@ -47,7 +33,7 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
             <div className="area">
               <div className="image position-relative">
                 <img
-                  src="https://img.gamesatis.com/images/2528080/istediginiz-eloya-maximum-1-gunde-cikartiyoruz.webp" //Item image
+                  src={foundedProduct.image_url} //Item image
                   alt={foundedProduct.title} 
                   style={{ height: "100%",width:"100%",minWidth:"50%" }}
                 /> 
@@ -62,7 +48,7 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
                     style={{ fontSize: "13px" }}
                     className="aciklama"
                   >
-                    {text.substring(0, 250) + "..."} 
+                    {foundedProduct.description.substring(0, 250) + "..."} 
                   </div>
                 </div>
                 <div
@@ -216,7 +202,7 @@ XEOSPİN MARKET GÜVENCESİYLE MÜŞTERİLERİMİZİ ÖNEMSİYORUZ VE DEĞER VER
                   rightHead={""}
                 />
               </div>
-              <div className="card-body">{text}</div>
+              <div className="card-body">{foundedProduct.description}</div>
             </div>
           </>
         )}

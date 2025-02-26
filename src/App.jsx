@@ -16,6 +16,7 @@ import AuthContent from "./components/Auth/AuthContent";
 import Wrapper from "./Addons/Wrapper";
 import Additionals from "./Addons/Additionals";
 import OyunlarSubCat from "./Pages/OyunlarSubCat";
+import Productlar from "./Pages/Productlar";
 
 function App() {
   
@@ -27,9 +28,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/donate" element={<Donate />}></Route>
-          <Route path="/products/:slugName" element={<ProductDetails />}></Route>
+          <Route path="/:slugName" element={<ProductDetails />}></Route>
           <Route path="/oyunlar" element={<Oyunlar />}></Route>
           <Route path="/oyunlar/:sub_name" element={<OyunlarSubCat />}></Route>
+          <Route path="/oyunlar/:sub_name/:prod_name" element={<Productlar />}></Route>
           {""}
           <Route path="/profilim" element={<Wrapper><Profile section={<Informations />} /></Wrapper>} > </Route>
           <Route path="/siparislerim" element={<Wrapper><Profile section={<Siparisler />} /></Wrapper>}></Route>

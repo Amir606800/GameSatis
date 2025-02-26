@@ -13,7 +13,7 @@ import { ProductContext } from "../Context/ProductsProvider";
  
 const Home = () => {
   const {streamData} = useContext(StreamerContext);
-  const products = useContext(ProductContext)
+  const {products} = useContext(ProductContext)
 
   return (
     <>
