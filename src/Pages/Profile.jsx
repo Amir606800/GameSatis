@@ -1,9 +1,13 @@
-import { FaCartArrowDown } from "react-icons/fa6";
+import { FaCartArrowDown, FaRegMessage } from "react-icons/fa6";
 import { LuSquarePen } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../Context/AuthContext";
 import React from "react";
 import { useMemo } from "react";
+import { TfiEmail } from "react-icons/tfi";
+import {  MdOutlineFavorite } from "react-icons/md";
+import { BsClipboard2Plus } from "react-icons/bs";
+import { PiClipboardText } from "react-icons/pi";
 
 
 const Profile = React.memo((props) => {
@@ -27,31 +31,40 @@ const Profile = React.memo((props) => {
   const iconPackJSON = [
     {
       title:"Siparisler",
-      icon:<><FaCartArrowDown className="fs-4" /></>
+      icon:<><FaCartArrowDown className="fs-4" /></>,
+      link:"siparislerim"
     },{
       title:"Mesajlarım",
-      icon:<><FaCartArrowDown className="fs-4" /></>
+      icon:<><TfiEmail  className="fs-4" /></>,
+      link:"ilan_ekle"
     },{
       title:"Youtmlarım",
-      icon:<><FaCartArrowDown className="fs-4" /></>
+      icon:<><FaRegMessage className="fs-4" /></>,
+      link:"siparislerim"
+    },{
+      title:"İlanlar",
+      icon:<><PiClipboardText className="fs-4" /></>,
+      link:"siparislerim"
+    },{
+      title:"İlan Ekle",
+      icon:<><BsClipboard2Plus className="fs-4" /></>,
+      link:"ilan_ekle"
+    },{
+      title:"Favoriler",
+      icon:<><MdOutlineFavorite  className="fs-4" /></>,
+      link:"siparislerim"
     },{
       title:"Siparisler",
-      icon:<><FaCartArrowDown className="fs-4" /></>
+      icon:<><FaCartArrowDown className="fs-4" /></>,
+      link:"siparislerim"
     },{
       title:"Siparisler",
-      icon:<><FaCartArrowDown className="fs-4" /></>
+      icon:<><FaCartArrowDown className="fs-4" /></>,
+      link:"siparislerim"
     },{
       title:"Siparisler",
-      icon:<><FaCartArrowDown className="fs-4" /></>
-    },{
-      title:"Siparisler",
-      icon:<><FaCartArrowDown className="fs-4" /></>
-    },{
-      title:"Siparisler",
-      icon:<><FaCartArrowDown className="fs-4" /></>
-    },{
-      title:"Siparisler",
-      icon:<><FaCartArrowDown className="fs-4" /></>
+      icon:<><FaCartArrowDown className="fs-4" /></>,
+      link:"siparislerim"
     }
   ]
   return (
@@ -110,7 +123,7 @@ const Profile = React.memo((props) => {
                 <div key={index} className=" col-4 d-flex justify-content-center align-items-center ">
                 <Link
                   style={{ cursor: "pointer",minWidth:"6em",width:"8em",height:"6em" }}
-                  to="/siparislerim"
+                  to={`/${item.link}`}
                   className="bg-dark d-flex rounded-3 justify-content-center align-items-center flex-column  profile-section-element"
                 >
                   {item.icon}

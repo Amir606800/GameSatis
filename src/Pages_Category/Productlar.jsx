@@ -1,11 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Path from "../../components/Path";
-import Lent from "../../components/Lent";
-import { CategoryContext } from "../../Context/CategoryContext";
-import { ProductContext } from "../../Context/ProductsProvider";
+import Path from "../components/Path";
+import Lent from "../components/Lent";
+import { CategoryContext } from "../Context/CategoryContext";
+import { ProductContext } from "../Context/ProductsProvider";
 import slugify from "slugify";
-import ProductCard from "../../components/CardCompon/ProductCard";
+import ProductCard from "../components/CardCompon/ProductCard";
 
 const Productlar = () => {
   const { prod_name } = useParams();
@@ -13,12 +13,15 @@ const Productlar = () => {
   const { subCat } = useContext(CategoryContext);
   const { productCat, fetchProduct } = useContext(ProductContext);
   useEffect(() => {
-    setTimeout(() => {
+    if(subCat){
       const category = subCat.find((item) => slugify(item.name) == prod_name);
 
-      fetchProduct(category.id);
-    }, 100);
-  }, [subCat, prod_name]);
+      setTimeout(() => {
+  
+        fetchProduct(category.id);
+      }, 100);
+    }
+  }, [subCat]);
 
   const alphabet = () => {
     return Array.from({ length: 26 }, (_, i) => (

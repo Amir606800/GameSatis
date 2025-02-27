@@ -16,22 +16,17 @@ import { MdOutlineCancel } from "react-icons/md";
 import Loading from "../Addons/Loading";
 
 export const ProductDetails = () => {
-  const { products, creatorInfo,fetchCreatorInfo } = useContext(ProductContext);
+  const { products,fetchCreatorInfo,loading } = useContext(ProductContext);
   const { slugName } = useParams();
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
   ); 
-  useEffect(()=>{
-    if(foundedProduct){
-      fetchCreatorInfo(foundedProduct.profile_id)
-    }
-  },[foundedProduct])
-
   if (!foundedProduct) return <Loading />;
+  if (loading) return <Loading />;
   
-
   const lastModified = new Date(foundedProduct.last_modified); // assuming product.last_modified is a timestamp
   const formattedDate = lastModified.toLocaleDateString('en-GB');
+  console.log(foundedProduct)
   return (
     <>
       <Path />
@@ -107,12 +102,12 @@ export const ProductDetails = () => {
               <img
                 style={{ width: "5em" }}
                 className=" rounded-3 "
-                src={creatorInfo.profile_photo}
-                alt={creatorInfo.display_name}
+                src={foundedProduct.profiles.profile_photo}
+                alt={foundedProduct.profiles.display_name}
               />
               <div>
                 <span className="h5">
-                {creatorInfo.display_name} {creatorInfo.is_verified?<FaCircleCheck className="text-info" />:""}
+                {foundedProduct.profiles.display_name} {foundedProduct.profiles.is_verified?<FaCircleCheck className="text-info" />:""}
                 </span>
                 <div className="d-flex justify-content-center align-items-center gap-2">
                   <div
@@ -182,8 +177,8 @@ export const ProductDetails = () => {
                 </div>
                 <span style={{ fontWeight: "bolder", fontSize: "27px" }}>
                   <p>
-                    {foundedProduct.price -
-                      (foundedProduct.price * foundedProduct.discount) / 100}
+                    {(foundedProduct.price -
+                      (foundedProduct.price * foundedProduct.discount) / 100).toFixed(2,0)}
                     TL
                   </p>
                 </span>

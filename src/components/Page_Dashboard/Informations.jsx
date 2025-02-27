@@ -1,11 +1,12 @@
 import { Accordion } from "react-bootstrap";
-import { UserAuth } from "../../Context/AuthContext";
+import { UserAuth } from "../Context/AuthContext";
 import React, { useMemo, useState } from "react";
 import { LuSquarePen, LuUserRound } from "react-icons/lu";
 import { FaEyeSlash } from "react-icons/fa6";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { IoMdNotificationsOutline } from "react-icons/io";
-import supabase from "../../helpers/supabaseClient";
+import supabase from "../helpers/supabaseClient";
+import { Link } from "react-router-dom";
 
 const Informations = () => {
   const { userProfile, session, setPrivacyStatus, privacyStatus } = UserAuth();
@@ -198,7 +199,8 @@ const Informations = () => {
               <div className="Wrapped-div d-flex gap-4 w-100 justify-content-center">
                 <div className="position-relative w-100">
                   <input
-                    className="Profile_input_fields w-100 h-100 rounded-2 text-end  px-3"
+                    className="Profile_input_fields w-100 h-100 rounded-2 text-end "
+                    style={{ paddingInlineEnd: "50px" }}
                     type="password"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
@@ -210,6 +212,14 @@ const Informations = () => {
                   >
                     Şifre:
                   </div>
+                  <a href="/sifremi-unuttum">
+                    <button
+                      type="button"
+                      className="btn end-0 top-50 position-absolute translate-middle-y btn-light"
+                    >
+                      <LuSquarePen />
+                    </button>
+                  </a>
                 </div>
 
                 <div className="position-relative w-100">
@@ -220,7 +230,7 @@ const Informations = () => {
                   />
 
                   <input
-                    className="Profile_input_fields w-100 h-100 rounded-2 text-end  px-5"
+                    className="Profile_input_fields w-100 h-100 rounded-2 text-end "
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
@@ -242,11 +252,11 @@ const Informations = () => {
                     modalNum={3}
                   />
                   <input
-                    className="Profile_input_fields w-100 h-100 rounded-2 text-end  px-3"
+                    className="Profile_input_fields w-100 h-100 rounded-2 text-end "
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={" "}
+                    value={" Kapali "}
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
@@ -276,11 +286,11 @@ const Informations = () => {
                     modalNum={4}
                   />
                   <input
-                    className="Profile_input_fields w-100 h-100 px-4 rounded-2 text-end "
+                    className="Profile_input_fields w-100 h-100 rounded-2 text-end "
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={mUserProfile.display_name}
+                    value={"Acik"}
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
@@ -296,11 +306,11 @@ const Informations = () => {
                     modalNum={5}
                   />
                   <input
-                    className="Profile_input_fields w-100 px-4 h-100 rounded-2 text-end"
+                    className="Profile_input_fields w-100 h-100 rounded-2 text-end"
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={session.user.email}
+                    value={"Acik"}
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"

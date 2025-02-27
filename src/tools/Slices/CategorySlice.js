@@ -1,59 +1,61 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit"
+import {  createAsyncThunk, createSlice } from "@reduxjs/toolkit"
 import supabase from "../../helpers/supabaseClient"
 
-const fetchMainCategory = createAsyncThunk(
-    'fetchMainCategory',async ()=>{
-        const {data,error} = await supabase.from("categories").select("*").is("parent_id",null)
-        if(!error) return data
-        else{
-            console.log(error)
-        }
-    }
-)
 
-const fetchSubCategory = createAsyncThunk(
-    'fetchSubCategory',async(category_id)=>{
-        const {data,error} = await supabase.from("categories").select("*").eq("parent_id",category_id)
-        if(!error) return data;
-        else{
-            console.log(error)
-        }
+const fetchProduct = createAsyncThunk(
+    "fetchProduct",async(_,{rejectWithValue})=>{
+        const {data,error} = await supabase.from("products").select("*")
+        if(!error) return data
+        else return rejectWithValue(error.message)
+    })
+
+const addProduct = createAsyncThunk(
+    "addProduct",async(addedProduct,{rejectWithValue})=>{
+        const {data,error} = await supabase.from("products").insert(addedProduct)
+        if(!error) return data
+        return rejectWithValue(error.message)
     }
 )
 
 const initialState = {
-    categories:[],
+    products:[],
     loading:true,
     error:null
 }
 
-const CategorySlicer = createSlice({
-    name:"categoryary",
+const ProductSlicer = createSlice({
+    name:"productSlicer",
     initialState,
     reducers:{},
     extraReducers:(builder)=>{
         builder
-        .addCase(fetchMainCategory.pending,(state)=>{
+        //Fetching products
+        .addCase(fetchProduct.pending,(state)=>{
             state.loading = true
         })
-        .addCase(fetchMainCategory.fulfilled,(state,action)=>{
-            state.categories = action.payload;
-            state.loading = false
+        .addCase(fetchProduct.fulfilled,(state,action)=>{
+            state.loading = false;
+            state.products = action.payload
         })
-        .addCase(fetchMainCategory.rejected,(state,action)=>{
-            state.error = action.error.message
+        .addCase(fetchProduct.rejected,(state,action)=>{
+            state.loading = true
+            state.error = action.payload
         })
-        .addCase(fetchSubCategory.pending, (state)=>{
+
+        //Adding products
+        .addCase(addProduct.pending,(state)=>{
             state.loading = true
         })
-        .addCase(fetchSubCategory.fulfilled,(state,action)=>{
-            state.categories = action.payload
-            state.loading = false
+        .addCase(addProduct.fulfilled,(state,action)=>{
+            state.loading = false;
+            state.products = [...state.products,action.payload]
         })
-        .addCase(fetchSubCategory.rejected,(state,action)=>{
-            state.error = action.error.message
+        .addCase(addProduct.rejected,(state,action)=>{
+            state.loading = true
+            state.error = action.payload
         })
     }
 })
-export default CategorySlicer.reducer
-export {fetchMainCategory,fetchSubCategory}
+
+export default ProductSlicer.reducer
+export {fetchProduct,addProduct}

@@ -4,7 +4,7 @@ import Marquee from 'react-fast-marquee'
 const InfiniteSlider = () => {
   return (
     <Marquee pauseOnHover speed={100}>
-      <div className="nav-element"><img src="https://img.gamesatis.com/showcase/5/pubg.svg" alt="PUBG" /></div>
+      <a href='/oyunlar/PUBG-Mobile' className="nav-element"><img src="https://img.gamesatis.com/showcase/5/pubg.svg" alt="PUBG" /></a>
       <div className="nav-element"><img src="https://img.gamesatis.com/showcase/850/fc25-36865.svg" alt="" /></div>
       <div className="nav-element"><img src="https://img.gamesatis.com/showcase/723/mobile-legends.svg" alt="MOBILE_LEGENDS" /></div>
       <div className="nav-element"><img src="https://img.gamesatis.com/showcase/26998/wartuneultra-61310.svg" alt="" /></div>

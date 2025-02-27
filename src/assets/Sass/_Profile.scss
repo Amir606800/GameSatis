@@ -1,15 +1,54 @@
 .User-Profile {
+  .login-btn-active{
+    background-color: #32a0db !important;
+  }
+  .login-btn-active:hover{
+    background: none !important;
+    border: 1px solid #32a0db;
+    color: #32a0db !important;
+  }
   .area {
     .Profile_input_fields {
       cursor: default;
       padding: 12px;
       font-size: 12px;
       font-weight: bold;
+      padding-inline-end: 50px;
     }
-    
+
+    .Ilan-ekle-profile {
+      width: 100%;
+      .list_of_inputs {
+        
+        justify-content: center;
+        align-items: center;
+        .list-of-inputs-elements {
+          
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap:10px;
+          
+          input,textarea {
+            padding: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            background-color: #171a21;
+            outline: none;
+            border: none;
+            border-radius: 10px;
+          }
+          textarea{
+            width: 70%;
+            max-height: 10em;
+          }
+        }
+      }
+    }
+
     .siparis-accordion-item {
       overflow: hidden;
-      
+
       .check-icon {
         background-color: green;
         width: 30px;
@@ -27,19 +66,18 @@
         }
       }
 
-      .siparisler-accordion-head{
+      .siparisler-accordion-head {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap:10px;
+        gap: 10px;
       }
-
     }
 
     .accordion {
       border-radius: 10px !important ;
       overflow: hidden;
-      background:none;
+      background: none;
     }
     .accordion-button {
       background-color: transparent !important;

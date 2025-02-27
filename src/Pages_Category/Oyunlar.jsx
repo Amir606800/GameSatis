@@ -1,11 +1,11 @@
 import { useContext, useEffect, useState } from "react";
-import Lent from "../../components/Lent";
-import Path from "../../components/Path";
+import Lent from "../components/Lent";
+import Path from "../components/Path";
 import { useNavigate } from "react-router-dom";
 import slugify from "slugify";
 
-import Loading from "../../Addons/Loading";
-import { CategoryContext } from "../../Context/CategoryContext";
+import Loading from "../Addons/Loading";
+import { CategoryContext } from "../Context/CategoryContext";
 
 const Oyunlar = () => {
   const navigate = useNavigate();

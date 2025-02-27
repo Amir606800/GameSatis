@@ -52,6 +52,7 @@ const AuthContent=(props)=>{
                   <Login
                     random={randomCharset}
                     settingRandom={generatorRandom}
+                    settingAuthState={setAuthState}
                   />
                 ) : (
                   <SignUpSec

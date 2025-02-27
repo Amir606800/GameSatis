@@ -1,24 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Lent from "../../components/Lent";
-import Path from "../../components/Path";
+import Lent from "../components/Lent";
+import Path from "../components/Path";
 
 import slugify from "slugify";
-import Loading from "../../Addons/Loading";
-import { CategoryContext } from "../../Context/CategoryContext";
+import Loading from "../Addons/Loading";
+import { CategoryContext } from "../Context/CategoryContext";
 
 const OyunlarSubCat = () => {
   const { sub_name } = useParams();
   const navigate = useNavigate();
-  const { loading, subCat, fetchSubCategory, mainCat } =
-    useContext(CategoryContext);
+  const { loading, subCat,subCat2,fetchSubCategory2, fetchSubCategory, mainCat } = useContext(CategoryContext);
 
   useEffect(() => {
-    const category = mainCat.find((item) => slugify(item.name) == sub_name);
-    setTimeout(() => {
-      fetchSubCategory(category.id);
-    }, 100);
-  }, [mainCat]);
+      fetchSubCategory(sub_name);
+  }, [mainCat,sub_name]);
 
   if (loading) return <Loading />;
   const alphabet = () => {

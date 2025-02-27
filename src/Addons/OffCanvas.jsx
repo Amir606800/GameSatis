@@ -45,7 +45,7 @@ function OffCanvas() {
             
           {userProfile ? (
                   <Link to={"/profilim"}>
-                    <div onClick={()=>setShow(false)}  style={{ fontSize: "13px", width: "100%",height:"6em" }}  className="d-flex align-items-center justify-content-around d-flex gap-1 rounded-1 fw-bold text-white sell">
+                    <div onClick={()=>setShow(false)}  style={{ fontSize: "13px", width: "100%",height:"6em" }}  className="d-flex align-items-center justify-content-center d-flex gap-4 rounded-1 fw-bold text-white sell">
                       <img  className="rounded-2"  width={50}  src={userProfile.profile_photo}  alt="profil photo"/>
                       <div  className="px-3 py-2 rounded-3 bg-dark">
                         <div style={{    fontSize: "12px",    fontFamily: "Roboto,sans-serif",  }}  className="name fw-bold">
@@ -63,9 +63,9 @@ function OffCanvas() {
           </div>
           <div className="main w-100">
             <div className="nav-head-top d-flex flex-column gap-1 w-100 py-2">
-                      <div onClick={()=>setShow(false)} className="nav-element rounded-3 w-100">
-                        <Link to={"/oyunlar"}>OYUNLAR</Link>
-                      </div>
+                      <Link to={"/oyunlar"} onClick={()=>setShow(false)} className="nav-element rounded-3 w-100">
+                        OYUNLAR
+                      </Link>
                       <div className="nav-element rounded-3 w-100" onClick={()=>setShow(false)}>OYUNCU PAZARI</div>
                       <div className="nav-element rounded-3 w-100" onClick={()=>setShow(false)}>KNIGHT ONLINE</div>
                       <div className="nav-element rounded-3 w-100 position-relative" onClick={()=>setShow(false)}>

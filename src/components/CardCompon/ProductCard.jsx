@@ -54,7 +54,7 @@ const ProductCard = ({ main, vitrinIndex }) => {
   }, [main.id, vitrinIndex]);
   return (
     <div className="col-6 col-md-4 col-lg-3 col-xl-2  t">
-      <Link to={`/${slugify(main.title).toLowerCase()}`}>
+      <a href={`/${slugify(main.title).toLowerCase()}`}>
         <div
           className="card prod-card rounded-3 overflow-hidden h-100"
           style={{
@@ -97,10 +97,10 @@ const ProductCard = ({ main, vitrinIndex }) => {
             <div className="verf text-success">
               <GoVerified />
             </div>
-            <div className="price">${main.price}</div>
+            <div className="price">{main.price}TL</div>
           </div>
         </div>
-      </Link>
+      </a>
     </div>
   );
 };

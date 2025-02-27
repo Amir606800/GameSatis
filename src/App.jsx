@@ -8,15 +8,18 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Donate from "./Pages/Donate";
 import NotFoundPage from "./Pages/NotFoundPage";
 import { ProductDetails } from "./Pages/ProductDetails";
-import Oyunlar from "./Pages/CategoryPages/Oyunlar";
 import Profile from "./Pages/Profile";
-import Informations from "./components/DashboardPages/Informations";
-import Siparisler from "./components/DashboardPages/Siparisler";
 import AuthContent from "./components/Auth/AuthContent";
 import Wrapper from "./Addons/Wrapper";
 import Additionals from "./Addons/Additionals";
-import OyunlarSubCat from "./Pages/CategoryPages/OyunlarSubCat";
-import Productlar from "./Pages/CategoryPages/Productlar";
+import ForgotPassword from "./components/Auth/ForgotPassword";
+import EmailConfirmation from "./components/Auth/EmailConfirmation";
+import Oyunlar from "./Pages_Category/Oyunlar";
+import OyunlarSubCat from "./Pages_Category/OyunlarSubCat";
+import Productlar from "./Pages_Category/Productlar";
+import Informations from "./Pages_Dashboard/Informations";
+import Siparisler from "./Pages_Dashboard/Siparisler"; 
+import AddElan from "./Pages_Dashboard/AddElan";
 
 function App() {
   return (
@@ -54,9 +57,20 @@ function App() {
             }
           ></Route>
           <Route
+            path="/ilan_ekle"
+            element={
+              <Wrapper>
+                <Profile section={<AddElan />} />
+              </Wrapper>
+            }
+          ></Route>
+
+          <Route
             path="/giris-yap"
             element={<AuthContent modalmi={false} />}
           ></Route>
+          <Route path="/sifremi-unuttum" element={<ForgotPassword />}></Route>
+          <Route path="/email-confirm" element={<EmailConfirmation />}></Route>
           {""}
           <Route path="/*" element={<NotFoundPage />}></Route>
         </Routes>

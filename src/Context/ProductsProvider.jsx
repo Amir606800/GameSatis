@@ -7,28 +7,25 @@ export const ProductContext = createContext(null);
 export const ProductsProvider = ({ children }) => {
   const [products, setProducts] = useState([]); 
   const [productCat,setProductCat] = useState([]);
-  const [creatorInfo,setCreatorInfo] = useState([]);
+  const [loading,setLoading] = useState(true)
+
   useEffect(() => {
     const fetchAllTheProducts = async()=>{
-      const {data,error} = await supabase.from("products").select("*")
-      if(!error) setProducts(data)
+      const {data,error} = await supabase.from("products").select("*,profiles( * ),categories( * )")
+      if(!error) {setProducts(data);setLoading(false)}
+        else {setLoading(true)}
     }  
   fetchAllTheProducts()
   }, []); 
 
   const fetchProduct = async(category_id) =>{
     const {data,error} = await supabase.from("products").select("*").eq("category_id",category_id)
-    if (!error) setProductCat(data)
-    else console.error(error)
+    if (!error) {setProductCat(data),setLoading(false)}
+    else {console.error(error);setLoading(true)}
   }
 
-  const fetchCreatorInfo = async(user_id)=>{
-    const {data,error} = await supabase.from("profiles").select("*").eq("id",user_id).single()
-    if (!error) setCreatorInfo(data)
-      else console.error(error)
-  }
   return (
-    <ProductContext.Provider value={{products,productCat,fetchProduct,creatorInfo,fetchCreatorInfo}}>
+    <ProductContext.Provider value={{products,productCat,fetchProduct,loading}}>
       {children}
     </ProductContext.Provider> 
   );
