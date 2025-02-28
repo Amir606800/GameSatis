@@ -135,10 +135,10 @@ const Header = () => {
             </Link>
             <div className="nav-element">OYUNCU PAZARI</div>
             <div className="nav-element">KNIGHT ONLINE</div>
-            <div className="nav-element">League Of Legends</div>
-            <div className="nav-element">PUBG UC</div>
-            <div className="nav-element">VALORANT VP</div>
-            <div className="nav-element">Supercell</div>
+            <Link to={"/oyunlar/League-Of-Legends"} className="nav-element">League Of Legends</Link>
+            <Link to={"/oyunlar/PUBG-Mobile"} className="nav-element">PUBG UC</Link>
+            <Link to={"/oyunlar/Valorant"} className="nav-element">VALORANT VP</Link>
+            <Link to={"/oyunlar/Supercell"} className="nav-element">Supercell</Link>
             <div className="nav-element">RAZER AL-SAT</div>
             <div className="nav-element">AÇIK ARTIRMA</div>
             <div style={{ color: "#75ba15" }} className="nav-element fw-bolder">

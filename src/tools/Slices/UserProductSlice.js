@@ -9,6 +9,14 @@ const fetchProduct = createAsyncThunk(
         else return rejectWithValue(error.message)
     })
 
+const fetchUserProducts = createAsyncThunk(
+    "fetchUserProducts",async (user_id,{rejectWithValue})=>{
+        const {data,error} = await supabase.from("products").select("*, profiles (*)").eq("profile_id",user_id);
+        if(!error) return data
+        else return rejectWithValue(error.message)
+    }
+)
+
 const addProduct = createAsyncThunk(
     "addProduct",async(addedProduct,{rejectWithValue})=>{
         const {data,error} = await supabase.from("products").insert(addedProduct)
@@ -19,6 +27,7 @@ const addProduct = createAsyncThunk(
 
 const initialState = {
     products:[],
+    userProducts:[],
     loading:true,
     error:null
 }
@@ -42,6 +51,20 @@ const ProductSlicer = createSlice({
             state.error = action.payload
         })
 
+        //Fetching a User products
+
+        .addCase(fetchUserProducts.pending,(state)=>{
+            state.loading = true
+        })
+        .addCase(fetchUserProducts.fulfilled,(state,action)=>{
+            state.loading = false
+            state.userProducts = action.payload
+        })
+        .addCase(fetchUserProducts.rejected,(state,action)=>{
+            state.loading = true
+            state.error = action.error
+        })
+
         //Adding products
         .addCase(addProduct.pending,(state)=>{
             state.loading = true
@@ -58,4 +81,4 @@ const ProductSlicer = createSlice({
 })
 
 export default ProductSlicer.reducer
-export {fetchProduct,addProduct}
+export {fetchProduct,addProduct,fetchUserProducts}

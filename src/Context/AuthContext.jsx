@@ -8,10 +8,10 @@ export const AuthProvider = ({children})=>{
     const [session,setSession] = useState(undefined)
     const [userProfile,setUserProfile] = useState(undefined)
 
-    const [privacyStatus,setPrivacyStatus] = useState(false)
+    const [privacyStatus,setPrivacyStatus] = useState(null)
 
     const fetchUserProfile = async (userId)=>{
-        const {data , error} = await supabase.from("profiles").select("*").eq("id",userId).single();
+        const {data , error} = await supabase.from("profiles").select("*,user_settings(*)").eq("id",userId).single();
         
     if (error) {
         console.log("Some error occurred while fetching data", error);
@@ -69,6 +69,11 @@ export const AuthProvider = ({children})=>{
             setSession(data.session);
             if (data?.session?.user) {
                 await fetchUserProfile(data.session.user.id); // Await profile fetch here
+                
+                const {error} = await supabase.from("profiles").update({is_online:true}).eq("id",data.session.user.id)
+                
+                if(error) console.error(error)
+                    
             }
         };
     
@@ -78,6 +83,7 @@ export const AuthProvider = ({children})=>{
             setSession(session)
             if(session?.user){
                 fetchUserProfile(session.user.id)
+                
             }else{
                 setUserProfile(null)
             }
@@ -91,6 +97,8 @@ export const AuthProvider = ({children})=>{
         if(error){
             console.log("hey! look an error",error)
         }else{
+            const {error} = await supabase.from("profiles").update({is_online:false}).eq("id",userProfile.id)
+            if(error) console.error(error)
             setSession(undefined);
             setUserProfile(null);
         }

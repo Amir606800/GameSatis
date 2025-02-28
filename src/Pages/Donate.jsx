@@ -4,6 +4,7 @@ import { BsFacebook, BsTwitch, BsYoutube } from "react-icons/bs";
 import Path from "../components/Path";
 import { StreamerContext } from "../Context/StreamerProvider";
 import StreamerCard from "../components/CardCompon/StreamerCard";
+import Loading from "../Addons/Loading";
 
 const Donate = () => {
   const { streamData, searcInput, setSearchInput, filteredStreamer,setFilteredStream } =useContext(StreamerContext);
@@ -84,7 +85,7 @@ const Donate = () => {
       </div>
       <div className="stream-list row g-4 gap-0">
         {!filteredStreamer
-          ? "Loading..."
+          ? <Loading />
           : filteredStreamer.map((item, i) => (
               <StreamerCard
                 key={i}

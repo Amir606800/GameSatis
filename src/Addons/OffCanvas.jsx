@@ -74,8 +74,8 @@ function OffCanvas() {
                           EN UYGUN
                         </span>{" "}
                       </div>
-                      <div className="nav-element rounded-3 w-100" onClick={()=>setShow(false)}>PUBG UC</div>
-                      <div className="nav-element rounded-3 w-100" onClick={()=>setShow(false)}>VALORANT VP</div>
+                      <Link to={"/oyunlar/PUBG-Mobile"} className="nav-element rounded-3 w-100" onClick={()=>setShow(false)}>PUBG UC</Link>
+                      <Link to={"/oyunlar/Valorant"} className="nav-element rounded-3 w-100" onClick={()=>setShow(false)}>VALORANT VP</Link>
                       <div className="nav-element rounded-3 w-100" onClick={()=>setShow(false)}>CS2 SKIN</div>
                       <div className="nav-element rounded-3 w-100" onClick={()=>setShow(false)}>RAZER AL-SAT</div>
                       <div className="nav-element rounded-3 w-100" onClick={()=>setShow(false)}>AÇIK ARTIRMA</div>

@@ -3,7 +3,8 @@ import { CategoryContext } from "../Context/CategoryContext";
 import { UserAuth } from "../Context/AuthContext";
 import slugify from "slugify";
 import { useDispatch, useSelector } from "react-redux";
-import { addProduct, fetchProduct } from "../tools/Slices/CategorySlice";
+import { addProduct, fetchProduct } from "../tools/Slices/UserProductSlice";
+import Swal from "sweetalert2";
 
 const AddElan = () => {
     const { mainCat,subCat, fetchSubCategory } = useContext(CategoryContext);
@@ -50,7 +51,29 @@ const AddElan = () => {
 
     const handleSubmit = (e)=>{
         e.preventDefault()
-        dispatch(addProduct(addedItem))
+        try{
+            dispatch(addProduct(addedItem))
+            Swal.fire({
+                    title: "Succesfull",
+                    text: "Your product succesfully added!",
+                    icon: "success",
+                    background: "#222631", // Custom dark background (optional)
+                    color: "#fff", // Text color for dark theme
+                    confirmButtonText: "OK",
+                    confirmButtonColor: "#3085d6",
+                  });
+        }catch(err){
+            alert(err)
+        }
+
+        setAddedItem((prev)=>({
+            ...prev,
+            title:"",
+            image_url:"",
+            description:"",
+            price:0,
+            stock:1,
+        }))
     }
     return (
         <div className="Ilan-ekle-profile px-2 pb-2">
@@ -72,32 +95,32 @@ const AddElan = () => {
                     </select>}
                     
                     {selSubCat && 
-                    <div className="list_of_inputs d-flex flex-column w-100 gap-2">  
+                    <div className="list_of_inputs d-flex flex-column w-100 gap-3">  
                         
-                        <div className="w-50 d-flex align-items-center gap-3 justify-content-center">
-                            <div className="border-1 border text-center align-content-center" style={{minHeight:"8em"}}>{addedItem.image_url == "" ?<div>Your Photo wiill be displayed here</div>:<img width={200} src={addedItem.image_url} alt={addedItem.title} />}</div>
-                            <div className=" w-100 align-content-end text-center gap-3">
+                        <div className="w-75 d-flex align-items-center gap-3 justify-content-center flex-column flex-lg-row">
+                            <div className="border-1 border text-center align-content-center" style={{minHeight:"8em",minWidth:"8em"}}>{addedItem.image_url == "" ?<div>Your Photo wiill be displayed here</div>:<img width={200} src={addedItem.image_url} alt={addedItem.title} />}</div>
+                            <div className=" w-100 align-content-end text-start ">
 
                             <div className="list-of-inputs-elements ">
                                 <label style={{width:"120px"}} htmlFor="name_prod">Ürünün Adı:</label>
                                 <input type="text" name="title" value={addedItem.title} onChange={handleInputFields} id="name_prod" placeholder="Ürünün Adı: " />
                             </div>
-                            <div className="list-of-inputs-elements mt-4">
+                            <div className="list-of-inputs-elements mt-3 mt-lg-4">
                                 <label style={{width:"120px"}} htmlFor="photo_prod">Ürün fotoğrafı:</label>
                                 <input type="text" name="image_url" value={addedItem.image_url} onChange={handleInputFields} id="photo_prod" placeholder="Ürün fotoğrafı: " />
                             </div>
                             </div>
                         </div>
-                        <div className="list-of-inputs-elements w-50">                            
+                        <div className="list-of-inputs-elements w-75">                            
                             <label htmlFor="price_prod">Ürün Fiyatı:</label>
                             <input type="text" id="price_prod" value={addedItem.price} onChange={handleInputFields} name="price" placeholder="Ürün Fiyatı: "  />
                         </div>
                         
-                        <div className="list-of-inputs-elements w-50">
+                        <div className="list-of-inputs-elements w-75">
                             <label htmlFor="amount_prod">Ürün Sayı: </label>
                             <input type="text" name="stock" value={addedItem.stock} onChange={handleInputFields} placeholder="Ürün Sayı"  />
                         </div>
-                        <div className="list-of-inputs-elements w-50">
+                        <div className="list-of-inputs-elements w-75">
                             <label htmlFor="desc_prod">Ürün Açıklaması:</label>
                             <textarea type="text" name="description" value={addedItem.description} onChange={handleInputFields} id="desc_prod" placeholder="Ürün Açıklaması: " />
                         </div>

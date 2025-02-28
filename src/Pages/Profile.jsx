@@ -8,6 +8,7 @@ import { TfiEmail } from "react-icons/tfi";
 import {  MdOutlineFavorite } from "react-icons/md";
 import { BsClipboard2Plus } from "react-icons/bs";
 import { PiClipboardText } from "react-icons/pi";
+import Loading from "../Addons/Loading";
 
 
 const Profile = React.memo((props) => {
@@ -25,9 +26,10 @@ const Profile = React.memo((props) => {
     }
   }
   if(memoizedUserProfile === undefined || memoizedUserProfile === null){
-    return(<>Loading...</>)
+    return(<Loading />)
   }
-
+  
+  
   const iconPackJSON = [
     {
       title:"Siparisler",
@@ -42,9 +44,9 @@ const Profile = React.memo((props) => {
       icon:<><FaRegMessage className="fs-4" /></>,
       link:"siparislerim"
     },{
-      title:"İlanlar",
+      title:"İlanlarım",
       icon:<><PiClipboardText className="fs-4" /></>,
-      link:"siparislerim"
+      link:"ilanlarim"
     },{
       title:"İlan Ekle",
       icon:<><BsClipboard2Plus className="fs-4" /></>,

@@ -57,9 +57,13 @@
   }
 }
 .scroll-nav-head-top{
-  ::-webkit-scrollbar{
-    display: none;
-  }
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+}
+
+.scroll-nav-head-top::-webkit-scrollbar{
+  display: none;
 }
 .nav-head-top {
   transform: translate(0%, -350%);

@@ -20,6 +20,7 @@ import Productlar from "./Pages_Category/Productlar";
 import Informations from "./Pages_Dashboard/Informations";
 import Siparisler from "./Pages_Dashboard/Siparisler"; 
 import AddElan from "./Pages_Dashboard/AddElan";
+import ListElan from "./Pages_Dashboard/ListElan";
 
 function App() {
   return (
@@ -64,6 +65,14 @@ function App() {
               </Wrapper>
             }
           ></Route>
+          <Route
+            path="/ilanlarim"
+            element={
+              <Wrapper>
+                <Profile section={<ListElan />} />
+              </Wrapper>
+            }
+          ></Route>
 
           <Route
             path="/giris-yap"
@@ -72,7 +81,7 @@ function App() {
           <Route path="/sifremi-unuttum" element={<ForgotPassword />}></Route>
           <Route path="/email-confirm" element={<EmailConfirmation />}></Route>
           {""}
-          <Route path="/*" element={<NotFoundPage />}></Route>
+          <Route path="*" element={<NotFoundPage />}></Route>
         </Routes>
         <Footer />
       </BrowserRouter>

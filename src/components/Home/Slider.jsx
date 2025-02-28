@@ -30,22 +30,22 @@ const Slider = () => {
         loop={true}
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
-        style={{height:"fit-content",maxHeight:"90vh",overflow:"hidden"}}
+        style={{maxHeight:"30vw",minHeight:"8em",height:"20em",overflow:"hidden"}}
       >
         <SwiperSlide>
           <img src="https://img.gamesatis.com/slider/1501/razergold-bizesat-39570.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1514/banner_pubg_semaviasi-2449.webp" />
+          <img src="https://img.gamesatis.com/slider/1529/banner_ko_pusindirimleri_v2-50324.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1513/banner_valorant_helezon-20579.webp" />
+          <img src="https://img.gamesatis.com/slider/1525/banner_mlbb_kof_v2-62819.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img  src="https://img.gamesatis.com/slider/1517/banner_lol_efsanebaz_v2-23560.webp" />
+          <img  src="https://img.gamesatis.com/slider/1527/banner_pubg_boxerbolt_v2-2181.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1518/banner_cs2_seckinmodu-29889.webp" />
+          <img src="https://img.gamesatis.com/slider/1524/banner_lol_maskeliadalet-91907.webp" />
         </SwiperSlide>
         <SwiperSlide>
           <img src="https://img.gamesatis.com/slider/1467/wartune-ultra-elmas-24669.webp" />

@@ -1,6 +1,6 @@
 import { Accordion } from "react-bootstrap";
 import { UserAuth } from "../Context/AuthContext";
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { LuSquarePen, LuUserRound } from "react-icons/lu";
 import { FaEyeSlash } from "react-icons/fa6";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
@@ -28,6 +28,24 @@ const Informations = () => {
     }
   };
 
+  const handlePrivacy = async ()=>{
+    if(privacyStatus == true) {
+      setPrivacyStatus(false)
+      // const {data,error} = await supabase.from("user_settings").update({"privacy_status":false}).eq("user_setting_id",mUserProfile.id)
+      // if(error) console.error(error)
+      // console.log(data)
+    }
+    else{
+      setPrivacyStatus(true)
+      // const {data,error} = await supabase.from("user_settings").update({"privacy_status":true}).eq("user_setting_id",mUserProfile.id)
+      // if(error) console.error(error)
+      //   console.log(data)
+    };
+  }
+  // useEffect(()=>{
+  //   setPrivacyStatus(mUserProfile.user_settings.privacy_status)
+
+  // },[])
   return (
     <div className="Information-profile text-center d-flex justify-content-center align-items-start h-100 ">
       <Accordion
@@ -173,11 +191,7 @@ const Informations = () => {
               </div>
               <div className="d-flex gap-4 w-100 justify-content-center">
                 <button
-                  onClick={() => {
-                    privacyStatus == true
-                      ? setPrivacyStatus(false)
-                      : setPrivacyStatus(true);
-                  }}
+                  onClick={handlePrivacy}
                   className="Privacy-button Profile_input_fields w-50 h-100 rounded-2 text-end text-center px-3"
                 >
                   <FaEyeSlash /> Kişisel Bilgileri Gizle{" "}
@@ -229,11 +243,11 @@ const Informations = () => {
                   />
 
                   <input
-                    className="Profile_input_fields w-100 h-100 rounded-2 text-end "
+                    className={`Profile_input_fields w-100 h-100 rounded-2 text-end ${mUserProfile.user_settings.email_entry?"text-success":"text-danger"}`}
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={session.user.email}
+                    value={mUserProfile.user_settings.email_entry?"Açık":"Kapalı"}
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
@@ -251,11 +265,11 @@ const Informations = () => {
                     modalNum={3}
                   />
                   <input
-                    className="Profile_input_fields w-100 h-100 rounded-2 text-end "
+                    className={`Profile_input_fields w-100 h-100 rounded-2 text-end ${mUserProfile.user_settings.sms_entry?"text-success":"text-danger"}`}
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={" Kapali "}
+                    value={mUserProfile.user_settings.sms_entry?"Açık":"Kapalı"}
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
@@ -285,11 +299,11 @@ const Informations = () => {
                     modalNum={4}
                   />
                   <input
-                    className="Profile_input_fields w-100 h-100 rounded-2 text-end "
+                    className={`Profile_input_fields w-100 h-100 rounded-2 text-end ${mUserProfile.user_settings.sms_notification?"text-success":"text-danger"}`}
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={"Acik"}
+                    value={mUserProfile.user_settings.sms_notification?"Açık":"Kapalı"}
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
@@ -305,11 +319,11 @@ const Informations = () => {
                     modalNum={5}
                   />
                   <input
-                    className="Profile_input_fields w-100 h-100 rounded-2 text-end"
+                    className={`Profile_input_fields w-100 h-100 rounded-2 text-end ${mUserProfile.user_settings.email_notifications?"text-success":"text-danger"}`}
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={"Acik"}
+                    value={mUserProfile.user_settings.email_notifications?"Açık":"Kapalı"}
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
@@ -388,6 +402,7 @@ const ModalForRadio = React.memo((props) => {
                       name="emailPreference"
                       style={{ transform: "scale(1.4)", accentColor: "red" }}
                       defaultChecked
+                      
                     />
                   </label>
                 </div>

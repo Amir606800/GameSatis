@@ -3,7 +3,7 @@ import { GoVerified } from "react-icons/go";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
 
-const ProductCard = ({ main, vitrinIndex }) => {
+const ProductCard = ({listed, main, vitrinIndex }) => {
   const shadows = [
     {
       // Turquoise
@@ -79,12 +79,15 @@ const ProductCard = ({ main, vitrinIndex }) => {
             )}
 
             <img src={main.image_url} alt={main.title} className="w-100" />
-            <div
+            {listed
+            ?" "
+            :<div
               className="manufacturer z-1 fw-bold rounded-2 position-absolute bg-white px-5 start-50 translate-middle-x text-success"
-              style={{ bottom: "-10px" }}
+              style={{ bottom: "-10px",width:"100%" }}
             >
-              XEOSPIN
-            </div>
+              {main.is_vitrin?main.profiles.display_name:<div className="d-flex flex-row w-100 py-2" style={{fontSize:"12px"}}>{main.title.substring(0,20)}</div> }
+            </div>}
+            
             <div className="details position-absolute h-100 translate-middle justify-content-center align-items-center top-50 start-50 w-100">
               <div className=" bg-white text-black py-1 px-2 rounded-2 fw-bold z-2">
                 Detaylar

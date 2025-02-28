@@ -1,38 +1,38 @@
 // Detail Page responsivness
-@media (max-width:1060px) {
-    // For Tablet Screens
-    .detail-page{
-      .area {
-        grid-template-areas:
-          "description"
-          "image "
-          "creator "
-          "information"
-          "payment";
-        grid-template-columns: 1fr; 
-        grid-template-rows: auto;
-        gap: 15px; /* Optional: Adjust spacing */
-  
-        #teslimat{
-          font-size: 80%
+@media (max-width: 1060px) {
+  // For Tablet Screens
+  .detail-page {
+    .area {
+      grid-template-areas:
+        "description"
+        "image "
+        "creator "
+        "information"
+        "payment";
+      grid-template-columns: 1fr;
+      grid-template-rows: auto;
+      gap: 15px; /* Optional: Adjust spacing */
+
+      #teslimat {
+        font-size: 80%;
       }
-      .share-buton,.heart-buton{
-          font-size: 11px;
-          height: 3em;
-          text-align: center;
-          align-content: center;
-          i{
-            @extend .share-buton;
-          }
+      .share-buton,
+      .heart-buton {
+        font-size: 11px;
+        height: 3em;
+        text-align: center;
+        align-content: center;
+        i {
+          @extend .share-buton;
+        }
       }
-      .information{
-        
-        .boxes-info{
+      .information {
+        .boxes-info {
           padding-top: 10px;
           padding-bottom: 10px;
         }
       }
-      .payment{
+      .payment {
         position: fixed;
         bottom: 0;
         z-index: 10000;
@@ -45,100 +45,109 @@
         padding-bottom: 5px;
         padding-top: 3px;
       }
-      }
-    }
-  
-  }
-  //For Smartphone screens
-  @media (max-width:600px){
-      .description{
-        .heart-buton{
-          width: 8em;
-        }
-      }
-      .information {
-        .box-headings{
-          font-size: small !important;
-          padding-left: 5px;
-          padding-right: 5px;
-        }
-        .boxes-info{
-            font-size: smaller;
-        }
     }
   }
+}
+//For Smartphone screens
+@media (max-width: 600px) {
+  .description {
+    .heart-buton {
+      width: 8em;
+    }
+  }
+  .information {
+    .box-headings {
+      font-size: small !important;
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+    .boxes-info {
+      font-size: smaller;
+    }
+  }
+}
 
 //Header responsiveness for smaller screens
-  @media (max-width:991px) {
-    .nav-head-top {
-      animation: slide_top 0.5s forwards;
-  
-    }
-    .mid-head {
-      grid-template-areas: 
+@media (max-width: 991px) {
+  .nav-head-top {
+    animation: slide_top 0.5s forwards;
+  }
+  .mid-head {
+    grid-template-areas:
       "account"
       "logo"
-      "search"
-      ;
-      grid-template-columns: 1fr;
-      grid-template-rows: auto;
-      justify-content: center;
+      "search";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    justify-content: center;
+  }
+  .grid-logo {
+    img {
+      width: 7em;
+    }
+    span {
+      font-size: smaller;
+    }
+  }
+}
+
+.User-Profile {
+  .area {
+    @media (max-width: 1200px) {
+      .siparisler-accordion-body {
+        .image-cont {
+          align-items: center;
+          justify-content: center;
+          img {
+            width: 50%;
+          }
+        }
+      }
+    }
+
+    @media (max-width: 991px) {
+      .right {
+        width: 100% !important;
+        .Information-profile {
+          .Wrapped-div {
+            flex-wrap: wrap !important;
+          }
+        }
+        .siparisler-accordion-body {
+          .image-cont {
+            align-items: center;
+            justify-content: center;
+            img {
+              width: 60%;
+              min-width: 8em;
+            }
+            .content{
+              
+              .left{
+                justify-content: center  !important;
+                flex-direction: column !important;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    @media (max-width: 767px) {
+      .Information-profile {
+        .Wrapped-div {
+          flex-wrap: nowrap !important;
+        }
+      }
       
     }
-    .grid-logo{
-      img{
-        width: 7em;
-      }
-      span{
-        font-size: smaller ;
+
+    @media (max-width:655px) {
+      .Information-profile {
+        .Wrapped-div {
+          flex-wrap: wrap !important;
+        }
       }
     }
   }
-
-  // Profile section Responisveness
-  @media (max-width:991px) {
-    .User-Profile{
-        .area{
-            .right{
-                width: 100% !important;
-                .Information-profile{
-                  .Wrapped-div{
-                    
-                    flex-wrap: wrap !important;
-                  }
-                }
-            }
-        }
-    }
-    
-}
-@media (max-width:767px){
-  .User-Profile{
-    .area{
-        .right{
-            .Information-profile{
-              .Wrapped-div{
-             
-                flex-wrap: nowrap !important;
-              }
-            }
-        }
-    }
-}
-}
-@media (max-width:655px) {
-  .User-Profile{
-    .area{
-        .right{
-            .Information-profile{
-              .Wrapped-div{
-                flex-wrap: wrap !important;
-              }
-              .Siparisler-profile{
-                
-              }
-            }
-        }
-    }
-}
 }

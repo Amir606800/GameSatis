@@ -14,15 +14,16 @@ import { BsShieldFillCheck } from "react-icons/bs";
 import Lent from "../components/Lent";
 import { MdOutlineCancel } from "react-icons/md";
 import Loading from "../Addons/Loading";
+import NotFoundPage from "./NotFoundPage";
 
 export const ProductDetails = () => {
-  const { products,fetchCreatorInfo,loading } = useContext(ProductContext);
+  const { products,loading } = useContext(ProductContext);
   const { slugName } = useParams();
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
   ); 
-  if (!foundedProduct) return <Loading />;
   if (loading) return <Loading />;
+  if (!foundedProduct) return <NotFoundPage />;
   
   const lastModified = new Date(foundedProduct.last_modified); // assuming product.last_modified is a timestamp
   const formattedDate = lastModified.toLocaleDateString('en-GB');
@@ -144,8 +145,12 @@ export const ProductDetails = () => {
               </div>
             </div>
             <div className="status">
-              <GoDotFill color="green" />
-              <span style={{ fontSize: "14px" }}>Çevrimiçi</span>
+              {foundedProduct.profiles.is_online
+              ?<><GoDotFill color="green" />
+              <span style={{ fontSize: "14px" }}>Çevrimiçi</span></>
+              :<><GoDotFill color="red" />
+              <span style={{ fontSize: "14px" }}>Çevrimdışı</span></>}
+              
             </div>
           </div>
           <div className="payment d-flex flex-column align-items-center justify-content-between  area-part">

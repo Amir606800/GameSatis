@@ -10,6 +10,7 @@ import {StreamerContext}  from "../Context/StreamerProvider";
 import { Link } from "react-router-dom";
 import InfiniteSlider from "../components/Home/InfiniteSlider";
 import { ProductContext } from "../Context/ProductsProvider";
+import Loading from "../Addons/Loading";
  
 const Home = () => {
   const {streamData} = useContext(StreamerContext);
@@ -89,7 +90,7 @@ const Home = () => {
           </Link>
           <div className="row g-3 mt-1">
             {!streamData
-              ? "Loading..."
+              ? <Loading />
               : streamData
                   .slice(0, 6)
                   .map((item, i) => (
