@@ -139,7 +139,7 @@ const Profile = React.memo((props) => {
           </div>
         </div>
 
-        <div className="right px-2 mt-md-0 mt-4 " style={{ width: "78%",minHeight:"24em", maxHeight:"100em",height:"100%" }}>
+        <div className="right px-2 mt-md-0 mt-4 " style={{ width: "78%",minHeight:"24em", maxHeight:"fit-content",height:"100%" }}>
           {props.section}
         </div>
       </div>

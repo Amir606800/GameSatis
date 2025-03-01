@@ -8,7 +8,7 @@ import { BiHeart, BiSolidDislike, BiSolidLike } from "react-icons/bi";
 import { BsLightningChargeFill } from "react-icons/bs";
 
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import { FaCircleCheck } from "react-icons/fa6";
+import { FaCircleCheck, FaStar } from "react-icons/fa6";
 import { GoDotFill } from "react-icons/go";
 import { BsShieldFillCheck } from "react-icons/bs";
 import Lent from "../components/Lent";
@@ -17,17 +17,17 @@ import Loading from "../Addons/Loading";
 import NotFoundPage from "./NotFoundPage";
 
 export const ProductDetails = () => {
-  const { products,loading } = useContext(ProductContext);
+  const { products, loading } = useContext(ProductContext);
   const { slugName } = useParams();
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
-  ); 
+  );
   if (loading) return <Loading />;
   if (!foundedProduct) return <NotFoundPage />;
-  
+
   const lastModified = new Date(foundedProduct.last_modified); // assuming product.last_modified is a timestamp
-  const formattedDate = lastModified.toLocaleDateString('en-GB');
-  console.log(foundedProduct)
+  const formattedDate = lastModified.toLocaleDateString("en-GB");
+  console.log(foundedProduct);
   return (
     <>
       <Path />
@@ -50,7 +50,7 @@ export const ProductDetails = () => {
                 style={{ fontSize: "13px", whiteSpace: "preserve-breaks" }}
                 className="aciklama"
               >
-                {foundedProduct.description.substring(0, 180) + "..."}
+                {foundedProduct.description.substring(0, 160) + "..."}
               </div>
             </div>
             <div
@@ -108,7 +108,12 @@ export const ProductDetails = () => {
               />
               <div>
                 <span className="h5">
-                {foundedProduct.profiles.display_name} {foundedProduct.profiles.is_verified?<FaCircleCheck className="text-info" />:""}
+                  {foundedProduct.profiles.display_name}{" "}
+                  {foundedProduct.profiles.is_verified ? (
+                    <FaCircleCheck className="text-info" />
+                  ) : (
+                    ""
+                  )}
                 </span>
                 <div className="d-flex justify-content-center align-items-center gap-2">
                   <div
@@ -145,12 +150,17 @@ export const ProductDetails = () => {
               </div>
             </div>
             <div className="status">
-              {foundedProduct.profiles.is_online
-              ?<><GoDotFill color="green" />
-              <span style={{ fontSize: "14px" }}>Çevrimiçi</span></>
-              :<><GoDotFill color="red" />
-              <span style={{ fontSize: "14px" }}>Çevrimdışı</span></>}
-              
+              {foundedProduct.profiles.is_online ? (
+                <>
+                  <GoDotFill color="green" />
+                  <span style={{ fontSize: "14px" }}>Çevrimiçi</span>
+                </>
+              ) : (
+                <>
+                  <GoDotFill color="red" />
+                  <span style={{ fontSize: "14px" }}>Çevrimdışı</span>
+                </>
+              )}
             </div>
           </div>
           <div className="payment d-flex flex-column align-items-center justify-content-between  area-part">
@@ -182,8 +192,10 @@ export const ProductDetails = () => {
                 </div>
                 <span style={{ fontWeight: "bolder", fontSize: "27px" }}>
                   <p>
-                    {(foundedProduct.price -
-                      (foundedProduct.price * foundedProduct.discount) / 100).toFixed(2,0)}
+                    {(
+                      foundedProduct.price -
+                      (foundedProduct.price * foundedProduct.discount) / 100
+                    ).toFixed(2, 0)}
                     TL
                   </p>
                 </span>
@@ -204,7 +216,7 @@ export const ProductDetails = () => {
             </div>
           </div>
         </div>
-        <div className="card my-3 border-0">
+        <div className="card my-3 border-0 bg-dark">
           <div className="card-head">
             <Lent
               back={"https://www.gamesatis.com/assets/header-bg-icon-game.png"}
@@ -216,6 +228,102 @@ export const ProductDetails = () => {
             {foundedProduct.description}
           </div>
         </div>
+        <div className="card my-3 border-0 bg-dark">
+          <div className="card-head p-3 h3 fw-bolder">Kullanıcı yorumları</div>
+          <hr />
+          <div className="card-body d-flex gap-2" style={{ whiteSpace: "preserve-breaks" }}>
+            <img
+              width={200}
+              src={foundedProduct.image_url}
+              alt={foundedProduct.title}
+            />
+            <div className="stars d-flex flex-column gap-2">
+              <div>
+                <span>
+                  <FaStar style={{ color: "#6395EE" }} />{" "}
+                  <FaStar style={{ color: "#6395EE" }} />{" "}
+                  <FaStar style={{ color: "#6395EE" }} />{" "}
+                  <FaStar style={{ color: "#6395EE" }} />{" "}
+                  <FaStar style={{ color: "#6395EE" }} />{" "}
+                </span>
+                <span>Mükemmel</span>
+              </div>
+              <div>
+                <span>
+                  <FaStar style={{ color: "#6395EE" }} />{" "}
+                  <FaStar style={{ color: "#6395EE" }} />{" "}
+                  <FaStar style={{ color: "#6395EE" }} />{" "}
+                  <FaStar style={{ color: "#6395EE" }} />{" "}
+                  <FaStar style={{ color: "white" }} />{" "}
+                </span>
+                <span>Çok İyi</span>
+              </div>
+              <div>
+                <span>
+                  <FaStar style={{ color: "#6395EE" }} />{" "}
+                  <FaStar style={{ color: "#6395EE" }} />{" "}
+                  <FaStar style={{ color: "#6395EE" }} />{" "}
+                  <FaStar style={{ color: "white" }} />{" "}
+                  <FaStar style={{ color: "white" }} />{" "}
+                </span>
+                <span>İyi</span>
+              </div>
+              <div>
+                <span>
+                  <FaStar style={{ color: "#6395EE" }} />{" "}
+                  <FaStar style={{ color: "#6395EE" }} />{" "}
+                  <FaStar style={{ color: "white" }} />{" "}
+                  <FaStar style={{ color: "white" }} />{" "}
+                  <FaStar style={{ color: "white" }} />{" "}
+                </span>
+                <span>Kötü</span>
+              </div>
+              <div>
+                <span>
+                  <FaStar style={{ color: "#6395EE" }} />{" "}
+                  <FaStar style={{ color: "white" }} />{" "}
+                  <FaStar style={{ color: "white" }} />{" "}
+                  <FaStar style={{ color: "white" }} />{" "}
+                  <FaStar style={{ color: "white" }} />{" "}
+                </span>{" "}
+                <span>Çok Kötü</span>
+              </div>
+            </div>
+            <div className="lines d-flex flex-column gap-2 w-100" style={{maxWidth:"65%"}}>
+              <div className="mukemmel w-100 bg-info">a</div>
+              <div className="cok-iyi w-100 bg-info">a</div>
+              <div className="iyi w-100 bg-info">a</div>
+              <div className="kotu w-100 bg-info">a</div>
+              <div className="cok-kotu w-100 bg-info">a</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Yorumlarin bulundugu hisse */}
+        {foundedProduct.feedbacks.map((item, index) => (
+          <div key={index} className="card my-3 border-0 bg-dark">
+            <div className="card-head">
+              <Lent
+                back={
+                  "https://www.gamesatis.com/assets/header-bg-icon-comment.png"
+                }
+                leftHead={
+                  <>
+                    {item.profiles.first_name} {item.profiles.last_name[0]}.
+                  </>
+                }
+                rightHead={item.rate}
+              />
+            </div>
+            <hr />
+            <div
+              className="card-body"
+              style={{ whiteSpace: "preserve-breaks" }}
+            >
+              {item.content}
+            </div>
+          </div>
+        ))}
       </div>
     </>
   );

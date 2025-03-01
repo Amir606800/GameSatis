@@ -25,6 +25,21 @@ const addProduct = createAsyncThunk(
     }
 )
 
+const deleteProduct = createAsyncThunk(
+    "deleteProduct",async(product_id, {rejectWithValue})=>{
+        const {error} = await supabase.from("products").delete().eq("id",product_id)
+        if(!error) return product_id
+        return rejectWithValue(error)
+    }
+)
+
+const updateProduct = createAsyncThunk(
+    "updateProduct",async(item,{rejectWithValue})=>{
+        const {data,error} =await supabase.from("products").update(item).eq("id",item.id).select()
+        if(!error) return data[0]
+        return rejectWithValue(error)
+    }
+)
 const initialState = {
     products:[],
     userProducts:[],
@@ -77,8 +92,35 @@ const ProductSlicer = createSlice({
             state.loading = true
             state.error = action.payload
         })
+
+        //DeletingProduct
+        .addCase(deleteProduct.pending,(state)=>{
+            state.loading = true
+        })
+        .addCase(deleteProduct.fulfilled,(state,action)=>{
+            state.loading = false;
+            state.products = state.products.filter((product)=>product.id !== action.payload.id)
+        })
+        .addCase(deleteProduct.rejected,(state,action)=>{
+            state.loading = true
+            state.error = action.payload
+        })
+
+        //UpdatingProduct
+        .addCase(updateProduct.pending,(state)=>{
+            state.loading = true
+        })
+        .addCase(updateProduct.fulfilled,(state,action)=>{
+            state.loading = false;
+            state.products = state.products.map((product)=>product.id === action.payload.id ? action.payload:product)
+            
+        })
+        .addCase(updateProduct.rejected,(state,action)=>{
+            state.loading = true
+            state.error = action.payload
+        })
     }
 })
 
 export default ProductSlicer.reducer
-export {fetchProduct,addProduct,fetchUserProducts}
+export {fetchProduct,addProduct,fetchUserProducts,deleteProduct,updateProduct}

@@ -62,7 +62,6 @@ const Login = (props) => {
     }
 
     resetInputFields();
-    props.handleClose();
   };
   return (
     <>

@@ -59,12 +59,12 @@
 .scroll-nav-head-top{
   scrollbar-width: none;
   -ms-overflow-style: none;
+  ::-webkit-scrollbar{
+    display: none;
+  }
 
 }
 
-.scroll-nav-head-top::-webkit-scrollbar{
-  display: none;
-}
 .nav-head-top {
   transform: translate(0%, -350%);
   animation: slide_top 1.3s forwards;

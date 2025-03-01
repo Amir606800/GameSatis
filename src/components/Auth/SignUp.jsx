@@ -58,20 +58,23 @@ const SignUpSec = (props) => {
     
     if (result.success) {
     const user = result.data.user;
+    const {data: userSettingsData, error:userSettingsError} = await supabase.from("user_settings").insert([{user_setting_id:user.id}]).select("id").single()
+    if (userSettingsError) {
+      console.error("Error inserting into user_settings:", userSettingsError);
+      return;
+    }
+    
     const { profileError } = await supabase.from("profiles").insert([
       {
         id: user.id, 
         first_name: firstName,
         last_name: lastName,
-        display_name: `${firstName} ${lastName}`, 
+        display_name: `${firstName} ${lastName}`,
+        settings_id:userSettingsData.id 
       },
     ]);
-    const {user_settings_error} = await supabase.from("user_settings").insert([
-      {
-        user_setting_id:user.id
-      }
-    ])
-    if (profileError || user_settings_error) {
+    
+    if (profileError || userSettingsError) {
       Swal.fire({
         title: 'Error occured while creating the account!',
         text: profileError.message,

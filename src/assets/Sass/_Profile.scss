@@ -19,7 +19,6 @@
     .Ilan-ekle-profile {
       width: 100%;
       .list_of_inputs {
-        
         justify-content: center;
         align-items: center;
         .list-of-inputs-elements {
@@ -124,4 +123,31 @@
       }
     }
   }
+
+}
+.modal-open{
+  justify-content: center;
+      align-items: center;
+      .list-of-inputs-elements {
+        
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap:10px;
+        
+        input,textarea {
+          padding: 12px;
+          font-size: 12px;
+          font-weight: bold;
+          background-color: #171a21;
+          outline: none;
+          border: none;
+          border-radius: 10px;
+        }
+        textarea{
+          width: 70%;
+          min-height: 7em;
+          max-height: 14em;
+        }
+      }
 }

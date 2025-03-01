@@ -11,7 +11,7 @@ export const ProductsProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchAllTheProducts = async()=>{
-      const {data,error} = await supabase.from("products").select("*,profiles( * ),categories( * )")
+      const {data,error} = await supabase.from("products").select("*,profiles( * ),feedbacks(rate ,content, profiles(first_name,last_name))")
       if(!error) {setProducts(data);setLoading(false)}
         else {setLoading(true)}
     }  
