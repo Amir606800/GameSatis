@@ -21,6 +21,7 @@ import Informations from "./Pages_Dashboard/Informations";
 import Siparisler from "./Pages_Dashboard/Siparisler"; 
 import AddElan from "./Pages_Dashboard/AddElan";
 import ListElan from "./Pages_Dashboard/ListElan";
+import Cart from "./Pages/Cart";
 
 function App() {
   return (
@@ -81,6 +82,8 @@ function App() {
           <Route path="/sifremi-unuttum" element={<ForgotPassword />}></Route>
           <Route path="/email-confirm" element={<EmailConfirmation />}></Route>
           {""}
+          <Route path="/cart" element={<Cart />}></Route>
+
           <Route path="*" element={<NotFoundPage />}></Route>
         </Routes>
         <Footer />

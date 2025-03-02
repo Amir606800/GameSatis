@@ -30,13 +30,13 @@ function OffCanvas() {
       >
         <Offcanvas.Header closeButton>
           <Offcanvas.Title className="w-100" style={{height:"2em"}}>
-            <div
+            <Link to="/cart"
               className="cart fs-6 px-2 py-1  h-100 rounded-3 text-center align-content-center custom-cursor-hover"
               style={{ background: "none",border:"2px solid #FF5F1F",color:'#FF5F1F',width:"96%" }}
             >
               <FaCartShopping />{" "}
               <span style={{ fontWeight: "bolder" }}>Sepet</span>
-            </div>
+            </Link>
             
           </Offcanvas.Title>
         </Offcanvas.Header>

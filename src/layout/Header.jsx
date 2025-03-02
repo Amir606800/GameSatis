@@ -102,18 +102,18 @@ const Header = () => {
                   <Authentication />
                 )}
               </div>
-              <div className="cart  fs-4 d-none d-lg-block ">
+              <Link to={"/cart"} className="cart  fs-4 d-none d-lg-block ">
                 <FaCartShopping />
-              </div>
+              </Link>
               <div className="d-flex gap-4 d-lg-none">
                 {userProfile ? (
-                  <div
+                  <Link to={"/cart"}
                     className="cart fs-6 px-2 py-1 text-center align-content-center rounded-3"
                     style={{ backgroundColor: "#FF5F1F" }}
                   >
                     <FaCartShopping />{" "}
                     <span style={{ fontWeight: "bolder" }}>Sepet</span>
-                  </div>
+                  </Link>
                 ) : (
                   <Authentication />
                 )}

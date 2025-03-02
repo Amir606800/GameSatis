@@ -1,3 +1,5 @@
+$darker-background:#171a21;
+
 .prod-card{
     transition:  .15s;
     cursor: pointer;
@@ -28,4 +30,40 @@
     .details{
         display: flex;
     }
+}
+
+
+.cart-page{
+    .cart-row{
+        display: grid;
+        grid-template-areas: 
+        "image content content"
+        "image content content";
+        grid-template-columns:15em 1fr 1fr ;
+        grid-auto-rows: auto;
+        gap:10px;
+    }
+    .image-grid{
+        grid-area: image;
+        
+    }
+    .content-grid{
+        grid-area: content;
+        
+    }
+    .final-grid{
+        grid-area: final;
+    }
+    .amount{
+        background-color: rgba(28, 32, 40, 0.9);
+        width: 84%;
+        .ingredients{
+          background-color: $darker-background;
+          width: 100%;
+          border-radius: 3px;
+          .decrease,.increase{
+            background-color: #222631;
+          }
+        }
+      }
 }
