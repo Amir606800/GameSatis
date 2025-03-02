@@ -35,7 +35,7 @@ const deleteProduct = createAsyncThunk(
 
 const updateProduct = createAsyncThunk(
     "updateProduct",async(item,{rejectWithValue})=>{
-        const {data,error} =await supabase.from("products").update(item).eq("id",item.id).select()
+        const {data,error} =await supabase.from("products").update({...item,last_modified: new Date().toISOString()}).eq("id",item.id).select()
         if(!error) return data[0]
         return rejectWithValue(error)
     }

@@ -6,7 +6,7 @@
       "image image image description description description description creator creator"
       "image image image description description description description creator creator"
       "image image image information information information information payment payment";
-    grid-template-columns: repeat(9.9, 1fr); /* 9 equal-width columns */
+    grid-template-columns: repeat(7, 1fr); 
     grid-template-rows: auto;
     gap: 15px; /* Optional: Adjust spacing */
   }
@@ -22,6 +22,20 @@
     grid-area: image;
     border-radius: 7px;
     overflow: hidden;
+    max-width: 30em;
+    align-content: center;
+    display: block;
+      margin: auto;
+    img{
+      
+      width: 100%;
+    }
+    .aninda{
+      background-color: green;
+      top: 10px;
+      left:10px;
+      font-size: 13px;
+    }
   }
 
   .description {

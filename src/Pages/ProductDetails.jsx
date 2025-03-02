@@ -1,11 +1,11 @@
 import { useParams } from "react-router-dom";
 import Path from "../components/Path";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { ProductContext } from "../Context/ProductsProvider";
 import slugify from "slugify";
 import { IoEyeOutline, IoShareSocialSharp } from "react-icons/io5";
 import { BiHeart, BiSolidDislike, BiSolidLike } from "react-icons/bi";
-import { BsLightningChargeFill } from "react-icons/bs";
+import { BsLightning, BsLightningChargeFill } from "react-icons/bs";
 
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { FaCircleCheck, FaStar } from "react-icons/fa6";
@@ -15,6 +15,7 @@ import Lent from "../components/Lent";
 import { MdOutlineCancel } from "react-icons/md";
 import Loading from "../Addons/Loading";
 import NotFoundPage from "./NotFoundPage";
+import supabase from "../helpers/supabaseClient";
 
 export const ProductDetails = () => {
   const { products, loading } = useContext(ProductContext);
@@ -22,23 +23,41 @@ export const ProductDetails = () => {
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
   );
+
+  useEffect(()=>{
+    if(foundedProduct){
+      const visitUpdate = async ()=>{
+        const {data,error} = await supabase.from("products").update({visits: foundedProduct.visits+1}).eq("id",foundedProduct.id)
+        if(error) {console.log(error); return }
+        else console.log(data)  
+      } 
+      visitUpdate()
+    }
+  },[foundedProduct])
+  
+  const targetRef = useRef()
   if (loading) return <Loading />;
   if (!foundedProduct) return <NotFoundPage />;
-
+  
   const lastModified = new Date(foundedProduct.last_modified); // assuming product.last_modified is a timestamp
   const formattedDate = lastModified.toLocaleDateString("en-GB");
-  console.log(foundedProduct);
+  const handleScroll = ()=>{
+    targetRef.current?.scrollIntoView({behaviour:"smooth"})
+  }
   return (
     <>
       <Path />
       <div className="detail-page container-fluid my-4">
         <div className="area">
-          <div className="image position-relative">
+          <div className="image position-relative text-center align-items-center justify-content-center">
             <img
               src={foundedProduct.image_url} //Item image
               alt={foundedProduct.title}
-              style={{ height: "100%", width: "100%", minWidth: "50%" }}
+              
             />
+            {foundedProduct.deliver_time == 0?
+            <div className="aninda position-absolute p-1 rounded-3"> <BsLightningChargeFill /> Aninda Teslim</div>
+            :<></>}
           </div>
           <div className="description d-flex flex-column justify-content-between align-items-start area-part h-100 gap-5">
             <div className="h-100">
@@ -66,21 +85,24 @@ export const ProductDetails = () => {
                 </div>
               </div>
 
-              <span id="teslimat" className="px-3 ">
-                Teslimat: {foundedProduct.deliver_time} Saat İçinde Gerçekleşir
-              </span>
+              {foundedProduct.deliver_time !== 0
+              ?<span id="teslimat" className="px-3 ">
+              Teslimat: {foundedProduct.deliver_time} Saat İçinde Gerçekleşir
+            </span>
+            :<div style={{cursor:"pointer"}} onClick={handleScroll}>Devam et...</div>}
+              
             </div>
           </div>
           <div className="information area-part d-flex flex-wrap flex-sm-nowrap gap-4 flex-row justify-content-around">
             <div className="boxes-info w-100 d-flex flex-sm-column justify-content-center align-items-center">
               <span className="box-headings">İlan No:</span>
-              <span className="fw-bold">#12344</span>
+              <span className="fw-bold">#{foundedProduct.id}</span>
             </div>
             <div className="boxes-info w-100 d-flex  flex-sm-column justify-content-center align-items-center">
               <span className="box-headings">Görülme: </span>
               <span className="fw-bold d-flex justify-content-center align-items-center gap-1">
                 <IoEyeOutline />
-                455
+                {foundedProduct.visits}
               </span>
             </div>
             <div className="boxes-info w-100 d-flex  flex-sm-column justify-content-center align-items-center">
@@ -216,7 +238,7 @@ export const ProductDetails = () => {
             </div>
           </div>
         </div>
-        <div className="card my-3 border-0 bg-dark">
+        <div ref={targetRef} className="card my-3 border-0 bg-dark">
           <div className="card-head">
             <Lent
               back={"https://www.gamesatis.com/assets/header-bg-icon-game.png"}
@@ -224,7 +246,7 @@ export const ProductDetails = () => {
               rightHead={""}
             />
           </div>
-          <div className="card-body" style={{ whiteSpace: "preserve-breaks" }}>
+          <div  className="card-body bottom-description" style={{ whiteSpace: "preserve-breaks" }}>
             {foundedProduct.description}
           </div>
         </div>

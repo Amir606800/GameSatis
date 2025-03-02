@@ -1,17 +1,20 @@
 import React, { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { FaPen } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateProduct } from "../tools/Slices/UserProductSlice";
 import Swal from "sweetalert2";
 
 const EditModal = ({ listed, mainItem }) => {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [initialState,setInitialState] = useState(mainItem)
   const dispatch = useDispatch()
+
+
+  const isNumber = (entit)=> !isNaN(entit) &&  !isNaN(parseFloat(entit));
+
   const handleInputFields = (e)=>{
     setInitialState({...initialState,[e.target.name]:e.target.value})
     console.log(initialState)
@@ -22,10 +25,10 @@ const EditModal = ({ listed, mainItem }) => {
 }
 const handleFormSubmit = (e)=>{
     e.preventDefault()
-
     if(!checkimageURL(initialState.image_url)) {alert("Lütfen geçerli bir fotoğraf linki giriniz");return} 
-    if(initialState.price<10 ) {alert("Minimum 10TL olmalı");return}
-    if(initialState.deliver_time != Math.floor(initialState.deliver_time)){ alert("Teslimat süresi tam sayı olmalı");return}
+    if(initialState.price<10 || !isNumber(initialState.price)) {alert("Minimum 10TL olmalı");return}
+    if(!isNumber(initialState.stock) || initialState.stock != Math.floor(initialState.stock)) {alert("Stok tam sayı olmalı");return }
+    if(initialState.deliver_time != Math.floor(initialState.deliver_time) || !isNumber(initialState.deliver_time || initialState.deliver_time >=24)){ alert("Teslimat süresi tam sayı olmalı ve 1 günden fazla olmamalıdır");return}
     
     
     try{
