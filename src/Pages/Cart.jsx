@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Lent from "../components/Lent";
 import IlgiCard from "../components/CardCompon/IlgiCard";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../Addons/Loading";
-import { fetchCart } from "../tools/Slices/CartSlice";
+import { changeQuan, deleteCart, fetchCart } from "../tools/Slices/CartSlice";
 import { UserAuth } from "../Context/AuthContext";
 import { BsShieldFillCheck, BsTrash } from "react-icons/bs";
 
@@ -12,12 +12,23 @@ const Cart = () => {
   const { userProfile } = UserAuth();
   const dispatch = useDispatch();
   const hasFetched = useRef(false);
+
   useEffect(() => {
     if (userProfile && !hasFetched.current) {
       dispatch(fetchCart(userProfile.id));
       hasFetched.current = true;
     }
   }, [userProfile]);
+  const handleDecrease = (id,quantity)=>{
+    dispatch(changeQuan({id,quantity,type:"decrease"}))
+  }
+  const handleIncrease = (id,quantity)=>{
+    dispatch(changeQuan({id,quantity,type:"increase"}))
+  }
+  const deleteCartItem = (cart_id)=>{
+    dispatch(deleteCart(cart_id))
+  }
+
   if (loading) return <Loading />;
   if (error) alert(error);
 
@@ -122,18 +133,18 @@ const Cart = () => {
                             Adet:{" "}
                           </span>
                           <div className="d-flex ingredients justify-content-between align-items-center p-2 ">
-                            <div className="decrease btn p-0 w-25 text-center">
+                            <div onClick={item.quantity == 1?"":()=>handleDecrease(item.id,item.quantity)} className={` p-0 w-25 text-center ${item.quantity == 1?"":"decrease btn"}`}>
                               -
                             </div>
-                            <div className="amount w-50 text-center">
+                            <div className="amount item-quantity w-50 text-center">
                               {item.quantity}
                             </div>
-                            <div className="increase btn p-0 w-25 text-center">
+                            <div onClick={()=>handleIncrease(item.id,item.quantity)} className="increase btn p-0 w-25 text-center">
                               +
                             </div>
                           </div>
                         </div>
-                        <button className="purchase  btn btn-outline-danger px-3">
+                        <button onClick={()=>deleteCartItem(item.id)} className="purchase  btn btn-outline-danger px-3">
                           <BsTrash />
                         </button>
                       </div>

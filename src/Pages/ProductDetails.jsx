@@ -16,29 +16,39 @@ import { MdOutlineCancel } from "react-icons/md";
 import Loading from "../Addons/Loading";
 import NotFoundPage from "./NotFoundPage";
 import supabase from "../helpers/supabaseClient";
+import { UserAuth } from "../Context/AuthContext";
+import { useDispatch } from "react-redux";
+import { addCart } from "../tools/Slices/CartSlice";
 
 export const ProductDetails = () => {
   const { products, loading } = useContext(ProductContext);
+  const {session} = UserAuth()
   const { slugName } = useParams();
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
   );
+  const dispatch = useDispatch()
 
   useEffect(()=>{
     if(foundedProduct){
       const visitUpdate = async ()=>{
-        const {data,error} = await supabase.from("products").update({visits: foundedProduct.visits+1}).eq("id",foundedProduct.id)
+        const {error} = await supabase.from("products").update({visits: foundedProduct.visits+1}).eq("id",foundedProduct.id)
         if(error) {console.log(error); return }
-        else console.log(data)  
       } 
       visitUpdate()
     }
   },[foundedProduct])
   
+  const [count,setCount] = useState(1)
+  const handleAddCart = (session,foundedProduct,numberOfItems)=>{
+    dispatch(addCart({user_id:session.user.id,product_id:foundedProduct.id,quantity:numberOfItems}))
+  }
   const targetRef = useRef()
+
+
   if (loading) return <Loading />;
   if (!foundedProduct) return <NotFoundPage />;
-  
+  console.log("Awdwcdjavd")
   const lastModified = new Date(foundedProduct.last_modified); // assuming product.last_modified is a timestamp
   const formattedDate = lastModified.toLocaleDateString("en-GB");
   const handleScroll = ()=>{
@@ -227,13 +237,13 @@ export const ProductDetails = () => {
               <div className="amount d-flex align-items-center justify-content-center">
                 <span style={{ width: "5em" }}>Adet: </span>
                 <div className="d-flex ingredients justify-content-between align-items-center p-2 ">
-                  <div className="decrease btn p-0 w-25 text-center">-</div>
-                  <div className="amount w-50 text-center">4</div>
-                  <div className="increase btn p-0 w-25 text-center">+</div>
+                  <div onClick={()=>{count ==1?"":setCount((prev)=>prev-1)}} className={`  p-0 w-25 text-center ${count == 1?"":"decrease btn"}`} style={{cursor:count == 1?"default":""}}>-</div>
+                  <div className="amount w-50 text-center">{count}</div>
+                  <div onClick={()=>setCount((prev)=>prev+1)} className="increase btn p-0 w-25 text-center">+</div>
                 </div>
               </div>
-              <button className="purchase  btn btn-success px-3">
-                Satın Al
+              <button onClick={()=>handleAddCart(session,foundedProduct,count)} className="purchase  btn btn-success px-3" style={{fontSize:"15px"}}>
+                Sepete Ekle
               </button>
             </div>
           </div>
