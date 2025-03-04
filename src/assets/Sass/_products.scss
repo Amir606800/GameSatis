@@ -67,3 +67,30 @@ $darker-background:#171a21;
         }
       }
 }
+.typing {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 24px;
+    white-space: nowrap;
+    overflow: hidden; /* Hide the overflow */
+    border-right: 2px solid black;
+    display: inline-block;
+    animation: typing 4s steps(30) 1s forwards, blink 0.75s step-end infinite;
+  }
+
+  @keyframes typing {
+    0% {
+      width: 0;
+    }
+    100% {
+      width: 100%;
+    }
+  }
+
+  @keyframes blink {
+    50% {
+      border-color: transparent;
+    }
+    100% {
+      border-color: black;
+    }
+  }

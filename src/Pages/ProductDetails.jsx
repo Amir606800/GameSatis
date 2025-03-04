@@ -19,8 +19,15 @@ import supabase from "../helpers/supabaseClient";
 import { UserAuth } from "../Context/AuthContext";
 import { useDispatch } from "react-redux";
 import { addCart } from "../tools/Slices/CartSlice";
+import gsap from "gsap"
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TextPlugin } from "gsap/TextPlugin";
+import Swal from "sweetalert2";
 
 export const ProductDetails = () => {
+  gsap.registerPlugin(ScrollTrigger); 
+  
   const { products, loading } = useContext(ProductContext);
   const {session} = UserAuth()
   const { slugName } = useParams();
@@ -28,7 +35,8 @@ export const ProductDetails = () => {
     (item) => slugify(item.title).toLowerCase() === slugName
   );
   const dispatch = useDispatch()
-
+  const productDetail = useRef()
+  
   useEffect(()=>{
     if(foundedProduct){
       const visitUpdate = async ()=>{
@@ -41,14 +49,66 @@ export const ProductDetails = () => {
   
   const [count,setCount] = useState(1)
   const handleAddCart = (session,foundedProduct,numberOfItems)=>{
-    dispatch(addCart({user_id:session.user.id,product_id:foundedProduct.id,quantity:numberOfItems}))
+    try{
+      dispatch(addCart({user_id:session.user.id,product_id:foundedProduct.id,quantity:numberOfItems}))
+      Swal.fire({
+              title: 'Sepete Bakın',
+              text: 'İteminiz sepete eklenmiştir',
+              icon: 'success',
+              background: '#222631', // Custom dark background (optional)
+              color: '#fff', // Text color for dark theme
+              confirmButtonText: 'Tamam',
+              confirmButtonColor: '#3085d6',
+            });
+    }catch(err){
+      console.log(err)
+    }
   }
   const targetRef = useRef()
-
+  
+  useGSAP(()=>{
+    gsap.from('.image',{
+      x:"-100vw",
+      duration:1,
+      ease:"back.inOut",
+      scrollTrigger:".image"
+    });
+    gsap.from('.description',{
+      y:"-100vh",
+      zIndex:"-100",
+      duration:1,
+      delay:1.5,
+      
+      scrollTrigger:".description"
+    });
+    gsap.from('.information',{
+      y:"50vh",
+      zIndex:"-100",
+      duration:1,
+      delay:1,
+      scrollTrigger:".image"
+    });
+    gsap.from(".creator",{
+      y:"-50vh",
+      x:"50vw",
+      zIndex:"-100",
+      ease:"back.inOut",
+      duration:1,
+      delay:0.5,
+      scrollTrigger:".image"
+    });
+    gsap.from(".payment",{
+      y:"50vh",
+      x:"50vw",
+      zIndex:"-100",
+      duration:1,
+      delay:1,
+      scrollTrigger:".description"
+    });
+  },{dependencies:[foundedProduct],scope:productDetail})
 
   if (loading) return <Loading />;
   if (!foundedProduct) return <NotFoundPage />;
-  console.log("Awdwcdjavd")
   const lastModified = new Date(foundedProduct.last_modified); // assuming product.last_modified is a timestamp
   const formattedDate = lastModified.toLocaleDateString("en-GB");
   const handleScroll = ()=>{
@@ -57,11 +117,11 @@ export const ProductDetails = () => {
   return (
     <>
       <Path />
-      <div className="detail-page container-fluid my-4">
+      <div className="detail-page overflow-hidden container-fluid my-4" ref={productDetail}>
         <div className="area">
           <div className="image position-relative text-center align-items-center justify-content-center">
             <img
-              src={foundedProduct.image_url} //Item image
+              src={foundedProduct.image_url} 
               alt={foundedProduct.title}
               
             />

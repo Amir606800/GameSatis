@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import AboutCard from "../components/CardCompon/AboutCard";
 import axios from "axios";
 import ProductCard from "../components/CardCompon/ProductCard";
@@ -11,21 +11,45 @@ import { Link } from "react-router-dom";
 import InfiniteSlider from "../components/Home/InfiniteSlider";
 import { ProductContext } from "../Context/ProductsProvider";
 import Loading from "../Addons/Loading";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap"
  
 const Home = () => {
   const {streamData} = useContext(StreamerContext);
   const {products} = useContext(ProductContext)
 
+
+  const topVitrinRef = useRef()
+  const productsGsapRef = useRef()
+  useGSAP(() => {
+    gsap.from(".banner1", {
+      x: "-100vw",
+      rotation: -90, 
+      duration: 2,
+      ease: "expo.out",
+      zIndex:"-10",
+      
+    });
+    gsap.from(".banner2", {
+      x: "100vw", 
+      rotation: 90, 
+      duration: 2,
+      ease: "expo.out",
+      zIndex:"-10"
+    });
+  }, {dependencies:[],scope:topVitrinRef});
+
+  
   return (
     <>
       <div className="nav-head-bot my-2">
         <InfiniteSlider />
       </div>
       <div className="main container-fluid py-3">
-        <div className="top-vitrin mb-4">
+        <div className="top-vitrin mb-4" ref={topVitrinRef}>
           <div className="d-flex  gap-4 align-items-center" style={{ maxHeight: "23em" }}>
            
-            <div className=" d-lg-block d-none hovering-behaviour" style={{height: "fit-content",maxHeight: "90vh"}}>
+            <div className="banner1 d-lg-block d-none hovering-behaviour" style={{height: "fit-content",maxHeight: "90vh",transform:"rotate(-13deg) translateX(20px)"}}>
               <img
                 src="https://img.gamesatis.com/showcase/732/banner_side_ko_yenisunucu_zerolu_v2_right-72163.webp"
                 alt="Banner1"
@@ -36,7 +60,7 @@ const Home = () => {
             <Slider />
             
            
-            <div className=" d-lg-block d-none hovering-behaviour">
+            <div className="banner2 d-lg-block d-none hovering-behaviour" style={{transform:"rotate(13deg) translateX(-20px)"}}>
               <img
                 src="https://img.gamesatis.com/showcase/733/banner_side_supercell_oyunlar_left-24781.webp"
                 alt="Banner3"
@@ -57,7 +81,7 @@ const Home = () => {
             "https://img.gamesatis.com/showcase/737/genshin-hesap-65828.webp"
           }
         />
-        <div className="product-list mb-4">
+        <div className="product-list mb-4" ref={productsGsapRef}>
           <div className="row g-3">
             {products.map((item, index) => (
               <ProductCard vitrinIndex={11} key={index} main={item} /> 

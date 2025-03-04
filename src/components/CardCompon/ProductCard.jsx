@@ -1,9 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { GoVerified } from "react-icons/go";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TextPlugin } from "gsap/TextPlugin";
 
 const ProductCard = ({ main, vitrinIndex }) => {
+  gsap.registerPlugin(ScrollTrigger); 
+  gsap.registerPlugin(TextPlugin); 
+
+  useGSAP(()=>{
+    
+    gsap.to(".product-card",{
+      rotateY:"0deg",
+      duration:2,
+      scrollTrigger:{
+        trigger:".product-card",
+        start:"-100px 60%",
+        markers:true
+      }
+    })
+  },[])
+  const textRef = useRef()
+  const sentence = main.title
+  useGSAP(() => {
+    gsap.fromTo(
+      textRef.current, 
+      { text: '' },
+      { 
+        text: sentence, 
+        duration: sentence.length * 0.05, // Adjust speed based on sentence length
+        ease: "none", 
+        repeat: 0,
+        delay:1,
+        scrollTrigger:{
+          trigger:".product-card",
+          start:"-100px 60%",
+          markers:true
+        }
+      }
+    );
+  }, []);
+
   const shadows = [
     {
       // Turquoise
@@ -53,8 +93,8 @@ const ProductCard = ({ main, vitrinIndex }) => {
     }
   }, [main.id, vitrinIndex]);
   return (
-    <div className="col-6 col-md-4 col-lg-3 col-xl-2  t">
-      <a href={`/${slugify(main.title).toLowerCase()}`}>
+    <div className="col-6 col-md-4 col-lg-3 col-xl-2 product-card t" style={{transform:"rotateY(180deg)"}}>
+      <Link to={`/${slugify(main.title).toLowerCase()}`}>
         <div
           className="card bg-dark prod-card rounded-3 overflow-hidden h-100"
           style={{
@@ -83,7 +123,7 @@ const ProductCard = ({ main, vitrinIndex }) => {
               className="manufacturer z-1 fw-bold rounded-2 position-absolute bg-white px-5 start-50 translate-middle-x text-success"
               style={{ bottom: "-10px",width:"100%" }}
             >
-              {main.is_vitrin?main.profiles.display_name:<div className="d-flex flex-row w-100 py-2" style={{fontSize:"12px"}}>{main.title.substring(0,20)}</div> }
+              {main.is_vitrin?main.profiles.display_name:<div className="d-flex flex-row w-100 py-2"  style={{fontSize:"12px"}} >{main.title.substring(0,18)}</div> }
             </div>
             
             <div className="details position-absolute h-100 translate-middle justify-content-center align-items-center top-50 start-50 w-100">
@@ -94,7 +134,7 @@ const ProductCard = ({ main, vitrinIndex }) => {
             </div>
             
           </div>
-          <div className="card-head text-start h6 px-2">{main.title}</div>
+          <div className="card-head text-start h6 px-2" ref={textRef}></div>
           <div className="card-body d-flex justify-content-between align-items-center">
             <div className="verf text-success">
               <GoVerified />
@@ -102,7 +142,7 @@ const ProductCard = ({ main, vitrinIndex }) => {
             <div className="price">{main.price}TL</div>
           </div>
         </div>
-      </a>
+      </Link>
     </div>
   );
 };

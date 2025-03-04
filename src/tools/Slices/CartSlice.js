@@ -40,6 +40,15 @@ const changeQuan = createAsyncThunk(
     }
 )
 
+const resetCart = createAsyncThunk(
+    'resetCart',async (user_id,{rejectWithValue})=>{
+        const {error} = await supabase.from("cart").delete().eq("user_id",user_id)
+        if(error) return rejectWithValue(error)
+    }
+)
+
+
+
 const CartSlice = createSlice({
     name:"cart",
     initialState,
@@ -105,9 +114,16 @@ const CartSlice = createSlice({
             state.error = action.payload
         })
         
+        //reset Cart
+        .addCase(resetCart.fulfilled,(state)=>{
+            state.cart = []
+        })
+        .addCase(resetCart.rejected,(state,action)=>{
+            state.error = action.payload
+        })
     }
 })
 
 export default CartSlice.reducer
 
-export {fetchCart,addCart,deleteCart,changeQuan}
+export {fetchCart,addCart,deleteCart,changeQuan,resetCart}

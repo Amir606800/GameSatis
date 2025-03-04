@@ -34,8 +34,8 @@ const Header = () => {
         <hr />
         <div className="pb-1 container-fluid">
           <div className="mid-head  gap-2 py-3">
-            <a
-              href="/"
+            <Link
+              to="/"
               className="brand grid-logo d-flex flex-wrap align-items-center h-auto my-3 my-lg-0 mx-3 mx-lg-0 text-decoration-none justify-content-between justify-content-lg-evenly text-light"
             >
               <img
@@ -44,7 +44,7 @@ const Header = () => {
                 width={170}
               />
               <span>Türkiyenin En Büyük Oyuncu Pazarı</span>
-            </a>
+            </Link>
             <div className="search grid-search d-flex justify-content-center align-items-center mx-lg-0 mx-3">
               <div className="position-relative w-100 ">
                 <IoIosSearch className="lupa text-white position-absolute top-50 translate-middle-y" />

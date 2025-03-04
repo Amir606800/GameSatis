@@ -3,15 +3,19 @@ import Lent from "../components/Lent";
 import IlgiCard from "../components/CardCompon/IlgiCard";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../Addons/Loading";
-import { changeQuan, deleteCart, fetchCart } from "../tools/Slices/CartSlice";
+import { addCart, changeQuan, deleteCart, fetchCart, resetCart } from "../tools/Slices/CartSlice";
 import { UserAuth } from "../Context/AuthContext";
 import { BsShieldFillCheck, BsTrash } from "react-icons/bs";
+import supabase from "../helpers/supabaseClient";
+import Swal from "sweetalert2";
+import { addOrders } from "../tools/Slices/OrdersSlice";
 
 const Cart = () => {
   const { cart, loading, error } = useSelector((state) => state.cart);
   const { userProfile } = UserAuth();
   const dispatch = useDispatch();
   const hasFetched = useRef(false);
+  const [total, setTotal] = useState(null);
 
   useEffect(() => {
     if (userProfile && !hasFetched.current) {
@@ -19,20 +23,74 @@ const Cart = () => {
       hasFetched.current = true;
     }
   }, [userProfile]);
-  const handleDecrease = (id,quantity)=>{
-    dispatch(changeQuan({id,quantity,type:"decrease"}))
-  }
-  const handleIncrease = (id,quantity)=>{
-    dispatch(changeQuan({id,quantity,type:"increase"}))
-  }
-  const deleteCartItem = (cart_id)=>{
-    dispatch(deleteCart(cart_id))
-  }
+
+  useEffect(() => {
+    if (userProfile) {
+      const fetchTotalCost = async () => {
+        const { data, error } = await supabase
+          .from("cart")
+          .select("quantity, products(price)")
+          .eq("user_id", userProfile.id);
+        if (!error) {
+          console.log(data);
+          setTotal(
+            data.reduce(
+              (acc, item) => acc + item.quantity * item.products.price,
+              0
+            )
+          );
+        } else console.log(error);
+      };
+      fetchTotalCost();
+    }
+  }, [cart]);
+
+  const handleDecrease = (id, quantity) => {
+    dispatch(changeQuan({ id, quantity, type: "decrease" }));
+  };
+  const handleIncrease = (id, quantity) => {
+    dispatch(changeQuan({ id, quantity, type: "increase" }));
+  };
+  const deleteCartItem = (cart_id) => {
+    dispatch(deleteCart(cart_id));
+  };
+
+  const handleCheckout = async () => {
+    if (userProfile.balance > total) {
+      const { error } = await supabase
+        .from("profiles")
+        .update({ balance: userProfile.balance - total.toFixed(2, 0) })
+        .eq("id", userProfile.id);
+      if (!error) {
+        dispatch(addOrders({cart:cart,total:total}))
+        dispatch(resetCart(userProfile.id))
+        Swal.fire({
+          title: "Ödeme başarılı",
+          text: "Sipariş başarıyla gerçekleşmiştir. Lütfen hesabınızdan 'siparişler' bölümünü gözden geçirin.",
+          icon: "success",
+          background: "#222631", 
+          color: "#fff", 
+          confirmButtonText: "Tamam",
+          confirmButtonColor: "#3085d6",
+        });
+      }else{
+        console.log(error)
+      }
+    }else{
+      Swal.fire({
+        title: "Ödeme geçersiz",
+        text: "Bakiyenizde yeterli nakit yok. Lütfen bakiyenizi artırın",
+        icon: "error",
+        background: "#222631", 
+        color: "#fff", 
+        confirmButtonText: "Tamam",
+        confirmButtonColor: "#3085d6",
+      });
+    }
+  };
 
   if (loading) return <Loading />;
   if (error) alert(error);
-
-  console.log(cart);
   return (
     <div className="cart-page container-fluid">
       {cart.length == 0 ? (
@@ -133,18 +191,35 @@ const Cart = () => {
                             Adet:{" "}
                           </span>
                           <div className="d-flex ingredients justify-content-between align-items-center p-2 ">
-                            <div onClick={item.quantity == 1?"":()=>handleDecrease(item.id,item.quantity)} className={` p-0 w-25 text-center ${item.quantity == 1?"":"decrease btn"}`}>
+                            <div
+                              onClick={
+                                item.quantity == 1
+                                  ? () => {}
+                                  : () => handleDecrease(item.id, item.quantity)
+                              }
+                              className={` p-0 w-25 text-center ${
+                                item.quantity == 1 ? "" : "decrease btn"
+                              }`}
+                            >
                               -
                             </div>
                             <div className="amount item-quantity w-50 text-center">
                               {item.quantity}
                             </div>
-                            <div onClick={()=>handleIncrease(item.id,item.quantity)} className="increase btn p-0 w-25 text-center">
+                            <div
+                              onClick={() =>
+                                handleIncrease(item.id, item.quantity)
+                              }
+                              className="increase btn p-0 w-25 text-center"
+                            >
                               +
                             </div>
                           </div>
                         </div>
-                        <button onClick={()=>deleteCartItem(item.id)} className="purchase  btn btn-outline-danger px-3">
+                        <button
+                          onClick={() => deleteCartItem(item.id)}
+                          className="purchase  btn btn-outline-danger px-3"
+                        >
                           <BsTrash />
                         </button>
                       </div>
@@ -179,7 +254,8 @@ const Cart = () => {
                       {item.products.title}:
                     </span>
                     <span style={{ fontSize: "18px", fontWeight: "bolder" }}>
-                      {item.products.price}TL
+                      {item.products.price} TL{" "}
+                      <span className="fs-6">x {item.quantity}</span>
                     </span>
                   </div>
                 ))
@@ -195,7 +271,11 @@ const Cart = () => {
                 Ödenecek Tutar:
               </span>
               <span style={{ fontSize: "25px", fontWeight: "700" }}>
-                {cart.length == 0 ? <>Loading...</> : <>123,567TL</>}
+                {cart.length == 0 ? (
+                  <>Loading...</>
+                ) : (
+                  <>{total ? total.toFixed(2, 0) : "loading..."}</>
+                )}
               </span>
             </div>
             <div
@@ -208,11 +288,15 @@ const Cart = () => {
                 style={{ fontSize: "10px", fontWeight: "bold" }}
               >
                 <span>Paranız %100 GameSatış güvencesi altındadır.</span>{" "}
-                
               </span>
             </div>
             <div className="mt-3">
-                <button className="btn w-100 btn-success">Bakiye ile öde</button>
+              <button
+                onClick={handleCheckout}
+                className="btn w-100 btn-success"
+              >
+                Bakiye ile öde
+              </button>
             </div>
           </div>
         </div>
