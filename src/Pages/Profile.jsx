@@ -40,9 +40,9 @@ const Profile = React.memo((props) => {
       icon:<><TfiEmail  className="fs-4" /></>,
       link:"ilan_ekle"
     },{
-      title:"Youtmlarım",
+      title:"Yorumlarım",
       icon:<><FaRegMessage className="fs-4" /></>,
-      link:"siparislerim"
+      link:"yorumlarim"
     },{
       title:"İlanlarım",
       icon:<><PiClipboardText className="fs-4" /></>,

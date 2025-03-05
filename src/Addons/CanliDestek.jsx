@@ -1,21 +1,64 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { RiCustomerService2Fill, RiMailSendLine } from "react-icons/ri";
 
 const CanliDestek = () => {
-    const [hiddenStat,setHidden] = useState(false)
-    useEffect(()=>{
-        if(hiddenStat){
-            document.querySelector(".destek-canli").classList.add("destek-canli-opened")
-        }else{
-            document.querySelector(".destek-canli").classList.remove("destek-canli-opened")
-        }
-    },[hiddenStat])
+  const [hiddenStat, setHidden] = useState(false);
+  useEffect(() => {
+    if (hiddenStat) {
+      document
+        .querySelector(".destek-canli")
+        .classList.add("destek-canli-opened");
+    } else {
+      document
+        .querySelector(".destek-canli")
+        .classList.remove("destek-canli-opened");
+    }
+  }, [hiddenStat]);
+  
+
+  const [messagesToDisplay, setMessagesToDisplay] = useState([
+    { sender: "user", content: "Hi, how are you?" },
+    { sender: "computer", content: "I'm good, what about you?" },
+  ]);
+  const computerReply = "I'm here to help!"; 
+
+  const [userInput, setUserInput] = useState("");
+
+  const handleSubmitMessage = () => {
+    if (userInput.trim()) {
+      setMessagesToDisplay((prevMessages) => [
+        ...prevMessages,
+        { sender: "user", content: userInput },
+      ]);
+
+      setTimeout(() => {
+        setMessagesToDisplay((prevMessages) => [
+          ...prevMessages,
+          { sender: "computer", content: computerReply },
+        ]);
+      }, 1000); 
+      setUserInput("");
+    }
+  };
+
+  const messageListRef = useRef()
+
+  useEffect(() => {
+    if (messageListRef.current) {
+      messageListRef.current.scrollTop = messageListRef.current.scrollHeight;
+    }
+  }, [messagesToDisplay]); 
   return (
     <div
       className="destek-canli d-flex justify-content-end position-fixed position-relative"
-      style={{ right: "7px", bottom: "10px", zIndex: "100",maxWidth:"94vw" }}
+      style={{ right: "7px", bottom: "10px", zIndex: "100", maxWidth: "94vw" }}
     >
-      <button onClick={()=>{setHidden(true)}} className="canli-buton btn btn-info  align-items-center justify-content-center text-white gap-2">
+      <button
+        onClick={() => {
+          setHidden(true);
+        }}
+        className="canli-buton btn btn-info  align-items-center justify-content-center text-white gap-2"
+      >
         <RiCustomerService2Fill />
         <span className="fw-bold ">Canlı Destek</span>
       </button>
@@ -26,7 +69,15 @@ const CanliDestek = () => {
               <RiCustomerService2Fill />
               <span className="fw-bold ">Yardım Merkezi</span>
             </div>
-            <span onClick={()=>{setHidden(false)}} className="fs-1 position-absolute" style={{top:"-10px",right:"10px",cursor:"pointer"}}>-</span>
+            <span
+              onClick={() => {
+                setHidden(false);
+              }}
+              className="fs-1 position-absolute"
+              style={{ top: "-10px", right: "10px", cursor: "pointer" }}
+            >
+              -
+            </span>
           </div>
           <div className="card-body rounded-2 p-3 bg-body">
             <div className="card-body d-flex flex-column  border border-1 h-100">
@@ -39,15 +90,46 @@ const CanliDestek = () => {
                   (Sabah 09:00 - Gece 02:00)
                 </span>
               </div>
-              <div className="mesage-list" style={{ height: "80%" }}></div>
+              <div
+              ref={messageListRef}
+                className="mesage-list mt-3 px-2 overflow-y-scroll d-flex flex-column "
+                style={{ height: "20em" }}
+              >
+                {messagesToDisplay.map((message, index) => (
+                  <p
+                    key={index}
+                    className={`${
+                      message.sender === "user" ? "text-end" : "text-start"
+                    }  p-2 rounded-3 `}
+                    style={{
+                      color: message.sender === "user" ? "white" : "red",
+                      backgroundColor: " #555555",
+                      width: "fit-content",
+                      alignSelf: message.sender === "user" ? "end" : "start",
+                    }}
+                  >
+                    <strong>
+                      {message.sender === "user" ? "User" : "Computer:"}
+                    </strong>{" "}
+                    <p>{message.content}</p>
+                  </p>
+                ))}
+              </div>
               <form
                 method="POST"
                 className="w-100 d-flex align-items-end gap-1"
-                onSubmit={(e)=>{e.preventDefault()}}
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSubmitMessage();
+                }}
               >
                 <input
                   placeholder="Mesajınızı Buraya yazınız..."
                   type="text"
+                  onChange={(e) => {
+                    setUserInput(e.target.value);
+                  }}
+                  value={userInput}
                   style={{ background: "none" }}
                   className="border-0 message-input w-100 px-2 py-1 border-3 border-bottom border-info-subtle"
                 />

@@ -22,6 +22,7 @@ import Siparisler from "./Pages_Dashboard/Siparisler";
 import AddElan from "./Pages_Dashboard/AddElan";
 import ListElan from "./Pages_Dashboard/ListElan";
 import Cart from "./Pages/Cart";
+import Feedbacks from "./Pages_Dashboard/Feedbacks";
 
 function App() {
   return (
@@ -71,6 +72,14 @@ function App() {
             element={
               <Wrapper>
                 <Profile section={<ListElan />} />
+              </Wrapper>
+            }
+          ></Route>
+          <Route
+            path="/yorumlarim"
+            element={
+              <Wrapper>
+                <Profile section={<Feedbacks />} />
               </Wrapper>
             }
           ></Route>

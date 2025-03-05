@@ -35,8 +35,7 @@ const Cart = () => {
           console.log(data);
           setTotal(
             data.reduce(
-              (acc, item) => acc + item.quantity * item.products.price,
-              0
+              (acc, item) => acc + item.quantity * item.products.price,0
             )
           );
         } else console.log(error);
@@ -72,7 +71,9 @@ const Cart = () => {
           color: "#fff", 
           confirmButtonText: "Tamam",
           confirmButtonColor: "#3085d6",
-        });
+          
+        }).then(()=>window.location.reload());
+        
       }else{
         console.log(error)
       }
