@@ -23,6 +23,7 @@ import AddElan from "./Pages_Dashboard/AddElan";
 import ListElan from "./Pages_Dashboard/ListElan";
 import Cart from "./Pages/Cart";
 import Feedbacks from "./Pages_Dashboard/Feedbacks";
+import Favoriler from "./Pages_Dashboard/Favoriler";
 
 function App() {
   return (
@@ -80,6 +81,14 @@ function App() {
             element={
               <Wrapper>
                 <Profile section={<Feedbacks />} />
+              </Wrapper>
+            }
+          ></Route>
+          <Route
+            path="/favoriler"
+            element={
+              <Wrapper>
+                <Profile section={<Favoriler />} />
               </Wrapper>
             }
           ></Route>

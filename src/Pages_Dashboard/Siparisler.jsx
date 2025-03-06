@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Accordion } from "react-bootstrap";
 import { FaCheck, FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -19,9 +19,13 @@ const Siparisler = () => {
     rating: 1,
   });
   const [hover, setHover] = useState(null);
+  const reloadRef = useRef(false);
   useEffect(() => {
-    dispatch(fetchOrders(userProfile.id));
-  }, []);
+    if (userProfile && !reloadRef.current) {
+      dispatch(fetchOrders(userProfile.id));
+      reloadRef.current = true
+    }
+  }, [userProfile]);
   useEffect(() => {
     dispatch(fetchFeedbacks(userProfile.id))
     console.log(feedbacks)
@@ -41,7 +45,7 @@ const Siparisler = () => {
   };
 
   if (error) console.log(error);
-  if (orders.length == 0) return <>You do not have any orders</>;
+  if (orders.length == 0) return <div className=" p-3 bg-dark text-center rounded-2 fw-bold">Hiş bir siparişiniz yok.</div>;
   if (loading) return <Loading />;
 
   return (

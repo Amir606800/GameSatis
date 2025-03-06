@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { UserAuth } from "../Context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFeedbacks } from "../tools/Slices/FeedbackSlice";
@@ -10,11 +10,16 @@ const Feedbacks = () => {
   const { userProfile } = UserAuth();
   const { feedbacks, error, loading } = useSelector((state) => state.feedbacks);
   const dispatch = useDispatch();
+  const reloadRef = useRef(false);
   useEffect(() => {
-    if (userProfile) dispatch(fetchFeedbacks(userProfile.id));
+    if (userProfile && !reloadRef.current) {
+      dispatch(fetchFeedbacks(userProfile.id));
+      reloadRef.current = true
+    }
   }, [userProfile]);
 
   if (error) console.log(error);
+  if(feedbacks.length ==0) return <div className=" p-3 bg-dark text-center rounded-2 fw-bold ">Şu ana kadar bir yorum yapmadınız.</div>
   if (loading) return <Loading />;
   return (
     <div className="Siparisler-profile ">

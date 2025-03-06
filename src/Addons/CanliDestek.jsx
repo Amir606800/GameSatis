@@ -96,23 +96,23 @@ const CanliDestek = () => {
                 style={{ height: "20em" }}
               >
                 {messagesToDisplay.map((message, index) => (
-                  <p
+                  <div
                     key={index}
                     className={`${
                       message.sender === "user" ? "text-end" : "text-start"
                     }  p-2 rounded-3 `}
                     style={{
-                      color: message.sender === "user" ? "white" : "red",
+                      
                       backgroundColor: " #555555",
                       width: "fit-content",
                       alignSelf: message.sender === "user" ? "end" : "start",
                     }}
                   >
-                    <strong>
+                    <strong className={message.sender == "user"?"bg-info text-white rounded-2 p-1" :"bg-danger text-white rounded-2 p-1"}>
                       {message.sender === "user" ? "User" : "Computer:"}
                     </strong>{" "}
-                    <p>{message.content}</p>
-                  </p>
+                    <div className="mt-2" style={{color:"white"}}>{message.content}</div>
+                  </div>
                 ))}
               </div>
               <form

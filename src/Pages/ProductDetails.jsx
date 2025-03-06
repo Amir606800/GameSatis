@@ -5,7 +5,7 @@ import { ProductContext } from "../Context/ProductsProvider";
 import slugify from "slugify";
 import { IoEyeOutline, IoShareSocialSharp } from "react-icons/io5";
 import { BiHeart, BiSolidDislike, BiSolidLike } from "react-icons/bi";
-import { BsLightning, BsLightningChargeFill } from "react-icons/bs";
+import { BsLightningChargeFill } from "react-icons/bs";
 
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { FaCircleCheck, FaStar } from "react-icons/fa6";
@@ -17,117 +17,147 @@ import Loading from "../Addons/Loading";
 import NotFoundPage from "./NotFoundPage";
 import supabase from "../helpers/supabaseClient";
 import { UserAuth } from "../Context/AuthContext";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addCart } from "../tools/Slices/CartSlice";
-import gsap from "gsap"
+import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 import Swal from "sweetalert2";
+import { addWish, deleteWish, fetchWish } from "../tools/Slices/WhishListSlice";
 
 export const ProductDetails = () => {
-  gsap.registerPlugin(ScrollTrigger); 
-  
+  gsap.registerPlugin(ScrollTrigger);
+
   const { products, loading } = useContext(ProductContext);
-  const {session} = UserAuth()
+  const { session, userProfile } = UserAuth();
   const { slugName } = useParams();
+  const { wishes } = useSelector((state) => state.wishlist);
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
   );
-  const dispatch = useDispatch()
-  const productDetail = useRef()
-  
-  useEffect(()=>{
-    if(foundedProduct){
-      const visitUpdate = async ()=>{
-        const {error} = await supabase.from("products").update({visits: foundedProduct.visits+1}).eq("id",foundedProduct.id)
-        if(error) {console.log(error); return }
-      } 
-      visitUpdate()
+  const thing = wishes.find((item) => item.product_id == foundedProduct.id);
+  const dispatch = useDispatch();
+  const productDetail = useRef();
+
+  const reloadRef = useRef(false);
+  useEffect(() => {
+    if (userProfile && !reloadRef.current) {
+      dispatch(fetchWish(userProfile.id));
+      reloadRef.current = true;
     }
-  },[foundedProduct])
-  
-  const [count,setCount] = useState(1)
-  const handleAddCart = (session,foundedProduct,numberOfItems)=>{
-    try{
-      dispatch(addCart({user_id:session.user.id,product_id:foundedProduct.id,quantity:numberOfItems}))
+  }, [userProfile]);
+
+  useEffect(() => {
+    if (foundedProduct) {
+      const visitUpdate = async () => {
+        const { error } = await supabase
+          .from("products")
+          .update({ visits: foundedProduct.visits + 1 })
+          .eq("id", foundedProduct.id);
+        if (error) {
+          console.log(error);
+          return;
+        }
+      };
+      visitUpdate();
+    }
+  }, [foundedProduct]);
+
+  const [count, setCount] = useState(1);
+  const handleAddCart = (session, foundedProduct, numberOfItems) => {
+    try {
+      dispatch(
+        addCart({
+          user_id: session.user.id,
+          product_id: foundedProduct.id,
+          quantity: numberOfItems,
+        })
+      );
       Swal.fire({
-              title: 'Sepete Bakın',
-              text: 'İteminiz sepete eklenmiştir',
-              icon: 'success',
-              background: '#222631', // Custom dark background (optional)
-              color: '#fff', // Text color for dark theme
-              confirmButtonText: 'Tamam',
-              confirmButtonColor: '#3085d6',
-            });
-    }catch(err){
-      console.log(err)
+        title: "Sepete Bakın",
+        text: "İteminiz sepete eklenmiştir",
+        icon: "success",
+        background: "#222631", // Custom dark background (optional)
+        color: "#fff", // Text color for dark theme
+        confirmButtonText: "Tamam",
+        confirmButtonColor: "#3085d6",
+      });
+    } catch (err) {
+      console.log(err);
     }
-  }
-  const targetRef = useRef()
-  
-  useGSAP(()=>{
-    gsap.from('.image',{
-      x:"-100vw",
-      duration:1,
-      ease:"back.inOut",
-      scrollTrigger:".image"
-    });
-    gsap.from('.description',{
-      y:"-100vh",
-      zIndex:"-100",
-      duration:1,
-      delay:1.5,
-      
-      scrollTrigger:".description"
-    });
-    gsap.from('.information',{
-      y:"50vh",
-      zIndex:"-100",
-      duration:1,
-      delay:1,
-      scrollTrigger:".image"
-    });
-    gsap.from(".creator",{
-      y:"-50vh",
-      x:"50vw",
-      zIndex:"-100",
-      ease:"back.inOut",
-      duration:1,
-      delay:0.5,
-      scrollTrigger:".image"
-    });
-    gsap.from(".payment",{
-      y:"50vh",
-      x:"50vw",
-      zIndex:"-100",
-      duration:1,
-      delay:1,
-      scrollTrigger:".description"
-    });
-  },{dependencies:[foundedProduct],scope:productDetail})
+  };
+  const targetRef = useRef();
+
+  useGSAP(
+    () => {
+      gsap.from(".image", {
+        x: "-100vw",
+        duration: 1,
+        ease: "back.inOut",
+        scrollTrigger: ".image",
+      });
+      gsap.from(".description", {
+        y: "-100vh",
+        zIndex: "-100",
+        duration: 1,
+        delay: 1.5,
+
+        scrollTrigger: ".description",
+      });
+      gsap.from(".information", {
+        y: "50vh",
+        zIndex: "-100",
+        duration: 1,
+        delay: 1,
+        scrollTrigger: ".image",
+      });
+      gsap.from(".creator", {
+        y: "-50vh",
+        x: "50vw",
+        zIndex: "-100",
+        ease: "back.inOut",
+        duration: 1,
+        delay: 0.5,
+        scrollTrigger: ".image",
+      });
+      gsap.from(".payment", {
+        y: "50vh",
+        x: "50vw",
+        zIndex: "-100",
+        duration: 1,
+        delay: 1,
+        scrollTrigger: ".description",
+      });
+    },
+    { dependencies: [foundedProduct], scope: productDetail }
+  );
 
   if (loading) return <Loading />;
   if (!foundedProduct) return <NotFoundPage />;
   const lastModified = new Date(foundedProduct.last_modified); // assuming product.last_modified is a timestamp
   const formattedDate = lastModified.toLocaleDateString("en-GB");
-  const handleScroll = ()=>{
-    targetRef.current?.scrollIntoView({behaviour:"smooth"})
-  }
+  const handleScroll = () => {
+    targetRef.current?.scrollIntoView({ behaviour: "smooth" });
+  };
   return (
     <>
       <Path />
-      <div className="detail-page overflow-hidden container-fluid my-4" ref={productDetail}>
+      <div
+        className="detail-page overflow-hidden container-fluid my-4"
+        ref={productDetail}
+      >
         <div className="area">
           <div className="image position-relative text-center align-items-center justify-content-center">
-            <img
-              src={foundedProduct.image_url} 
-              alt={foundedProduct.title}
-              
-            />
-            {foundedProduct.deliver_time == 0?
-            <div className="aninda position-absolute p-1 rounded-3"> <BsLightningChargeFill /> Aninda Teslim</div>
-            :<></>}
+            <img src={foundedProduct.image_url} alt={foundedProduct.title} />
+            {foundedProduct.deliver_time == 0 ? (
+              <div className="aninda position-absolute p-1 rounded-3">
+                {" "}
+                <BsLightningChargeFill /> Aninda Teslim
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
           <div className="description d-flex flex-column justify-content-between align-items-start area-part h-100 gap-5">
             <div className="h-100">
@@ -150,17 +180,40 @@ export const ProductDetails = () => {
                 <div className="share-buton btn btn-outline-light text-center">
                   <IoShareSocialSharp />
                 </div>
-                <div className="heart-buton btn btn-outline-light text-center ">
-                  <BiHeart /> <i style={{ fontSize: "12px" }}>1 Favori</i>
+                <div
+                  className={`heart-buton btn btn-outline-light text-center ${
+                    thing ? "text-danger" : ""
+                  }`}
+                  onClick={() => {
+                    if (!thing)
+                    {
+                      dispatch(
+                        addWish({
+                          product_id: foundedProduct.id,
+                          user_id: userProfile.id,
+                        })
+                      );
+                    }else{
+                      dispatch(
+                        deleteWish(thing.id)
+                      )
+                    }
+                  }}
+                >
+                  <BiHeart />
                 </div>
               </div>
 
-              {foundedProduct.deliver_time !== 0
-              ?<span id="teslimat" className="px-3 ">
-              Teslimat: {foundedProduct.deliver_time} Saat İçinde Gerçekleşir
-            </span>
-            :<div style={{cursor:"pointer"}} onClick={handleScroll}>Devam et...</div>}
-              
+              {foundedProduct.deliver_time !== 0 ? (
+                <span id="teslimat" className="px-3 ">
+                  Teslimat: {foundedProduct.deliver_time} Saat İçinde
+                  Gerçekleşir
+                </span>
+              ) : (
+                <div style={{ cursor: "pointer" }} onClick={handleScroll}>
+                  Devam et...
+                </div>
+              )}
             </div>
           </div>
           <div className="information area-part d-flex flex-wrap flex-sm-nowrap gap-4 flex-row justify-content-around">
@@ -297,12 +350,31 @@ export const ProductDetails = () => {
               <div className="amount d-flex align-items-center justify-content-center">
                 <span style={{ width: "5em" }}>Adet: </span>
                 <div className="d-flex ingredients justify-content-between align-items-center p-2 ">
-                  <div onClick={()=>{count ==1?"":setCount((prev)=>prev-1)}} className={`  p-0 w-25 text-center ${count == 1?"":"decrease btn"}`} style={{cursor:count == 1?"default":""}}>-</div>
+                  <div
+                    onClick={() => {
+                      count == 1 ? "" : setCount((prev) => prev - 1);
+                    }}
+                    className={`  p-0 w-25 text-center ${
+                      count == 1 ? "" : "decrease btn"
+                    }`}
+                    style={{ cursor: count == 1 ? "default" : "" }}
+                  >
+                    -
+                  </div>
                   <div className="amount w-50 text-center">{count}</div>
-                  <div onClick={()=>setCount((prev)=>prev+1)} className="increase btn p-0 w-25 text-center">+</div>
+                  <div
+                    onClick={() => setCount((prev) => prev + 1)}
+                    className="increase btn p-0 w-25 text-center"
+                  >
+                    +
+                  </div>
                 </div>
               </div>
-              <button onClick={()=>handleAddCart(session,foundedProduct,count)} className="purchase  btn btn-success px-3" style={{fontSize:"15px"}}>
+              <button
+                onClick={() => handleAddCart(session, foundedProduct, count)}
+                className="purchase  btn btn-success px-3"
+                style={{ fontSize: "15px" }}
+              >
                 Sepete Ekle
               </button>
             </div>
@@ -316,14 +388,20 @@ export const ProductDetails = () => {
               rightHead={""}
             />
           </div>
-          <div  className="card-body bottom-description" style={{ whiteSpace: "preserve-breaks" }}>
+          <div
+            className="card-body bottom-description"
+            style={{ whiteSpace: "preserve-breaks" }}
+          >
             {foundedProduct.description}
           </div>
         </div>
         <div className="card my-3 border-0 bg-dark">
           <div className="card-head p-3 h3 fw-bolder">Kullanıcı yorumları</div>
           <hr />
-          <div className="card-body d-flex gap-2" style={{ whiteSpace: "preserve-breaks" }}>
+          <div
+            className="card-body d-flex gap-2"
+            style={{ whiteSpace: "preserve-breaks" }}
+          >
             <img
               width={200}
               src={foundedProduct.image_url}
@@ -381,7 +459,10 @@ export const ProductDetails = () => {
                 <span>Çok Kötü</span>
               </div>
             </div>
-            <div className="lines d-flex flex-column gap-2 w-100" style={{maxWidth:"65%"}}>
+            <div
+              className="lines d-flex flex-column gap-2 w-100"
+              style={{ maxWidth: "65%" }}
+            >
               <div className="mukemmel w-100 bg-info">a</div>
               <div className="cok-iyi w-100 bg-info">a</div>
               <div className="iyi w-100 bg-info">a</div>

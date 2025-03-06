@@ -19,7 +19,6 @@ const ProductCard = ({ main, vitrinIndex }) => {
       scrollTrigger:{
         trigger:".product-card",
         start:"-100px 60%",
-        markers:true
       }
     })
   },[])
@@ -38,7 +37,6 @@ const ProductCard = ({ main, vitrinIndex }) => {
         scrollTrigger:{
           trigger:".product-card",
           start:"-100px 60%",
-          markers:true
         }
       }
     );

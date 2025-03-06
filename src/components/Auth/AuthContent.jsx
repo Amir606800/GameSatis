@@ -15,7 +15,7 @@ const AuthContent=(props)=>{
     useEffect(() => {
       generatorRandom()
     }, []);
-    return(<div  className={!props.modalmi?"container-fluid my-4":""} style={!props.modalmi?{width:"70vw",maxWidth:"50em"}:{}}>
+    return(<div className={!props.modalmi?"container-fluid my-4":""} style={!props.modalmi?{width:"70vw",maxWidth:"50em"}:{}}>
             <div className="sign-box  d-flex  w-100 ">
               <div className="left p-4  w-100">
                 <div className="head">

@@ -61,17 +61,20 @@ const Header = () => {
               </button>
               <div className="header-account-button d-none d-lg-flex">
                 {userProfile ? (
-                  <Link to={"/profilim"}>
+                  <>
                     <button
                       style={{ fontSize: "13px", width: "13em" }}
                       className="btn border border-1 d-flex align-items-center justify-content-between d-flex gap-1 rounded-1 fw-bold text-white sell"
                     >
+                      <Link to={"/profilim"}>
                       <img
                         className="rounded-2"
                         width={25}
                         src={userProfile.profile_photo}
                         alt="profil photo"
                       />
+                      </Link>
+                      <Link to={"/profilim"}>
                       <div>
                         <div
                           style={{
@@ -85,7 +88,7 @@ const Header = () => {
                         <div
                           className="balance text-warning"
                           style={{ fontSize: "11px" }}
-                        >
+                          >
                           {privacyStatus ? (
                             "#####"
                           ) : (
@@ -93,11 +96,13 @@ const Header = () => {
                           )}
                         </div>
                       </div>
+                      </Link>
                       <CgMail className="fs-5" />
-
-                      <BiHeart className="fs-5" />
+                      <Link to="/favoriler" >
+                        <BiHeart className="fs-5" />
+                      </Link>
                     </button>
-                  </Link>
+                  </>
                 ) : (
                   <Authentication />
                 )}

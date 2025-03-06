@@ -54,7 +54,7 @@ const Profile = React.memo((props) => {
     },{
       title:"Favoriler",
       icon:<><MdOutlineFavorite  className="fs-4" /></>,
-      link:"siparislerim"
+      link:"favoriler"
     },{
       title:"Siparisler",
       icon:<><FaCartArrowDown className="fs-4" /></>,
