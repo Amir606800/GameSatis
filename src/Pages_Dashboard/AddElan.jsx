@@ -62,7 +62,7 @@ const AddElan = () => {
         e.preventDefault()
         if(addedItem.title == "") {alert("Lütfen başlığı doldurun");return}
         if(!checkimageURL(addedItem.image_url)) {alert("Lütfen geçerli bir fotoğraf linki giriniz");return} 
-        if(addedItem.price<10 || !isNumber(addedItem.price)) {alert("Fiyat bir sayı olmalı ve minimum 10TL olmalı");return}
+        if(addedItem.price<1 || isNumber(addedItem.price)) {alert("Fiyat bir sayı olmalı ve minimum 10TL olmalı");return}
         if(addedItem.stock != Math.floor(addedItem.stock) || addedItem.stock <=1 || isNumber(addedItem.stock)) {alert("Ürün sayı 0-dan büyük ve tam sayı olmalı");return}
         if(addedItem.deliver_time != Math.floor(addedItem.deliver_time) || addedItem.deliver_time >=24 || addedItem.deliver_time =="" || isNumber(addedItem.deliver_time)){ alert("Teslimat süresi tam sayı olmalı ve 24 saatten fazla olmamalıdır");return}
         if(addedItem.description == "") {alert("Lütfen açıklama kısmını doldurun!"); return}

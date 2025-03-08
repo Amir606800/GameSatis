@@ -24,6 +24,8 @@ import ListElan from "./Pages_Dashboard/ListElan";
 import Cart from "./Pages/Cart";
 import Feedbacks from "./Pages_Dashboard/Feedbacks";
 import Favoriler from "./Pages_Dashboard/Favoriler";
+import Satici from "./Pages/Satici";
+import Magaza from "./Pages/Magaza";
 
 function App() {
   return (
@@ -37,69 +39,21 @@ function App() {
           <Route path="/:slugName" element={<ProductDetails />}></Route>
           <Route path="/oyunlar" element={<Oyunlar />}></Route>
           <Route path="/oyunlar/:sub_name" element={<OyunlarSubCat />}></Route>
-          <Route
-            path="/oyunlar/:sub_name/:prod_name"
-            element={<Productlar />}
-          ></Route>
-          {""}
-          <Route
-            path="/profilim"
-            element={
-              <Wrapper>
-                <Profile section={<Informations />} />
-              </Wrapper>
-            }
-          >
-            {" "}
-          </Route>
-          <Route
-            path="/siparislerim"
-            element={
-              <Wrapper>
-                <Profile section={<Siparisler />} />
-              </Wrapper>
-            }
-          ></Route>
-          <Route
-            path="/ilan_ekle"
-            element={
-              <Wrapper>
-                <Profile section={<AddElan />} />
-              </Wrapper>
-            }
-          ></Route>
-          <Route
-            path="/ilanlarim"
-            element={
-              <Wrapper>
-                <Profile section={<ListElan />} />
-              </Wrapper>
-            }
-          ></Route>
-          <Route
-            path="/yorumlarim"
-            element={
-              <Wrapper>
-                <Profile section={<Feedbacks />} />
-              </Wrapper>
-            }
-          ></Route>
-          <Route
-            path="/favoriler"
-            element={
-              <Wrapper>
-                <Profile section={<Favoriler />} />
-              </Wrapper>
-            }
-          ></Route>
+          <Route path="/oyunlar/:sub_name/:prod_name" element={<Productlar />}></Route>
+          <Route path="/magaza/:userName" element={<Satici />}></Route>
+          <Route path="/magaza" element={<Magaza />}></Route>
 
-          <Route
-            path="/giris-yap"
-            element={<AuthContent modalmi={false} />}
-          ></Route>
+          <Route  path="/profilim" element={ <Wrapper> <Profile section={<Informations />} /> </Wrapper> }></Route>
+          <Route  path="/siparislerim" element={   <Wrapper>     <Profile section={<Siparisler />} />     </Wrapper>}></Route>
+          <Route  path="/ilan_ekle"  element={    <Wrapper>      <Profile section={<AddElan />} />    </Wrapper>  }></Route>
+          <Route  path="/ilanlarim" element={   <Wrapper>     <Profile section={<ListElan />} />   </Wrapper> }></Route>
+          <Route  path="/yorumlarim"  element={    <Wrapper>      <Profile section={<Feedbacks />} />    </Wrapper>  }></Route>
+          <Route  path="/favoriler"  element={    <Wrapper>      <Profile section={<Favoriler />} />    </Wrapper>  }></Route>
+
+          <Route path="/giris-yap" element={<AuthContent modalmi={false} />}></Route>
           <Route path="/sifremi-unuttum" element={<ForgotPassword />}></Route>
           <Route path="/email-confirm" element={<EmailConfirmation />}></Route>
-          {""}
+
           <Route path="/cart" element={<Cart />}></Route>
 
           <Route path="*" element={<NotFoundPage />}></Route>

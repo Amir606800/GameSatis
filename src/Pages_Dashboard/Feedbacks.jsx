@@ -5,6 +5,8 @@ import { fetchFeedbacks } from "../tools/Slices/FeedbackSlice";
 import { Accordion } from "react-bootstrap";
 import { FaCheck, FaStar } from "react-icons/fa6";
 import Loading from "../Addons/Loading";
+import { Link } from "react-router-dom";
+import slugify from "slugify";
 
 const Feedbacks = () => {
   const { userProfile } = UserAuth();
@@ -14,12 +16,17 @@ const Feedbacks = () => {
   useEffect(() => {
     if (userProfile && !reloadRef.current) {
       dispatch(fetchFeedbacks(userProfile.id));
-      reloadRef.current = true
+      reloadRef.current = true;
     }
   }, [userProfile]);
 
   if (error) console.log(error);
-  if(feedbacks.length ==0) return <div className=" p-3 bg-dark text-center rounded-2 fw-bold ">Şu ana kadar bir yorum yapmadınız.</div>
+  if (feedbacks.length == 0)
+    return (
+      <div className=" p-3 bg-dark text-center rounded-2 fw-bold ">
+        Şu ana kadar bir yorum yapmadınız.
+      </div>
+    );
   if (loading) return <Loading />;
   return (
     <div className="Siparisler-profile ">
@@ -70,9 +77,13 @@ const Feedbacks = () => {
                     />
                     <div
                       className="content h-100 d-flex gap-3 flex-wrap flex-sm-nowrap justify-content-center align-items-center justify-content-sm-between  px-3 py-3 bg-dark w-100 rounded-3"
-                      style={{ minHeight: "8em" }}
+                      style={{ minHeight: "6em" }}
                     >
-                      <h6>{item.products.title}</h6>
+                      <Link
+                        to={`/${slugify(item.products.title).toLowerCase()}`}
+                      >
+                        <h6>{item.products.title}</h6>
+                      </Link>
                       <span className="h5 p-0 m-0">
                         Tutar: {item.products.price} TL
                       </span>
@@ -115,7 +126,10 @@ const Feedbacks = () => {
                         </div>
                       </div>
                       <hr style={{ border: "1px solid white" }} />
-                      <div className="right w-75 " style={{fontSize:"13px"}}> {item.content} </div>
+                      <div className="right w-75 " style={{ fontSize: "13px" }}>
+                        {" "}
+                        {item.content}{" "}
+                      </div>
                     </div>
                   </div>
                 </div>

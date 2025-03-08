@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Accordion, Button, Modal } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
-import { FaCheck, FaPen } from "react-icons/fa6";
+import { FaCheck } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { UserAuth } from "../Context/AuthContext";
 import { deleteProduct, fetchUserProducts } from "../tools/Slices/UserProductSlice";
 import Loading from "../Addons/Loading";
-import { BsEye, BsFillHddStackFill } from "react-icons/bs";
+import {  BsFillHddStackFill } from "react-icons/bs";
 import slugify from "slugify";
 import { Link } from "react-router-dom";
 import { HiViewGrid } from "react-icons/hi";
-import ProductCard from "../components/CardCompon/ProductCard";
 import ListCard from "../components/CardCompon/ListCard";
 import { BiTrash } from "react-icons/bi";
-import { CgEye } from "react-icons/cg";
 import { IoEye } from "react-icons/io5";
-import { refresh } from "aos";
 import EditModal from "./EditModal";
 
 const ListElan = () => {
   const dispatch = useDispatch();
   const { userProducts } = useSelector((state) => state.products);
   const { session } = UserAuth();
-
+  const [search,setSearch] = useState("")
   const [listStyle, setListStyle] = useState("stack");
   useEffect(() => {
     dispatch(fetchUserProducts(session.user.id));
@@ -35,6 +32,7 @@ const ListElan = () => {
       setListStyle("grid");
     }
   };
+  const searchedProducts = userProducts.filter((item)=>(item.title.toLowerCase().includes(search.toLowerCase())))
   if (!userProducts) return <Loading />;
 
   return (
@@ -47,6 +45,8 @@ const ListElan = () => {
           <input
             placeholder="Sipariş İD veya ilan başlığı ile ara..."
             style={{ padding: "10px", backgroundColor: "#161820" }}
+            onChange={(e)=>setSearch(e.target.value)}
+            value={search}
             className="w-100 border-0 h-100 px-5 bg-dark-subtle rounded-3"
             type="text"
           />
@@ -74,7 +74,7 @@ const ListElan = () => {
       <div className="list-siparisler  my-3 " style={{ height: "fit-content" }}>
         {listStyle == "stack" ? (
           <div className="row g-3">
-            {userProducts.map((item, index) => (
+            {searchedProducts.map((item, index) => (
               <ListCard main={item} key={index} />
             ))}
           </div>
@@ -85,7 +85,7 @@ const ListElan = () => {
             defaultActiveKey={0}
             flush
           >
-            {userProducts.map((item, index) => (
+            {searchedProducts.map((item, index) => (
               <Accordion.Item
                 key={index}
                 eventKey={index}

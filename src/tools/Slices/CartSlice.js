@@ -9,7 +9,7 @@ const initialState = {
 
 const fetchCart = createAsyncThunk(
     "fetchCart",async(user_id,{rejectWithValue})=>{
-        const {data,error} = await supabase.from("cart").select("*,products(image_url,price,title,profiles(profile_photo,display_name))").eq("user_id",user_id)
+        const {data,error} = await supabase.from("cart").select("*,products(image_url,price,title,profiles(profile_photo,display_name,id))").eq("user_id",user_id)
         if(!error) return data
         return rejectWithValue(error)
     }

@@ -9,6 +9,8 @@ import { BsShieldFillCheck, BsTrash } from "react-icons/bs";
 import supabase from "../helpers/supabaseClient";
 import Swal from "sweetalert2";
 import { addOrders } from "../tools/Slices/OrdersSlice";
+import { Link } from "react-router-dom";
+import slugify from "slugify";
 
 const Cart = () => {
   const { cart, loading, error } = useSelector((state) => state.cart);
@@ -157,9 +159,10 @@ const Cart = () => {
                         alt={item.products.profiles.display_name}
                       />
                       <div className="infos">
-                        <span className=" h5 fw-bold">
+                        
+                        <Link to={`/magaza/${slugify(`${item.products.profiles.display_name}~${item.products.profiles.id.substring(0,8)}`)}`} className=" h5 fw-bold">
                           {item.products.profiles.display_name}
-                        </span>
+                        </Link>
                         <div className="d-flex gap-2 align-items-center">
                           <div
                             style={{ width: "130px", height: "10px" }}

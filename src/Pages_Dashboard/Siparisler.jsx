@@ -8,6 +8,8 @@ import Loading from "../Addons/Loading";
 import { FaStar } from "react-icons/fa6";
 import supabase from "../helpers/supabaseClient";
 import { addFeedback, fetchFeedbacks } from "../tools/Slices/FeedbackSlice";
+import { Link } from "react-router-dom";
+import slugify from "slugify";
 
 const Siparisler = () => {
   const dispatch = useDispatch();
@@ -94,7 +96,7 @@ const Siparisler = () => {
                       </span>
                       <span>#{item.products.id}</span>
                       <span>-</span>
-                      <span>{item.products.title}</span>
+                      <Link to={`/${slugify(item.products.title).toLowerCase()}`}>{item.products.title}</Link>
                     </div>
                   </div>
                 </Accordion.Header>

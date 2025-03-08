@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Path from "../components/Path";
 import { useContext, useEffect, useRef, useState } from "react";
 import { ProductContext } from "../Context/ProductsProvider";
@@ -252,6 +252,7 @@ export const ProductDetails = () => {
                 alt={foundedProduct.profiles.display_name}
               />
               <div>
+                <Link to={`/magaza/${slugify(`${foundedProduct.profiles.display_name}~${foundedProduct.profiles.id.substring(0,8)}`)}`}>
                 <span className="h5">
                   {foundedProduct.profiles.display_name}{" "}
                   {foundedProduct.profiles.is_verified ? (
@@ -260,6 +261,7 @@ export const ProductDetails = () => {
                     ""
                   )}
                 </span>
+                </Link>
                 <div className="d-flex justify-content-center align-items-center gap-2">
                   <div
                     style={{ width: "170px", height: "8px" }}
