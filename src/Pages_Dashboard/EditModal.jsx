@@ -56,12 +56,11 @@ const handleFormSubmit = (e)=>{
       {listed ? (
         <div
           onClick={handleShow}
-          className=" rounded-2 d-flex fw-bold gap-2 justify-content-center align-items-center py-1 px-4"
+          className="cur-pointer rounded-2 d-flex fw-bold gap-2 justify-content-center align-items-center py-1 px-4"
           style={{
             backgroundColor: "green",
             fontSize: "13px",
             width: "9em",
-            cursor: "pointer",
           }}
         >
           <FaPen style={{ fontSize: "13px" }} />
@@ -70,11 +69,10 @@ const handleFormSubmit = (e)=>{
       ) : (
         <div
           onClick={handleShow}
-          className=" rounded-2 w-100 fw-bold d-flex gap-1 justify-content-center align-items-center  px-2 py-1"
+          className=" rounded-2 cur-pointer w-100 fw-bold d-flex gap-1 justify-content-center align-items-center  px-2 py-1"
           style={{
             backgroundColor: "green",
             fontSize: "12px",
-            cursor: "pointer",
           }}
         >
           <FaPen style={{ fontSize: "13px" }} />

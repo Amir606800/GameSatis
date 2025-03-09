@@ -74,10 +74,6 @@ export const AuthProvider = ({children})=>{
                 
                 if(error) console.error(error)
                     
-            }else{
-                const {error} = await supabase.from("profiles").update({is_online:false}).eq("id",data.session.user.id)
-                
-                if(error) console.error(error)
             }
         };
     

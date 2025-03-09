@@ -83,8 +83,8 @@ const Login = (props) => {
             e.target.style.color = "#33FF33";
             document.querySelector(".giris-ePosta").style.color = "red";
           }}
-          className="giris-telefon"
-          style={{ color: "red", cursor: "pointer" }}
+          className="giris-telefon cur-pointer"
+          style={{ color: "red"}}
         >
           Telefon ile Giris
         </div>

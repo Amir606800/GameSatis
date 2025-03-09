@@ -210,7 +210,7 @@ export const ProductDetails = () => {
                   Gerçekleşir
                 </span>
               ) : (
-                <div style={{ cursor: "pointer" }} onClick={handleScroll}>
+                <div className="cur-pointer" onClick={handleScroll}>
                   Devam et...
                 </div>
               )}

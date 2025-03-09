@@ -10,30 +10,16 @@ import { TextPlugin } from "gsap/TextPlugin";
 const ProductCard = ({ main, vitrinIndex }) => {
   gsap.registerPlugin(ScrollTrigger); 
   gsap.registerPlugin(TextPlugin); 
-
-  useGSAP(()=>{
-    
-    gsap.to(".product-card",{
-      rotateY:"0deg",
-      duration:2,
-      scrollTrigger:{
-        trigger:".product-card",
-        start:"-100px 60%",
-      }
-    })
-  },[])
   const textRef = useRef()
-  const sentence = main.title
   useGSAP(() => {
     gsap.fromTo(
       textRef.current, 
       { text: '' },
       { 
-        text: sentence, 
-        duration: sentence.length * 0.05, // Adjust speed based on sentence length
+        text: main.title, 
+        duration: main.title.length * 0.05, // Adjust speed based on sentence length
         ease: "none", 
         repeat: 0,
-        delay:1,
         scrollTrigger:{
           trigger:".product-card",
           start:"-100px 60%",
@@ -91,7 +77,7 @@ const ProductCard = ({ main, vitrinIndex }) => {
     }
   }, [main.id, vitrinIndex]);
   return (
-    <div className="col-6 col-md-4 col-lg-3 col-xl-2 product-card t" style={{transform:"rotateY(180deg)"}}>
+    <div className="col-6 col-md-4 col-lg-3 col-xl-2 product-card t" >
       <Link to={`/${slugify(main.title).toLowerCase()}`}>
         <div
           className="card bg-dark prod-card rounded-3 overflow-hidden h-100"

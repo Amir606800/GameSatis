@@ -64,9 +64,9 @@ const DeleteModal = React.memo(({name,item_id}) => {
       <>
         <div 
             variant="primary" onClick={handleShow}
-              className=" rounded-2 w-100 fw-bold d-flex bg-danger gap-1 justify-content-center align-items-center "
+              className="cur-pointer rounded-2 w-100 fw-bold d-flex bg-danger gap-1 justify-content-center align-items-center "
               style={{
-                cursor:"pointer",
+                
                 fontSize: "12px",
               }}
             >

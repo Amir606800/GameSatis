@@ -55,8 +55,8 @@ const ListElan = () => {
             style={{ left: "15px" }}
           />
           <div
-            className="grid-or-stack align-content-center text-center"
-            style={{ cursor: "pointer", width: "3em" }}
+            className="grid-or-stack align-content-center text-center cur-pointer"
+            style={{  width: "3em" }}
           >
             <HiViewGrid
               onClick={handlesListStyle}
@@ -213,10 +213,10 @@ const DeleteModal = React.memo(({ name, item_id }) => {
       <div
         variant="primary"
         onClick={handleShow}
-        className=" bg-danger fw-bold rounded-2 d-flex gap-2 justify-content-center align-items-center py-1 px-3"
+        className="cur-pointer bg-danger fw-bold rounded-2 d-flex gap-2 justify-content-center align-items-center py-1 px-3"
         style={{
           fontSize: "12px",
-          cursor:"pointer",
+          
           width: "9.5em",
         }}
       >

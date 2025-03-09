@@ -147,13 +147,13 @@ const Footer = () => {
                 <div className="social h-50 d-flex flex-column justify-content-center align-items-center">
                     <h5>Bizi Takip Et</h5>
                     <div className="d-flex gap-2">
-                        <span className="social-icons"><FaInstagram /></span>
-                        <span className="social-icons"><IoLogoDiscord /></span>
-                        <span className="social-icons"><FaTwitch /></span>
-                        <span className="social-icons"><FaXTwitter /></span>
-                        <span className="social-icons"><FaYoutube /></span>
-                        <span className="social-icons"><FaFacebookF /></span>
-                        <span className="social-icons"><FaLinkedinIn /></span>
+                        <span className="social-icons cur-pointer"><FaInstagram /></span>
+                        <span className="social-icons cur-pointer"><IoLogoDiscord /></span>
+                        <span className="social-icons cur-pointer"><FaTwitch /></span>
+                        <span className="social-icons cur-pointer"><FaXTwitter /></span>
+                        <span className="social-icons cur-pointer"><FaYoutube /></span>
+                        <span className="social-icons cur-pointer"><FaFacebookF /></span>
+                        <span className="social-icons cur-pointer"><FaLinkedinIn /></span>
                     </div>
                 </div>
               </div>

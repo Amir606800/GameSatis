@@ -55,8 +55,7 @@ const OyunlarSubCat = () => {
             className="col-6 col-md-4 col-lg-3 col-xl-2 "
           >
             <div
-              className="card border-0 position-relative"
-              style={{ cursor: "pointer" }}
+              className="card border-0 position-relative rounded-3 overflow-hidden cur-pointer "
             >
               <div className="card-image">
                 <img className="w-100" src={item.image_url} alt={item.name} />

@@ -109,8 +109,8 @@ const Profile = React.memo((props) => {
             </div>
             <Link to={"/profilim"}>
               <div
-                className="top-right h-100 py-2 d-flex justify-content-center align-items-center gap-2 flex-column px-3 profile-section-element-active profile-section-element"
-                style={{ backgroundColor: "#161820", cursor: "pointer" }}
+                className="top-right cur-pointer h-100 py-2 d-flex justify-content-center align-items-center gap-2 flex-column px-3 profile-section-element-active profile-section-element"
+                style={{ backgroundColor: "#161820"}}
               >
                 <LuSquarePen className="fs-2" />
                 <span className="fw-bold" style={{ fontSize: "12px" }}>
@@ -122,9 +122,9 @@ const Profile = React.memo((props) => {
           <div className="middle-part d-flex align-items-center justify-content-center " >
             <div className="row g-3 h-100">
               {iconPackJSON.map((item,index)=>(
-                <div key={index} className=" col-4 d-flex justify-content-center align-items-center ">
+                <div key={index} className=" col-4 d-flex justify-content-center align-items-center cur-pointer">
                 <Link
-                  style={{ cursor: "pointer",minWidth:"6em",width:"8em",height:"6em" }}
+                  style={{ minWidth:"6em",width:"8em",height:"6em" }}
                   to={`/${item.link}`}
                   className="bg-dark d-flex rounded-3 justify-content-center align-items-center flex-column  profile-section-element"
                 >

@@ -73,8 +73,8 @@ const CanliDestek = () => {
               onClick={() => {
                 setHidden(false);
               }}
-              className="fs-1 position-absolute"
-              style={{ top: "-10px", right: "10px", cursor: "pointer" }}
+              className="fs-1 position-absolute cur-pointer"
+              style={{ top: "-10px", right: "10px"}}
             >
               -
             </span>

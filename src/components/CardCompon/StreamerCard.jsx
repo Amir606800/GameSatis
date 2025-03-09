@@ -5,7 +5,7 @@ const StreamerCard = (props) => {
   return (
     <>
       <div className="col-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center ">
-        <div className="card  border-0 rounded-2" style={{ width: "14rem",cursor:"pointer" }}>
+        <div className="card  border-0 rounded-2 cur-pointer" style={{ width: "14rem"}}>
           <img src={props.img} className="card-img-top" alt={props.names} />
 
           <div className="card-body py-3 position-relative">
