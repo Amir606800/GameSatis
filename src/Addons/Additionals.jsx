@@ -1,3 +1,4 @@
+import Accessibility from "./Accessibility";
 import CanliDestek from "./CanliDestek"
 import {CrosshairCursor,HoverCursor} from "./Cursor";
 import ScrollBehaviour from "./ScrollBehaviour"
@@ -7,6 +8,7 @@ const Additionals = ()=>{
     <>
         <CanliDestek />
         <ScrollBehaviour />
+        <Accessibility />
         {/* <CrosshairCursor />
         <HoverCursor /> */}
     </>)
