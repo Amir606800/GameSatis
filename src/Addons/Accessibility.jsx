@@ -31,7 +31,7 @@ const Accessibility = () => {
         <form onSubmit={(e)=>{e.preventDefault()}} className="p-4 d-flex flex-column gap-3 justify-content-evenly h-100 list_of_inputs">
             <div className="d-flex flex-row gap-3 align-items-center justify-content-around">
                 <label htmlFor="theme">Site teması:</label>
-                <select defaultValue={theme} name="theme" id="theme" onChange={(e)=>{setTheme(e.target.value);window.location.reload()}}>
+                <select defaultValue={theme} name="theme" id="theme" onChange={(e)=>{setTheme(e.target.value)}}>
                     <option value="dark">Dark</option>
                     <option value="light">Light</option>
                 </select>
