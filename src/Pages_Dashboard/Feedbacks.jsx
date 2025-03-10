@@ -14,7 +14,7 @@ const Feedbacks = () => {
   const { feedbacks, error, loading } = useSelector((state) => state.feedbacks);
   const dispatch = useDispatch();
   const reloadRef = useRef(false);
-  const {currency,currencyObj} = useContext(SettingsContext)
+  const { currency, currencyObj } = useContext(SettingsContext);
   useEffect(() => {
     if (userProfile && !reloadRef.current) {
       dispatch(fetchFeedbacks(userProfile.id));
@@ -25,7 +25,7 @@ const Feedbacks = () => {
   if (error) console.log(error);
   if (feedbacks.length == 0)
     return (
-      <div className=" p-3 bg-dark text-center rounded-2 fw-bold ">
+      <div className=" p-3 bg-custom text-center rounded-2 fw-bold ">
         Şu ana kadar bir yorum yapmadınız.
       </div>
     );
@@ -45,7 +45,7 @@ const Feedbacks = () => {
             <Accordion.Item
               key={index}
               eventKey={index}
-              className="siparis-accordion-item"
+              className="siparis-accordion-item bg-custom"
             >
               <Accordion.Header>
                 <div className="siparisler-accordion-head w-100 pe-3">
@@ -78,7 +78,7 @@ const Feedbacks = () => {
                       alt={item.products.title}
                     />
                     <div
-                      className="content h-100 d-flex gap-3 flex-wrap flex-sm-nowrap justify-content-center align-items-center justify-content-sm-between  px-3 py-3 bg-dark w-100 rounded-3"
+                      className="content h-100 d-flex gap-3 flex-wrap flex-sm-nowrap justify-content-center align-items-center justify-content-sm-between  px-3 py-3 bg-custom w-100 rounded-3"
                       style={{ minHeight: "6em" }}
                     >
                       <Link
@@ -87,7 +87,11 @@ const Feedbacks = () => {
                         <h6>{item.products.title}</h6>
                       </Link>
                       <span className="h5 p-0 m-0">
-                        Tutar: {(item.products.price*currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol}
+                        Tutar:{" "}
+                        {(
+                          item.products.price * currencyObj[currency].value
+                        ).toFixed(2)}{" "}
+                        {currencyObj[currency].symbol}
                       </span>
                     </div>
                   </div>
@@ -104,7 +108,7 @@ const Feedbacks = () => {
                       />
                     </div>
                     <div
-                      className="content  d-flex gap-3 flex-wrap flex-sm-nowrap justify-content-center justify-content-sm-between  px-3 py-3 bg-dark w-100 rounded-3"
+                      className="content  d-flex gap-3 flex-wrap flex-sm-nowrap justify-content-center justify-content-sm-between  px-3 py-3 bg-custom w-100 rounded-3"
                       style={{ minHeight: "6em" }}
                     >
                       <div className="left w-25">

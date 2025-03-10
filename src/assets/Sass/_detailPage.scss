@@ -1,4 +1,13 @@
-$darker-background:#171a21;
+:root {
+  --darker-background: #b6b8bd;
+  --detail-bg: #bfc2c9;
+  --some-color: rgba(150, 151, 153, 0.473);
+}
+[data-bs-theme="dark"] {
+  --darker-background: #171a21;
+  --detail-bg: #222631;
+  --some-color: rgba(28, 32, 40, 0.918);
+}
 .detail-page {
   .area {
     display: grid;
@@ -6,7 +15,7 @@ $darker-background:#171a21;
       "image image image description description description description creator creator"
       "image image image description description description description creator creator"
       "image image image information information information information payment payment";
-    grid-template-columns: repeat(7, 1fr); 
+    grid-template-columns: repeat(7, 1fr);
     grid-template-rows: auto;
     gap: 15px; /* Optional: Adjust spacing */
   }
@@ -14,7 +23,7 @@ $darker-background:#171a21;
   .area-part {
     border-radius: 7px;
     overflow: hidden;
-    background-color: #222631;
+    background-color: var(--detail-bg);
     padding: 15px;
   }
 
@@ -25,15 +34,14 @@ $darker-background:#171a21;
     max-width: 30em;
     align-content: center;
     display: block;
-      margin: auto;
-    img{
-      
+    margin: auto;
+    img {
       width: 100%;
     }
-    .aninda{
+    .aninda {
       background-color: green;
       top: 10px;
-      left:10px;
+      left: 10px;
       font-size: 13px;
     }
   }
@@ -41,61 +49,60 @@ $darker-background:#171a21;
   .description {
     grid-area: description;
     height: fit-content;
-    #teslimat{
-        background-color: $darker-background;
-        padding: 4px;
-        color: lightgreen;
-        border-radius: 5px;
+    #teslimat {
+      background-color: var(--darker-background);
+      padding: 4px;
+      color: lightgreen;
+      border-radius: 5px;
     }
   }
 
   .creator {
     grid-area: creator;
-    gap:22px;
-    .status{
-        background-color: $darker-background;
-        padding: 4px;
-        @include center();
-        border-radius: 5px;
+    gap: 22px;
+    .status {
+      background-color: var(--darker-background);
+      padding: 4px;
+      @include center();
+      border-radius: 5px;
     }
-    .likes{
-        border-radius: 5px;
-        padding: 10px;
-        font-size:11px;
-        background-color: $darker-background;
+    .likes {
+      border-radius: 5px;
+      padding: 10px;
+      font-size: 11px;
+      background-color: var(--darker-background);
     }
   }
 
   .information {
     grid-area: information;
-    .box-headings{
+    .box-headings {
       font-size: small;
     }
-    .boxes-info{
-        border-radius: 10px;
-        background-color: $darker-background;
+    .boxes-info {
+      border-radius: 10px;
+      background-color: var(--darker-background);
     }
-}
+  }
 
   .payment {
     grid-area: payment;
     gap: 15px;
     padding: 18px;
-    .price{
-      .discount{
+    .price {
+      .discount {
         margin-bottom: -8px;
         text-align: center;
         display: flex;
-        justify-content:end;
+        justify-content: end;
         align-items: center;
-        gap:4px;
-        #disc_price{
+        gap: 4px;
+        #disc_price {
           color: rgb(230, 23, 0);
           text-decoration: line-through;
           font-size: 15px;
-
         }
-        #disc_percent{
+        #disc_percent {
           background-color: red;
           color: white;
           font-weight: 900;
@@ -106,18 +113,18 @@ $darker-background:#171a21;
         }
       }
     }
-    .amount{
-      background-color: rgba(28, 32, 40, 0.248);
+    .amount {
+      background-color: var(--some-color);
       width: 67%;
-      .ingredients{
-        background-color: $darker-background;
+      .ingredients {
+        background-color: var(--darker-background);
         width: 100%;
         border-radius: 3px;
-        .decrease,.increase{
-          background-color: #222631;
+        .decrease,
+        .increase {
+          background-color: var(--detail-bg);
         }
       }
     }
-    
   }
 }

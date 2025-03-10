@@ -33,7 +33,7 @@ export const ProductDetails = () => {
   const { products, loading } = useContext(ProductContext);
   const { session, userProfile } = UserAuth();
   const { slugName } = useParams();
-  const {currency,currencyObj} = useContext(SettingsContext)
+  const { currency, currencyObj } = useContext(SettingsContext);
   const { wishes } = useSelector((state) => state.wishlist);
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
@@ -187,18 +187,15 @@ export const ProductDetails = () => {
                     thing ? "text-danger" : ""
                   }`}
                   onClick={() => {
-                    if (!thing)
-                    {
+                    if (!thing) {
                       dispatch(
                         addWish({
                           product_id: foundedProduct.id,
                           user_id: userProfile.id,
                         })
                       );
-                    }else{
-                      dispatch(
-                        deleteWish(thing.id)
-                      )
+                    } else {
+                      dispatch(deleteWish(thing.id));
                     }
                   }}
                 >
@@ -254,15 +251,21 @@ export const ProductDetails = () => {
                 alt={foundedProduct.profiles.display_name}
               />
               <div>
-                <Link to={`/magaza/${slugify(`${foundedProduct.profiles.display_name}~${foundedProduct.profiles.id.substring(0,8)}`)}`}>
-                <span className="h5">
-                  {foundedProduct.profiles.display_name}{" "}
-                  {foundedProduct.profiles.is_verified ? (
-                    <FaCircleCheck className="text-info" />
-                  ) : (
-                    ""
-                  )}
-                </span>
+                <Link
+                  to={`/magaza/${slugify(
+                    `${
+                      foundedProduct.profiles.display_name
+                    }~${foundedProduct.profiles.id.substring(0, 8)}`
+                  )}`}
+                >
+                  <span className="h5">
+                    {foundedProduct.profiles.display_name}{" "}
+                    {foundedProduct.profiles.is_verified ? (
+                      <FaCircleCheck className="text-info" />
+                    ) : (
+                      ""
+                    )}
+                  </span>
                 </Link>
                 <div className="d-flex justify-content-center align-items-center gap-2">
                   <div
@@ -330,7 +333,10 @@ export const ProductDetails = () => {
               <div className="price">
                 <div className="discount">
                   <span id="disc_price">
-                    {(foundedProduct.price*currencyObj[currency].value).toFixed(2, 0)} {currencyObj[currency].symbol}
+                    {(
+                      foundedProduct.price * currencyObj[currency].value
+                    ).toFixed(2, 0)}{" "}
+                    {currencyObj[currency].symbol}
                   </span>
                   <span
                     id="disc_percent"
@@ -342,18 +348,23 @@ export const ProductDetails = () => {
                 <span style={{ fontWeight: "bolder", fontSize: "27px" }}>
                   <p>
                     {(
-                      (foundedProduct.price*currencyObj[currency].value).toFixed(2) -
-                      (foundedProduct.price*currencyObj[currency].value * foundedProduct.discount) / 100
+                      (
+                        foundedProduct.price * currencyObj[currency].value
+                      ).toFixed(2) -
+                      (foundedProduct.price *
+                        currencyObj[currency].value *
+                        foundedProduct.discount) /
+                        100
                     ).toFixed(2, 0)}
                     {currencyObj[currency].symbol}
                   </p>
                 </span>
               </div>
             </div>
-            <div className="d-flex w-100 justify-content-between gap-2 align-items-center">
-              <div className="amount d-flex align-items-center justify-content-center">
-                <span style={{ width: "5em" }}>Adet: </span>
-                <div className="d-flex ingredients justify-content-between align-items-center p-2 ">
+            <div className="d-flex w-100 justify-content-center gap-2 align-items-center">
+              <div className="amount d-flex align-items-center justify-content-center gap-0 rounded-4 overflow-hidden">
+                <span className="px-3">Adet: </span>
+                <div className="d-flex ingredients justify-content-center align-items-center p-2 gap-2 ">
                   <div
                     onClick={() => {
                       count == 1 ? "" : setCount((prev) => prev - 1);
@@ -365,7 +376,7 @@ export const ProductDetails = () => {
                   >
                     -
                   </div>
-                  <div className="amount w-50 text-center">{count}</div>
+                  <div className="amount w-50 text-center" >{count}</div>
                   <div
                     onClick={() => setCount((prev) => prev + 1)}
                     className="increase btn p-0 w-25 text-center"
@@ -384,7 +395,7 @@ export const ProductDetails = () => {
             </div>
           </div>
         </div>
-        <div ref={targetRef} className="card my-3 border-0 bg-dark">
+        <div ref={targetRef} className="card my-3 border-0 bg-custom">
           <div className="card-head">
             <Lent
               back={"https://www.gamesatis.com/assets/header-bg-icon-game.png"}
@@ -399,7 +410,7 @@ export const ProductDetails = () => {
             {foundedProduct.description}
           </div>
         </div>
-        <div className="card my-3 border-0 bg-dark">
+        <div className="card my-3 border-0 bg-custom">
           <div className="card-head p-3 h3 fw-bolder">Kullanıcı yorumları</div>
           <hr />
           <div
@@ -478,7 +489,7 @@ export const ProductDetails = () => {
 
         {/* Yorumlarin bulundugu hisse */}
         {foundedProduct.feedbacks.map((item, index) => (
-          <div key={index} className="card my-3 border-0 bg-dark">
+          <div key={index} className="card my-3 border-0 bg-custom">
             <div className="card-head">
               <Lent
                 back={

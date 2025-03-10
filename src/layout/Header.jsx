@@ -12,10 +12,10 @@ import { SettingsContext } from "../Context/SettingsProvider";
 
 const Header = () => {
   const { session, userProfile, privacyStatus } = UserAuth();
-  const {currency,currencyObj}= useContext(SettingsContext)
+  const { currency, currencyObj } = useContext(SettingsContext);
   return (
     <>
-      <div className="header mb-0 pb-0 h-auto flex-column bg-dark">
+      <div className="header mb-0 pb-0 h-auto flex-column bg-custom">
         <div className=" container-fluid d-none d-lg-block">
           <div className="top-head d-flex justify-content-end align-items-center   ">
             <ul className="list-unstyled m-0 py-2 gap-2 d-flex align-items-center justify-content-center ">
@@ -68,38 +68,44 @@ const Header = () => {
                       className="btn border border-1 d-flex align-items-center justify-content-between d-flex gap-1 rounded-1 fw-bold text-white sell"
                     >
                       <Link to={"/profilim"}>
-                      <img
-                        className="rounded-2"
-                        width={25}
-                        src={userProfile.profile_photo}
-                        alt="profil photo"
-                      />
+                        <img
+                          className="rounded-2"
+                          width={25}
+                          src={userProfile.profile_photo}
+                          alt="profil photo"
+                        />
                       </Link>
                       <Link to={"/profilim"}>
-                      <div>
-                        <div
-                          style={{
-                            fontSize: "12px",
-                            fontFamily: "Roboto,sans-serif",
-                          }}
-                          className="name fw-bold"
-                        >
-                          Hesabim
-                        </div>
-                        <div
-                          className="balance text-warning"
-                          style={{ fontSize: "11px" }}
+                        <div>
+                          <div
+                            style={{
+                              fontSize: "12px",
+                              fontFamily: "Roboto,sans-serif",
+                            }}
+                            className="name fw-bold"
                           >
-                          {privacyStatus ? (
-                            "#####"
-                          ) : (
-                            <>{(userProfile.balance*currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol}</>
-                          )}
+                            Hesabim
+                          </div>
+                          <div
+                            className="balance fw-bold"
+                            style={{ fontSize: "11px",color:"orange" }}
+                          >
+                            {privacyStatus ? (
+                              "#####"
+                            ) : (
+                              <>
+                                {(
+                                  userProfile.balance *
+                                  currencyObj[currency].value
+                                ).toFixed(2)}{" "}
+                                {currencyObj[currency].symbol}
+                              </>
+                            )}
+                          </div>
                         </div>
-                      </div>
                       </Link>
                       <CgMail className="fs-5" />
-                      <Link to="/favoriler" >
+                      <Link to="/favoriler">
                         <BiHeart className="fs-5" />
                       </Link>
                     </button>
@@ -113,7 +119,8 @@ const Header = () => {
               </Link>
               <div className="d-flex gap-4 d-lg-none">
                 {userProfile ? (
-                  <Link to={"/cart"}
+                  <Link
+                    to={"/cart"}
                     className="cart fs-6 px-2 py-1 text-center align-content-center rounded-3"
                     style={{ backgroundColor: "#FF5F1F" }}
                   >
@@ -140,10 +147,18 @@ const Header = () => {
             </Link>
             <div className="nav-element">OYUNCU PAZARI</div>
             <div className="nav-element">KNIGHT ONLINE</div>
-            <Link to={"/oyunlar/League-Of-Legends"} className="nav-element">League Of Legends</Link>
-            <Link to={"/oyunlar/PUBG-Mobile"} className="nav-element">PUBG UC</Link>
-            <Link to={"/oyunlar/Valorant"} className="nav-element">VALORANT VP</Link>
-            <Link to={"/oyunlar/Supercell"} className="nav-element">Supercell</Link>
+            <Link to={"/oyunlar/League-Of-Legends"} className="nav-element">
+              League Of Legends
+            </Link>
+            <Link to={"/oyunlar/PUBG-Mobile"} className="nav-element">
+              PUBG UC
+            </Link>
+            <Link to={"/oyunlar/Valorant"} className="nav-element">
+              VALORANT VP
+            </Link>
+            <Link to={"/oyunlar/Supercell"} className="nav-element">
+              Supercell
+            </Link>
             <div className="nav-element">RAZER AL-SAT</div>
             <div className="nav-element">AÇIK ARTIRMA</div>
             <div style={{ color: "#75ba15" }} className="nav-element fw-bolder">

@@ -18,7 +18,8 @@ import { FaLinkedinIn } from "react-icons/fa";
 const Footer = () => {
   return (
     <>
-      <div className="footer">
+      <div className="footer bg-custom position-relative">
+        <div className="back position-absolute top-0 start-0" />
         <div className="main-footer container">
           <div className="row top-row">
             <div className="col">

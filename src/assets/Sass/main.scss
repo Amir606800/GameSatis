@@ -9,11 +9,51 @@
 @import "Responsiveness";
 body {
   width: 100vw;
-  background-color: #161820;
   overflow-x: hidden;
+  background-color: var(--main-back);
   scroll-behavior: smooth;
 }
+:root {
+  --custom-bg:  #bfc1ca; // Light mode default
+  --custom-text: black;
+  --main-back: #d6d6d6;
+  --blend-mode: multiply;
+  --custom-opacity: 0;
+  
+}
 
+[data-bs-theme="dark"] {
+  --custom-bg: #212630 !important; // Dark mode background
+  --custom-text: white !important;
+  --main-back: #161820 !important;
+  --blend-mode: none;
+  --custom-opacity: 1;
+}
+
+.bg-custom {
+  background-color: var(--custom-bg) !important;
+  color: var(--custom-text);
+}
+
+.nav-element {
+  background-color: var(--custom-bg) !important;
+  img {
+    filter: brightness(var(--custom-opacity));
+  }
+  color: var(--custom-text);
+}
+.nav-element:hover {
+  background-color: var( --custom-text);
+  img {
+    @if(var(--custom-opacity+1)){
+      filter: brightness(var(--custom-opacity+1));
+    }
+  }
+}
+a {
+  text-decoration: none;
+  color: var(--custom-text);
+}
 
 .container-fluid {
   width: 100%;
@@ -27,7 +67,6 @@ hr {
 }
 
 ::-webkit-scrollbar {
-  
   width: 11px;
   height: 12px;
 }
@@ -79,11 +118,6 @@ hr {
   background-color: #32a0db;
 }
 
-a {
-  text-decoration: none;
-  color: white;
-}
-
 .path {
   margin-top: 10px;
   span {
@@ -123,7 +157,8 @@ a {
   }
 }
 
-.profile-section-element-active,.profile-section-element:hover{
+.profile-section-element-active,
+.profile-section-element:hover {
   background-color: white !important;
   color: black !important;
 }
@@ -134,7 +169,6 @@ a {
   object-fit: contain;
 }
 
-
-.cur-pointer{
+.cur-pointer {
   cursor: pointer;
 }

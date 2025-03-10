@@ -28,20 +28,19 @@ const Informations = () => {
     }
   };
 
-  const handlePrivacy = async ()=>{
-    if(privacyStatus == true) {
-      setPrivacyStatus(false)
+  const handlePrivacy = async () => {
+    if (privacyStatus == true) {
+      setPrivacyStatus(false);
       // const {data,error} = await supabase.from("user_settings").update({"privacy_status":false}).eq("user_setting_id",mUserProfile.id)
       // if(error) console.error(error)
       // console.log(data)
-    }
-    else{
-      setPrivacyStatus(true)
+    } else {
+      setPrivacyStatus(true);
       // const {data,error} = await supabase.from("user_settings").update({"privacy_status":true}).eq("user_setting_id",mUserProfile.id)
       // if(error) console.error(error)
       //   console.log(data)
-    };
-  }
+    }
+  };
   // useEffect(()=>{
   //   setPrivacyStatus(mUserProfile.user_settings.privacy_status)
 
@@ -49,15 +48,15 @@ const Informations = () => {
   return (
     <div className="Information-profile text-center d-flex justify-content-center align-items-start h-100 ">
       <Accordion
-        className="h-100 w-100 bg-dark "
+        className="h-100 w-100 bg-custom "
         defaultActiveKey="1"
         flush={true}
       >
-        <Accordion.Item className="bg-dark" eventKey="1">
-          <Accordion.Header className="bg-dark">
+        <Accordion.Item className="bg-custom" eventKey="1">
+          <Accordion.Header className="bg-custom">
             <LuUserRound /> <span>Kişisel Bilgiler</span>
           </Accordion.Header>
-          <Accordion.Body className="bg-dark p-3 ">
+          <Accordion.Body className="bg-custom p-3 ">
             <div className="d-flex flex-column gap-3 w-100 ">
               <div className="Wrapped-div d-flex gap-4 w-100 justify-content-center">
                 <div className="position-relative w-100 ">
@@ -202,12 +201,12 @@ const Informations = () => {
         </Accordion.Item>
 
         {/* Security like password */}
-        <Accordion.Item className="bg-dark" eventKey="2">
-          <Accordion.Header className="bg-dark">
+        <Accordion.Item className="bg-custom" eventKey="2">
+          <Accordion.Header className="bg-custom">
             <IoShieldCheckmarkOutline />
             <span>Güvenlik Tercihleri</span>
           </Accordion.Header>
-          <Accordion.Body className="bg-dark">
+          <Accordion.Body className="bg-custom">
             <div className="d-flex flex-column gap-3 w-100">
               <div className="Wrapped-div d-flex gap-4 w-100 justify-content-center">
                 <div className="position-relative w-100">
@@ -243,11 +242,17 @@ const Informations = () => {
                   />
 
                   <input
-                    className={`Profile_input_fields w-100 h-100 rounded-2 text-end ${mUserProfile.user_settings.email_entry?"text-success":"text-danger"}`}
+                    className={`Profile_input_fields w-100 h-100 rounded-2 text-end ${
+                      mUserProfile.user_settings.email_entry
+                        ? "text-success"
+                        : "text-danger"
+                    }`}
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={mUserProfile.user_settings.email_entry?"Açık":"Kapalı"}
+                    value={
+                      mUserProfile.user_settings.email_entry ? "Açık" : "Kapalı"
+                    }
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
@@ -265,11 +270,17 @@ const Informations = () => {
                     modalNum={3}
                   />
                   <input
-                    className={`Profile_input_fields w-100 h-100 rounded-2 text-end ${mUserProfile.user_settings.sms_entry?"text-success":"text-danger"}`}
+                    className={`Profile_input_fields w-100 h-100 rounded-2 text-end ${
+                      mUserProfile.user_settings.sms_entry
+                        ? "text-success"
+                        : "text-danger"
+                    }`}
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={mUserProfile.user_settings.sms_entry?"Açık":"Kapalı"}
+                    value={
+                      mUserProfile.user_settings.sms_entry ? "Açık" : "Kapalı"
+                    }
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
@@ -284,12 +295,12 @@ const Informations = () => {
         </Accordion.Item>
 
         {/* Notification section*/}
-        <Accordion.Item className="bg-dark" eventKey="3">
-          <Accordion.Header className="bg-dark">
+        <Accordion.Item className="bg-custom" eventKey="3">
+          <Accordion.Header className="bg-custom">
             <IoMdNotificationsOutline />
             <span>Bildirim Tercihleri</span>
           </Accordion.Header>
-          <Accordion.Body className="bg-dark">
+          <Accordion.Body className="bg-custom">
             <div className="d-flex flex-column gap-3 w-100">
               <div className="d-flex gap-4 w-100 justify-content-center">
                 <div className="position-relative w-100">
@@ -299,11 +310,19 @@ const Informations = () => {
                     modalNum={4}
                   />
                   <input
-                    className={`Profile_input_fields w-100 h-100 rounded-2 text-end ${mUserProfile.user_settings.sms_notification?"text-success":"text-danger"}`}
+                    className={`Profile_input_fields w-100 h-100 rounded-2 text-end ${
+                      mUserProfile.user_settings.sms_notification
+                        ? "text-success"
+                        : "text-danger"
+                    }`}
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={mUserProfile.user_settings.sms_notification?"Açık":"Kapalı"}
+                    value={
+                      mUserProfile.user_settings.sms_notification
+                        ? "Açık"
+                        : "Kapalı"
+                    }
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
@@ -319,11 +338,19 @@ const Informations = () => {
                     modalNum={5}
                   />
                   <input
-                    className={`Profile_input_fields w-100 h-100 rounded-2 text-end ${mUserProfile.user_settings.email_notifications?"text-success":"text-danger"}`}
+                    className={`Profile_input_fields w-100 h-100 rounded-2 text-end ${
+                      mUserProfile.user_settings.email_notifications
+                        ? "text-success"
+                        : "text-danger"
+                    }`}
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={mUserProfile.user_settings.email_notifications?"Açık":"Kapalı"}
+                    value={
+                      mUserProfile.user_settings.email_notifications
+                        ? "Açık"
+                        : "Kapalı"
+                    }
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
@@ -402,7 +429,6 @@ const ModalForRadio = React.memo((props) => {
                       name="emailPreference"
                       style={{ transform: "scale(1.4)", accentColor: "red" }}
                       defaultChecked
-                      
                     />
                   </label>
                 </div>

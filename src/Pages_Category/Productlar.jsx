@@ -36,7 +36,7 @@ const Productlar = () => {
       <Path />
       <div className="image">
         <img
-          className="w-100"
+          className="w-100 custom-blend-mode"
           src="https://img.gamesatis.com/assets/category-default-image.webp"
           alt="toop-banner"
         />

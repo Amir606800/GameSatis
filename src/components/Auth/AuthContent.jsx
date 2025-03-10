@@ -17,7 +17,7 @@ const AuthContent=(props)=>{
     }, []);
     return(<div className={!props.modalmi?"container-fluid my-4":""} style={!props.modalmi?{width:"70vw",maxWidth:"50em"}:{}}>
             <div className="sign-box  d-flex  w-100 ">
-              <div className="left p-4  w-100">
+              <div className="left bg-custom p-4  w-100">
                 <div className="head">
                   <button
                     onClick={(e) => {

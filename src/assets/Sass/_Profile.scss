@@ -1,8 +1,18 @@
+:root {
+  --input-bg: #8383833f;
+}
+[data-bs-theme="dark"] {
+  --input-bg: #171a21;
+}
+
+input{
+  background-color: var(--input-bg) !important;
+}
 .User-Profile {
-  .login-btn-active{
+  .login-btn-active {
     background-color: #32a0db !important;
   }
-  .login-btn-active:hover{
+  .login-btn-active:hover {
     background: none !important;
     border: 1px solid #32a0db;
     color: #32a0db !important;
@@ -22,22 +32,22 @@
         justify-content: center;
         align-items: center;
         .list-of-inputs-elements {
-          
           display: flex;
           align-items: center;
           justify-content: space-between;
-          gap:10px;
-          
-          input,textarea {
+          gap: 10px;
+
+          input,
+          textarea {
             padding: 12px;
             font-size: 12px;
             font-weight: bold;
-            background-color: #171a21;
+            background-color: var(--input-bg);
             outline: none;
             border: none;
             border-radius: 10px;
           }
-          textarea{
+          textarea {
             width: 70%;
             max-height: 10em;
           }
@@ -54,7 +64,6 @@
         min-width: 30px;
         height: 30px;
         border-radius: 3px;
-        color: white;
         font-weight: bolder;
         @include center();
         font-size: smaller;
@@ -88,7 +97,6 @@
     .accordion-item {
       border: none;
       border-radius: 10px;
-      background-color: #212630 !important;
     }
     .accordion-button:focus {
       box-shadow: none !important;
@@ -109,7 +117,7 @@
       input,
       .Privacy-button {
         border: none;
-        background-color: #171a21;
+        background-color: var(--input-bg);
       }
       .accordion-button {
         @include center;
@@ -123,31 +131,30 @@
       }
     }
   }
-
 }
-.modal-open{
+.modal-open {
   justify-content: center;
-      align-items: center;
-      .list-of-inputs-elements {
-        
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap:10px;
-        
-        input,textarea {
-          padding: 12px;
-          font-size: 12px;
-          font-weight: bold;
-          background-color: #171a21;
-          outline: none;
-          border: none;
-          border-radius: 10px;
-        }
-        textarea{
-          width: 70%;
-          min-height: 7em;
-          max-height: 14em;
-        }
-      }
+  align-items: center;
+  .list-of-inputs-elements {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+    input,
+    textarea {
+      padding: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      background-color: var(--input-bg);
+      outline: none;
+      border: none;
+      border-radius: 10px;
+    }
+    textarea {
+      width: 70%;
+      min-height: 7em;
+      max-height: 14em;
+    }
+  }
 }

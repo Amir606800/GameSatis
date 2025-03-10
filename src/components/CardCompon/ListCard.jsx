@@ -28,7 +28,7 @@ const ListCard = ({ main }) => {
           <div className="verf text-success">
             <GoVerified />
           </div>
-          {(main.price*currencyObj[currency].value)}{currencyObj[currency].symbol}
+          {(main.price*currencyObj[currency].value).toFixed(2)}{currencyObj[currency].symbol}
         </div>
         <div style={{height:"fit-content"}} className="card-body d-flex justify-content-between align-items-center">
           <div className="d-flex w-100 flex-column flex-xl-row align-items-center justify-content-center gap-3 gap-xl-1" style={{height:"fit-content"}}>

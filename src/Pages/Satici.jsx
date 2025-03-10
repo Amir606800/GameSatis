@@ -17,13 +17,13 @@ import { SettingsContext } from "../Context/SettingsProvider";
 const Satici = () => {
   const { userName } = useParams();
   const { userProfile } = UserAuth();
-  const {currency,currencyObj} = useContext(SettingsContext)
+  const { currency, currencyObj } = useContext(SettingsContext);
   const { foundUserProfile, fetchUserProfile, LoadingFound } =
     useContext(ProductContext);
   useEffect(() => {
     fetchUserProfile(userName);
   }, []);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const handleAddCart = (session, foundedProduct, numberOfItems) => {
     try {
       dispatch(
@@ -61,7 +61,7 @@ const Satici = () => {
           }}
         >
           <div
-            className="left d-flex bg-dark p-3 flex-column rounded-2 justify-content-start align-items-center gap-3 h-100"
+            className="left d-flex bg-custom p-3 flex-column rounded-2 justify-content-start align-items-center gap-3 h-100"
             style={{ width: "30em" }}
           >
             <div
@@ -107,9 +107,10 @@ const Satici = () => {
                 </div>
               </div>
             </div>
-            <div className="middle-part bg-dark-subtle w-100 rounded-2">
+            <div className="middle-part bg-custom-subtle w-100 rounded-2">
               <div className="head text-center py-2 fw-bold">
-                Toplam işlem adeti: {foundUserProfile.dislikes + foundUserProfile.likes}
+                Toplam işlem adeti:{" "}
+                {foundUserProfile.dislikes + foundUserProfile.likes}
               </div>
               <hr className="my-2" style={{ border: "1px solid gray" }} />
               <div className="row my-2">
@@ -141,49 +142,99 @@ const Satici = () => {
             }}
           >
             <div className="Categ d-flex flex-row  mb-2 gap-3">
-                <div className="bg-dark profile-section-element w-100 text-center align-content-center rounded-3 p-3" style={{height:"4em"}}>Ilanlar</div>
-                <div className="bg-dark profile-section-element w-100 text-center align-content-center rounded-3 p-3" style={{height:"4em"}}>Yorumlar</div>
+              <div
+                className="bg-custom profile-section-element w-100 text-center align-content-center rounded-3 p-3"
+                style={{ height: "4em" }}
+              >
+                Ilanlar
+              </div>
+              <div
+                className="bg-custom profile-section-element w-100 text-center align-content-center rounded-3 p-3"
+                style={{ height: "4em" }}
+              >
+                Yorumlar
+              </div>
             </div>
 
             <div
-              className="search-bar bg-dark w-100 p-3 rounded-3"
+              className="search-bar bg-custom w-100 p-3 rounded-3"
               style={{ height: "fit-content" }}
             >
               <div className="w-100 h-100 position-relative d-flex gap-2">
                 <input
                   placeholder="Sipariş İD veya ilan başlığı ile ara..."
                   style={{ padding: "10px", backgroundColor: "#161820" }}
-                  className="w-100 border-0 h-100 px-5 bg-dark-subtle rounded-3"
+                  className="w-100 border-0 h-100 px-5 bg-custom-subtle rounded-3"
                   type="text"
                 />
                 <FaSearch
                   className="position-absolute top-50 translate-middle-y"
                   style={{ left: "15px" }}
                 />
-                
               </div>
             </div>
             <div className="list d-flex flex-column gap-3 mt-3">
-                {foundUserProfile.products.map((item,index)=>(
-                    <div key={index} style={{height:"10em"}} className="p-3 bg-dark rounded-3 d-flex flex-row align-items-center justify-content-between">
-                        <div className="h-100 d-flex align-items-center justify-content-start gap-3">
-                            <img src={item.image_url} className="h-100 border border-1" alt={item.title} />
-                            <Link to={`/${slugify(item.title).toLowerCase()}`} className="h5 fw-bold">{item.title}</Link>
-                        </div>
-                        <div className="right d-flex flex-row gap-3 align-items-center justify-content-center">
-                            <div className="d-flex flex-column  justify-content-center align-items-center">
-                                <h6 className="text-info">Satış fiyatı:</h6>
-                                <div className="fs-4 fw-bold">{(item.price*currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol} </div>
-                            </div>
-                            {userProfile?
-                            <form onSubmit={(e)=>{e.preventDefault();handleAddCart(userProfile,item,1)}}>
-                            {userProfile.id == foundUserProfile.id?<></>
-                            :<button style={{height:"2.5em",width:"5em"}} className="btn btn-success">Satın Al</button>}
-                            </form>
-                            :""}
+              {foundUserProfile.products.map((item, index) => (
+                <div
+                  key={index}
+                  style={{ height: "10em" }}
+                  className="p-3 bg-custom rounded-3 d-flex flex-row align-items-center justify-content-between"
+                >
+                  <div className="h-100 d-flex align-items-center justify-content-start gap-3">
+                    <img
+                      src={item.image_url}
+                      className="h-100 border border-1"
+                      alt={item.title}
+                    />
+                    <Link
+                      to={`/${slugify(item.title).toLowerCase()}`}
+                      className="h5 fw-bold"
+                    >
+                      {item.title}
+                    </Link>
+                  </div>
+                  <div className="right d-flex flex-row gap-3 align-items-center justify-content-center">
+                    <div className="d-flex flex-column  justify-content-center align-items-center">
+                      <h6 className="text-info">Satış fiyatı:</h6>
+                      <div className="fs-4 fw-bold">
+                        {item.discount !=0
+                        ?
+                        <>
+                        <span className="text-danger fs-5 text-decoration-line-through">{(item.price * currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol}</span>{" "}
+                        
+                        {((item.price-item.price*item.discount/100)*currencyObj[currency].value).toFixed(2)}{" "}
+                        {currencyObj[currency].symbol}{" "}
+                        </>
+                      :<>
+                      {(item.price*currencyObj[currency].value).toFixed(2)}{" "}
+                      {currencyObj[currency].symbol}{" "}
+                      </>}
                         </div>
                     </div>
-                ))}
+                    {userProfile ? (
+                      <form
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          handleAddCart(userProfile, item, 1);
+                        }}
+                      >
+                        {userProfile.id == foundUserProfile.id ? (
+                          <></>
+                        ) : (
+                          <button
+                            style={{ height: "2.5em", width: "5em" }}
+                            className="btn btn-success"
+                          >
+                            Satın Al
+                          </button>
+                        )}
+                      </form>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

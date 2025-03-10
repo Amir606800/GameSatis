@@ -3,7 +3,13 @@ import Lent from "../components/Lent";
 import IlgiCard from "../components/CardCompon/IlgiCard";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../Addons/Loading";
-import { addCart, changeQuan, deleteCart, fetchCart, resetCart } from "../tools/Slices/CartSlice";
+import {
+  addCart,
+  changeQuan,
+  deleteCart,
+  fetchCart,
+  resetCart,
+} from "../tools/Slices/CartSlice";
 import { UserAuth } from "../Context/AuthContext";
 import { BsShieldFillCheck, BsTrash } from "react-icons/bs";
 import supabase from "../helpers/supabaseClient";
@@ -19,7 +25,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const hasFetched = useRef(false);
   const [total, setTotal] = useState(null);
-  const {currency,currencyObj} = useContext(SettingsContext)
+  const { currency, currencyObj } = useContext(SettingsContext);
   useEffect(() => {
     if (userProfile && !hasFetched.current) {
       dispatch(fetchCart(userProfile.id));
@@ -32,13 +38,18 @@ const Cart = () => {
       const fetchTotalCost = async () => {
         const { data, error } = await supabase
           .from("cart")
-          .select("quantity, products(price)")
+          .select("quantity, products(price,discount)")
           .eq("user_id", userProfile.id);
         if (!error) {
           console.log(data);
           setTotal(
             data.reduce(
-              (acc, item) => acc + item.quantity * item.products.price,0
+              (acc, item) =>
+                acc +
+                item.quantity *
+                  (item.products.price -
+                    (item.products.price * item.products.discount) / 100),
+              0
             )
           );
         } else console.log(error);
@@ -64,29 +75,27 @@ const Cart = () => {
         .update({ balance: userProfile.balance - total.toFixed(2, 0) })
         .eq("id", userProfile.id);
       if (!error) {
-        dispatch(addOrders({cart:cart,total:total}))
-        dispatch(resetCart(userProfile.id))
+        dispatch(addOrders({ cart: cart, total: total }));
+        dispatch(resetCart(userProfile.id));
         Swal.fire({
           title: "Ödeme başarılı",
           text: "Sipariş başarıyla gerçekleşmiştir. Lütfen hesabınızdan 'siparişler' bölümünü gözden geçirin.",
           icon: "success",
-          background: "#222631", 
-          color: "#fff", 
+          background: "#222631",
+          color: "#fff",
           confirmButtonText: "Tamam",
           confirmButtonColor: "#3085d6",
-          
-        }).then(()=>window.location.reload());
-        
-      }else{
-        console.log(error)
+        }).then(() => window.location.reload());
+      } else {
+        console.log(error);
       }
-    }else{
+    } else {
       Swal.fire({
         title: "Ödeme geçersiz",
         text: "Bakiyenizde yeterli nakit yok. Lütfen bakiyenizi artırın",
         icon: "error",
-        background: "#222631", 
-        color: "#fff", 
+        background: "#222631",
+        color: "#fff",
         confirmButtonText: "Tamam",
         confirmButtonColor: "#3085d6",
       });
@@ -98,7 +107,7 @@ const Cart = () => {
   return (
     <div className="cart-page container-fluid">
       {cart.length == 0 ? (
-        <div className="card bg-dark my-5 border-0">
+        <div className="card bg-custom my-5 border-0">
           <div className="card-head">
             <Lent
               leftHead={"Sepetinizde ürün bulunmamaktadır"}
@@ -144,11 +153,30 @@ const Cart = () => {
                     alt=""
                   />
                 </div>
-                <div className="content-grid bg-dark p-3 rounded-2">
+                <div className="content-grid bg-custom p-3 rounded-2">
                   <div className="top d-flex justify-content-between align-items-start">
                     <div className="h5 fw-bold">{item.products.title}</div>
+                    
                     <div className="price-1 h4 fw-bolder">
-                      {(item.products.price*currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol}
+                      {item.products.discount !=0
+                      ?<>
+                      <span className="text-danger fs-5 text-decoration-line-through">{(item.products.price*currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol}</span>{" "}
+                      <span>
+
+                      {(
+                        (item.products.price -
+                          (item.products.price * item.products.discount) /
+                          100) *
+                          currencyObj[currency].value
+                        ).toFixed(2)}{" "}
+                      {currencyObj[currency].symbol}
+                        </span>
+                        </>
+                      :<>
+                      {(
+                        item.products.price*currencyObj[currency].value).toFixed(2)}{" "}
+                        {currencyObj[currency].symbol}
+                      </>}
                     </div>
                   </div>
                   <div className="botommo d-flex align-items-end justify-content-between h-75">
@@ -160,8 +188,14 @@ const Cart = () => {
                         alt={item.products.profiles.display_name}
                       />
                       <div className="infos">
-                        
-                        <Link to={`/magaza/${slugify(`${item.products.profiles.display_name}~${item.products.profiles.id.substring(0,8)}`)}`} className=" h5 fw-bold">
+                        <Link
+                          to={`/magaza/${slugify(
+                            `${
+                              item.products.profiles.display_name
+                            }~${item.products.profiles.id.substring(0, 8)}`
+                          )}`}
+                          className=" h5 fw-bold"
+                        >
                           {item.products.profiles.display_name}
                         </Link>
                         <div className="d-flex gap-2 align-items-center">
@@ -235,7 +269,7 @@ const Cart = () => {
             ))}
           </div>
           <div
-            className="mt-4 p-3 final-right bg-dark rounded-2 w-25 "
+            className="mt-4 p-3 final-right bg-custom rounded-2 w-25 "
             style={{
               minHeight: "10em",
               maxHeight: "25em",
@@ -259,8 +293,15 @@ const Cart = () => {
                       {item.products.title}:
                     </span>
                     <span style={{ fontSize: "18px", fontWeight: "bolder" }}>
-                      {(item.products.price*currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol}
-                      <span className="fs-6">x {item.quantity}</span>
+                     
+                      {(
+                        (item.products.price -
+                          (item.products.price * item.products.discount) /
+                            100) *
+                        currencyObj[currency].value
+                      ).toFixed(2)}{" "}
+                      {currencyObj[currency].symbol}
+                      <span className="fs-6"> x {item.quantity}</span>
                     </span>
                   </div>
                 ))
@@ -279,7 +320,16 @@ const Cart = () => {
                 {cart.length == 0 ? (
                   <>Loading...</>
                 ) : (
-                  <>{total ? total.toFixed(2, 0) : "loading..."}</>
+                  <>
+                    {total ? (
+                      <>
+                        {(total * currencyObj[currency].value).toFixed(2)}{" "}
+                        {currencyObj[currency].symbol}{" "}
+                      </>
+                    ) : (
+                      "loading..."
+                    )}
+                  </>
                 )}
               </span>
             </div>

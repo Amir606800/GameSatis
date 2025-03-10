@@ -7,7 +7,13 @@ import StreamerCard from "../components/CardCompon/StreamerCard";
 import Loading from "../Addons/Loading";
 
 const Donate = () => {
-  const { streamData, searcInput, setSearchInput, filteredStreamer,setFilteredStream } =useContext(StreamerContext);
+  const {
+    streamData,
+    searcInput,
+    setSearchInput,
+    filteredStreamer,
+    setFilteredStream,
+  } = useContext(StreamerContext);
   const filterByPlatform = (platform) => {
     const platformFilteredStreamers = streamData.filter((item) =>
       item.platforms.includes(platform)
@@ -17,16 +23,16 @@ const Donate = () => {
   return (
     <div className="container-fluid my-4">
       <Path />
-      <div className="image">
+      <div className="image custom-blend-mode ">
         <img
-          className="w-100"
+          className="w-100 custom-blend-mode "
           src="https://img.gamesatis.com/assets/category-default-image.webp"
           alt="toop-banner"
         />
       </div>
       <div className="heading h5">Donate</div>
       <div
-        className="content w-100 bg-dark rounded-3 my-3"
+        className="content w-100 bg-custom rounded-3 my-3"
         style={{ height: "3.5em" }}
       >
         <form
@@ -57,8 +63,9 @@ const Donate = () => {
             <button
               className="btn py-1 fw-bold d-flex justify-content-center align-items-center gap-1"
               style={{ backgroundColor: "#9146FF" }}
-              onClick={()=>{filterByPlatform("Twitch")}}
-
+              onClick={() => {
+                filterByPlatform("Twitch");
+              }}
             >
               <BsTwitch />
               Twitch
@@ -66,9 +73,9 @@ const Donate = () => {
             <button
               className="py-1 btn fw-bold d-flex justify-content-center align-items-center gap-1"
               style={{ backgroundColor: "#FF0000" }}
-              onClick={()=>{filterByPlatform("YouTube")}}
-
-
+              onClick={() => {
+                filterByPlatform("YouTube");
+              }}
             >
               <BsYoutube />
               YouTube
@@ -76,7 +83,9 @@ const Donate = () => {
             <button
               className="btn py-1 fw-bold d-flex justify-content-center align-items-center gap-1"
               style={{ backgroundColor: "#1877F2" }}
-              onClick={()=>{filterByPlatform("Facebook")}}
+              onClick={() => {
+                filterByPlatform("Facebook");
+              }}
             >
               <BsFacebook /> Facebook
             </button>
@@ -84,16 +93,18 @@ const Donate = () => {
         </form>
       </div>
       <div className="stream-list row g-4 gap-0">
-        {!filteredStreamer
-          ? <Loading />
-          : filteredStreamer.map((item, i) => (
-              <StreamerCard
-                key={i}
-                img={item.photo}
-                names={item.name}
-                platform={item.platforms}
-              />
-            ))}{" "}
+        {!filteredStreamer ? (
+          <Loading />
+        ) : (
+          filteredStreamer.map((item, i) => (
+            <StreamerCard
+              key={i}
+              img={item.photo}
+              names={item.name}
+              platform={item.platforms}
+            />
+          ))
+        )}{" "}
       </div>
     </div>
   );

@@ -3,29 +3,29 @@ import { GoVerified } from "react-icons/go";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
 import { useGSAP } from "@gsap/react";
-import gsap from "gsap"
+import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 import { SettingsContext } from "../../Context/SettingsProvider";
 
 const ProductCard = ({ main, vitrinIndex }) => {
-  gsap.registerPlugin(ScrollTrigger); 
-  gsap.registerPlugin(TextPlugin); 
-  const textRef = useRef()
-  const {currency,currencyObj} = useContext(SettingsContext)
+  gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(TextPlugin);
+  const textRef = useRef();
+  const { currency, currencyObj } = useContext(SettingsContext);
   useGSAP(() => {
     gsap.fromTo(
-      textRef.current, 
-      { text: '' },
-      { 
-        text: main.title, 
+      textRef.current,
+      { text: "" },
+      {
+        text: main.title,
         duration: main.title.length * 0.05, // Adjust speed based on sentence length
-        ease: "none", 
+        ease: "none",
         repeat: 0,
-        scrollTrigger:{
-          trigger:".product-card",
-          start:"-100px 60%",
-        }
+        scrollTrigger: {
+          trigger: ".product-card",
+          start: "-100px 60%",
+        },
       }
     );
   }, []);
@@ -79,13 +79,13 @@ const ProductCard = ({ main, vitrinIndex }) => {
     }
   }, [main.id, vitrinIndex]);
   return (
-    <div className="col-6 col-md-4 col-lg-3 col-xl-2 product-card t" >
+    <div className="col-6 col-md-4 col-lg-3 col-xl-2 product-card t">
       <Link to={`/${slugify(main.title).toLowerCase()}`}>
         <div
-          className="card bg-dark prod-card rounded-3 overflow-hidden h-100"
+          className="card bg-custom prod-card rounded-3 overflow-hidden h-100"
           style={{
-            border: `${main.is_vitrin?selectedShadow.border:""}`,
-            boxShadow: `${main.is_vitrin?selectedShadow.shadow:""}`
+            border: `${main.is_vitrin ? selectedShadow.border : ""}`,
+            boxShadow: `${main.is_vitrin ? selectedShadow.shadow : ""}`,
           }}
         >
           <div className="card-img mb-4 position-relative text-center">
@@ -95,7 +95,7 @@ const ProductCard = ({ main, vitrinIndex }) => {
                 style={{
                   backgroundColor: selectedShadow.firstLayerColor,
                   fontSize: "12px",
-                  minWidth:"100px"
+                  minWidth: "100px",
                 }}
               >
                 {main.id < vitrinIndex ? "Vitrin İlani" : ""}
@@ -107,25 +107,54 @@ const ProductCard = ({ main, vitrinIndex }) => {
             <img src={main.image_url} alt={main.title} className="w-100" />
             <div
               className="manufacturer z-1 fw-bold rounded-2 position-absolute bg-white px-5 start-50 translate-middle-x text-success"
-              style={{ bottom: "-10px",width:"100%" }}
+              style={{ bottom: "-10px", width: "100%" }}
             >
-              {main.is_vitrin?main.profiles.display_name:<div className="d-flex flex-row w-100 py-2"  style={{fontSize:"12px"}} >{main.title.substring(0,18)}</div> }
+              {main.is_vitrin ? (
+                main.profiles.display_name
+              ) : (
+                <div
+                  className="d-flex flex-row w-100 py-2"
+                  style={{ fontSize: "12px" }}
+                >
+                  {main.title.substring(0, 18)}
+                </div>
+              )}
             </div>
-            
+
             <div className="details position-absolute h-100 translate-middle justify-content-center align-items-center top-50 start-50 w-100">
               <div className=" bg-white text-black py-1 px-2 rounded-2 fw-bold z-2">
                 Detaylar
               </div>
               <div className="background-details"></div>
             </div>
-            
           </div>
           <div className="card-head text-start h6 px-2" ref={textRef}></div>
           <div className="card-body d-flex justify-content-between align-items-center">
             <div className="verf text-success">
               <GoVerified />
             </div>
-            <div className="price">{(main.price*currencyObj[currency].value).toFixed(2)}{currencyObj[currency].symbol}</div>
+            <div className="price">
+              {main.discount != 0 ? (
+                <>
+                  <span className="text-danger text-decoration-line-through">
+                    {(main.price * currencyObj[currency].value).toFixed(2)}
+                    {currencyObj[currency].symbol}
+                  </span>{"  "}
+                  <span>
+                    {(
+                      (main.price - (main.price * main.discount) / 100) *
+                      currencyObj[currency].value
+                    ).toFixed(2)}{" "}
+                    {currencyObj[currency].symbol}
+                  </span>
+                </>
+              ) : (
+                <>
+                  {(main.price * currencyObj[currency].value).toFixed(2)}
+                  {currencyObj[currency].symbol}
+                </>
+              )}
+            </div>
           </div>
         </div>
       </Link>

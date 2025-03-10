@@ -12,7 +12,7 @@ import { SettingsContext } from "../Context/SettingsProvider";
 
 const Favoriler = () => {
   const { userProfile } = UserAuth();
-  const {currency,currencyObj} = useContext(SettingsContext)
+  const { currency, currencyObj } = useContext(SettingsContext);
   const { wishes, loading, error } = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
   const reloadRef = useRef(false);
@@ -22,10 +22,10 @@ const Favoriler = () => {
       reloadRef.current = true;
     }
   }, [userProfile]);
- 
+
   if (wishes.length == 0)
     return (
-      <div className=" p-3 bg-dark text-center rounded-2 fw-bold ">
+      <div className=" p-3 bg-custom text-center rounded-2 fw-bold ">
         Hiç favori iteminiz yok.
       </div>
     );
@@ -39,7 +39,7 @@ const Favoriler = () => {
         wishes.map((item, index) => (
           <div key={index}>
             <div
-              className="content bg-dark p-2 pe-3 d-flex  justify-content-between align-items-center rounded-2"
+              className="content bg-custom p-2 pe-3 d-flex  justify-content-between align-items-center rounded-2"
               style={{ minHeight: "6em" }}
             >
               <div className="d-flex gap-2 align-items-center">
@@ -50,13 +50,21 @@ const Favoriler = () => {
                   alt={item.products.title}
                 />
                 <div className="d-flex flex-column gap-2">
-                <h6 className="fw-bold">{item.products.title}</h6>
-                <div style={{fontSize:"16px"}}>{item.products.profiles.display_name}</div>
+                  <h6 className="fw-bold">{item.products.title}</h6>
+                  <div style={{ fontSize: "16px" }}>
+                    {item.products.profiles.display_name}
+                  </div>
                 </div>
               </div>
               <div className="d-flex gap-3 align-items-center">
                 <span className="h5 p-0 m-0 text-center d-flex flex-column">
-                  <span>Tutar:</span> <span className="fw-bold">{(item.products.price*currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol}</span>
+                  <span>Tutar:</span>{" "}
+                  <span className="fw-bold">
+                    {(
+                      item.products.price * currencyObj[currency].value
+                    ).toFixed(2)}{" "}
+                    {currencyObj[currency].symbol}
+                  </span>
                 </span>
                 <div className="d-flex flex-column gap-2 w-50">
                   <Link
@@ -69,7 +77,7 @@ const Favoriler = () => {
                   <button
                     style={{ fontSize: "15px" }}
                     className="btn btn-outline-light text-danger"
-                    onClick={()=>dispatch(deleteWish(item.id))}
+                    onClick={() => dispatch(deleteWish(item.id))}
                   >
                     <BiHeart />
                   </button>

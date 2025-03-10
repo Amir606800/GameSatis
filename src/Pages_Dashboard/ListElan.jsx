@@ -4,9 +4,12 @@ import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { UserAuth } from "../Context/AuthContext";
-import { deleteProduct, fetchUserProducts } from "../tools/Slices/UserProductSlice";
+import {
+  deleteProduct,
+  fetchUserProducts,
+} from "../tools/Slices/UserProductSlice";
 import Loading from "../Addons/Loading";
-import {  BsFillHddStackFill } from "react-icons/bs";
+import { BsFillHddStackFill } from "react-icons/bs";
 import slugify from "slugify";
 import { Link } from "react-router-dom";
 import { HiViewGrid } from "react-icons/hi";
@@ -20,12 +23,12 @@ const ListElan = () => {
   const dispatch = useDispatch();
   const { userProducts } = useSelector((state) => state.products);
   const { session } = UserAuth();
-  const [search,setSearch] = useState("")
+  const [search, setSearch] = useState("");
   const [listStyle, setListStyle] = useState("stack");
   useEffect(() => {
     dispatch(fetchUserProducts(session.user.id));
   }, [session]);
-  const {currency,currencyObj} = useContext(SettingsContext)
+  const { currency, currencyObj } = useContext(SettingsContext);
   const handlesListStyle = () => {
     if (listStyle == "grid") {
       setListStyle("stack");
@@ -33,22 +36,24 @@ const ListElan = () => {
       setListStyle("grid");
     }
   };
-  const searchedProducts = userProducts.filter((item)=>(item.title.toLowerCase().includes(search.toLowerCase())))
+  const searchedProducts = userProducts.filter((item) =>
+    item.title.toLowerCase().includes(search.toLowerCase())
+  );
   if (!userProducts) return <Loading />;
 
   return (
     <div className="Siparisler-profile px-2 pb-2">
       <div
-        className="search-bar bg-dark w-100 p-3 rounded-3"
+        className="search-bar bg-custom w-100 p-3 rounded-3"
         style={{ height: "fit-content" }}
       >
         <div className="w-100 h-100 position-relative d-flex gap-2">
           <input
             placeholder="Sipariş İD veya ilan başlığı ile ara..."
             style={{ padding: "10px", backgroundColor: "#161820" }}
-            onChange={(e)=>setSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value)}
             value={search}
-            className="w-100 border-0 h-100 px-5 bg-dark-subtle rounded-3"
+            className="w-100 border-0 h-100 px-5 bg-custom-subtle rounded-3"
             type="text"
           />
           <FaSearch
@@ -57,7 +62,7 @@ const ListElan = () => {
           />
           <div
             className="grid-or-stack align-content-center text-center cur-pointer"
-            style={{  width: "3em" }}
+            style={{ width: "3em" }}
           >
             <HiViewGrid
               onClick={handlesListStyle}
@@ -90,7 +95,7 @@ const ListElan = () => {
               <Accordion.Item
                 key={index}
                 eventKey={index}
-                className="siparis-accordion-item"
+                className="siparis-accordion-item bg-custom"
               >
                 <Accordion.Header>
                   <div className="siparisler-accordion-head w-100 pe-3">
@@ -122,7 +127,7 @@ const ListElan = () => {
                         src={item.image_url}
                         alt={item.title}
                       />
-                      <div className="content h-100 d-flex gap-3 flex-wrap justify-content-between align-items-center px-3 py-3 bg-dark w-100 rounded-3">
+                      <div className="content h-100 d-flex gap-3 flex-wrap justify-content-between align-items-center px-3 py-3 bg-custom w-100 rounded-3">
                         <div
                           className="left d-flex flex-row flex-lg-column gap-2 align-items-start justify-content-between justify-content-lg-center  h-100 "
                           style={{ fontSize: "12px" }}
@@ -156,7 +161,11 @@ const ListElan = () => {
                         >
                           <span>
                             Birim Fiyati:{" "}
-                            <span className="fw-bold"> {(item.price*currencyObj[currency].value).toFixed(2)}{currencyObj[currency].symbol}</span>
+                            <span className="fw-bold">
+                              {" "}
+                              {(item.price * currencyObj[currency].value).toFixed(2)}
+                              {currencyObj[currency].symbol}
+                            </span>
                           </span>
                           <span>
                             Adet: <span className="fw-bold"> {item.stock}</span>
@@ -167,12 +176,16 @@ const ListElan = () => {
                             <Link
                               to={`/${slugify(item.title).toLowerCase()}`}
                               className="rounded-2 d-flex gap-2 fw-bold  justify-content-center align-items-center py-1 px-1"
-                              style={{ width: "9em", fontSize: "13px",backgroundColor:"#00008F" }}
+                              style={{
+                                width: "9em",
+                                fontSize: "13px",
+                                backgroundColor: "#00008F",
+                              }}
                             >
                               <IoEye style={{ fontSize: " 13px" }} />
                               Görüntüle
                             </Link>
-                            <EditModal listed={true} mainItem={item}/>
+                            <EditModal listed={true} mainItem={item} />
                             <DeleteModal name={item.title} item_id={item.id} />
                           </div>
                         </div>
@@ -207,7 +220,7 @@ const DeleteModal = React.memo(({ name, item_id }) => {
 
   const handleDelete = () => {
     dispatch(deleteProduct(item_id));
-    window.location.reload()
+    window.location.reload();
   };
   return (
     <>
@@ -217,7 +230,7 @@ const DeleteModal = React.memo(({ name, item_id }) => {
         className="cur-pointer bg-danger fw-bold rounded-2 d-flex gap-2 justify-content-center align-items-center py-1 px-3"
         style={{
           fontSize: "12px",
-          
+
           width: "9.5em",
         }}
       >
