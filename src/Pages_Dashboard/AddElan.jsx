@@ -5,6 +5,7 @@ import slugify from "slugify";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct, fetchProduct } from "../tools/Slices/UserProductSlice";
 import Swal from "sweetalert2";
+import { SettingsContext } from "../Context/SettingsProvider";
 
 const AddElan = () => {
     const { mainCat,subCat, fetchSubCategory } = useContext(CategoryContext);
@@ -24,7 +25,7 @@ const AddElan = () => {
     })
 
     const isNumber=(num)=> isNaN(num) && isNaN(parseFloat(num));
-
+    const {currency,currencyObj} = useContext(SettingsContext)
     const checkimageURL = (url)=>{
         const pattern = new RegExp('^https?:\\/\\/.+\\.(png|jpg|jpeg|bmp|gif|webp)$', 'i');
         return pattern.test(url)
@@ -128,7 +129,7 @@ const AddElan = () => {
                             </div>
                         </div>
                         <div className="list-of-inputs-elements w-75">                            
-                            <label htmlFor="price_prod">Ürün Fiyatı (TL):</label>
+                            <label htmlFor="price_prod">Ürün Fiyatı ({currencyObj[currency].symbol}):</label>
                             <input type="text" id="price_prod" value={addedItem.price} onChange={handleInputFields} name="price" placeholder="Ürün Fiyatı: "  />
                         </div>
                         

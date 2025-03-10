@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Accordion, Button, Modal } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { FaCheck } from "react-icons/fa6";
@@ -14,6 +14,7 @@ import ListCard from "../components/CardCompon/ListCard";
 import { BiTrash } from "react-icons/bi";
 import { IoEye } from "react-icons/io5";
 import EditModal from "./EditModal";
+import { SettingsContext } from "../Context/SettingsProvider";
 
 const ListElan = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ const ListElan = () => {
   useEffect(() => {
     dispatch(fetchUserProducts(session.user.id));
   }, [session]);
-
+  const {currency,currencyObj} = useContext(SettingsContext)
   const handlesListStyle = () => {
     if (listStyle == "grid") {
       setListStyle("stack");
@@ -155,7 +156,7 @@ const ListElan = () => {
                         >
                           <span>
                             Birim Fiyati:{" "}
-                            <span className="fw-bold"> {item.price}TL</span>
+                            <span className="fw-bold"> {(item.price*currencyObj[currency].value).toFixed(2)}{currencyObj[currency].symbol}</span>
                           </span>
                           <span>
                             Adet: <span className="fw-bold"> {item.stock}</span>

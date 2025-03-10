@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Offcanvas from "react-bootstrap/Offcanvas";
 import { FaBars } from "react-icons/fa";
@@ -7,10 +7,11 @@ import { UserAuth } from "../Context/AuthContext";
 import { Link } from "react-router-dom";
 import { CgMail } from "react-icons/cg";
 import { BiHeart } from "react-icons/bi";
+import { SettingsContext } from "../Context/SettingsProvider";
 
 function OffCanvas() {
   const [show, setShow] = useState(false);
-
+  const {currency,currencyObj} = useContext(SettingsContext)
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -52,7 +53,7 @@ function OffCanvas() {
                           Hesabim
                         </div>
                         <div  className="balance text-warning"  style={{ fontSize: "11px" }}>
-                        {privacyStatus?"#####":<>{userProfile.balance.toFixed(2)}TL</>}
+                        {privacyStatus?"#####":<>{(userProfile.balance*currencyObj[currency].value).toFixed(2)}{currencyObj[currency].symbol}</>}
                         </div>
                       </div>
                       <div className="p-3 rounded-3 bg-dark" >  <CgMail className="fs-6" /></div>

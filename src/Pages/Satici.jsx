@@ -12,10 +12,12 @@ import { UserAuth } from "../Context/AuthContext";
 import { useDispatch } from "react-redux";
 import { addCart } from "../tools/Slices/CartSlice";
 import Swal from "sweetalert2";
+import { SettingsContext } from "../Context/SettingsProvider";
 
 const Satici = () => {
   const { userName } = useParams();
   const { userProfile } = UserAuth();
+  const {currency,currencyObj} = useContext(SettingsContext)
   const { foundUserProfile, fetchUserProfile, LoadingFound } =
     useContext(ProductContext);
   useEffect(() => {
@@ -171,7 +173,7 @@ const Satici = () => {
                         <div className="right d-flex flex-row gap-3 align-items-center justify-content-center">
                             <div className="d-flex flex-column  justify-content-center align-items-center">
                                 <h6 className="text-info">Satış fiyatı:</h6>
-                                <div className="fs-4 fw-bold">{item.price} TL </div>
+                                <div className="fs-4 fw-bold">{(item.price*currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol} </div>
                             </div>
                             {userProfile?
                             <form onSubmit={(e)=>{e.preventDefault();handleAddCart(userProfile,item,1)}}>

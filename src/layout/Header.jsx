@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import { IoIosSearch } from "react-icons/io";
 import { IoWalletSharp } from "react-icons/io5";
@@ -8,10 +8,11 @@ import { UserAuth } from "../Context/AuthContext";
 import { CgMail } from "react-icons/cg";
 import { BiHeart } from "react-icons/bi";
 import OffCanvas from "../Addons/OffCanvas";
+import { SettingsContext } from "../Context/SettingsProvider";
 
 const Header = () => {
   const { session, userProfile, privacyStatus } = UserAuth();
-
+  const {currency,currencyObj}= useContext(SettingsContext)
   return (
     <>
       <div className="header mb-0 pb-0 h-auto flex-column bg-dark">
@@ -92,7 +93,7 @@ const Header = () => {
                           {privacyStatus ? (
                             "#####"
                           ) : (
-                            <>{userProfile.balance.toFixed(2)}TL</>
+                            <>{(userProfile.balance*currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol}</>
                           )}
                         </div>
                       </div>

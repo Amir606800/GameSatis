@@ -2,19 +2,20 @@ import { FaCartArrowDown, FaRegMessage } from "react-icons/fa6";
 import { LuSquarePen } from "react-icons/lu";
 import { Link, useNavigate } from "react-router-dom";
 import { UserAuth } from "../Context/AuthContext";
-import React from "react";
+import React, { useContext } from "react";
 import { useMemo } from "react";
 import { TfiEmail } from "react-icons/tfi";
 import {  MdOutlineFavorite } from "react-icons/md";
 import { BsClipboard2Plus } from "react-icons/bs";
 import { PiClipboardText } from "react-icons/pi";
 import Loading from "../Addons/Loading";
+import { SettingsContext } from "../Context/SettingsProvider";
 
 
 const Profile = React.memo((props) => {
   const navigate = useNavigate()
   const {userProfile,signOut,privacyStatus} = UserAuth()
-
+  const {currency,currencyObj} = useContext(SettingsContext)
   const memoizedUserProfile = useMemo(() => userProfile, [userProfile]);
 
   const handleCloseAccount = async ()=>{
@@ -96,7 +97,7 @@ const Profile = React.memo((props) => {
                   className="text-warning mb-1 p-0"
                   style={{ fontSize: "14px" }}
                 >
-                  {privacyStatus?"#####":<>{memoizedUserProfile.balance.toFixed(2)}TL</>}
+                  {privacyStatus?"#####":<>{(memoizedUserProfile.balance*currencyObj[currency].value).toFixed(2)}{currencyObj[currency].symbol}</>}
                 </span>
                 <button
                   className="btn btn-outline-danger px-3 m-0 py-1"

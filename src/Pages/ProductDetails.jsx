@@ -25,6 +25,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 import Swal from "sweetalert2";
 import { addWish, deleteWish, fetchWish } from "../tools/Slices/WhishListSlice";
+import { SettingsContext } from "../Context/SettingsProvider";
 
 export const ProductDetails = () => {
   gsap.registerPlugin(ScrollTrigger);
@@ -32,6 +33,7 @@ export const ProductDetails = () => {
   const { products, loading } = useContext(ProductContext);
   const { session, userProfile } = UserAuth();
   const { slugName } = useParams();
+  const {currency,currencyObj} = useContext(SettingsContext)
   const { wishes } = useSelector((state) => state.wishlist);
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
@@ -328,7 +330,7 @@ export const ProductDetails = () => {
               <div className="price">
                 <div className="discount">
                   <span id="disc_price">
-                    {foundedProduct.price.toFixed(2, 0)}TL
+                    {(foundedProduct.price*currencyObj[currency].value).toFixed(2, 0)} {currencyObj[currency].symbol}
                   </span>
                   <span
                     id="disc_percent"
@@ -340,10 +342,10 @@ export const ProductDetails = () => {
                 <span style={{ fontWeight: "bolder", fontSize: "27px" }}>
                   <p>
                     {(
-                      foundedProduct.price -
-                      (foundedProduct.price * foundedProduct.discount) / 100
+                      (foundedProduct.price*currencyObj[currency].value).toFixed(2) -
+                      (foundedProduct.price*currencyObj[currency].value * foundedProduct.discount) / 100
                     ).toFixed(2, 0)}
-                    TL
+                    {currencyObj[currency].symbol}
                   </p>
                 </span>
               </div>

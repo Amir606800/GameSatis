@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Lent from "../components/Lent";
 import IlgiCard from "../components/CardCompon/IlgiCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
 import { addOrders } from "../tools/Slices/OrdersSlice";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
+import { SettingsContext } from "../Context/SettingsProvider";
 
 const Cart = () => {
   const { cart, loading, error } = useSelector((state) => state.cart);
@@ -18,7 +19,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const hasFetched = useRef(false);
   const [total, setTotal] = useState(null);
-
+  const {currency,currencyObj} = useContext(SettingsContext)
   useEffect(() => {
     if (userProfile && !hasFetched.current) {
       dispatch(fetchCart(userProfile.id));
@@ -147,7 +148,7 @@ const Cart = () => {
                   <div className="top d-flex justify-content-between align-items-start">
                     <div className="h5 fw-bold">{item.products.title}</div>
                     <div className="price-1 h4 fw-bolder">
-                      {item.products.price} TL
+                      {(item.products.price*currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol}
                     </div>
                   </div>
                   <div className="botommo d-flex align-items-end justify-content-between h-75">
@@ -258,7 +259,7 @@ const Cart = () => {
                       {item.products.title}:
                     </span>
                     <span style={{ fontSize: "18px", fontWeight: "bolder" }}>
-                      {item.products.price} TL{" "}
+                      {(item.products.price*currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol}
                       <span className="fs-6">x {item.quantity}</span>
                     </span>
                   </div>

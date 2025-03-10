@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { Accordion } from "react-bootstrap";
 import { UserAuth } from "../Context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,9 +8,11 @@ import Loading from "../Addons/Loading";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
 import { BiHeart } from "react-icons/bi";
+import { SettingsContext } from "../Context/SettingsProvider";
 
 const Favoriler = () => {
   const { userProfile } = UserAuth();
+  const {currency,currencyObj} = useContext(SettingsContext)
   const { wishes, loading, error } = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
   const reloadRef = useRef(false);
@@ -54,7 +56,7 @@ const Favoriler = () => {
               </div>
               <div className="d-flex gap-3 align-items-center">
                 <span className="h5 p-0 m-0 text-center d-flex flex-column">
-                  <span>Tutar:</span> <span className="fw-bold">{item.products.price} TL</span>
+                  <span>Tutar:</span> <span className="fw-bold">{(item.products.price*currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol}</span>
                 </span>
                 <div className="d-flex flex-column gap-2 w-50">
                   <Link

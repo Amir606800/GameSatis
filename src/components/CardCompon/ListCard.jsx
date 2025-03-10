@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { BiTrash } from "react-icons/bi";
 import { BsEye } from "react-icons/bs";
@@ -10,9 +10,10 @@ import { Link } from "react-router-dom";
 import slugify from "slugify";
 import { deleteProduct } from "../../tools/Slices/UserProductSlice";
 import EditModal from "../../Pages_Dashboard/EditModal";
+import { SettingsContext } from "../../Context/SettingsProvider";
 
 const ListCard = ({ main }) => {
-    
+    const {currency,currencyObj} = useContext(SettingsContext)
   return (
     <div className="col-6 col-md-4 col-lg-3 " style={{height:"fit-content"}}>
       {/* <a href={`/${slugify(main.title).toLowerCase()}`}> */}
@@ -27,7 +28,7 @@ const ListCard = ({ main }) => {
           <div className="verf text-success">
             <GoVerified />
           </div>
-          {main.price}TL
+          {(main.price*currencyObj[currency].value)}{currencyObj[currency].symbol}
         </div>
         <div style={{height:"fit-content"}} className="card-body d-flex justify-content-between align-items-center">
           <div className="d-flex w-100 flex-column flex-xl-row align-items-center justify-content-center gap-3 gap-xl-1" style={{height:"fit-content"}}>

@@ -7,7 +7,22 @@ export const SettingsProvider = ({children})=>{
 
     const [theme,setTheme] = useState(getInitialState("theme","dark"))
     const [lang,setLang] = useState(getInitialState("lang","tr"))
-    const [currency,setCurrency] = useState(getInitialState("currency","tl"))
+    const [currency,setCurrency] = useState(getInitialState("currency","TL"))
+
+    const currencyObj = {
+        "TL":{
+            value:1,
+            symbol:"₺"
+        },
+        "USD":{
+            value:0.027,
+            symbol:"$"
+        },
+        "AZN":{
+            value:0.047,
+            symbol:"₼"
+        }
+    }
 
     useEffect(()=>{
         document.documentElement.setAttribute("data-bs-theme",theme)
@@ -19,7 +34,7 @@ export const SettingsProvider = ({children})=>{
 
 
     return(
-        <SettingsContext.Provider value={{theme,setTheme,lang,setLang,currency,setCurrency}}>{children}</SettingsContext.Provider>
+        <SettingsContext.Provider value={{theme,setTheme,lang,setLang,currency,setCurrency,currencyObj}}>{children}</SettingsContext.Provider>
     )
 }
 

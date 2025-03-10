@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { UserAuth } from "../Context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFeedbacks } from "../tools/Slices/FeedbackSlice";
@@ -7,12 +7,14 @@ import { FaCheck, FaStar } from "react-icons/fa6";
 import Loading from "../Addons/Loading";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
+import { SettingsContext } from "../Context/SettingsProvider";
 
 const Feedbacks = () => {
   const { userProfile } = UserAuth();
   const { feedbacks, error, loading } = useSelector((state) => state.feedbacks);
   const dispatch = useDispatch();
   const reloadRef = useRef(false);
+  const {currency,currencyObj} = useContext(SettingsContext)
   useEffect(() => {
     if (userProfile && !reloadRef.current) {
       dispatch(fetchFeedbacks(userProfile.id));
@@ -85,7 +87,7 @@ const Feedbacks = () => {
                         <h6>{item.products.title}</h6>
                       </Link>
                       <span className="h5 p-0 m-0">
-                        Tutar: {item.products.price} TL
+                        Tutar: {(item.products.price*currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol}
                       </span>
                     </div>
                   </div>

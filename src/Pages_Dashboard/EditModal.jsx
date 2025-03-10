@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { FaPen } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProduct } from "../tools/Slices/UserProductSlice";
 import Swal from "sweetalert2";
+import { SettingsContext } from "../Context/SettingsProvider";
 
 const EditModal = ({ listed, mainItem }) => {
   const [show, setShow] = useState(false);
@@ -11,7 +12,7 @@ const EditModal = ({ listed, mainItem }) => {
   const handleShow = () => setShow(true);
   const [initialState,setInitialState] = useState(mainItem)
   const dispatch = useDispatch()
-
+  const {currency,currencyObj} = useContext(SettingsContext)
 
   const isNumber = (entit)=> !isNaN(entit) &&  !isNaN(parseFloat(entit));
 
@@ -142,7 +143,7 @@ const handleFormSubmit = (e)=>{
                 </div>
               </div>
               <div className="list-of-inputs-elements w-75">
-                <label htmlFor="price_prod">Ürün Fiyatı (TL):</label>
+                <label htmlFor="price_prod">Ürün Fiyatı ({currencyObj[currency].symbol}):</label>
                 <input
                   type="text"
                   id="price_prod"

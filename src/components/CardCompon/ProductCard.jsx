@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { GoVerified } from "react-icons/go";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
@@ -6,11 +6,13 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
+import { SettingsContext } from "../../Context/SettingsProvider";
 
 const ProductCard = ({ main, vitrinIndex }) => {
   gsap.registerPlugin(ScrollTrigger); 
   gsap.registerPlugin(TextPlugin); 
   const textRef = useRef()
+  const {currency,currencyObj} = useContext(SettingsContext)
   useGSAP(() => {
     gsap.fromTo(
       textRef.current, 
@@ -123,7 +125,7 @@ const ProductCard = ({ main, vitrinIndex }) => {
             <div className="verf text-success">
               <GoVerified />
             </div>
-            <div className="price">{main.price}TL</div>
+            <div className="price">{(main.price*currencyObj[currency].value).toFixed(2)}{currencyObj[currency].symbol}</div>
           </div>
         </div>
       </Link>

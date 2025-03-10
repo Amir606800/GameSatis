@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Accordion } from "react-bootstrap";
 import { FaCheck, FaSearch } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,12 +10,14 @@ import supabase from "../helpers/supabaseClient";
 import { addFeedback, fetchFeedbacks } from "../tools/Slices/FeedbackSlice";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
+import { SettingsContext } from "../Context/SettingsProvider";
 
 const Siparisler = () => {
   const dispatch = useDispatch();
   const { orders, loading, error } = useSelector((state) => state.orders);
   const {feedbacks,feedbackError} = useSelector((state)=> state.feedbacks)
   const { userProfile } = UserAuth();
+  const {currency,currencyObj} = useContext(SettingsContext)
   const [commentValues, setCommentValues] = useState({
     comment: "",
     rating: 1,
@@ -146,7 +148,7 @@ const Siparisler = () => {
                         </div>
                         <div className="right d-flex flex-wrap justify-content-center align-items-center gap-3">
                           <span className="h5 p-0 m-0">
-                            Tutar: {item.total} TL
+                            Tutar: {(item.total*currencyObj[currency].value).toFixed(2)}  {currencyObj[currency].symbol}
                           </span>
                           <div
                             className=" rounded-2 d-flex justify-content-center align-items-center py-1 px-4"
