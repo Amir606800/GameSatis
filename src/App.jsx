@@ -26,6 +26,8 @@ import Feedbacks from "./Pages_Dashboard/Feedbacks";
 import Favoriler from "./Pages_Dashboard/Favoriler";
 import Satici from "./Pages/Satici";
 import Magaza from "./Pages/Magaza";
+import AboutUs from "./Pages/AboutUs";
+import Contact from "./Pages/Contact";
 
 function App() {
   return (
@@ -42,6 +44,8 @@ function App() {
           <Route path="/oyunlar/:sub_name/:prod_name" element={<Productlar />}></Route>
           <Route path="/magaza/:userName" element={<Satici />}></Route>
           <Route path="/magaza" element={<Magaza />}></Route>
+          <Route path="/hakkimizda" element={<AboutUs />}></Route>
+          <Route path="/iletişim" element={<Contact />}></Route>
 
           <Route  path="/profilim" element={ <Wrapper> <Profile section={<Informations />} /> </Wrapper> }></Route>
           <Route  path="/siparislerim" element={   <Wrapper>     <Profile section={<Siparisler />} />     </Wrapper>}></Route>

@@ -15,7 +15,7 @@ body {
 }
 :root {
   --custom-bg:  #bfc1ca; // Light mode default
-  --custom-text: black;
+  --custom-text: rgb(49, 49, 49);
   --main-back: #d6d6d6;
   --blend-mode: multiply;
   --custom-opacity: 0;
@@ -34,6 +34,13 @@ body {
   background-color: var(--custom-bg) !important;
   color: var(--custom-text);
 }
+.text-custom{
+  color:  var(--custom-text) !important;
+}
+.main-back{
+  background-color: var(--main-back);
+
+}
 
 .nav-element {
   background-color: var(--custom-bg) !important;
@@ -47,6 +54,7 @@ body {
   img {
     @if(var(--custom-opacity+1)){
       filter: brightness(var(--custom-opacity+1));
+    
     }
   }
 }

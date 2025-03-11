@@ -1,11 +1,11 @@
 import React from "react";
-import { BsFacebook, BsTwitch, BsYoutube } from "react-icons/bs";
+import { BsFacebook, BsHeart, BsHeartFill, BsTwitch, BsYoutube } from "react-icons/bs";
 
 const StreamerCard = (props) => {
   return (
     <>
       <div className="col-6 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-center ">
-        <div className="card  border-0 rounded-2 cur-pointer" style={{ width: "14rem"}}>
+        <div className="card  border-0 rounded-2" style={{ width: "14rem"}}>
           <img src={props.img} className="card-img-top" alt={props.names} />
 
           <div className="card-body py-3 position-relative">
@@ -28,8 +28,8 @@ const StreamerCard = (props) => {
                 }
               })}
             </p>
-            <div className="w-100 btn turqoise-blue">
-              <div className="lef"></div>
+            <div className="w-100 btn border border-info turqoise-blue d-flex flex-row gap-3 justify-content-center align-items-center">
+              <div className="lef text-white"><BsHeartFill /></div>
               <div className=" text-white">Destekle</div>
             </div>
           </div>

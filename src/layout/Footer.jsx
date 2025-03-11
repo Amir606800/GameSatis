@@ -12,6 +12,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa6";
 import { FaFacebookF } from "react-icons/fa6";
 import { FaLinkedinIn } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 
 
@@ -70,13 +71,24 @@ const Footer = () => {
               <div className="row left-side g-0">
                 
                 <div className="col">
+                  <h5>GameSatis</h5>
+                  <ul>
+                    <li><Link to="/hakkimizda">Hakkımızda</Link></li>
+                    <li>Kurumsal</li>
+                    <li>Blog</li>
+                    <li>Yorumlar</li>
+                    <li><Link to="/iletişim"> İletişim</Link></li>
+                    <li>Künye</li>
+                  </ul>
+                </div>
+                <div className="col">
                   <h5>Kullanici</h5>
                   <ul>
-                    <li>Üye ol</li>
-                    <li>Parolamı Unuttum</li>
-                    <li>Mağaza</li>
+                    <li><Link to="/giris-yap">Üye ol</Link></li>
+                    <li><Link to="/email-confirm">Parolamı Unuttum</Link></li>
+                    <li><Link to="/magaza">Mağaza</Link></li>
                     <li>Mağaza Paketleri</li>
-                    <li>Yayıncılar - Destekle</li>
+                    <li><Link to="/donate"> Yayıncılar - Destekle</Link></li>
                     <li>Yayıncı Başvurusu</li>
                     <li>Kullanıcı Sözleşmesi</li>
                     <li>Mağaza Kuralları</li>
@@ -114,17 +126,6 @@ const Footer = () => {
                     <li>League of Legends</li>
                     <li>CS2 Skin</li>
                     <li>Tüm Oyunlar</li>
-                  </ul>
-                </div>
-                <div className="col">
-                  <h5>GameSatis</h5>
-                  <ul>
-                    <li>Hakkımızda</li>
-                    <li>Kurumsal</li>
-                    <li>Blog</li>
-                    <li>Yorumlar</li>
-                    <li>İletişim</li>
-                    <li>Künye</li>
                   </ul>
                 </div>
               </div>

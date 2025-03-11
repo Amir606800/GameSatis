@@ -9,10 +9,10 @@ import { CgMail } from "react-icons/cg";
 import { BiHeart } from "react-icons/bi";
 import OffCanvas from "../Addons/OffCanvas";
 import { SettingsContext } from "../Context/SettingsProvider";
-
+import LogoDark from "../assets/Images/gmsrenklikoyuyatay.svg"
 const Header = () => {
   const { session, userProfile, privacyStatus } = UserAuth();
-  const { currency, currencyObj } = useContext(SettingsContext);
+  const { currency, currencyObj,theme } = useContext(SettingsContext);
   return (
     <>
       <div className="header mb-0 pb-0 h-auto flex-column bg-custom">
@@ -40,16 +40,16 @@ const Header = () => {
               className="brand grid-logo d-flex flex-wrap align-items-center h-auto my-3 my-lg-0 mx-3 mx-lg-0 text-decoration-none justify-content-between justify-content-lg-evenly text-light"
             >
               <img
-                src="https://images.gamesatis.com/assets/logo-light.svg"
+                src={theme == "dark"?"https://images.gamesatis.com/assets/logo-light.svg":LogoDark}
                 alt=""
                 width={170}
               />
-              <span>Türkiyenin En Büyük Oyuncu Pazarı</span>
+              <span className="text-custom">Türkiyenin En Büyük Oyuncu Pazarı</span>
             </Link>
             <div className="search grid-search d-flex justify-content-center align-items-center mx-lg-0 mx-3">
-              <div className="position-relative w-100 ">
-                <IoIosSearch className="lupa text-white position-absolute top-50 translate-middle-y" />
-                <input className="mx-1" placeholder="Oyun Ara..." type="text" />
+              <div className="position-relative  w-100 ">
+                <IoIosSearch className="lupa  position-absolute top-50 translate-middle-y" />
+                <input className="mx-1 text-custom" placeholder="Oyun Ara..." type="text" />
               </div>
             </div>
             <div className="account grid-account d-flex gap-3 mx-lg-0 mx-3 justify-content-between justify-content-lg-center align-items-center">

@@ -23,8 +23,7 @@ function OffCanvas() {
       </Button>
       <Offcanvas
         show={show}
-        className="w-75"
-        style={{ backgroundColor: "#111318" }}
+        className="w-75 main-back"
         onHide={handleClose}
         placement={"end"}
         scroll={true}
@@ -49,18 +48,18 @@ function OffCanvas() {
         <Offcanvas.Body>
           <div className="top ">
             {userProfile ? (
-              <Link to={"/profilim"}>
-                <div
-                  onClick={() => setShow(false)}
-                  style={{ fontSize: "13px", width: "100%", height: "6em" }}
-                  className="d-flex align-items-center justify-content-center d-flex gap-4 rounded-1 fw-bold text-white sell"
-                >
+              <div
+              onClick={() => setShow(false)}
+              style={{ fontSize: "13px", width: "100%", height: "6em" }}
+              className="d-flex align-items-center justify-content-center d-flex gap-1 rounded-1 fw-bold text-white sell"
+              >
+              <Link className="d-flex flex-row " to={"/profilim"}>
                   <img
                     className="rounded-2"
                     width={50}
                     src={userProfile.profile_photo}
                     alt="profil photo"
-                  />
+                    />
                   <div className="px-3 py-2 rounded-3 bg-custom">
                     <div
                       style={{
@@ -68,13 +67,13 @@ function OffCanvas() {
                         fontFamily: "Roboto,sans-serif",
                       }}
                       className="name fw-bold"
-                    >
+                      >
                       Hesabim
                     </div>
                     <div
                       className="balance fw-bold"
                       style={{ fontSize: "11px",color:"orange" }}
-                    >
+                      >
                       {privacyStatus ? (
                         "#####"
                       ) : (
@@ -87,16 +86,17 @@ function OffCanvas() {
                       )}
                     </div>
                   </div>
+                  </Link>
                   <div className="p-3 rounded-3 bg-custom">
                     {" "}
                     <CgMail className="fs-6" />
                   </div>
-                  <div className="p-3 rounded-3 bg-custom">
+
+                  <Link to={"/favoriler"} className="p-3 rounded-3 bg-custom">
                     {" "}
                     <BiHeart className="fs-6" />
-                  </div>
+                  </Link>
                 </div>
-              </Link>
             ) : (
               ""
             )}

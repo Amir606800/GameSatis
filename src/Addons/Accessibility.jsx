@@ -14,7 +14,7 @@ const Accessibility = () => {
       style={{ left: "20px", bottom: "10px", zIndex: "1000" }}
     >
       <button
-        className="btn border-2 border bg-custom text-light border-2 rounded-5 btn-light position-relative p-1 d-flex justify-content-center align-items-center"
+        className="btn border-2 border bg-custom border-2 rounded-5 position-relative p-1 d-flex justify-content-center align-items-center"
         onClick={() => {
           show == false ? setShow(true) : setShow(false);
         }}

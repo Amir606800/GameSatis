@@ -54,7 +54,7 @@ const Informations = () => {
       >
         <Accordion.Item className="bg-custom" eventKey="1">
           <Accordion.Header className="bg-custom">
-            <LuUserRound /> <span>Kişisel Bilgiler</span>
+            <LuUserRound className="bg-custom" /> <span className="bg-custom">Kişisel Bilgiler</span>
           </Accordion.Header>
           <Accordion.Body className="bg-custom p-3 ">
             <div className="d-flex flex-column gap-3 w-100 ">
@@ -203,8 +203,8 @@ const Informations = () => {
         {/* Security like password */}
         <Accordion.Item className="bg-custom" eventKey="2">
           <Accordion.Header className="bg-custom">
-            <IoShieldCheckmarkOutline />
-            <span>Güvenlik Tercihleri</span>
+            <IoShieldCheckmarkOutline className="bg-custom"/>
+            <span className="bg-custom">Güvenlik Tercihleri</span>
           </Accordion.Header>
           <Accordion.Body className="bg-custom">
             <div className="d-flex flex-column gap-3 w-100">
@@ -296,9 +296,9 @@ const Informations = () => {
 
         {/* Notification section*/}
         <Accordion.Item className="bg-custom" eventKey="3">
-          <Accordion.Header className="bg-custom">
-            <IoMdNotificationsOutline />
-            <span>Bildirim Tercihleri</span>
+          <Accordion.Header className="bg-custom text-custom" >
+            <IoMdNotificationsOutline className="text-custom" />
+            <span className="text-custom">Bildirim Tercihleri</span>
           </Accordion.Header>
           <Accordion.Body className="bg-custom">
             <div className="d-flex flex-column gap-3 w-100">

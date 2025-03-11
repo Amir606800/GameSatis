@@ -98,7 +98,7 @@ const ListElan = () => {
                 className="siparis-accordion-item bg-custom"
               >
                 <Accordion.Header>
-                  <div className="siparisler-accordion-head w-100 pe-3">
+                  <div className="siparisler-accordion-head bg-custom w-100 pe-3">
                     <div
                       style={{ color: "whitesmoke" }}
                       className="d-flex gap-3 align-items-center fw-bold"
@@ -114,7 +114,7 @@ const ListElan = () => {
                 </Accordion.Header>
                 <Accordion.Body
                   style={{ backgroundColor: "#171a21" }}
-                  className=" border-0"
+                  className=" border-0 bg-custom"
                 >
                   <div className="siparisler-accordion-body  py-2">
                     <div
@@ -172,10 +172,10 @@ const ListElan = () => {
                           </span>
                         </div>
                         <div className="right d-flex flex-wrap justify-content-center align-items-center gap-3">
-                          <div className="d-flex flex-column align-items-center justify-content-center gap-3">
+                          <div className="d-flex flex-column align-items-center justify-content-center gap-3  text-white">
                             <Link
                               to={`/${slugify(item.title).toLowerCase()}`}
-                              className="rounded-2 d-flex gap-2 fw-bold  justify-content-center align-items-center py-1 px-1"
+                              className="rounded-2 d-flex gap-2 fw-bold  text-white justify-content-center align-items-center py-1 px-1"
                               style={{
                                 width: "9em",
                                 fontSize: "13px",
@@ -194,7 +194,7 @@ const ListElan = () => {
                     <div
                       className="description-order p-2 rounded-2 d-flex align-items-center mt-3 gap-2"
                       style={{
-                        backgroundColor: "#121318",
+
                         height: "fit-content",
                       }}
                     >
