@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import Path from "../components/Path";
-import Lent from "../components/Lent";
+import Path from "../Addons/Path";
+import Lent from "../Addons/Lent";
 import { StreamerContext } from "../Context/StreamerProvider";
 import StreamerCard from "../components/CardCompon/StreamerCard";
 import Loading from "../Addons/Loading";
 import { Link } from "react-router-dom";
-import hakkimizdaPhoto from "../assets/Images/hakkimizda.png"
+import hakkimizdaPhoto from "../assets/Images/hakkimizda.png";
 const AboutUs = () => {
   const { streamData } = useContext(StreamerContext);
   return (

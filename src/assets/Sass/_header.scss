@@ -20,30 +20,6 @@
         margin: 0;
       }
     }
-    .search {
-      
-      .lupa {
-        left: 9px;
-        font-size: 19px;
-      }
-      input {
-        background-color: #171a21;
-        width: 100%;
-        padding: 6px;
-
-        border: none;
-        border-radius: 7px;
-        padding-left: 40px;
-      }
-      input::placeholder {
-        font-size: 14px;
-        color: rgb(177, 177, 177);
-      }
-      input:focus {
-        outline: none;
-        box-shadow: none;
-      }
-    }
     .account {
       
       button:hover {
@@ -53,6 +29,30 @@
   }
   .btn-info {
     background-color: #32a0dc;
+  }
+}
+.search {
+  
+  .lupa {
+    left: 9px;
+    font-size: 19px;
+  }
+  input {
+    background-color: #171a21;
+    width: 100%;
+    padding: 6px;
+
+    border: none;
+    border-radius: 7px;
+    padding-left: 40px;
+  }
+  input::placeholder {
+    font-size: 14px;
+    color: rgb(177, 177, 177);
+  }
+  input:focus {
+    outline: none;
+    box-shadow: none;
   }
 }
 .scroll-nav-head-top{

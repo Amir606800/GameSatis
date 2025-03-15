@@ -1,7 +1,7 @@
 import React from "react";
 import hakkimizdaPhoto from "../assets/Images/hakkimizda.png";
-import Path from "../components/Path";
-import Lent from "../components/Lent";
+import Path from "../Addons/Path";
+import Lent from "../Addons/Lent";
 const Contact = () => {
   return (
     <div className="container-fluid">

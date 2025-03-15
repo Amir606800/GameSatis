@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import Lent from "../components/Lent";
+import Lent from "../Addons/Lent";
 import IlgiCard from "../components/CardCompon/IlgiCard";
 import { useDispatch, useSelector } from "react-redux";
 import Loading from "../Addons/Loading";
@@ -156,27 +156,34 @@ const Cart = () => {
                 <div className="content-grid bg-custom p-3 rounded-2">
                   <div className="top d-flex justify-content-between align-items-start">
                     <div className="h5 fw-bold">{item.products.title}</div>
-                    
-                    <div className="price-1 h4 fw-bolder">
-                      {item.products.discount !=0
-                      ?<>
-                      <span className="text-danger fs-5 text-decoration-line-through">{(item.products.price*currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol}</span>{" "}
-                      <span>
 
-                      {(
-                        (item.products.price -
-                          (item.products.price * item.products.discount) /
-                          100) *
-                          currencyObj[currency].value
-                        ).toFixed(2)}{" "}
-                      {currencyObj[currency].symbol}
-                        </span>
+                    <div className="price-1 h4 fw-bolder">
+                      {item.products.discount != 0 ? (
+                        <>
+                          <span className="text-danger fs-5 text-decoration-line-through">
+                            {(
+                              item.products.price * currencyObj[currency].value
+                            ).toFixed(2)}{" "}
+                            {currencyObj[currency].symbol}
+                          </span>{" "}
+                          <span>
+                            {(
+                              (item.products.price -
+                                (item.products.price * item.products.discount) /
+                                  100) *
+                              currencyObj[currency].value
+                            ).toFixed(2)}{" "}
+                            {currencyObj[currency].symbol}
+                          </span>
                         </>
-                      :<>
-                      {(
-                        item.products.price*currencyObj[currency].value).toFixed(2)}{" "}
-                        {currencyObj[currency].symbol}
-                      </>}
+                      ) : (
+                        <>
+                          {(
+                            item.products.price * currencyObj[currency].value
+                          ).toFixed(2)}{" "}
+                          {currencyObj[currency].symbol}
+                        </>
+                      )}
                     </div>
                   </div>
                   <div className="botommo d-flex align-items-end justify-content-between h-75">
@@ -293,7 +300,6 @@ const Cart = () => {
                       {item.products.title}:
                     </span>
                     <span style={{ fontSize: "18px", fontWeight: "bolder" }}>
-                     
                       {(
                         (item.products.price -
                           (item.products.price * item.products.discount) /

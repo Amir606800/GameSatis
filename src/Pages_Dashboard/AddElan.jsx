@@ -22,6 +22,7 @@ const AddElan = () => {
     category_id: 0,
     profile_id: userProfile.id,
     deliver_time: null,
+    features:""
   });
 
   const isNumber = (num) => isNaN(num) && isNaN(parseFloat(num));
@@ -50,11 +51,14 @@ const AddElan = () => {
       deliver_time: null,
       category_id: againProduct.id,
       profile_id: userProfile.id,
+      features:""
     }));
   };
 
   const handleInputFields = (e) => {
     setAddedItem({ ...addedItem, [e.target.name]: e.target.value });
+    console.log(addedItem)
+    
   };
 
   const handleMainCat = (e) => {
@@ -65,40 +69,19 @@ const AddElan = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(addedItem.features.includes("-")){
+      setAddedItem({ ...addedItem, "features": addedItem.features.split("-") });
+      console.log(addedItem)
+    }
     if (addedItem.title == "") {
       alert("Lütfen başlığı doldurun");
       return;
     }
-    if (!checkimageURL(addedItem.image_url)) {
-      alert("Lütfen geçerli bir fotoğraf linki giriniz");
-      return;
-    }
-    if (addedItem.price < 1 || isNumber(addedItem.price)) {
-      alert("Fiyat bir sayı olmalı ve minimum 10TL olmalı");
-      return;
-    }
-    if (
-      addedItem.stock != Math.floor(addedItem.stock) ||
-      addedItem.stock <= 1 ||
-      isNumber(addedItem.stock)
-    ) {
-      alert("Ürün sayı 0-dan büyük ve tam sayı olmalı");
-      return;
-    }
-    if (
-      addedItem.deliver_time != Math.floor(addedItem.deliver_time) ||
-      addedItem.deliver_time >= 24 ||
-      addedItem.deliver_time == "" ||
-      isNumber(addedItem.deliver_time)
-    ) {
-      alert("Teslimat süresi tam sayı olmalı ve 24 saatten fazla olmamalıdır");
-      return;
-    }
-    if (addedItem.description == "") {
-      alert("Lütfen açıklama kısmını doldurun!");
-      return;
-    }
-
+    if (!checkimageURL(addedItem.image_url)) {  alert("Lütfen geçerli bir fotoğraf linki giriniz");  return;}
+    if (addedItem.price < 1 || isNumber(addedItem.price)) {  alert("Fiyat bir sayı olmalı ve minimum 10TL olmalı");  return;}
+    if (  addedItem.stock != Math.floor(addedItem.stock) ||  addedItem.stock < 1 ||  isNumber(addedItem.stock)) {  alert("Ürün sayı 0-dan büyük ve tam sayı olmalı");  return;}
+    if (  addedItem.deliver_time != Math.floor(addedItem.deliver_time) ||  addedItem.deliver_time > 24 ||  addedItem.deliver_time == "" ||  isNumber(addedItem.deliver_time)) {  alert("Teslimat süresi tam sayı olmalı ve 24 saatten fazla olmamalıdır");  return;}
+    if (addedItem.description == "") {  alert("Lütfen açıklama kısmını doldurun!");  return;}
     try {
       dispatch(addProduct(addedItem));
       Swal.fire({
@@ -118,6 +101,7 @@ const AddElan = () => {
         price: "",
         stock: "",
         deliver_time: "",
+        features:null
       }));
     } catch (err) {
       alert(err);
@@ -251,6 +235,20 @@ const AddElan = () => {
                   placeholder="Teslimat süresi"
                 />
               </div>
+              {
+                selSubCat.toLowerCase().includes("hesap")?
+                <div className="list-of-inputs-elements w-75">
+                <label htmlFor="feat_prod">Ürün Özellikleri </label>
+                <input
+                  style={{width:"30em"}}
+                  type="text"
+                  name="features"
+                  value={addedItem.features}
+                  onChange={handleInputFields}
+                  placeholder="Lütfen    ( Özellik1-Özellik2)    şeklinde yazınız"
+                  />
+              </div>
+                :""}
               <div className="list-of-inputs-elements w-75">
                 <label htmlFor="desc_prod">Ürün Açıklaması:</label>
                 <textarea

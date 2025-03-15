@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { FaSearch } from "react-icons/fa";
 import { BsFacebook, BsTwitch, BsYoutube } from "react-icons/bs";
-import Path from "../components/Path";
+import Path from "../Addons/Path";
 import { StreamerContext } from "../Context/StreamerProvider";
 import StreamerCard from "../components/CardCompon/StreamerCard";
 import Loading from "../Addons/Loading";

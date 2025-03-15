@@ -1,7 +1,7 @@
 import React from "react";
 import ProductCard from "../components/CardCompon/ProductCard";
 import { GoVerified } from "react-icons/go";
-import Path from "../components/Path";
+import Path from "../Addons/Path";
 
 const Magaza = () => {
   return (

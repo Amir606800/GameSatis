@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import Path from "../components/Path";
+import Path from "../Addons/Path";
 import { Link, useParams } from "react-router-dom";
 import { ProductContext } from "../Context/ProductsProvider";
 import Loading from "../Addons/Loading";
@@ -197,19 +197,30 @@ const Satici = () => {
                     <div className="d-flex flex-column  justify-content-center align-items-center">
                       <h6 className="text-info">Satış fiyatı:</h6>
                       <div className="fs-4 fw-bold">
-                        {item.discount !=0
-                        ?
-                        <>
-                        <span className="text-danger fs-5 text-decoration-line-through">{(item.price * currencyObj[currency].value).toFixed(2)} {currencyObj[currency].symbol}</span>{" "}
-                        
-                        {((item.price-item.price*item.discount/100)*currencyObj[currency].value).toFixed(2)}{" "}
-                        {currencyObj[currency].symbol}{" "}
-                        </>
-                      :<>
-                      {(item.price*currencyObj[currency].value).toFixed(2)}{" "}
-                      {currencyObj[currency].symbol}{" "}
-                      </>}
-                        </div>
+                        {item.discount != 0 ? (
+                          <>
+                            <span className="text-danger fs-5 text-decoration-line-through">
+                              {(
+                                item.price * currencyObj[currency].value
+                              ).toFixed(2)}{" "}
+                              {currencyObj[currency].symbol}
+                            </span>{" "}
+                            {(
+                              (item.price -
+                                (item.price * item.discount) / 100) *
+                              currencyObj[currency].value
+                            ).toFixed(2)}{" "}
+                            {currencyObj[currency].symbol}{" "}
+                          </>
+                        ) : (
+                          <>
+                            {(item.price * currencyObj[currency].value).toFixed(
+                              2
+                            )}{" "}
+                            {currencyObj[currency].symbol}{" "}
+                          </>
+                        )}
+                      </div>
                     </div>
                     {userProfile ? (
                       <form

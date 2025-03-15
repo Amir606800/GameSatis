@@ -28,6 +28,7 @@ import Satici from "./Pages/Satici";
 import Magaza from "./Pages/Magaza";
 import AboutUs from "./Pages/AboutUs";
 import Contact from "./Pages/Contact";
+import QuestionAnswer from "./Pages/Q&A";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
         <Header />
         <Additionals />
         <Routes>
+
           <Route path="/" element={<Home />}></Route>
           <Route path="/donate" element={<Donate />}></Route>
           <Route path="/:slugName" element={<ProductDetails />}></Route>
@@ -46,6 +48,7 @@ function App() {
           <Route path="/magaza" element={<Magaza />}></Route>
           <Route path="/hakkimizda" element={<AboutUs />}></Route>
           <Route path="/iletişim" element={<Contact />}></Route>
+          <Route path="yardim-destek" element={<QuestionAnswer />}></Route>
 
           <Route  path="/profilim" element={ <Wrapper> <Profile section={<Informations />} /> </Wrapper> }></Route>
           <Route  path="/siparislerim" element={   <Wrapper>     <Profile section={<Siparisler />} />     </Wrapper>}></Route>
@@ -57,10 +60,9 @@ function App() {
           <Route path="/giris-yap" element={<AuthContent modalmi={false} />}></Route>
           <Route path="/sifremi-unuttum" element={<ForgotPassword />}></Route>
           <Route path="/email-confirm" element={<EmailConfirmation />}></Route>
-
           <Route path="/cart" element={<Cart />}></Route>
-
           <Route path="*" element={<NotFoundPage />}></Route>
+          
         </Routes>
         <Footer />
       </BrowserRouter>

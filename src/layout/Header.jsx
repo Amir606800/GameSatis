@@ -9,10 +9,10 @@ import { CgMail } from "react-icons/cg";
 import { BiHeart } from "react-icons/bi";
 import OffCanvas from "../Addons/OffCanvas";
 import { SettingsContext } from "../Context/SettingsProvider";
-import LogoDark from "../assets/Images/gmsrenklikoyuyatay.svg"
+import LogoDark from "../assets/Images/gmsrenklikoyuyatay.svg";
 const Header = () => {
   const { session, userProfile, privacyStatus } = UserAuth();
-  const { currency, currencyObj,theme } = useContext(SettingsContext);
+  const { currency, currencyObj, theme } = useContext(SettingsContext);
   return (
     <>
       <div className="header mb-0 pb-0 h-auto flex-column bg-custom">
@@ -27,7 +27,9 @@ const Header = () => {
               <span>|</span>
               <li>Yorumlar</li>
               <span>|</span>
-              <li>Yardim & destek</li>
+              <li>
+                <Link to={"/yardim-destek"}>Yardim & destek</Link>
+              </li>
             </ul>
           </div>
         </div>
@@ -40,26 +42,42 @@ const Header = () => {
               className="brand grid-logo d-flex flex-wrap align-items-center h-auto my-3 my-lg-0 mx-3 mx-lg-0 text-decoration-none justify-content-between justify-content-lg-evenly text-light"
             >
               <img
-                src={theme == "dark"?"https://images.gamesatis.com/assets/logo-light.svg":LogoDark}
+                src={
+                  theme == "dark"
+                    ? "https://images.gamesatis.com/assets/logo-light.svg"
+                    : LogoDark
+                }
                 alt=""
                 width={170}
               />
-              <span className="text-custom">Türkiyenin En Büyük Oyuncu Pazarı</span>
+              <span className="text-custom">
+                Türkiyenin En Büyük Oyuncu Pazarı
+              </span>
             </Link>
-            <div className="search grid-search d-flex justify-content-center align-items-center mx-lg-0 mx-3">
-              <div className="position-relative  w-100 ">
+            <div className="search grid-search d-flex justify-content-center align-items-center mx-lg-0 mx-3 ">
+              <div className="position-relative z-3 w-100 ">
                 <IoIosSearch className="lupa  position-absolute top-50 translate-middle-y" />
-                <input className="mx-1 text-custom" placeholder="Oyun Ara..." type="text" />
+                <input
+                  className="mx-1 text-custom"
+                  placeholder="Oyun Ara..."
+                  type="text"
+                />
+                <div
+                  className="search-result position-absolute top-100 bg-danger start-50 translate-middle-x"
+                  style={{ width: "100%", zIndex: "1000" }}
+                ></div>
               </div>
             </div>
             <div className="account grid-account d-flex gap-3 mx-lg-0 mx-3 justify-content-between justify-content-lg-center align-items-center">
-              <button
-                className="btn btn-success d-flex align-items-center d-flex  justify-content-center gap-1 "
-                style={{ minHeight: "2.5em", maxHeight: "3.5em" }}
-              >
-                <IoWalletSharp />
-                <span>Satış Yap</span>
-              </button>
+              <Link to="/ilan_ekle">
+                <button
+                  className="btn btn-success d-flex align-items-center d-flex  justify-content-center gap-1 "
+                  style={{ minHeight: "2.5em", maxHeight: "3.5em" }}
+                >
+                  <IoWalletSharp />
+                  <span>Satış Yap</span>
+                </button>
+              </Link>
               <div className="header-account-button d-none d-lg-flex">
                 {userProfile ? (
                   <>
@@ -88,7 +106,7 @@ const Header = () => {
                           </div>
                           <div
                             className="balance fw-bold"
-                            style={{ fontSize: "11px",color:"orange" }}
+                            style={{ fontSize: "11px", color: "orange" }}
                           >
                             {privacyStatus ? (
                               "#####"

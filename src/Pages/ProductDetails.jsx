@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router-dom";
-import Path from "../components/Path";
+import Path from "../Addons/Path";
 import { useContext, useEffect, useRef, useState } from "react";
 import { ProductContext } from "../Context/ProductsProvider";
 import slugify from "slugify";
@@ -11,7 +11,7 @@ import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { FaCircleCheck, FaStar } from "react-icons/fa6";
 import { GoDotFill } from "react-icons/go";
 import { BsShieldFillCheck } from "react-icons/bs";
-import Lent from "../components/Lent";
+import Lent from "../Addons/Lent";
 import { MdOutlineCancel } from "react-icons/md";
 import Loading from "../Addons/Loading";
 import NotFoundPage from "./NotFoundPage";
@@ -153,7 +153,7 @@ export const ProductDetails = () => {
           <div className="image position-relative text-center align-items-center justify-content-center">
             <img src={foundedProduct.image_url} alt={foundedProduct.title} />
             {foundedProduct.deliver_time == 0 ? (
-              <div className="aninda position-absolute p-1 rounded-3">
+              <div className="aninda position-absolute text-white p-1 rounded-3">
                 {" "}
                 <BsLightningChargeFill /> Aninda Teslim
               </div>
@@ -376,7 +376,7 @@ export const ProductDetails = () => {
                   >
                     -
                   </div>
-                  <div className="amount w-50 text-center" >{count}</div>
+                  <div className="amount w-50 text-center">{count}</div>
                   <div
                     onClick={() => setCount((prev) => prev + 1)}
                     className="increase btn p-0 w-25 text-center"
@@ -395,6 +395,28 @@ export const ProductDetails = () => {
             </div>
           </div>
         </div>
+        {foundedProduct.features != null ? (
+          <div className="card bg-custom border-0 my-2">
+            <div className="card-head">
+              <Lent
+                back={
+                  "https://www.gamesatis.com/assets/header-bg-icon-game.png"
+                }
+                leftHead={"Ürün Özellikleri"}
+              ></Lent>
+            </div>
+            <div className="card-body d-flex gap-2 align-items-center flex-wrap">
+              {foundedProduct.features.map((item, index) => (
+                <div className="bg-dark-custom p-3 rounded-4" key={index}>
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+
         <div ref={targetRef} className="card my-3 border-0 bg-custom">
           <div className="card-head">
             <Lent

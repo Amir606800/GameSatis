@@ -6,7 +6,6 @@ import { fetchOrders } from "../tools/Slices/OrdersSlice";
 import { UserAuth } from "../Context/AuthContext";
 import Loading from "../Addons/Loading";
 import { FaStar } from "react-icons/fa6";
-import supabase from "../helpers/supabaseClient";
 import { addFeedback, fetchFeedbacks } from "../tools/Slices/FeedbackSlice";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
@@ -101,12 +100,9 @@ const Siparisler = () => {
               >
                 <Accordion.Header>
                   <div className="siparisler-accordion-head w-100 pe-3">
-                    <div
-                      style={{ color: "whitesmoke" }}
-                      className="d-flex gap-3 align-items-center fw-bold flex-wrap"
-                    >
+                    <div className="d-flex gap-3 align-items-center fw-bold flex-wrap">
                       <span className="check-icon">
-                        <FaCheck className="check-icon-itself" />
+                        <FaCheck className="check-icon-itself text-white" />
                       </span>
                       <span>#{item.products.id}</span>
                       <span>-</span>
@@ -118,14 +114,11 @@ const Siparisler = () => {
                     </div>
                   </div>
                 </Accordion.Header>
-                <Accordion.Body
-                  style={{ backgroundColor: "#171a21" }}
-                  className=" border-0"
-                >
+                <Accordion.Body className=" border-0 bg-dark-custom">
                   <div className="siparisler-accordion-body  py-2">
                     <div
                       className="top image-cont  p-2 rounded-2 d-flex flex-xl-nowrap flex-wrap align-items-center gap-2 justify-content-center"
-                      style={{ backgroundColor: "#121318", minHeight: "7em" }}
+                      style={{ minHeight: "7em" }}
                     >
                       <img
                         className="rounded-2 d-block m-auto h-100"
@@ -171,7 +164,7 @@ const Siparisler = () => {
                             {currencyObj[currency].symbol}
                           </span>
                           <div
-                            className=" rounded-2 d-flex justify-content-center align-items-center py-1 px-4"
+                            className=" rounded-2 d-flex justify-content-center align-items-center text-white py-1 px-4"
                             style={{ backgroundColor: "green" }}
                           >
                             <span className="check-icon">
@@ -189,7 +182,7 @@ const Siparisler = () => {
                     ) : (
                       <div
                         className="description-order rounded-2"
-                        style={{ backgroundColor: "#121318", minHeight: "3em" }}
+                        style={{ minHeight: "3em" }}
                       >
                         <form
                           onSubmit={(e) => {

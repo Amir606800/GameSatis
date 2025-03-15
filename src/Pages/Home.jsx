@@ -4,42 +4,42 @@ import axios from "axios";
 import ProductCard from "../components/CardCompon/ProductCard";
 import Slider from "../components/Home/Slider";
 import SplitterAdvert from "../components/Home/SplitterAdvert";
-import Lent from "../components/Lent";
+import Lent from "../Addons/Lent";
 import StreamerCard from "../components/CardCompon/StreamerCard";
-import {StreamerContext}  from "../Context/StreamerProvider";
+import { StreamerContext } from "../Context/StreamerProvider";
 import { Link } from "react-router-dom";
 import InfiniteSlider from "../components/Home/InfiniteSlider";
 import { ProductContext } from "../Context/ProductsProvider";
 import Loading from "../Addons/Loading";
 import { useGSAP } from "@gsap/react";
-import gsap from "gsap"
- 
+import gsap from "gsap";
+
 const Home = () => {
-  const {streamData} = useContext(StreamerContext);
-  const {products} = useContext(ProductContext)
+  const { streamData } = useContext(StreamerContext);
+  const { products } = useContext(ProductContext);
 
+  const topVitrinRef = useRef();
+  const productsGsapRef = useRef();
+  useGSAP(
+    () => {
+      gsap.from(".banner1", {
+        x: "-100vw",
+        rotation: -90,
+        duration: 2,
+        ease: "expo.out",
+        zIndex: "-10",
+      });
+      gsap.from(".banner2", {
+        x: "100vw",
+        rotation: 90,
+        duration: 2,
+        ease: "expo.out",
+        zIndex: "-10",
+      });
+    },
+    { dependencies: [], scope: topVitrinRef }
+  );
 
-  const topVitrinRef = useRef()
-  const productsGsapRef = useRef()
-  useGSAP(() => {
-    gsap.from(".banner1", {
-      x: "-100vw",
-      rotation: -90, 
-      duration: 2,
-      ease: "expo.out",
-      zIndex:"-10",
-      
-    });
-    gsap.from(".banner2", {
-      x: "100vw", 
-      rotation: 90, 
-      duration: 2,
-      ease: "expo.out",
-      zIndex:"-10"
-    });
-  }, {dependencies:[],scope:topVitrinRef});
-
-  
   return (
     <>
       <div className="nav-head-bot my-2">
@@ -47,26 +47,35 @@ const Home = () => {
       </div>
       <div className="main container-fluid py-3">
         <div className="top-vitrin mb-4" ref={topVitrinRef}>
-          <div className="d-flex  gap-4 align-items-center" style={{ maxHeight: "23em" }}>
-           
-            <div className="banner1 d-lg-block d-none hovering-behaviour" style={{height: "fit-content",maxHeight: "90vh",transform:"rotate(-13deg) translateX(20px)"}}>
+          <div
+            className="d-flex  gap-4 align-items-center"
+            style={{ maxHeight: "23em" }}
+          >
+            <div
+              className="banner1 d-lg-block d-none hovering-behaviour"
+              style={{
+                height: "fit-content",
+                maxHeight: "90vh",
+                transform: "rotate(-13deg) translateX(20px)",
+              }}
+            >
               <img
                 src="https://img.gamesatis.com/showcase/732/banner_side_ko_yenisunucu_zerolu_v2_right-72163.webp"
                 alt="Banner1"
               />
             </div>
-            
-            
+
             <Slider />
-            
-           
-            <div className="banner2 d-lg-block d-none hovering-behaviour" style={{transform:"rotate(13deg) translateX(-20px)"}}>
+
+            <div
+              className="banner2 d-lg-block d-none hovering-behaviour"
+              style={{ transform: "rotate(13deg) translateX(-20px)" }}
+            >
               <img
                 src="https://img.gamesatis.com/showcase/733/banner_side_supercell_oyunlar_left-24781.webp"
                 alt="Banner3"
               />
             </div>
-          
           </div>
         </div>
         <SplitterAdvert
@@ -84,7 +93,7 @@ const Home = () => {
         <div className="product-list mb-4" ref={productsGsapRef}>
           <div className="row g-3">
             {products.map((item, index) => (
-              <ProductCard vitrinIndex={11} key={index} main={item} /> 
+              <ProductCard vitrinIndex={11} key={index} main={item} />
             ))}
           </div>
         </div>
@@ -113,18 +122,20 @@ const Home = () => {
             />
           </Link>
           <div className="row g-3 mt-1">
-            {!streamData
-              ? <Loading />
-              : streamData
-                  .slice(0, 6)
-                  .map((item, i) => (
-                    <StreamerCard
-                      key={i}
-                      img={item.photo}
-                      names={item.name}
-                      platform={item.platforms}
-                    />
-                  ))}
+            {!streamData ? (
+              <Loading />
+            ) : (
+              streamData
+                .slice(0, 6)
+                .map((item, i) => (
+                  <StreamerCard
+                    key={i}
+                    img={item.photo}
+                    names={item.name}
+                    platform={item.platforms}
+                  />
+                ))
+            )}
           </div>
         </div>
 

@@ -100,11 +100,11 @@ const ListElan = () => {
                 <Accordion.Header>
                   <div className="siparisler-accordion-head bg-custom w-100 pe-3">
                     <div
-                      style={{ color: "whitesmoke" }}
+                      
                       className="d-flex gap-3 align-items-center fw-bold"
                     >
                       <span className="check-icon">
-                        <FaCheck className="check-icon-itself" />
+                        <FaCheck className="check-icon-itself text-white" />
                       </span>
                       <span>#{item.id}</span>
                       <span>-</span>
@@ -113,13 +113,12 @@ const ListElan = () => {
                   </div>
                 </Accordion.Header>
                 <Accordion.Body
-                  style={{ backgroundColor: "#171a21" }}
                   className=" border-0 bg-custom"
                 >
                   <div className="siparisler-accordion-body  py-2">
                     <div
-                      className="top image-cont p-2 rounded-2 d-flex flex-xl-nowrap flex-wrap align-items-center justify-content-center w-100 gap-2"
-                      style={{ backgroundColor: "#121318", minHeight: "7em" }}
+                      className="top image-cont p-2 rounded-2 d-flex flex-xl-nowrap flex-wrap align-items-center justify-content-center w-100 gap-2 bg-dark-custom"
+                      style={{ minHeight: "7em" }}
                     >
                       <img
                         className="rounded-2"

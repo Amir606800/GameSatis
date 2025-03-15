@@ -5,8 +5,8 @@ const Lent = (props) => {
   return (
     <>
       <div
-        style={{ height: "3em", backgroundColor: "#121318",padding:"30px",justifyContent:props.center?"center":"space-between" }}
-        className="d-flex fw-bold text-white overflow-hidden position-relative px-4 rounded-3 align-items-center w-100 custom-back Lent"
+        style={{ height: "3em",padding:"30px",justifyContent:props.center?"center":"space-between" }}
+        className="d-flex fw-bold  overflow-hidden bg-dark-custom position-relative px-4 rounded-3 align-items-center w-100 custom-back Lent"
       >
         <div
           className="backg position-absolute w-100  start-0 "

@@ -50,11 +50,10 @@ const Feedbacks = () => {
               <Accordion.Header>
                 <div className="siparisler-accordion-head w-100 pe-3">
                   <div
-                    style={{ color: "whitesmoke" }}
                     className="d-flex gap-3 align-items-center fw-bold flex-wrap"
                   >
                     <span className="check-icon">
-                      <FaCheck className="check-icon-itself" />
+                      <FaCheck className="check-icon-itself text-white" />
                     </span>
                     <span>#{item.products.id}</span>
                     <span>-</span>
@@ -63,13 +62,12 @@ const Feedbacks = () => {
                 </div>
               </Accordion.Header>
               <Accordion.Body
-                style={{ backgroundColor: "#171a21" }}
-                className=" border-0"
+                className=" border-0 bg-dark-custom"
               >
                 <div className="siparisler-accordion-body  py-2">
                   <div
                     className="top image-cont  p-2 rounded-2 d-flex flex-sm-nowrap flex-wrap align-items-center gap-2 justify-content-center"
-                    style={{ backgroundColor: "#121318", minHeight: "7em" }}
+                    style={{  minHeight: "7em" }}
                   >
                     <img
                       className="rounded-2 d-block m-auto h-100"
@@ -96,12 +94,12 @@ const Feedbacks = () => {
                     </div>
                   </div>
                   <div
-                    className="top image-cont  p-2 rounded-2 d-flex flex-sm-nowrap flex-wrap align-items-center gap-2 justify-content-center"
-                    style={{ backgroundColor: "#121318", minHeight: "7em" }}
+                    className="top image-cont p-2 rounded-2 d-flex flex-sm-nowrap flex-wrap align-items-center gap-2 justify-content-center"
+                    style={{  minHeight: "7em" }}
                   >
-                    <div style={{ width: "14.5%" }}>
+                    <div style={{ width: "14.5%"}} >
                       <img
-                        className="rounded-2 d-block m-auto h-100"
+                        className="rounded-2 d-block m-auto h-100 "
                         style={{ width: "4em" }}
                         src={userProfile.profile_photo}
                         alt={userProfile.display_name}
