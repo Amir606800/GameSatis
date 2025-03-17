@@ -38,7 +38,7 @@ input::placeholder{
   color: var(--custom-text);
 }
 .bg-dark-custom {
-  background-color: var(--custom-dark-bg);
+  background-color: var(--custom-dark-bg) !important;
 }
 .text-custom {
   color: var(--custom-text) !important;

@@ -3,10 +3,10 @@ import Path from "../Addons/Path";
 import { useContext, useEffect, useRef, useState } from "react";
 import { ProductContext } from "../Context/ProductsProvider";
 import slugify from "slugify";
+import IlgiCard from "../components/CardCompon/IlgiCard";
 import { IoEyeOutline, IoShareSocialSharp } from "react-icons/io5";
 import { BiHeart, BiSolidDislike, BiSolidLike } from "react-icons/bi";
 import { BsLightningChargeFill } from "react-icons/bs";
-
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 import { FaCircleCheck, FaStar } from "react-icons/fa6";
 import { GoDotFill } from "react-icons/go";
@@ -103,7 +103,7 @@ export const ProductDetails = () => {
         y: "-100vh",
         zIndex: "-100",
         duration: 1,
-        delay: 1.5,
+        delay: 1,
 
         scrollTrigger: ".description",
       });
@@ -118,17 +118,16 @@ export const ProductDetails = () => {
         y: "-50vh",
         x: "50vw",
         zIndex: "-100",
-        ease: "back.inOut",
         duration: 1,
         delay: 0.5,
-        scrollTrigger: ".image",
+        scrollTrigger: ".description",
       });
       gsap.from(".payment", {
         y: "50vh",
         x: "50vw",
         zIndex: "-100",
         duration: 1,
-        delay: 1,
+        delay: 0.5,
         scrollTrigger: ".description",
       });
     },
@@ -428,10 +427,12 @@ export const ProductDetails = () => {
           <div
             className="card-body bottom-description"
             style={{ whiteSpace: "preserve-breaks" }}
-          >
+          > 
             {foundedProduct.description}
           </div>
         </div>
+        <IlgiCard />
+
         <div className="card my-3 border-0 bg-custom">
           <div className="card-head p-3 h3 fw-bolder">Kullanıcı yorumları</div>
           <hr />
