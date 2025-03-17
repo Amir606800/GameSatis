@@ -50,7 +50,7 @@ const Feedbacks = () => {
               <Accordion.Header>
                 <div className="siparisler-accordion-head w-100 pe-3">
                   <div
-                    className="d-flex gap-3 align-items-center fw-bold flex-wrap"
+                    className="d-flex gap-3 align-items-center fw-bold flex-wrap text-custom"
                   >
                     <span className="check-icon">
                       <FaCheck className="check-icon-itself text-white" />

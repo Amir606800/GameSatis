@@ -1,4 +1,4 @@
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Path from "../Addons/Path";
 import { useContext, useEffect, useRef, useState } from "react";
 import { ProductContext } from "../Context/ProductsProvider";
@@ -35,6 +35,7 @@ export const ProductDetails = () => {
   const { slugName } = useParams();
   const { currency, currencyObj } = useContext(SettingsContext);
   const { wishes } = useSelector((state) => state.wishlist);
+  const navigate = useNavigate()
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
   );
@@ -69,6 +70,10 @@ export const ProductDetails = () => {
   const [count, setCount] = useState(1);
   const handleAddCart = (session, foundedProduct, numberOfItems) => {
     try {
+      if(!session){
+        alert("Please Login to add items into your cart!")
+        navigate("/giris-yap")
+      }
       dispatch(
         addCart({
           user_id: session.user.id,
@@ -193,6 +198,7 @@ export const ProductDetails = () => {
                           user_id: userProfile.id,
                         })
                       );
+                      dispatch(fetchWish(userProfile.id))
                     } else {
                       dispatch(deleteWish(thing.id));
                     }

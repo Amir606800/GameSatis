@@ -36,19 +36,21 @@ const Siparisler = () => {
 
   const handleCommenSubmit = async (e, item) => {
     e.preventDefault();
-    dispatch(
-      addFeedback({
-        item: item,
-        commentValues: commentValues,
-        userProfile: userProfile,
-      })
-    );
-    if (commentValues.comment == "") {
+    if (commentValues.comment.trim() == "") {
       alert("Lütfen yorum yapmak istiyorsanız bir şeyler yazınız");
+      return;
     }
     if (!feedbackError) {
       alert("Yorum yaptığınız için teşekkürler!");
+      dispatch(
+        addFeedback({
+          item: item,
+          commentValues: commentValues,
+          userProfile: userProfile,
+        })
+      );
       setCommentValues({ comment: "", rating: 1 });
+      dispatch(fetchFeedbacks(userProfile.id))
       return;
     }
     alert("Bir sorun oluştu. Lütfen daha sonra tekrar deneyiniz!");
@@ -100,7 +102,7 @@ const Siparisler = () => {
               >
                 <Accordion.Header>
                   <div className="siparisler-accordion-head w-100 pe-3">
-                    <div className="d-flex gap-3 align-items-center fw-bold flex-wrap">
+                    <div className="d-flex gap-3 align-items-center fw-bold flex-wrap text-custom">
                       <span className="check-icon">
                         <FaCheck className="check-icon-itself text-white" />
                       </span>

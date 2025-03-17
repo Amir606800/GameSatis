@@ -15,7 +15,7 @@ function OffCanvas() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const { userProfile, privacyStatus } = UserAuth();
+  const { userProfile, privacyStatus,session } = UserAuth();
   return (
     <>
       <Button variant="primary" onClick={handleShow} className="me-2 bg-info">
@@ -31,7 +31,7 @@ function OffCanvas() {
         <Offcanvas.Header closeButton>
           <Offcanvas.Title className="w-100" style={{ height: "2em" }}>
             <Link
-              to="/cart"
+              to={userProfile?"/cart":"/giris-yap"}
               className="cart fs-6 px-2 py-1  h-100 rounded-3 text-center align-content-center custom-cursor-hover"
               style={{
                 background: "none",
@@ -151,18 +151,7 @@ function OffCanvas() {
               >
                 CS2 SKIN
               </div>
-              <div
-                className="nav-element rounded-3 w-100"
-                onClick={() => setShow(false)}
-              >
-                RAZER AL-SAT
-              </div>
-              <div
-                className="nav-element rounded-3 w-100"
-                onClick={() => setShow(false)}
-              >
-                AÇIK ARTIRMA
-              </div>
+              
               <div
                 style={{
                   color: "#75ba15",
@@ -174,12 +163,12 @@ function OffCanvas() {
               >
                 <span className="fs-6">+</span>BAKİYE YÜKLE
               </div>
-              <div
+              <Link to={userProfile?"/ilan_ekle":"/giris-yap"}
                 className="py-2 btn-success btn rounded-3 w-100"
                 onClick={() => setShow(false)}
               >
                 SATIŞ YAP
-              </div>
+              </Link>
             </div>
           </div>
         </Offcanvas.Body>

@@ -19,6 +19,7 @@ body {
   --custom-text: rgb(49, 49, 49);
   --main-back: #d6d6d6;
   --blend-mode: multiply;
+  --custom-placeholder-text: rgb(110, 110, 110) !important;
   --custom-opacity: 0;
 }
 
@@ -26,12 +27,13 @@ body {
   --custom-bg: #212630 !important; // Dark mode background
   --custom-dark-bg: #0e1219 !important;
   --custom-text: white !important;
+  --custom-placeholder-text: rgb(137, 137, 137) !important;
   --main-back: #161820 !important;
   --blend-mode: none;
   --custom-opacity: 1;
 }
 input::placeholder{
-  color: var(--custom-text) !important;
+  color: var(--custom-placeholder-text) !important;
 }
 .bg-custom {
   background-color: var(--custom-bg) !important;

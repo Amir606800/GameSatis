@@ -69,7 +69,7 @@ const Header = () => {
               </div>
             </div>
             <div className="account grid-account d-flex gap-3 mx-lg-0 mx-3 justify-content-between justify-content-lg-center align-items-center">
-              <Link to="/ilan_ekle">
+              <Link to={userProfile?"/ilan_ekle":"/giris-yap"}>
                 <button
                   className="btn btn-success d-flex align-items-center d-flex  justify-content-center gap-1 "
                   style={{ minHeight: "2.5em", maxHeight: "3.5em" }}
@@ -102,7 +102,7 @@ const Header = () => {
                             }}
                             className="name fw-bold"
                           >
-                            Hesabim
+                            {userProfile.first_name} {userProfile.last_name.substring(0,1)}.
                           </div>
                           <div
                             className="balance fw-bold"
@@ -132,13 +132,13 @@ const Header = () => {
                   <Authentication />
                 )}
               </div>
-              <Link to={"/cart"} className="cart  fs-4 d-none d-lg-block ">
+              <Link to={userProfile ? "/cart" : "/giris-yap"} className="cart  fs-4 d-none d-lg-block ">
                 <FaCartShopping />
               </Link>
               <div className="d-flex gap-4 d-lg-none">
                 {userProfile ? (
                   <Link
-                    to={"/cart"}
+                  to={userProfile ? "/cart" : "/giris-yap"}
                     className="cart fs-6 px-2 py-1 text-center align-content-center rounded-3"
                     style={{ backgroundColor: "#FF5F1F" }}
                   >
@@ -177,8 +177,6 @@ const Header = () => {
             <Link to={"/oyunlar/Supercell"} className="nav-element">
               Supercell
             </Link>
-            <div className="nav-element">RAZER AL-SAT</div>
-            <div className="nav-element">AÇIK ARTIRMA</div>
             <div style={{ color: "#75ba15" }} className="nav-element fw-bolder">
               <span className="fs-6">+</span>BAKİYE YÜKLE
             </div>

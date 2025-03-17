@@ -22,10 +22,9 @@ const AddElan = () => {
     category_id: 0,
     profile_id: userProfile.id,
     deliver_time: null,
-    features:""
+    features: [],
   });
 
-  const isNumber = (num) => isNaN(num) && isNaN(parseFloat(num));
   const { currency, currencyObj } = useContext(SettingsContext);
   const checkimageURL = (url) => {
     const pattern = new RegExp(
@@ -51,14 +50,13 @@ const AddElan = () => {
       deliver_time: null,
       category_id: againProduct.id,
       profile_id: userProfile.id,
-      features:""
+      features: [],
     }));
   };
 
   const handleInputFields = (e) => {
     setAddedItem({ ...addedItem, [e.target.name]: e.target.value });
-    console.log(addedItem)
-    
+    console.log(addedItem);
   };
 
   const handleMainCat = (e) => {
@@ -69,40 +67,69 @@ const AddElan = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(addedItem.features.includes("-")){
-      setAddedItem({ ...addedItem, "features": addedItem.features.split("-") });
-      console.log(addedItem)
-    }
-    if (addedItem.title == "") {
+  
+    // Convert features into an array before using it
+    let updatedFeatures = addedItem.features.includes(",")
+      ? addedItem.features.split(",").map((feature) => feature.trim()) // Trim spaces
+      : [addedItem.features];
+  
+    const updatedItem = { ...addedItem, features: updatedFeatures };
+  
+    if (updatedItem.title.trim() === "") {
       alert("Lütfen başlığı doldurun");
       return;
     }
-    if (!checkimageURL(addedItem.image_url)) {  alert("Lütfen geçerli bir fotoğraf linki giriniz");  return;}
-    if (addedItem.price < 1 || isNumber(addedItem.price)) {  alert("Fiyat bir sayı olmalı ve minimum 10TL olmalı");  return;}
-    if (  addedItem.stock != Math.floor(addedItem.stock) ||  addedItem.stock < 1 ||  isNumber(addedItem.stock)) {  alert("Ürün sayı 0-dan büyük ve tam sayı olmalı");  return;}
-    if (  addedItem.deliver_time != Math.floor(addedItem.deliver_time) ||  addedItem.deliver_time > 24 ||  addedItem.deliver_time == "" ||  isNumber(addedItem.deliver_time)) {  alert("Teslimat süresi tam sayı olmalı ve 24 saatten fazla olmamalıdır");  return;}
-    if (addedItem.description == "") {  alert("Lütfen açıklama kısmını doldurun!");  return;}
+    if (!checkimageURL(updatedItem.image_url)) {
+      alert("Lütfen geçerli bir fotoğraf linki giriniz");
+      return;
+    }
+    if (updatedItem.price < 1 || isNaN(updatedItem.price)) {
+      alert("Fiyat bir sayı olmalı ve minimum 10TL olmalı");
+      return;
+    }
+    if (
+      updatedItem.stock != Math.floor(updatedItem.stock) ||
+      updatedItem.stock < 1 ||
+      isNaN(updatedItem.stock)
+    ) {
+      alert("Ürün sayısı 0'dan büyük ve tam sayı olmalı");
+      return;
+    }
+    if (
+      updatedItem.deliver_time != Math.floor(updatedItem.deliver_time) ||
+      updatedItem.deliver_time > 24 ||
+      updatedItem.deliver_time === "" ||
+      isNaN(updatedItem.deliver_time)
+    ) {
+      alert("Teslimat süresi tam sayı olmalı ve 24 saatten fazla olmamalıdır");
+      return;
+    }
+    if (updatedItem.description.trim() === "") {
+      alert("Lütfen açıklama kısmını doldurun!");
+      return;
+    }
+  
     try {
-      dispatch(addProduct(addedItem));
+      dispatch(addProduct(updatedItem)); // Use updatedItem instead of addedItem
       Swal.fire({
-        title: "Succesfull",
-        text: "Your product succesfully added!",
+        title: "Successful",
+        text: "Your product successfully added!",
         icon: "success",
-        background: "#222631", // Custom dark background (optional)
-        color: "#fff", // Text color for dark theme
+        background: "#222631",
+        color: "#fff",
         confirmButtonText: "OK",
         confirmButtonColor: "#3085d6",
       });
-      setAddedItem((prev) => ({
-        ...prev,
+  
+      setAddedItem({
         title: "",
         image_url: "",
         description: "",
         price: "",
         stock: "",
         deliver_time: "",
-        features:null
-      }));
+        features: "",
+      });
     } catch (err) {
       alert(err);
     }
@@ -171,7 +198,7 @@ const AddElan = () => {
                     />
                   )}
                 </div>
-                <div className=" w-100 align-content-end text-start ">
+                <div className=" w-75 align-content-end text-start ">
                   <div className="list-of-inputs-elements ">
                     <label style={{ width: "120px" }} htmlFor="name_prod">
                       Ürünün Adı:
@@ -235,20 +262,21 @@ const AddElan = () => {
                   placeholder="Teslimat süresi"
                 />
               </div>
-              {
-                selSubCat.toLowerCase().includes("hesap")?
+              {selSubCat.toLowerCase().includes("hesap") ? (
                 <div className="list-of-inputs-elements w-75">
-                <label htmlFor="feat_prod">Ürün Özellikleri </label>
-                <input
-                  style={{width:"30em"}}
-                  type="text"
-                  name="features"
-                  value={addedItem.features}
-                  onChange={handleInputFields}
-                  placeholder="Lütfen    ( Özellik1-Özellik2)    şeklinde yazınız"
+                  <label htmlFor="feat_prod">Ürün Özellikleri </label>
+                  <input
+                    style={{ width: "30em" }}
+                    type="text"
+                    name="features"
+                    value={addedItem.features}
+                    onChange={handleInputFields}
+                    placeholder="Lütfen    ( Özellik1 , Özellik2)    şeklinde yazınız"
                   />
-              </div>
-                :""}
+                </div>
+              ) : (
+                ""
+              )}
               <div className="list-of-inputs-elements w-75">
                 <label htmlFor="desc_prod">Ürün Açıklaması:</label>
                 <textarea

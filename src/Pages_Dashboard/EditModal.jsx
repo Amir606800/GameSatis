@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { FaPen } from "react-icons/fa6";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,47 +10,76 @@ const EditModal = ({ listed, mainItem }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [initialState,setInitialState] = useState(mainItem)
-  const dispatch = useDispatch()
-  const {currency,currencyObj} = useContext(SettingsContext)
+  const [initialState, setInitialState] = useState(mainItem);
+  const dispatch = useDispatch();
+  const { currency, currencyObj } = useContext(SettingsContext);
 
-  const isNumber = (entit)=> !isNaN(entit) &&  !isNaN(parseFloat(entit));
+  const isNumber = (entit) => !isNaN(entit) && !isNaN(parseFloat(entit));
 
-  const handleInputFields = (e)=>{
-    setInitialState({...initialState,[e.target.name]:e.target.value})
-    console.log(initialState)
-  }
-  const checkimageURL = (url)=>{
-    const pattern = new RegExp('^https?:\\/\\/.+\\.(png|jpg|jpeg|bmp|gif|webp)$', 'i');
-    return pattern.test(url)
-}
-const handleFormSubmit = (e)=>{
-    e.preventDefault()
-    if(!checkimageURL(initialState.image_url)) {alert("Lütfen geçerli bir fotoğraf linki giriniz");return} 
-    if(initialState.price<10 || !isNumber(initialState.price)) {alert("Minimum 10TL olmalı");return}
-    if(!isNumber(initialState.stock) || initialState.stock != Math.floor(initialState.stock)) {alert("Stok tam sayı olmalı");return }
-    if(initialState.deliver_time != Math.floor(initialState.deliver_time) || !isNumber(initialState.deliver_time || initialState.deliver_time >=24)){ alert("Teslimat süresi tam sayı olmalı ve 1 günden fazla olmamalıdır");return}
-    
-    
-    try{
-        const {profiles, ...updatedItem} = initialState
-        console.log(updatedItem)
-        dispatch(updateProduct(updatedItem))
-        
-        Swal.fire({
-                title: "Succesfull",
-                text: "Your product succesfully added!",
-                icon: "success",
-                background: "#222631", // Custom dark background (optional)
-                color: "#fff", // Text color for dark theme
-                confirmButtonText: "OK",
-                confirmButtonColor: "#3085d6",
-            });
-        handleClose()
-    }catch(err){
-        alert(err)
+  const handleInputFields = (e) => {
+    setInitialState({ ...initialState, [e.target.name]: e.target.value });
+    console.log(initialState);
+  };
+  const checkimageURL = (url) => {
+    const pattern = new RegExp(
+      "^https?:\\/\\/.+\\.(png|jpg|jpeg|bmp|gif|webp)$",
+      "i"
+    );
+    return pattern.test(url);
+  };
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    const updatedFeatures = initialState.features
+    ? initialState.features.split(",").map((f) => f.trim()) // Remove extra spaces
+    : [];
+
+  const updatedDatas = { ...initialState, features: updatedFeatures };
+
+    console.log(updatedDatas)
+    if (!checkimageURL(initialState.image_url)) {
+      alert("Lütfen geçerli bir fotoğraf linki giriniz");
+      return;
     }
-}
+    if (initialState.price < 10 || !isNumber(initialState.price)) {
+      alert("Minimum 10TL olmalı");
+      return;
+    }
+    if (
+      !isNumber(initialState.stock) ||
+      initialState.stock != Math.floor(initialState.stock)
+    ) {
+      alert("Stok tam sayı olmalı");
+      return;
+    }
+    if (
+      initialState.deliver_time != Math.floor(initialState.deliver_time) ||
+      !isNumber(initialState.deliver_time || initialState.deliver_time >= 24)
+    ) {
+      alert("Teslimat süresi tam sayı olmalı ve 1 günden fazla olmamalıdır");
+      return;
+    }
+
+    try {
+      const { profiles, ...updatedItem } = updatedDatas;
+      console.log(updatedItem);
+      dispatch(updateProduct(updatedItem));
+
+      Swal.fire({
+        title: "Succesfull",
+        text: "Your product succesfully added!",
+        icon: "success",
+        background: "#222631", // Custom dark background (optional)
+        color: "#fff", // Text color for dark theme
+        confirmButtonText: "OK",
+        confirmButtonColor: "#3085d6",
+      });
+      handleClose();
+    } catch (err) {
+      if(error)
+      alert(err);
+    }
+  };
 
   return (
     <>
@@ -87,16 +116,18 @@ const handleFormSubmit = (e)=>{
         animation={false}
         size="xl"
         centered
-        
       >
         <Modal.Header closeButton>
           <Modal.Title>{mainItem.title} için düzenleme</Modal.Title>
         </Modal.Header>
-          <form
-            onSubmit={handleFormSubmit}
-            className="d-flex align-items-center flex-column edit-modal justify-content-center w-100 gap-4"
+        <form
+          onSubmit={handleFormSubmit}
+          className="d-flex align-items-center flex-column edit-modal justify-content-center w-100 gap-4"
+        >
+          <Modal.Body
+            className="edit-modal py-5 w-100"
+            style={{ minHeight: "30em" }}
           >
-        <Modal.Body className="edit-modal py-5 w-100" style={{minHeight:"30em"}}>
             <div className="list_of_inputs d-flex flex-column align-items-center justify-content-center w-100 gap-3 ">
               <div className="w-75 d-flex align-items-center gap-3 justify-content-center flex-column flex-lg-row">
                 <div
@@ -107,7 +138,7 @@ const handleFormSubmit = (e)=>{
                     <div>Your Photo will be displayed here</div>
                   ) : (
                     <img
-                      style={{maxHeight:"10em"}}
+                      style={{ maxHeight: "10em" }}
                       src={initialState.image_url}
                       alt={initialState.title}
                     />
@@ -143,7 +174,9 @@ const handleFormSubmit = (e)=>{
                 </div>
               </div>
               <div className="list-of-inputs-elements w-75">
-                <label htmlFor="price_prod">Ürün Fiyatı ({currencyObj[currency].symbol}):</label>
+                <label htmlFor="price_prod">
+                  Ürün Fiyatı ({currencyObj[currency].symbol}):
+                </label>
                 <input
                   type="text"
                   id="price_prod"
@@ -175,6 +208,21 @@ const handleFormSubmit = (e)=>{
                   placeholder="Teslimat süresi"
                 />
               </div>
+              {initialState.features ? (
+                <div className="list-of-inputs-elements w-75">
+                  <label htmlFor="feat_prod">Ürün Özellikleri </label>
+                  <input
+                    style={{ width: "30em" }}
+                    type="text"
+                    name="features"
+                    value={initialState.features}
+                    onChange={handleInputFields}
+                    placeholder="Lütfen    ( Özellik1,Özellik2)    şeklinde yazınız"
+                  />
+                </div>
+              ) : (
+                ""
+              )}
               <div className="list-of-inputs-elements w-75">
                 <label htmlFor="desc_prod">Ürün Açıklaması:</label>
                 <textarea
@@ -186,18 +234,23 @@ const handleFormSubmit = (e)=>{
                   placeholder="Ürün Açıklaması: "
                 />
               </div>
-              
             </div>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button type="button" variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button type="submit" variant="primary" onClick={(e)=>{handleFormSubmit(e)}}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-          </form>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button type="button" variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button
+              type="submit"
+              variant="primary"
+              onClick={(e) => {
+                handleFormSubmit(e);
+              }}
+            >
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </form>
       </Modal>
     </>
   );

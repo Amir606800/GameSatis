@@ -106,17 +106,17 @@ const ProductCard = ({ main, vitrinIndex }) => {
 
             <img src={main.image_url} alt={main.title} className="w-100" />
             <div
-              className="manufacturer z-1 fw-bold rounded-2 position-absolute bg-white px-5 start-50 translate-middle-x text-success"
+              className="manufacturer z-1 fw-bold rounded-2 position-absolute bg-white px-5 start-50 translate-middle-x text-success text-center"
               style={{ bottom: "-10px", width: "100%" }}
             >
               {main.is_vitrin ? (
                 main.profiles.display_name
               ) : (
                 <div
-                  className="d-flex flex-row w-100 py-2"
-                  style={{ fontSize: "12px" }}
+                  className="d-flex flex-row w-100 py-2 text-center"
+                  style={{ fontSize: "clamp(9px, 2vw, 14px)" }}
                 >
-                  {main.title.substring(0, 18)}
+                  {main.title.substring(0, 22)}
                 </div>
               )}
             </div>
