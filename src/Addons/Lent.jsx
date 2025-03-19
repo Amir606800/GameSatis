@@ -24,7 +24,7 @@ const Lent = (props) => {
           {props.leftHead}
         </div>
         <div className="right">
-           {props.rightHead?<>{props.rightHead}<FaArrowRightLong /></>:""}
+           {props.rightHead?<>{props.rightHead}</>:""}
         </div>
       </div>
     </>

@@ -21,6 +21,7 @@ body {
   --blend-mode: multiply;
   --custom-placeholder-text: rgb(110, 110, 110) !important;
   --custom-opacity: 0;
+  --custom-dark-light:rgb(181, 181, 181);
 }
 
 [data-bs-theme="dark"] {
@@ -31,6 +32,7 @@ body {
   --main-back: #161820 !important;
   --blend-mode: none;
   --custom-opacity: 1;
+  --custom-dark-light:#1b1d22;
 }
 input::placeholder{
   color: var(--custom-placeholder-text) !important;
@@ -41,6 +43,9 @@ input::placeholder{
 }
 .bg-dark-custom {
   background-color: var(--custom-dark-bg) !important;
+}
+.bg-light-dark{
+  background-color: var(--custom-dark-light);
 }
 .text-custom {
   color: var(--custom-text) !important;

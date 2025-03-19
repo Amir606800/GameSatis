@@ -13,11 +13,16 @@ import { ProductContext } from "../Context/ProductsProvider";
 import Loading from "../Addons/Loading";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 const Home = () => {
   const { streamData } = useContext(StreamerContext);
   const { products } = useContext(ProductContext);
-
+  const sortedProducts = [...products].sort((a, b) => {
+    if (a.is_vitrin && !b.is_vitrin) return -1;
+    if (!a.is_vitrin && b.is_vitrin) return 1;
+    return 0;
+  });
   const topVitrinRef = useRef();
   const productsGsapRef = useRef();
   useGSAP(
@@ -80,34 +85,34 @@ const Home = () => {
         </div>
         <SplitterAdvert
           img1={
-            "https://img.gamesatis.com/showcase/734/valorant-hesap-58219.webp"
+            "https://img.gamesatis.com/showcase/734/sbanner_wartune-60060.webp"
           }
-          img2={"https://img.gamesatis.com/showcase/735/lol-hesap-64628.webp"}
+          img2={"https://img.gamesatis.com/showcase/735/sbanner_pubg-76290.webp"}
           img3={
-            "https://img.gamesatis.com/showcase/736/gms_sidebanner_cs2_hesap-39116.webp"
+            "https://img.gamesatis.com/showcase/736/sbanner_cs2-83897.webp"
           }
           img4={
-            "https://img.gamesatis.com/showcase/737/genshin-hesap-65828.webp"
+            "https://img.gamesatis.com/showcase/737/sbanner_lol-47352.webp"
           }
         />
         <div className="product-list mb-4" ref={productsGsapRef}>
           <div className="row g-3">
-            {products.map((item, index) => (
-              <ProductCard vitrinIndex={11} key={index} main={item} />
+            {sortedProducts.map((item, index) => (
+              <ProductCard vitrinIndex={11} key={index} keyIndex={index} main={item} />
             ))}
           </div>
         </div>
 
         <SplitterAdvert
           img1={
-            "https://img.gamesatis.com/showcase/738/gms_reklambanner_fc25_coins-31771.webp"
+            "https://img.gamesatis.com/showcase/738/sbanner_fc25-96448.webp"
           }
-          img2={"https://img.gamesatis.com/showcase/739/steam-hesap-15419.webp"}
+          img2={"https://img.gamesatis.com/showcase/739/sbanner_steam-58046.webp"}
           img3={
-            "https://img.gamesatis.com/showcase/740/legends-online-elmas-58083.webp"
+            "https://img.gamesatis.com/showcase/740/sbanner_legendonline-61327.webp"
           }
           img4={
-            "https://img.gamesatis.com/showcase/741/clash-of-clans-hesap-47142.webp"
+            "https://img.gamesatis.com/showcase/741/sbanner_clashofclans-91120.webp"
           }
         />
 
@@ -115,7 +120,7 @@ const Home = () => {
           <Link to={"/donate"}>
             <Lent
               leftHead={"Yayincilar"}
-              rightHead={"Tum Yayincilar"}
+              rightHead={<>Tum Yayincilar <FaArrowRightLong /></>}
               back={
                 "https://www.gamesatis.com/assets/header-bg-icon-donate.png"
               }

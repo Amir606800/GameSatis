@@ -8,7 +8,7 @@ import { IoEyeOutline, IoShareSocialSharp } from "react-icons/io5";
 import { BiHeart, BiSolidDislike, BiSolidLike } from "react-icons/bi";
 import { BsLightningChargeFill } from "react-icons/bs";
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
-import { FaCircleCheck, FaStar } from "react-icons/fa6";
+import { FaCircleCheck } from "react-icons/fa6";
 import { GoDotFill } from "react-icons/go";
 import { BsShieldFillCheck } from "react-icons/bs";
 import Lent from "../Addons/Lent";
@@ -22,10 +22,10 @@ import { addCart } from "../tools/Slices/CartSlice";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { TextPlugin } from "gsap/TextPlugin";
 import Swal from "sweetalert2";
 import { addWish, deleteWish, fetchWish } from "../tools/Slices/WhishListSlice";
 import { SettingsContext } from "../Context/SettingsProvider";
+import StarSet from "../Addons/StarSet";
 
 export const ProductDetails = () => {
   gsap.registerPlugin(ScrollTrigger);
@@ -35,21 +35,60 @@ export const ProductDetails = () => {
   const { slugName } = useParams();
   const { currency, currencyObj } = useContext(SettingsContext);
   const { wishes } = useSelector((state) => state.wishlist);
-  const navigate = useNavigate()
+  const [thing, setThing] = useState();
+  const navigate = useNavigate();
+
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
   );
-  const thing = wishes.find((item) => item.product_id == foundedProduct.id);
+
+  useEffect(() => {
+    if (wishes || products) {
+      const thing = wishes.find((item) => item.product_id == foundedProduct.id);
+      setThing(thing);
+    }
+  }, [wishes, products]);
   const dispatch = useDispatch();
   const productDetail = useRef();
 
   const reloadRef = useRef(false);
+
   useEffect(() => {
     if (userProfile && !reloadRef.current) {
       dispatch(fetchWish(userProfile.id));
       reloadRef.current = true;
     }
   }, [userProfile]);
+
+  const [ratingCounts, setRatingCounts] = useState({
+    5: 0,
+    4: 0,
+    3: 0,
+    2: 0,
+    1: 0,
+    total: 0,
+  });
+
+  useEffect(() => {
+    if (foundedProduct) {
+      const counts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+      foundedProduct.feedbacks.map((item) => {
+        counts[item.rate] = counts[item.rate] + 1;
+      });
+      setRatingCounts({ ...counts, total: foundedProduct.feedbacks.length });
+      console.log(counts);
+    }
+  }, [foundedProduct]);
+
+  const totalWeightedRating = Object.entries(ratingCounts)
+    .slice(0, 5)
+    .reduce((acc, [rating, count]) => acc + parseInt(rating) * count, 0);
+
+  // Calculate the average rating (avoid division by zero)
+  const averageRating =
+    ratingCounts.total > 0
+      ? (totalWeightedRating / ratingCounts.total).toFixed(2)
+      : 0;
 
   useEffect(() => {
     if (foundedProduct) {
@@ -67,12 +106,21 @@ export const ProductDetails = () => {
     }
   }, [foundedProduct]);
 
+
+  const clipBoard = ()=>{
+    const location = window.location.href
+
+    navigator.clipboard.writeText(location).then(()=>alert("Share Link copied to clipboard!")).catch((err)=>console.error(err))
+  }
+
+
+
   const [count, setCount] = useState(1);
   const handleAddCart = (session, foundedProduct, numberOfItems) => {
     try {
-      if(!session){
-        alert("Please Login to add items into your cart!")
-        navigate("/giris-yap")
+      if (!session) {
+        alert("Please Login to add items into your cart!");
+        navigate("/giris-yap");
       }
       dispatch(
         addCart({
@@ -183,7 +231,7 @@ export const ProductDetails = () => {
               className="d-flex w-100 justify-content-between gap-5 align-items-center"
             >
               <div className="left d-flex justify-content-center align-items-center gap-2">
-                <div className="share-buton btn btn-outline-light text-center">
+                <div onClick={clipBoard} className="share-buton btn btn-outline-light text-center">
                   <IoShareSocialSharp />
                 </div>
                 <div
@@ -198,7 +246,7 @@ export const ProductDetails = () => {
                           user_id: userProfile.id,
                         })
                       );
-                      dispatch(fetchWish(userProfile.id))
+                      dispatch(fetchWish(userProfile.id));
                     } else {
                       dispatch(deleteWish(thing.id));
                     }
@@ -433,7 +481,7 @@ export const ProductDetails = () => {
           <div
             className="card-body bottom-description"
             style={{ whiteSpace: "preserve-breaks" }}
-          > 
+          >
             {foundedProduct.description}
           </div>
         </div>
@@ -443,7 +491,7 @@ export const ProductDetails = () => {
           <div className="card-head p-3 h3 fw-bolder">Kullanıcı yorumları</div>
           <hr />
           <div
-            className="card-body d-flex gap-2"
+            className="card-body d-flex flex-lg-row flex-column gap-2 justify-content-between align-items-center"
             style={{ whiteSpace: "preserve-breaks" }}
           >
             <img
@@ -451,67 +499,65 @@ export const ProductDetails = () => {
               src={foundedProduct.image_url}
               alt={foundedProduct.title}
             />
-            <div className="stars d-flex flex-column gap-2">
-              <div>
-                <span>
-                  <FaStar style={{ color: "#6395EE" }} />{" "}
-                  <FaStar style={{ color: "#6395EE" }} />{" "}
-                  <FaStar style={{ color: "#6395EE" }} />{" "}
-                  <FaStar style={{ color: "#6395EE" }} />{" "}
-                  <FaStar style={{ color: "#6395EE" }} />{" "}
-                </span>
-                <span>Mükemmel</span>
-              </div>
-              <div>
-                <span>
-                  <FaStar style={{ color: "#6395EE" }} />{" "}
-                  <FaStar style={{ color: "#6395EE" }} />{" "}
-                  <FaStar style={{ color: "#6395EE" }} />{" "}
-                  <FaStar style={{ color: "#6395EE" }} />{" "}
-                  <FaStar style={{ color: "white" }} />{" "}
-                </span>
-                <span>Çok İyi</span>
-              </div>
-              <div>
-                <span>
-                  <FaStar style={{ color: "#6395EE" }} />{" "}
-                  <FaStar style={{ color: "#6395EE" }} />{" "}
-                  <FaStar style={{ color: "#6395EE" }} />{" "}
-                  <FaStar style={{ color: "white" }} />{" "}
-                  <FaStar style={{ color: "white" }} />{" "}
-                </span>
-                <span>İyi</span>
-              </div>
-              <div>
-                <span>
-                  <FaStar style={{ color: "#6395EE" }} />{" "}
-                  <FaStar style={{ color: "#6395EE" }} />{" "}
-                  <FaStar style={{ color: "white" }} />{" "}
-                  <FaStar style={{ color: "white" }} />{" "}
-                  <FaStar style={{ color: "white" }} />{" "}
-                </span>
-                <span>Kötü</span>
-              </div>
-              <div>
-                <span>
-                  <FaStar style={{ color: "#6395EE" }} />{" "}
-                  <FaStar style={{ color: "white" }} />{" "}
-                  <FaStar style={{ color: "white" }} />{" "}
-                  <FaStar style={{ color: "white" }} />{" "}
-                  <FaStar style={{ color: "white" }} />{" "}
-                </span>{" "}
-                <span>Çok Kötü</span>
-              </div>
+            <div className="stars d-flex flex-column gap-2 w-75">
+              {[
+                { num: 5, tit: "Mükemmel" },
+                { num: 4, tit: "Çok İyi" },
+                { num: 3, tit: "İyi" },
+                { num: 2, tit: "Kötü" },
+                { num: 1, tit: "Çok Kötü" },
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="d-flex flex-row gap-3 align-items-center justify-content-center"
+                >
+                  <StarSet rate={item.num} />
+
+                  <span
+                    className="d-none d-lg-block"
+                    style={{ minWidth: "6.5em" }}
+                  >
+                    {item.tit}
+                  </span>
+                  <div className="d-flex justify-content-center align-items-center w-100 gap-2">
+                    <div
+                      style={{ height: "11px" }}
+                      className="progress w-100"
+                      role="progressbar"
+                      aria-label="Basic example"
+                      aria-valuenow={100}
+                      aria-valuemin={0}
+                      aria-valuemax={100}
+                    >
+                      <div
+                        className="progress-bar"
+                        style={{
+                          width: `${
+                            ratingCounts.total == 0
+                              ? "0%"
+                              : (ratingCounts[item.num] / ratingCounts.total) *
+                                100
+                          }%`,
+                        }}
+                      />
+                    </div>
+
+                    <span className="fw-bold" style={{ fontSize: "17px" }}>
+                      {ratingCounts.total == 0
+                        ? "0"
+                        : (ratingCounts[item.num] / ratingCounts.total) * 100}
+                      %
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
-            <div
-              className="lines d-flex flex-column gap-2 w-100"
-              style={{ maxWidth: "65%" }}
-            >
-              <div className="mukemmel w-100 bg-info">a</div>
-              <div className="cok-iyi w-100 bg-info">a</div>
-              <div className="iyi w-100 bg-info">a</div>
-              <div className="kotu w-100 bg-info">a</div>
-              <div className="cok-kotu w-100 bg-info">a</div>
+            <div className="ortalama text-center d-flex flex-column gap-1">
+              <span className="h6 fw-bold">Ortalama Puan</span>
+              <StarSet rate={Math.floor(averageRating)} />
+              <h1 className="fw-bolder" style={{ color: "#6395EE" }}>
+                {averageRating}
+              </h1>
             </div>
           </div>
         </div>
@@ -529,7 +575,7 @@ export const ProductDetails = () => {
                     {item.profiles.first_name} {item.profiles.last_name[0]}.
                   </>
                 }
-                rightHead={item.rate}
+                rightHead={<StarSet rate={item.rate} />}
               />
             </div>
             <hr />

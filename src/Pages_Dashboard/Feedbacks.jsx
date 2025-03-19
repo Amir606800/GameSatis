@@ -38,7 +38,7 @@ const Feedbacks = () => {
         defaultActiveKey={0}
         flush
       >
-        {feedbacks.length == 0 ? (
+        {feedbacks.length == 0 || feedbacks == [{}] ? (
           <>Loading...</>
         ) : (
           feedbacks.map((item, index) => (

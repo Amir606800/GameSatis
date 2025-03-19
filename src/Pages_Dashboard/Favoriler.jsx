@@ -33,7 +33,7 @@ const Favoriler = () => {
   if (loading) return <Loading />;
   return (
     <div className="Siparisler-profile d-flex flex-column gap-3">
-      {wishes.length == 0 ? (
+      {wishes.length == 0 || wishes == [{}] ? (
         <>Loading...</>
       ) : (
         wishes.map((item, index) => (

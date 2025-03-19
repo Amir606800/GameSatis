@@ -8,7 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 import { SettingsContext } from "../../Context/SettingsProvider";
 
-const ProductCard = ({ main, vitrinIndex }) => {
+const ProductCard = ({ main, vitrinIndex,keyIndex }) => {
   gsap.registerPlugin(ScrollTrigger);
   gsap.registerPlugin(TextPlugin);
   const textRef = useRef();
@@ -62,16 +62,16 @@ const ProductCard = ({ main, vitrinIndex }) => {
     },
     {
       // Yellow
-      border: "3px solid #FFD700",
-      shadow: "0 0 5px #FFD700, 0 0 10px #CCAC00",
-      firstLayerColor: "#FFD700",
+      border: "2px solid rgb(218, 186, 9)",
+      shadow: "0 0 5px rgb(218, 186, 9), 0 0 10px rgb(178, 152, 7)",
+      firstLayerColor: "rgb(175, 149, 6)",
     },
   ];
 
   const [selectedShadow, setSelectedShadow] = useState("");
 
   useEffect(() => {
-    if (main.id < vitrinIndex) {
+    if (keyIndex < vitrinIndex) {
       const productKey = main.id;
       const shadowIndex = (productKey - 1) % shadows.length;
 
@@ -82,9 +82,9 @@ const ProductCard = ({ main, vitrinIndex }) => {
     <div className="col-6 col-md-4 col-lg-3 col-xl-2 product-card t">
       <Link to={`/${slugify(main.title).toLowerCase()}`}>
         <div
-          className="card bg-custom prod-card rounded-3 overflow-hidden h-100"
+          className="card bg-custom prod-card rounded-3 h-100"
           style={{
-            border: `${main.is_vitrin ? selectedShadow.border : ""}`,
+            border: `${main.is_vitrin ? selectedShadow.border : "none"}`,
             boxShadow: `${main.is_vitrin ? selectedShadow.shadow : ""}`,
           }}
         >
@@ -98,7 +98,7 @@ const ProductCard = ({ main, vitrinIndex }) => {
                   minWidth: "100px",
                 }}
               >
-                {main.id < vitrinIndex ? "Vitrin İlani" : ""}
+                {keyIndex < vitrinIndex ? "Vitrin İlani" : ""}
               </div>
             ) : (
               <></>
