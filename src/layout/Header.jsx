@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { FaCartShopping } from "react-icons/fa6";
+import React, { useContext, useState } from "react";
+import { FaCartShopping, FaShare } from "react-icons/fa6";
 import { IoIosSearch } from "react-icons/io";
 import { IoWalletSharp } from "react-icons/io5";
 import Authentication from "../components/Auth/Authentication";
@@ -10,18 +10,61 @@ import { BiHeart } from "react-icons/bi";
 import OffCanvas from "../Addons/OffCanvas";
 import { SettingsContext } from "../Context/SettingsProvider";
 import LogoDark from "../assets/Images/gmsrenklikoyuyatay.svg";
+import { ProductContext } from "../Context/ProductsProvider";
+import slugify from "slugify";
 const Header = () => {
-  const { session, userProfile, privacyStatus } = UserAuth();
+  const { userProfile, privacyStatus } = UserAuth();
   const { currency, currencyObj, theme } = useContext(SettingsContext);
+  const [searchInputResult, setSearchInputResult] = useState("");
+  const { products } = useContext(ProductContext);
+  const filteredProducts = products.filter((item) =>
+    item.title.toLowerCase().includes(searchInputResult.toLowerCase())
+  );
   return (
     <>
+      {searchInputResult.trim() != "" ? (
+        <div
+          className="search-result container-fluid position-absolute  bg-dark-custom border border-2 rounded-4 start-50 translate-middle"
+          style={{
+            maxWidth: "36em",
+            width: "37%",
+            minWidth: "20em",
+            zIndex: "15",
+            height: "15em",
+            top: "13.5em",
+          }}
+        >
+          <div className="search-result-list d-flex flex-column gap-3 overflow-y-scroll h-100 w-100 pt-3 pe-3">
+            {filteredProducts.length == 0
+            ? <p className="text-center bg-custom p-2 rounded-3">Sonuç Bulunamadı</p>
+            :filteredProducts.map((item, index) => (
+              <div key={index} className="list-comp d-flex gap-2 align-items-center justify-content-between bg-custom p-2 rounded-3">
+                <img width={60} src={item.image_url} alt={item.title} />
+                <div className="title" style={{fontSize:"12px"}}>{item.title}</div>
+                <Link to={`/${slugify(item.title.toLowerCase())}`}>
+                  <button onClick={()=>{setSearchInputResult("")}} className="btn btn-info text-custom align-content-center fw-bold" style={{fontSize:"10px",minWidth:"9em"}}>
+                    Oyuna Git <FaShare />
+                  </button>
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        ""
+      )}
+
       <div className="header mb-0 pb-0 h-auto flex-column bg-custom">
         <div className=" container-fluid d-none d-lg-block">
           <div className="top-head d-flex justify-content-end align-items-center   ">
             <ul className="list-unstyled m-0 py-2 gap-2 d-flex align-items-center justify-content-center ">
-              <li>Mağaza Paketleri</li>
+              <li>
+                <Link to="/magaza">Mağaza Bilgileri</Link>
+              </li>
               <span>|</span>
-              <li>Donate</li>
+              <li>
+                <Link to="/donate">Donate</Link>
+              </li>
               <span>|</span>
               <li>Blog</li>
               <span>|</span>
@@ -60,16 +103,14 @@ const Header = () => {
                 <input
                   className="mx-1 text-custom"
                   placeholder="Oyun Ara..."
-                  type="text"
+                  type="search"
+                  value={searchInputResult}
+                  onChange={(e) => setSearchInputResult(e.target.value)}
                 />
-                <div
-                  className="search-result position-absolute top-100 bg-danger start-50 translate-middle-x"
-                  style={{ width: "100%", zIndex: "1000" }}
-                ></div>
               </div>
             </div>
             <div className="account grid-account d-flex gap-3 mx-lg-0 mx-3 justify-content-between justify-content-lg-center align-items-center">
-              <Link to={userProfile?"/ilan_ekle":"/giris-yap"}>
+              <Link to={userProfile ? "/ilan_ekle" : "/giris-yap"}>
                 <button
                   className="btn btn-success d-flex align-items-center d-flex  justify-content-center gap-1 "
                   style={{ minHeight: "2.5em", maxHeight: "3.5em" }}
@@ -102,7 +143,8 @@ const Header = () => {
                             }}
                             className="name fw-bold"
                           >
-                            {userProfile.first_name} {userProfile.last_name.substring(0,1)}.
+                            {userProfile.first_name}{" "}
+                            {userProfile.last_name.substring(0, 1)}.
                           </div>
                           <div
                             className="balance fw-bold"
@@ -132,13 +174,16 @@ const Header = () => {
                   <Authentication />
                 )}
               </div>
-              <Link to={userProfile ? "/cart" : "/giris-yap"} className="cart  fs-4 d-none d-lg-block ">
+              <Link
+                to={userProfile ? "/cart" : "/giris-yap"}
+                className="cart  fs-4 d-none d-lg-block "
+              >
                 <FaCartShopping />
               </Link>
               <div className="d-flex gap-4 d-lg-none">
                 {userProfile ? (
                   <Link
-                  to={userProfile ? "/cart" : "/giris-yap"}
+                    to={userProfile ? "/cart" : "/giris-yap"}
                     className="cart fs-6 px-2 py-1 text-center align-content-center rounded-3"
                     style={{ backgroundColor: "#FF5F1F" }}
                   >
@@ -163,7 +208,7 @@ const Header = () => {
             <Link to={"/oyunlar"} className="nav-element">
               OYUNLAR
             </Link>
-            <div className="nav-element">OYUNCU PAZARI</div>
+            <Link to="/oyuncu-pazari" className="nav-element">OYUNCU PAZARI</Link>
             <div className="nav-element">KNIGHT ONLINE</div>
             <Link to={"/oyunlar/League-Of-Legends"} className="nav-element">
               League Of Legends

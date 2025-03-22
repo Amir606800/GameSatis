@@ -110,7 +110,7 @@ const AddElan = () => {
     }
   
     try {
-      dispatch(addProduct(updatedItem)); // Use updatedItem instead of addedItem
+      dispatch(addProduct({...updatedItem,is_vitrin:userProfile.site_role == "admin"?false:true})); // Use updatedItem instead of addedItem
       Swal.fire({
         title: "Successful",
         text: "Your product successfully added!",

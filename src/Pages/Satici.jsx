@@ -193,7 +193,7 @@ const Satici = () => {
                       {item.title}
                     </Link>
                   </div>
-                  <div className="right d-flex flex-row gap-3 align-items-center justify-content-center">
+                  <div className="right d-flex flex-row gap-5 align-items-center justify-content-center">
                     <div className="d-flex flex-column  justify-content-center align-items-center">
                       <h6 className="text-info">Satış fiyatı:</h6>
                       <div className="fs-4 fw-bold">
@@ -230,7 +230,7 @@ const Satici = () => {
                         }}
                       >
                         {userProfile.id == foundUserProfile.id ? (
-                          <></>
+                          <div className="btn btn-success ">Ürünü Görüntüle</div>
                         ) : (
                           <button
                             style={{ height: "2.5em", width: "5em" }}

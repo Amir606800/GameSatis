@@ -5,8 +5,9 @@ import { SettingsContext } from "../Context/SettingsProvider";
 const Accessibility = () => {
   const [show, setShow] = useState(false);
 
-  const { theme, setTheme, lang, setLang, currency, setCurrency } =
-    useContext(SettingsContext);
+  const { theme, setTheme, lang, setLang, currency, setCurrency, currencyObj} = useContext(SettingsContext);
+  const objectKeys = Object.keys(currencyObj)
+console.log(objectKeys)
 
   return (
     <div
@@ -68,15 +69,16 @@ const Accessibility = () => {
             <label htmlFor="curr">Para birimi:</label>
             <select
               defaultValue={currency}
+              className=" overflow-y-scroll"
               name="curr"
               id="curr"
               onChange={(e) => {
                 setCurrency(e.target.value);
               }}
             >
-              <option value="TL">TL</option>
-              <option value="USD">USD</option>
-              <option value="AZN">AZN</option>
+              {objectKeys.map((item,index)=>(
+                <option key={index} value={item}>{item}</option>
+              ))}    
             </select>
           </div>
         </form>

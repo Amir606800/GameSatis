@@ -38,10 +38,9 @@ const Cart = () => {
       const fetchTotalCost = async () => {
         const { data, error } = await supabase
           .from("cart")
-          .select("quantity, products(price,discount)")
+          .select("quantity, products(price,discount,stock)")
           .eq("user_id", userProfile.id);
         if (!error) {
-          console.log(data);
           setTotal(
             data.reduce(
               (acc, item) =>
@@ -70,11 +69,13 @@ const Cart = () => {
 
   const handleCheckout = async () => {
     if (userProfile.balance > total) {
-      const { error } = await supabase
+      const { errorBalanceUpdate } = await supabase
         .from("profiles")
         .update({ balance: userProfile.balance - total.toFixed(2, 0) })
         .eq("id", userProfile.id);
-      if (!error) {
+
+
+      if (!errorBalanceUpdate) {
         dispatch(addOrders({ cart: cart, total: total }));
         dispatch(resetCart(userProfile.id));
         Swal.fire({
@@ -86,8 +87,10 @@ const Cart = () => {
           confirmButtonText: "Tamam",
           confirmButtonColor: "#3085d6",
         }).then(() => window.location.reload());
+
+
       } else {
-        console.log(error);
+        console.log(errorBalanceUpdate);
       }
     } else {
       Swal.fire({
@@ -253,10 +256,13 @@ const Cart = () => {
                               {item.quantity}
                             </div>
                             <div
-                              onClick={() =>
-                                handleIncrease(item.id, item.quantity)
+                              onClick={
+                                item.products.stock > item.quantity
+                                ? () =>
+                                  handleIncrease(item.id, item.quantity,item) 
+                                 :()=>{} 
                               }
-                              className="increase btn p-0 w-25 text-center"
+                              className={`${item.products.stock > item.quantity ? "increase btn": ""}  p-0 w-25 text-center`}
                             >
                               +
                             </div>

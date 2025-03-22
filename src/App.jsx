@@ -18,7 +18,7 @@ import Oyunlar from "./Pages_Category/Oyunlar";
 import OyunlarSubCat from "./Pages_Category/OyunlarSubCat";
 import Productlar from "./Pages_Category/Productlar";
 import Informations from "./Pages_Dashboard/Informations";
-import Siparisler from "./Pages_Dashboard/Siparisler"; 
+import Siparisler from "./Pages_Dashboard/Siparisler";
 import AddElan from "./Pages_Dashboard/AddElan";
 import ListElan from "./Pages_Dashboard/ListElan";
 import Cart from "./Pages/Cart";
@@ -29,40 +29,52 @@ import Magaza from "./Pages/Magaza";
 import AboutUs from "./Pages/AboutUs";
 import Contact from "./Pages/Contact";
 import QuestionAnswer from "./Pages/Q&A";
+import OyuncuPazari from "./Pages/OyuncuPazari";
 
 function App() {
+  const profileRoutes = [
+    { path: "profilim", component: <Informations /> },
+    { path: "siparislerim", component: <Siparisler /> },
+    { path: "ilan_ekle", component: <AddElan /> },
+    { path: "ilanlarim", component: <ListElan /> },
+    { path: "yorumlarim", component: <Feedbacks /> },
+    { path: "favoriler", component: <Favoriler /> },
+  ];
+  
   return (
     <>
       <BrowserRouter>
         <Header />
         <Additionals />
         <Routes>
-
           <Route path="/" element={<Home />}></Route>
           <Route path="/donate" element={<Donate />}></Route>
           <Route path="/:slugName" element={<ProductDetails />}></Route>
           <Route path="/oyunlar" element={<Oyunlar />}></Route>
           <Route path="/oyunlar/:sub_name" element={<OyunlarSubCat />}></Route>
-          <Route path="/oyunlar/:sub_name/:prod_name" element={<Productlar />}></Route>
+          <Route
+            path="/oyunlar/:sub_name/:prod_name"
+            element={<Productlar />}
+          ></Route>
           <Route path="/magaza/:userName" element={<Satici />}></Route>
           <Route path="/magaza" element={<Magaza />}></Route>
           <Route path="/hakkimizda" element={<AboutUs />}></Route>
           <Route path="/iletişim" element={<Contact />}></Route>
           <Route path="yardim-destek" element={<QuestionAnswer />}></Route>
+          <Route path="/oyuncu-pazari" element={<OyuncuPazari />}></Route>
 
-          <Route  path="/profilim" element={ <Wrapper> <Profile section={<Informations />} /> </Wrapper> }></Route>
-          <Route  path="/siparislerim" element={   <Wrapper>     <Profile section={<Siparisler />} />     </Wrapper>}></Route>
-          <Route  path="/ilan_ekle"  element={    <Wrapper>      <Profile section={<AddElan />} />    </Wrapper>  }></Route>
-          <Route  path="/ilanlarim" element={   <Wrapper>     <Profile section={<ListElan />} />   </Wrapper> }></Route>
-          <Route  path="/yorumlarim"  element={    <Wrapper>      <Profile section={<Feedbacks />} />    </Wrapper>  }></Route>
-          <Route  path="/favoriler"  element={    <Wrapper>      <Profile section={<Favoriler />} />    </Wrapper>  }></Route>
+          {profileRoutes.map(({ path, component }) => (
+            <Route key={path} path={path} element={ <Wrapper> <Profile section={component} /> </Wrapper> }/>
+          ))}
 
-          <Route path="/giris-yap" element={<AuthContent modalmi={false} />}></Route>
+          <Route
+            path="/giris-yap"
+            element={<AuthContent modalmi={false} />}
+          ></Route>
           <Route path="/sifremi-unuttum" element={<ForgotPassword />}></Route>
           <Route path="/email-confirm" element={<EmailConfirmation />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="*" element={<NotFoundPage />}></Route>
-          
         </Routes>
         <Footer />
       </BrowserRouter>

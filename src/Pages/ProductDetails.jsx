@@ -37,6 +37,9 @@ export const ProductDetails = () => {
   const { wishes } = useSelector((state) => state.wishlist);
   const [thing, setThing] = useState();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const productDetail = useRef();
+  const reloadRef = useRef(false);
 
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
@@ -48,14 +51,12 @@ export const ProductDetails = () => {
       setThing(thing);
     }
   }, [wishes, products]);
-  const dispatch = useDispatch();
-  const productDetail = useRef();
 
-  const reloadRef = useRef(false);
 
   useEffect(() => {
     if (userProfile && !reloadRef.current) {
       dispatch(fetchWish(userProfile.id));
+      
       reloadRef.current = true;
     }
   }, [userProfile]);
@@ -342,15 +343,15 @@ export const ProductDetails = () => {
               </div>
             </div>
             <div className="likes d-flex justify-content-between align-items-center">
-              <span>Toplam işlem adedi: 75221</span>
+              <span>Toplam işlem adedi: {foundedProduct.profiles.dislikes + foundedProduct.profiles.likes}</span>
               <div className="d-flex gap-2">
                 <div className="text-center align-content-center">
                   <BiSolidLike style={{ fontSize: "14px", color: "green" }} />
-                  (75221)
+                  {foundedProduct.profiles.likes}
                 </div>
                 <span>
                   <BiSolidDislike style={{ fontSize: "14px", color: "red" }} />
-                  (0)
+                  {foundedProduct.profiles.dislikes}
                 </span>
               </div>
             </div>
@@ -414,8 +415,10 @@ export const ProductDetails = () => {
                 </span>
               </div>
             </div>
-            <div className="d-flex w-100 justify-content-center gap-2 align-items-center">
-              <div className="amount d-flex align-items-center justify-content-center gap-0 rounded-4 overflow-hidden">
+            <div className="d-flex w-100 justify-content-center gap-2 align-items-center position-relative" >
+              {foundedProduct.stock == 0? <div className="stock-bitmis bg-danger fs-3 px-2 py-1 rounded-3"> Stokta Yok </div> : ''}
+              
+              <div className="amount align-items-center justify-content-center gap-0 rounded-4 overflow-hidden" style={{display:foundedProduct.stock == 0 ?"none":"flex" }}>
                 <span className="px-3">Adet: </span>
                 <div className="d-flex ingredients justify-content-center align-items-center p-2 gap-2 ">
                   <div
@@ -431,8 +434,8 @@ export const ProductDetails = () => {
                   </div>
                   <div className="amount w-50 text-center">{count}</div>
                   <div
-                    onClick={() => setCount((prev) => prev + 1)}
-                    className="increase btn p-0 w-25 text-center"
+                    onClick={foundedProduct.stock == count ?"":() => setCount((prev) => prev + 1)}
+                    className={`${foundedProduct.stock == count ?"": "increase btn"}  p-0 w-25 text-center`}
                   >
                     +
                   </div>
@@ -441,7 +444,7 @@ export const ProductDetails = () => {
               <button
                 onClick={() => handleAddCart(session, foundedProduct, count)}
                 className="purchase  btn btn-success px-3"
-                style={{ fontSize: "15px" }}
+                style={{ fontSize: "15px", display:foundedProduct.stock == 0 ?"none":"block"  }}
               >
                 Sepete Ekle
               </button>

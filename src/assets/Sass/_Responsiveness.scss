@@ -69,6 +69,11 @@
 
 //Header responsiveness for smaller screens
 @media (max-width: 991px) {
+  .search-result{
+    top: 18em !important;
+    width: 100% !important;
+    max-width: 94% !important;
+  }
   .nav-head-top {
     animation: slide_top 0.5s forwards;
   }

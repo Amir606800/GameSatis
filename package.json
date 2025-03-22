@@ -10,7 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@gsap/react": "^2.1.2",
+    "@mui/material": "^6.4.8",
     "@reduxjs/toolkit": "^2.6.0",
     "@supabase/supabase-js": "^2.48.1",
     "aos": "^2.3.4",

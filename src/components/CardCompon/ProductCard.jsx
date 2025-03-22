@@ -56,16 +56,17 @@ const ProductCard = ({ main, vitrinIndex,keyIndex }) => {
       firstLayerColor: "#FF4444",
     },
     {
-      border: "3px solid #90EE90", // Light green border
-      shadow: "0 0 5px #90EE90, 0 0 10px #66C766", // Light green shadows
-      firstLayerColor: "#90EE90",
-    },
-    {
       // Yellow
       border: "2px solid rgb(218, 186, 9)",
       shadow: "0 0 5px rgb(218, 186, 9), 0 0 10px rgb(178, 152, 7)",
       firstLayerColor: "rgb(175, 149, 6)",
     },
+    {
+      border: "3px solid #90EE90", // Light green border
+      shadow: "0 0 5px #90EE90, 0 0 10px #66C766", // Light green shadows
+      firstLayerColor: "#90EE90",
+    },
+    
   ];
 
   const [selectedShadow, setSelectedShadow] = useState("");
@@ -88,7 +89,7 @@ const ProductCard = ({ main, vitrinIndex,keyIndex }) => {
             boxShadow: `${main.is_vitrin ? selectedShadow.shadow : ""}`,
           }}
         >
-          <div className="card-img mb-4 position-relative text-center">
+          <div className="card-img mb-4 position-relative text-center" style={{minHeight:"9em"}}>
             {main.is_vitrin ? (
               <div
                 className="vitrin z-1 w-auto position-absolute translate-middle-x fw-bold px-3 pb-1 rounded-bottom-3 start-50"
@@ -106,14 +107,16 @@ const ProductCard = ({ main, vitrinIndex,keyIndex }) => {
 
             <img src={main.image_url} alt={main.title} className="w-100" />
             <div
-              className="manufacturer z-1 fw-bold rounded-2 position-absolute bg-white px-5 start-50 translate-middle-x text-success text-center"
-              style={{ bottom: "-10px", width: "100%" }}
+              className="manufacturer z-1 fw-bold rounded-2 position-absolute bg-white start-50 translate-middle-x text-success text-center"
+              style={{ bottom: "-10px", width: "10em" }}
             >
               {main.is_vitrin ? (
-                main.profiles.display_name
+                <p className="m-auto text-center py-2 px-2 w-100">
+                  {main.profiles.display_name}
+                </p>
               ) : (
                 <div
-                  className="d-flex flex-row w-100 py-2 text-center"
+                  className="d-flex flex-row w-100 py-2 justify-content-center text-center"
                   style={{ fontSize: "clamp(9px, 2vw, 14px)" }}
                 >
                   {main.title.substring(0, 22)}
