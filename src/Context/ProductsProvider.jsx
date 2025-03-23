@@ -12,13 +12,16 @@ export const ProductsProvider = ({ children }) => {
   const [LoadingFound, setFoundLoading] = useState(true);
   const [foundUserProfile,setFoundUserProfile] = useState(null)
 
+  const calculateDiscountedPrice = (price, discountPercent) => {
+    return price-(price * discountPercent) / 100;
+  };
 
   useEffect(() => {
     const fetchAllTheProducts = async () => {
       const { data, error } = await supabase
         .from("products")
         .select(
-          "*,profiles( * ),feedbacks(rate ,content, profiles(first_name,last_name))"
+          "*,profiles( * ),categories(*),feedbacks(rate ,content, profiles(first_name,last_name))"
         );
       if (!error) {
         setProducts(data);
@@ -57,7 +60,7 @@ export const ProductsProvider = ({ children }) => {
   };
   return (
     <ProductContext.Provider
-      value={{ products, productCat, fetchProduct, loading,fetchUserProfile,foundUserProfile,LoadingFound }}
+      value={{ products, productCat, fetchProduct, loading,fetchUserProfile,foundUserProfile,LoadingFound,calculateDiscountedPrice }}
     >
       {children}
     </ProductContext.Provider>

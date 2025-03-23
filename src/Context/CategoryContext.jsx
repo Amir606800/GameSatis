@@ -23,7 +23,7 @@ export const CatehoryProvider = ({children})=>{
         if(category_name){
             const category = mainCat.find((item) => slugify(item.name) == slugify(category_name));
 
-            const {data,error} = await supabase.from("categories").select("*,products(*)").eq("parent_id",category.id)
+            const {data,error} = await supabase.from("categories").select("*,products(*,profiles(*))").eq("parent_id",category.id)
             if(!error) {setSubCat(data);console.log(data);setLoading(false)}
             else {console.error(error),setLoading(true)}
         }else{

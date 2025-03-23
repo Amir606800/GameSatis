@@ -83,7 +83,7 @@ const ProductCard = ({ main, vitrinIndex,keyIndex }) => {
     <div className="col-6 col-md-4 col-lg-3 col-xl-2 product-card t">
       <Link to={`/${slugify(main.title).toLowerCase()}`}>
         <div
-          className="card bg-custom prod-card rounded-3 h-100"
+          className="card bg-custom prod-card rounded-3 overflow-hidden h-100"
           style={{
             border: `${main.is_vitrin ? selectedShadow.border : "none"}`,
             boxShadow: `${main.is_vitrin ? selectedShadow.shadow : ""}`,
@@ -111,13 +111,13 @@ const ProductCard = ({ main, vitrinIndex,keyIndex }) => {
               style={{ bottom: "-10px", width: "10em" }}
             >
               {main.is_vitrin ? (
-                <p className="m-auto text-center py-2 px-2 w-100">
+                <p className="m-auto text-center py-1 px-2 w-100" style={{ fontSize: "clamp(9px, 1vw, 14px)" }}>
                   {main.profiles.display_name}
                 </p>
               ) : (
                 <div
-                  className="d-flex flex-row w-100 py-2 justify-content-center text-center"
-                  style={{ fontSize: "clamp(9px, 2vw, 14px)" }}
+                  className="d-flex flex-row w-100 py-1 justify-content-center text-center"
+                  style={{ fontSize: "clamp(9px, 1vw, 14px)" }}
                 >
                   {main.title.substring(0, 22)}
                 </div>
@@ -134,7 +134,9 @@ const ProductCard = ({ main, vitrinIndex,keyIndex }) => {
           <div className="card-head text-start h6 px-2" ref={textRef}></div>
           <div className="card-body d-flex justify-content-between align-items-center">
             <div className="verf text-success">
+              {main.profiles.is_verified?
               <GoVerified />
+              :""}
             </div>
             <div className="price">
               {main.discount != 0 ? (

@@ -2,6 +2,7 @@ import Header from "./layout/Header";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle";
 import "./assets/Sass/main.scss";
+import 'rc-slider/assets/index.css';
 import Footer from "./layout/Footer";
 import Home from "./Pages/Home";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
