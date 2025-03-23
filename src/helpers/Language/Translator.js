@@ -2,10 +2,12 @@ import { useContext } from "react";
 import { EngLanguage } from "./EngLanguage"
 import { TrLanguage } from "./TrLanguage"
 import { SettingsContext } from "../../Context/SettingsProvider";
+import { AzeLanguage } from "./AzeLanguage";
 
 const languages = {
     eng:EngLanguage,
-    tr:TrLanguage
+    tr:TrLanguage,
+    aze:AzeLanguage
 }
 
 
