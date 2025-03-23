@@ -26,6 +26,7 @@ import Swal from "sweetalert2";
 import { addWish, deleteWish, fetchWish } from "../tools/Slices/WhishListSlice";
 import { SettingsContext } from "../Context/SettingsProvider";
 import StarSet from "../Addons/StarSet";
+import { useTranslate } from "../helpers/Language/Translator";
 
 export const ProductDetails = () => {
   gsap.registerPlugin(ScrollTrigger);
@@ -40,7 +41,7 @@ export const ProductDetails = () => {
   const dispatch = useDispatch();
   const productDetail = useRef();
   const reloadRef = useRef(false);
-
+  const t = useTranslate()
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
   );
@@ -51,7 +52,7 @@ export const ProductDetails = () => {
       setThing(thing);
     }
   }, [wishes, products]);
-
+  
 
   useEffect(() => {
     if (userProfile && !reloadRef.current) {
@@ -208,7 +209,7 @@ export const ProductDetails = () => {
             {foundedProduct.deliver_time == 0 ? (
               <div className="aninda position-absolute text-white p-1 rounded-3">
                 {" "}
-                <BsLightningChargeFill /> Aninda Teslim
+                <BsLightningChargeFill /> {t("details.instant")}
               </div>
             ) : (
               <></>
@@ -218,7 +219,7 @@ export const ProductDetails = () => {
             <div className="h-100">
               <span className="h5 fw-bolder">{foundedProduct.title}</span>
               <div style={{ fontSize: "13px" }} className="fw-bold mt-1">
-                Ürün açıklaması:{" "}
+              {t("details.description")}:{" "}
               </div>
               <div
                 style={{ fontSize: "13px", whiteSpace: "preserve-breaks" }}
@@ -264,29 +265,29 @@ export const ProductDetails = () => {
                 </span>
               ) : (
                 <div className="cur-pointer" onClick={handleScroll}>
-                  Devam et...
+                  {t("details.continue")}
                 </div>
               )}
             </div>
           </div>
           <div className="information area-part d-flex flex-wrap flex-sm-nowrap gap-4 flex-row justify-content-around">
             <div className="boxes-info w-100 d-flex flex-sm-column justify-content-center align-items-center">
-              <span className="box-headings">İlan No:</span>
+              <span className="box-headings">{t("details.itemNo")}:</span>
               <span className="fw-bold">#{foundedProduct.id}</span>
             </div>
             <div className="boxes-info w-100 d-flex  flex-sm-column justify-content-center align-items-center">
-              <span className="box-headings">Görülme: </span>
+              <span className="box-headings">{t("details.visits")}: </span>
               <span className="fw-bold d-flex justify-content-center align-items-center gap-1">
                 <IoEyeOutline />
                 {foundedProduct.visits}
               </span>
             </div>
             <div className="boxes-info w-100 d-flex  flex-sm-column justify-content-center align-items-center">
-              <span className="box-headings">Güncelleme: </span>
+              <span className="box-headings">{t("details.update")}: </span>
               <span className="fw-bold">{formattedDate}</span>
             </div>
             <div className="boxes-info w-100 d-flex  flex-sm-column justify-content-center align-items-center">
-              <span className="box-headings">Stok: </span>
+              <span className="box-headings">{t("details.stock")}: </span>
               <span className="fw-bold" style={{ fontSize: "22px" }}>
                 {foundedProduct.stock ? (
                   <IoIosCheckmarkCircleOutline />
@@ -336,14 +337,14 @@ export const ProductDetails = () => {
 
                   <span style={{ fontSize: "13px" }}>%100</span>
                 </div>
-                <div style={{ fontSize: "12px" }}>Magaza yorumlari: (123)</div>
+                <div style={{ fontSize: "12px" }}>{t("creator.shopFeedbacks")}: (123)</div>
                 <div style={{ fontSize: "12px" }}>
-                  Magazanin Diger Urunleri: (342)
+                  {t("creator.shopOtherİtems")}: (342)
                 </div>
               </div>
             </div>
             <div className="likes d-flex justify-content-between align-items-center">
-              <span>Toplam işlem adedi: {foundedProduct.profiles.dislikes + foundedProduct.profiles.likes}</span>
+              <span>{t("creator.totalOperations")}: {foundedProduct.profiles.dislikes + foundedProduct.profiles.likes}</span>
               <div className="d-flex gap-2">
                 <div className="text-center align-content-center">
                   <BiSolidLike style={{ fontSize: "14px", color: "green" }} />
@@ -359,12 +360,12 @@ export const ProductDetails = () => {
               {foundedProduct.profiles.is_online ? (
                 <>
                   <GoDotFill color="green" />
-                  <span style={{ fontSize: "14px" }}>Çevrimiçi</span>
+                  <span style={{ fontSize: "14px" }}>{t("creator.online")}</span>
                 </>
               ) : (
                 <>
                   <GoDotFill color="red" />
-                  <span style={{ fontSize: "14px" }}>Çevrimdışı</span>
+                  <span style={{ fontSize: "14px" }}>{t("creator.offline")}</span>
                 </>
               )}
             </div>
@@ -380,8 +381,7 @@ export const ProductDetails = () => {
                   className="d-flex justify-content-center flex-column"
                   style={{ fontSize: "10px", fontWeight: "bold" }}
                 >
-                  <span>Paranız %100 GameSatış</span>{" "}
-                  <span>güvencesi altındadır.</span>
+                  <span style={{width:"13em"}}>{t("details.secure")}</span>{" "}
                 </span>
               </div>
               <div className="price">
@@ -419,7 +419,7 @@ export const ProductDetails = () => {
               {foundedProduct.stock == 0? <div className="stock-bitmis bg-danger fs-3 px-2 py-1 rounded-3"> Stokta Yok </div> : ''}
               
               <div className="amount align-items-center justify-content-center gap-0 rounded-4 overflow-hidden" style={{display:foundedProduct.stock == 0 ?"none":"flex" }}>
-                <span className="px-3">Adet: </span>
+                <span className="px-3">{t("details.count")}: </span>
                 <div className="d-flex ingredients justify-content-center align-items-center p-2 gap-2 ">
                   <div
                     onClick={() => {
@@ -444,9 +444,9 @@ export const ProductDetails = () => {
               <button
                 onClick={() => handleAddCart(session, foundedProduct, count)}
                 className="purchase  btn btn-success px-3"
-                style={{ fontSize: "15px", display:foundedProduct.stock == 0 ?"none":"block"  }}
+                style={{ width:"8em",fontSize: "15px", display:foundedProduct.stock == 0 ?"none":"block"  }}
               >
-                Sepete Ekle
+                {t("details.addCart")}
               </button>
             </div>
           </div>
@@ -458,7 +458,7 @@ export const ProductDetails = () => {
                 back={
                   "https://www.gamesatis.com/assets/header-bg-icon-game.png"
                 }
-                leftHead={"Ürün Özellikleri"}
+                leftHead={t("features")}
               ></Lent>
             </div>
             <div className="card-body d-flex gap-2 align-items-center flex-wrap">
@@ -477,7 +477,7 @@ export const ProductDetails = () => {
           <div className="card-head">
             <Lent
               back={"https://www.gamesatis.com/assets/header-bg-icon-game.png"}
-              leftHead={`${foundedProduct.title} Hakkında`}
+              leftHead={`${foundedProduct.title} ${t("details.about")}`}
               rightHead={""}
             />
           </div>
@@ -491,7 +491,7 @@ export const ProductDetails = () => {
         <IlgiCard />
 
         <div className="card my-3 border-0 bg-custom">
-          <div className="card-head p-3 h3 fw-bolder">Kullanıcı yorumları</div>
+          <div className="card-head p-3 h3 fw-bolder">{t("details.ratings.userFeedbacks")}</div>
           <hr />
           <div
             className="card-body d-flex flex-lg-row flex-column gap-2 justify-content-between align-items-center"
@@ -504,11 +504,11 @@ export const ProductDetails = () => {
             />
             <div className="stars d-flex flex-column gap-2 w-75">
               {[
-                { num: 5, tit: "Mükemmel" },
-                { num: 4, tit: "Çok İyi" },
-                { num: 3, tit: "İyi" },
-                { num: 2, tit: "Kötü" },
-                { num: 1, tit: "Çok Kötü" },
+                { num: 5, tit: t("details.ratings.perfect") },
+                { num: 4, tit: t("details.ratings.veryGood") },
+                { num: 3, tit: t("details.ratings.good") },
+                { num: 2, tit: t("details.ratings.bad") },
+                { num: 1, tit: t("details.ratings.veryBad") },
               ].map((item, index) => (
                 <div
                   key={index}
@@ -556,7 +556,7 @@ export const ProductDetails = () => {
               ))}
             </div>
             <div className="ortalama text-center d-flex flex-column gap-1">
-              <span className="h6 fw-bold">Ortalama Puan</span>
+              <span className="h6 fw-bold">{t("details.ratings.average")}</span>
               <StarSet rate={Math.floor(averageRating)} />
               <h1 className="fw-bolder" style={{ color: "#6395EE" }}>
                 {averageRating}

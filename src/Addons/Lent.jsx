@@ -5,7 +5,7 @@ const Lent = (props) => {
   return (
     <>
       <div
-        style={{ height: "3em",padding:"30px",justifyContent:props.center?"center":"space-between" }}
+        style={{ height: "3.5em",justifyContent:props.center?"center":"space-between" }}
         className="d-flex fw-bold  overflow-hidden bg-dark-custom position-relative px-4 rounded-3 align-items-center w-100 custom-back Lent"
       >
         <div
@@ -20,7 +20,7 @@ const Lent = (props) => {
             backgroundSize: "30px",
           }}
         ></div>
-        <div className="left fs-5 d-flex gap-1" >
+        <div className="left fs-5 d-flex gap-1 overflow-x-scroll overflow-y-hidden" >
           {props.leftHead}
         </div>
         <div className="right">

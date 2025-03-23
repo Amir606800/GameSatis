@@ -15,9 +15,11 @@ import { FaLinkedinIn } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import LogoDark from "../assets/Images/gmsrenklikoyuyatay.svg";
 import { SettingsContext } from "../Context/SettingsProvider";
+import { useTranslate } from "../helpers/Language/Translator";
 
 const Footer = () => {
-  const {theme} = useContext(SettingsContext)
+  const { theme } = useContext(SettingsContext);
+  const t = useTranslate()
   return (
     <>
       <div className="footer bg-custom position-relative">
@@ -29,9 +31,7 @@ const Footer = () => {
                 <IoRocketSharp className="footer-icon" />
               </div>
               <div>
-                <h5>Hızlı Teslimat</h5>7 gün 24 saat aldığınız kod anında
-                hesabınızda! Oyun içi teslimatlar Sabah 09:00 - Gece 02:00
-                arasında yapılır.
+                <h5>{t("footer.topInfos.deliverTitle")}</h5> {t("footer.topInfos.deliverDesc")}
               </div>
             </div>
             <div className="col">
@@ -39,9 +39,8 @@ const Footer = () => {
                 <BsFillShieldLockFill className="footer-icon" />
               </div>
               <div>
-                <h5>Güvenli Alışveriş</h5>
-                3D Secure ve SSL güvencesiyle dilediğiniz ödeme yöntemi ile
-                ödeme yapın.
+                <h5>{t("footer.topInfos.safetyTitle")}</h5>
+                {t("footer.topInfos.safetyDesc")}
               </div>
             </div>
             <div className="col">
@@ -49,8 +48,8 @@ const Footer = () => {
                 <IoIosPricetags className="footer-icon" />
               </div>
               <div>
-                <h5>En Uygun Fiyatlar</h5>
-                İndirimli ve en ucuz fiyatlarla alışverişin keyfini çıkarın.
+                <h5>{t("footer.topInfos.priceTitle")}</h5>
+                {t("footer.topInfos.priceDesc")}
               </div>
             </div>
             <div className="col">
@@ -58,10 +57,9 @@ const Footer = () => {
                 <HiMiniUserGroup className="footer-icon" />
               </div>
               <div>
-                <h5>Müşteri Memnuniyeti</h5>
+                <h5>{t("footer.topInfos.satisfyTitle")}</h5>
                 <span>
-                  Oyun alışverişlerinizde bizi tercih ettiğiniz için teşekkür
-                  ederiz.
+                 {t("footer.topInfos.satisfyDesc")}
                 </span>
               </div>
             </div>
@@ -71,73 +69,85 @@ const Footer = () => {
             <div className="col-9 p-2 ">
               <div className="row left-side g-0">
                 <div className="col">
-                  <h5>GameSatis</h5>
+                  <h5>{t("footer.GameSatis.about")}</h5>
                   <ul>
                     <li>
-                      <Link to="/hakkimizda">Hakkımızda</Link>
+                      <Link to="/hakkimizda">{t("footer.GameSatis.about")}</Link>
                     </li>
-                    <li>Kurumsal</li>
-                    <li>Blog</li>
-                    <li>Yorumlar</li>
+                    <li>{t("footer.GameSatis.corporate")}</li>
+                    <li>{t("footer.GameSatis.blog")}</li>
+                    <li>{t("footer.GameSatis.reviews")}</li>
                     <li>
-                      <Link to="/iletişim"> İletişim</Link>
+                      <Link to="/iletişim">{t("footer.GameSatis.contact")}</Link>
                     </li>
-                    <li>Künye</li>
+                    <li>{t("footer.GameSatis.imprint")}</li>
                   </ul>
                 </div>
+
+                {/* Kullanici Section */}
                 <div className="col">
-                  <h5>Kullanici</h5>
+                  <h5>{t("footer.User.register")}</h5>
                   <ul>
                     <li>
-                      <Link to="/giris-yap">Üye ol</Link>
+                      <Link to="/giris-yap">{t("footer.User.register")}</Link>
                     </li>
                     <li>
-                      <Link to="/email-confirm">Parolamı Unuttum</Link>
+                      <Link to="/email-confirm">
+                        {t("footer.User.forgotPassword")}
+                      </Link>
                     </li>
                     <li>
-                      <Link to="/magaza">Mağaza</Link>
+                      <Link to="/magaza">{t("footer.User.store")}</Link>
                     </li>
-                    <li>Mağaza Paketleri</li>
+                    <li>{t("footer.User.storePackages")}</li>
                     <li>
-                      <Link to="/donate"> Yayıncılar - Destekle</Link>
+                      <Link to="/donate">
+                        {t("footer.User.supportPublishers")}
+                      </Link>
                     </li>
-                    <li>Yayıncı Başvurusu</li>
-                    <li>Kullanıcı Sözleşmesi</li>
-                    <li>Mağaza Kuralları</li>
+                    <li>{t("footer.User.publisherApplication")}</li>
+                    <li>{t("footer.User.userAgreement")}</li>
+                    <li>{t("footer.User.storeRules")}</li>
                   </ul>
                 </div>
+
+                {/* Odeme Section */}
                 <div className="col">
-                  <h5>Odeme</h5>
+                  <h5>{t("footer.Payment.paymentMethods")}</h5>
                   <ul>
-                    <li>Ödeme Yöntemleri</li>
-                    <li>Kredi Kartı</li>
-                    <li>Havale/EFT</li>
-                    <li>İninal Kart</li>
-                    <li>Kredi Kartına Taksit</li>
-                    <li>İade-İptal Koşulları</li>
+                    <li>{t("footer.Payment.paymentMethods")}</li>
+                    <li>{t("footer.Payment.creditCard")}</li>
+                    <li>{t("footer.Payment.bankTransfer")}</li>
+                    <li>{t("footer.Payment.ininalCard")}</li>
+                    <li>{t("footer.Payment.installments")}</li>
+                    <li>{t("footer.Payment.returnCancelConditions")}</li>
                   </ul>
                 </div>
+
+                {/* Oyuncu Pazari Section */}
                 <div className="col">
-                  <h5>Oyuncu Pazari</h5>
+                  <h5>{t("footer.MarketPlace.paymentMethods")}</h5>
                   <ul>
-                    <li>Ödeme Yöntemleri</li>
-                    <li>Kredi Kartı</li>
-                    <li>Havale/EFT</li>
-                    <li>İninal Kart</li>
-                    <li>Kredi Kartına Taksit</li>
-                    <li>İade-İptal Koşulları</li>
+                    <li>{t("footer.MarketPlace.paymentMethods")}</li>
+                    <li>{t("footer.MarketPlace.creditCard")}</li>
+                    <li>{t("footer.MarketPlace.bankTransfer")}</li>
+                    <li>{t("footer.MarketPlace.ininalCard")}</li>
+                    <li>{t("footer.MarketPlace.installments")}</li>
+                    <li>{t("footer.MarketPlace.returnCancelConditions")}</li>
                   </ul>
                 </div>
+
+                {/* Popüler Sayfalar Section */}
                 <div className="col">
-                  <h5>Popüler Sayfalar</h5>
+                  <h5>{t("footer.PopularSites.valorant")}</h5>
                   <ul>
-                    <li>Valorant</li>
-                    <li>Knight Online</li>
-                    <li>Pubg Mobile UC</li>
-                    <li>Black Desert Online</li>
-                    <li>League of Legends</li>
-                    <li>CS2 Skin</li>
-                    <li>Tüm Oyunlar</li>
+                    <li>{t("footer.PopularSites.valorant")}</li>
+                    <li>{t("footer.PopularSites.knightOnline")}</li>
+                    <li>{t("footer.PopularSites.pubgMobileUC")}</li>
+                    <li>{t("footer.PopularSites.blackDesertOnline")}</li>
+                    <li>{t("footer.PopularSites.leagueOfLegends")}</li>
+                    <li>{t("footer.PopularSites.cs2Skin")}</li>
+                    <li>{t("footer.PopularSites.allGames")}</li>
                   </ul>
                 </div>
               </div>
@@ -147,7 +157,7 @@ const Footer = () => {
               <div className="justify-content-center align-items-center d-flex flex-column h-100">
                 <div className="d-flex flex-column justify-content-center fs-5 align-items-center gap-1 h-75">
                   <button className="btn btn-outline-light text-custom">
-                    ? Bize Geri Bildirim Birak
+                    ? {t("footer.social.notification")}
                   </button>
                   <div className="">
                     <BiPhoneCall />
@@ -159,7 +169,7 @@ const Footer = () => {
                   </div>
                 </div>
                 <div className="social h-50 d-flex flex-column justify-content-center align-items-center">
-                  <h5>Bizi Takip Et</h5>
+                  <h5>{t("footer.social.follow")}</h5>
                   <div className="d-flex gap-2">
                     <span className="social-icons cur-pointer">
                       <FaInstagram />

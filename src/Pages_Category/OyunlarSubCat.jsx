@@ -6,6 +6,7 @@ import Path from "../Addons/Path";
 import slugify from "slugify";
 import Loading from "../Addons/Loading";
 import { CategoryContext } from "../Context/CategoryContext";
+import { useTranslate } from "../helpers/Language/Translator";
 
 const OyunlarSubCat = () => {
   const { sub_name } = useParams();
@@ -16,6 +17,8 @@ const OyunlarSubCat = () => {
   useEffect(() => {
     fetchSubCategory(sub_name);
   }, [mainCat, sub_name]);
+
+  const t = useTranslate()
 
   const [catSelect, setCatSelect] = useState("");
   const alphabet = () => {
@@ -50,7 +53,7 @@ const OyunlarSubCat = () => {
           alt="toop-banner"
         />
       </div>
-      <div className="heading h5">{sub_name} kategorileri </div>
+      <div className="heading h5">{sub_name} {t("oyunlarSubTitle")} </div>
       <div className="my-4">
         <Lent
           center={true}

@@ -12,6 +12,7 @@ import { SettingsContext } from "../Context/SettingsProvider";
 import LogoDark from "../assets/Images/gmsrenklikoyuyatay.svg";
 import { ProductContext } from "../Context/ProductsProvider";
 import slugify from "slugify";
+import { useTranslate } from "../helpers/Language/Translator";
 const Header = () => {
   const { userProfile, privacyStatus } = UserAuth();
   const { currency, currencyObj, theme } = useContext(SettingsContext);
@@ -20,6 +21,8 @@ const Header = () => {
   const filteredProducts = products.filter((item) =>
     item.title.toLowerCase().includes(searchInputResult.toLowerCase())
   );
+  const t = useTranslate()
+
   return (
     <>
       {searchInputResult.trim() != "" ? (
@@ -59,7 +62,7 @@ const Header = () => {
           <div className="top-head d-flex justify-content-end align-items-center   ">
             <ul className="list-unstyled m-0 py-2 gap-2 d-flex align-items-center justify-content-center ">
               <li>
-                <Link to="/magaza">Mağaza Bilgileri</Link>
+                <Link to="/magaza">{t("header.topShopInfo")}</Link>
               </li>
               <span>|</span>
               <li>
@@ -68,10 +71,10 @@ const Header = () => {
               <span>|</span>
               <li>Blog</li>
               <span>|</span>
-              <li>Yorumlar</li>
+              <li>{t("header.topComments")}</li>
               <span>|</span>
               <li>
-                <Link to={"/yardim-destek"}>Yardim & destek</Link>
+                <Link to={"/yardim-destek"}>{t("header.topQA")}</Link>
               </li>
             </ul>
           </div>
@@ -94,7 +97,7 @@ const Header = () => {
                 width={170}
               />
               <span className="text-custom">
-                Türkiyenin En Büyük Oyuncu Pazarı
+                {t("header.siteTitle")}
               </span>
             </Link>
             <div className="search grid-search d-flex justify-content-center align-items-center mx-lg-0 mx-3 ">
@@ -102,7 +105,7 @@ const Header = () => {
                 <IoIosSearch className="lupa  position-absolute top-50 translate-middle-y" />
                 <input
                   className="mx-1 text-custom"
-                  placeholder="Oyun Ara..."
+                  placeholder={t("header.searchPlaceholder")}
                   type="search"
                   value={searchInputResult}
                   onChange={(e) => setSearchInputResult(e.target.value)}
@@ -116,7 +119,7 @@ const Header = () => {
                   style={{ minHeight: "2.5em", maxHeight: "3.5em" }}
                 >
                   <IoWalletSharp />
-                  <span>Satış Yap</span>
+                  <span>{t("header.sellButon")}</span>
                 </button>
               </Link>
               <div className="header-account-button d-none d-lg-flex">
@@ -188,7 +191,7 @@ const Header = () => {
                     style={{ backgroundColor: "#FF5F1F" }}
                   >
                     <FaCartShopping />{" "}
-                    <span style={{ fontWeight: "bolder" }}>Sepet</span>
+                    <span style={{ fontWeight: "bolder" }}>{t("header.cart")}</span>
                   </Link>
                 ) : (
                   <Authentication />
@@ -206,9 +209,9 @@ const Header = () => {
         <div className="container-fluid d-flex overflow-x-scroll overflow-y-visible mt-0 pt-0">
           <div className="nav-head-top d-flex flex-row mt-0 pt-0 w-100 py-2">
             <Link to={"/oyunlar"} className="nav-element">
-              OYUNLAR
+              {t("header.navigation.games")}
             </Link>
-            <Link to="/oyuncu-pazari" className="nav-element">OYUNCU PAZARI</Link>
+            <Link to="/oyuncu-pazari" className="nav-element"> {t("header.navigation.gameShop")} </Link>
             <div className="nav-element">KNIGHT ONLINE</div>
             <Link to={"/oyunlar/League-Of-Legends"} className="nav-element">
               League Of Legends
@@ -223,7 +226,7 @@ const Header = () => {
               Supercell
             </Link>
             <div style={{ color: "#75ba15" }} className="nav-element fw-bolder">
-              <span className="fs-6">+</span>BAKİYE YÜKLE
+              <span className="fs-6">+</span> {t("header.navigation.balance")}
             </div>
           </div>
         </div>

@@ -8,12 +8,15 @@ import { Link } from "react-router-dom";
 import { CgMail } from "react-icons/cg";
 import { BiHeart } from "react-icons/bi";
 import { SettingsContext } from "../Context/SettingsProvider";
+import { useTranslate } from "../helpers/Language/Translator";
 
 function OffCanvas() {
   const [show, setShow] = useState(false);
   const { currency, currencyObj } = useContext(SettingsContext);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const t = useTranslate()
 
   const { userProfile, privacyStatus,session } = UserAuth();
   return (
@@ -41,7 +44,7 @@ function OffCanvas() {
               }}
             >
               <FaCartShopping />{" "}
-              <span style={{ fontWeight: "bolder" }}>Sepet</span>
+              <span style={{ fontWeight: "bolder" }}>{t("header.cart")}</span>
             </Link>
           </Offcanvas.Title>
         </Offcanvas.Header>
@@ -68,7 +71,7 @@ function OffCanvas() {
                       }}
                       className="name fw-bold"
                       >
-                      Hesabim
+                      {t("header.account")}
                     </div>
                     <div
                       className="balance fw-bold"
@@ -108,13 +111,13 @@ function OffCanvas() {
                 onClick={() => setShow(false)}
                 className="nav-element rounded-3 w-100"
               >
-                OYUNLAR
+                {t("header.navigation.games")}
               </Link>
               <div
                 className="nav-element rounded-3 w-100"
                 onClick={() => setShow(false)}
               >
-                OYUNCU PAZARI
+                {t("header.navigation.gameShop")}
               </div>
               <div
                 className="nav-element rounded-3 w-100"
@@ -161,13 +164,13 @@ function OffCanvas() {
                 onClick={() => setShow(false)}
                 className="nav-element rounded-3 w-100 fw-bolder"
               >
-                <span className="fs-6">+</span>BAKİYE YÜKLE
+                <span className="fs-6">+</span>{t("header.navigation.balance")}
               </div>
               <Link to={userProfile?"/ilan_ekle":"/giris-yap"}
                 className="py-2 btn-success btn rounded-3 w-100"
                 onClick={() => setShow(false)}
               >
-                SATIŞ YAP
+                {t("header.sellButon")}
               </Link>
             </div>
           </div>

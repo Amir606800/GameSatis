@@ -6,6 +6,8 @@ import slugify from "slugify";
 
 import Loading from "../Addons/Loading";
 import { CategoryContext } from "../Context/CategoryContext";
+import { SettingsContext } from "../Context/SettingsProvider";
+import { useTranslate } from "../helpers/Language/Translator";
 
 const Oyunlar = () => {
   const navigate = useNavigate();
@@ -33,6 +35,8 @@ const Oyunlar = () => {
     navigate(`/oyunlar/${slugify(`${item.name}`)}`);
   };
 
+  const t = useTranslate()
+
   if (loading) return <Loading />;
   return (
     <div className="container-fluid">
@@ -44,7 +48,7 @@ const Oyunlar = () => {
           alt="toop-banner"
         />
       </div>
-      <div className="heading h5">Tüm Oyunlar</div>
+      <div className="heading h5">{t("oyunlarTitle")}</div>
       <div className="my-4">
         <Lent
           center={true}
