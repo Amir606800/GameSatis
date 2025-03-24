@@ -9,6 +9,7 @@ import { BsClipboard2Plus } from "react-icons/bs";
 import { PiClipboardText } from "react-icons/pi";
 import Loading from "../Addons/Loading";
 import { SettingsContext } from "../Context/SettingsProvider";
+import { useTranslate } from "../helpers/Language/Translator";
 
 const Profile = React.memo((props) => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Profile = React.memo((props) => {
   const { currency, currencyObj } = useContext(SettingsContext);
   const memoizedUserProfile = useMemo(() => userProfile, [userProfile]);
   const [activeSection,setActiveSection] = useState(0)
+  const t = useTranslate()
   const handleCloseAccount = async () => {
     try {
       await signOut();
@@ -25,6 +27,53 @@ const Profile = React.memo((props) => {
     }
   };
 
+  const iconPackJSON = [
+    {
+      title: t("profile.icons.orders"),
+      icon: (
+        <>
+          <FaCartArrowDown className="fs-4" />
+        </>
+      ),
+      link: "siparislerim",
+    },
+    {
+      title: t("profile.icons.comments"),
+      icon: (
+        <>
+          <FaRegMessage className="fs-4" />
+        </>
+      ),
+      link: "yorumlarim",
+    },
+    {
+      title: t("profile.icons.products"),
+      icon: (
+        <>
+          <PiClipboardText className="fs-4" />
+        </>
+      ),
+      link: "ilanlarim",
+    },
+    {
+      title: t("profile.icons.addProduct"),
+      icon: (
+        <>
+          <BsClipboard2Plus className="fs-4" />
+        </>
+      ),
+      link: "ilan_ekle",
+    },
+    {
+      title: t("profile.icons.favorites"),
+      icon: (
+        <>
+          <MdOutlineFavorite className="fs-4" />
+        </>
+      ),
+      link: "favoriler",
+    },
+  ];
 
   if (memoizedUserProfile === undefined || memoizedUserProfile === null) {
     return <Loading />;
@@ -79,7 +128,7 @@ const Profile = React.memo((props) => {
                   style={{ fontSize: "9px", width: "fit-content" }}
                   onClick={handleCloseAccount}
                 >
-                  ÇIKIŞ YAP
+                  {t("profile.exit")}
                 </button>
               </div>
             </div>
@@ -89,7 +138,7 @@ const Profile = React.memo((props) => {
               <div onClick={()=>{setActiveSection(0)}} className={`top-right cur-pointer h-100 py-2 d-flex justify-content-center align-items-center gap-2 flex-column px-3 ${activeSection == 0?"profile-section-element-active":""} bg-light-dark profile-section-element`}>
                 <LuSquarePen className="fs-2" />
                 <span className="fw-bold" style={{ fontSize: "12px" }}>
-                  Bilgilerim
+                  {t("profile.icons.infos")}
                 </span>
               </div>
             </Link>
@@ -107,7 +156,7 @@ const Profile = React.memo((props) => {
                   >
                     <div
                       onClick={()=>{setActiveSection(index+1)}}
-                      className={`bg-custom d-flex rounded-3 justify-content-center align-items-center ${activeSection == index+1?"profile-section-element-active":""} flex-column profile-section-element w-100 h-100`}
+                      className={`bg-custom d-flex rounded-3 justify-content-center gap-2 align-items-center ${activeSection == index+1?"profile-section-element-active":""} flex-column profile-section-element w-100 h-100`}
                     >
                       {item.icon}
                       <span className="fw-bold" style={{ fontSize: "12px" }}>
@@ -137,52 +186,6 @@ const Profile = React.memo((props) => {
   );
 });
 
-const iconPackJSON = [
-  {
-    title: "Siparisler",
-    icon: (
-      <>
-        <FaCartArrowDown className="fs-4" />
-      </>
-    ),
-    link: "siparislerim",
-  },
-  {
-    title: "Yorumlarım",
-    icon: (
-      <>
-        <FaRegMessage className="fs-4" />
-      </>
-    ),
-    link: "yorumlarim",
-  },
-  {
-    title: "İlanlarım",
-    icon: (
-      <>
-        <PiClipboardText className="fs-4" />
-      </>
-    ),
-    link: "ilanlarim",
-  },
-  {
-    title: "İlan Ekle",
-    icon: (
-      <>
-        <BsClipboard2Plus className="fs-4" />
-      </>
-    ),
-    link: "ilan_ekle",
-  },
-  {
-    title: "Favoriler",
-    icon: (
-      <>
-        <MdOutlineFavorite className="fs-4" />
-      </>
-    ),
-    link: "favoriler",
-  },
-];
+
 
 export default Profile;

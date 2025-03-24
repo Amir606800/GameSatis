@@ -10,6 +10,7 @@ import { addFeedback, fetchFeedbacks } from "../tools/Slices/FeedbackSlice";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
 import { SettingsContext } from "../Context/SettingsProvider";
+import { useTranslate } from "../helpers/Language/Translator";
 
 const Siparisler = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const Siparisler = () => {
   const { feedbacks, feedbackError } = useSelector((state) => state.feedbacks);
   const { userProfile } = UserAuth();
   const { currency, currencyObj } = useContext(SettingsContext);
+  const t = useTranslate()
   const [commentValues, setCommentValues] = useState({
     comment: "",
     rating: 1,
@@ -60,10 +62,9 @@ const Siparisler = () => {
   if (orders.length == 0)
     return (
       <div className=" p-3 bg-custom text-center rounded-2 fw-bold">
-        Hiş bir siparişiniz yok.
+        {t("myOrders.noOrder")}
       </div>
     );
-  if (loading) return <Loading />;
 
   return (
     <div className="Siparisler-profile px-2 pb-2">
@@ -73,7 +74,7 @@ const Siparisler = () => {
       >
         <div className="w-100 h-100 position-relative">
           <input
-            placeholder="Sipariş İD veya ilan başlığı ile ara..."
+            placeholder={t("myOrders.searchPlaceholder")}
             style={{ padding: "10px", backgroundColor: "#161820" }}
             className="w-100 border-0 h-100 px-5 bg-custom-subtle rounded-3"
             type="text"
@@ -92,7 +93,7 @@ const Siparisler = () => {
           flush
         >
           {orders.length == 0 ? (
-            <>Loading...</>
+            <>{t("loading")}</>
           ) : (
             orders.map((item, index) => (
               <Accordion.Item
@@ -134,32 +135,32 @@ const Siparisler = () => {
                           style={{ fontSize: "12px" }}
                         >
                           <span>
-                            Tarih:{" "}
+                            {t("myOrders.date")}{" "}
                             <span className="fw-bold">
                               {item.created_at.substring(0, 10)} -{" "}
                               {item.created_at.substring(11, 16)}
                             </span>
                           </span>
                           <span>
-                            Satici:{" "}
+                            {t("myOrders.seller")}{" "}
                             <span className="fw-bold">
                               {item.products.profiles.display_name}
                             </span>
                           </span>
                           <span>
-                            Birim Fiyati:{" "}
+                            {t("myOrders.priceOne")} {" "}
                             <span className="fw-bold">
                               {item.products.price}
                             </span>
                           </span>
                           <span>
-                            Adet:{" "}
+                            {t("myOrders.count")}{" "}
                             <span className="fw-bold">{item.quantity}</span>
                           </span>
                         </div>
                         <div className="right d-flex flex-wrap justify-content-center align-items-center gap-3">
                           <span className="h5 p-0 m-0">
-                            Tutar:{" "}
+                            {t("myOrders.total")}{" "}
                             {(item.total * currencyObj[currency].value).toFixed(
                               2
                             )}{" "}
@@ -172,7 +173,7 @@ const Siparisler = () => {
                             <span className="check-icon">
                               <FaCheck className="check-icon-itself" />
                             </span>
-                            Tamamlandi
+                            {t("myOrders.successful")}
                           </div>
                         </div>
                       </div>
@@ -200,7 +201,7 @@ const Siparisler = () => {
                             }}
                             className="border-0 rounded-3 p-3"
                             name="comment"
-                            placeholder="Yorumlarınız bizim için önemli, lütfen deneyiminizi paylaşın."
+                            placeholder={t("myOrders.commentPlaceholder")}
                             id={index}
                             onChange={(e) =>
                               setCommentValues({
@@ -244,7 +245,7 @@ const Siparisler = () => {
                               ))}
                             </div>
                             <button className="btn btn-info text-white login-btn-active">
-                              Yorum Yap
+                              {t("myOrders.comment")}
                             </button>
                           </div>
                         </form>

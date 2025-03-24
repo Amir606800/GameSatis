@@ -18,12 +18,14 @@ import { BiTrash } from "react-icons/bi";
 import { IoEye } from "react-icons/io5";
 import EditModal from "./EditModal";
 import { SettingsContext } from "../Context/SettingsProvider";
+import { useTranslate } from "../helpers/Language/Translator";
 
 const ListElan = () => {
   const dispatch = useDispatch();
   const { userProducts } = useSelector((state) => state.products);
   const { session } = UserAuth();
   const [search, setSearch] = useState("");
+  const t = useTranslate();
   const [listStyle, setListStyle] = useState("stack");
   useEffect(() => {
     dispatch(fetchUserProducts(session.user.id));
@@ -49,7 +51,7 @@ const ListElan = () => {
       >
         <div className="w-100 h-100 position-relative d-flex gap-2">
           <input
-            placeholder="Sipariş İD veya ilan başlığı ile ara..."
+            placeholder={t("myOrders.searchPlaceholder")}
             style={{ padding: "10px", backgroundColor: "#161820" }}
             onChange={(e) => setSearch(e.target.value)}
             value={search}
@@ -132,7 +134,7 @@ const ListElan = () => {
                           style={{ fontSize: "12px" }}
                         >
                           <span>
-                            Tarih:
+                            {t("myOrders.date")}
                             <span className="fw-bold">
                               {" "}
                               {item.last_modified.substring(0, 10)} -{" "}
@@ -140,14 +142,14 @@ const ListElan = () => {
                             </span>
                           </span>
                           <span>
-                            Teslimat Süresi:
+                            {t("listings.deliverTime")}
                             <span className="fw-bold">
                               {" "}
-                              {item.deliver_time} saat
+                              {item.deliver_time} {t("listings.hour")}
                             </span>
                           </span>
                           <span>
-                            Satici:{" "}
+                            {t("myOrders.seller")}{" "}
                             <span className="fw-bold">
                               {" "}
                               {item.profiles.display_name}
@@ -159,7 +161,7 @@ const ListElan = () => {
                           style={{ fontSize: "12px" }}
                         >
                           <span>
-                            Birim Fiyati:{" "}
+                            {t("myOrders.priceOne")}{" "}
                             <span className="fw-bold">
                               {" "}
                               {(item.price * currencyObj[currency].value).toFixed(2)}
@@ -167,7 +169,7 @@ const ListElan = () => {
                             </span>
                           </span>
                           <span>
-                            Adet: <span className="fw-bold"> {item.stock}</span>
+                            {t("myOrders.count")} <span className="fw-bold"> {item.stock}</span>
                           </span>
                         </div>
                         <div className="right d-flex flex-wrap justify-content-center align-items-center gap-3">
@@ -182,7 +184,7 @@ const ListElan = () => {
                               }}
                             >
                               <IoEye style={{ fontSize: " 13px" }} />
-                              Görüntüle
+                              {t("listings.display")}
                             </Link>
                             <EditModal listed={true} mainItem={item} />
                             <DeleteModal name={item.title} item_id={item.id} />
@@ -215,6 +217,7 @@ const DeleteModal = React.memo(({ name, item_id }) => {
   const dispatch = useDispatch();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const t = useTranslate()
   console.log(item_id);
 
   const handleDelete = () => {
@@ -234,7 +237,7 @@ const DeleteModal = React.memo(({ name, item_id }) => {
         }}
       >
         <BiTrash style={{ fontSize: "14px" }} />
-        Sil
+        {t("listings.delete")}
       </div>
 
       <Modal show={show} onHide={handleClose} centered>
@@ -254,7 +257,7 @@ const DeleteModal = React.memo(({ name, item_id }) => {
         </Modal.Body>
         <Modal.Footer className="justify-content-around">
           <Button className="fw-bold" variant="danger" onClick={handleClose}>
-            Hayır
+            {t("cancel")}
           </Button>
           <Button
             className="fw-bold"
@@ -264,7 +267,7 @@ const DeleteModal = React.memo(({ name, item_id }) => {
               handleClose();
             }}
           >
-            Evet
+            {t("continue")}
           </Button>
         </Modal.Footer>
       </Modal>

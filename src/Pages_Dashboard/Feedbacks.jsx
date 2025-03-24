@@ -8,12 +8,14 @@ import Loading from "../Addons/Loading";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
 import { SettingsContext } from "../Context/SettingsProvider";
+import { useTranslate } from "../helpers/Language/Translator";
 
 const Feedbacks = () => {
   const { userProfile } = UserAuth();
   const { feedbacks, error, loading } = useSelector((state) => state.feedbacks);
   const dispatch = useDispatch();
   const reloadRef = useRef(false);
+  const t = useTranslate()
   const { currency, currencyObj } = useContext(SettingsContext);
   useEffect(() => {
     if (userProfile && !reloadRef.current) {
@@ -26,7 +28,7 @@ const Feedbacks = () => {
   if (feedbacks.length == 0)
     return (
       <div className=" p-3 bg-custom text-center rounded-2 fw-bold ">
-        Şu ana kadar bir yorum yapmadınız.
+        {t("myOrders.noComment")}
       </div>
     );
   if (loading) return <Loading />;
@@ -39,7 +41,7 @@ const Feedbacks = () => {
         flush
       >
         {feedbacks.length == 0 || feedbacks == [{}] ? (
-          <>Loading...</>
+          <>{t("loading")}</>
         ) : (
           feedbacks.map((item, index) => (
             <Accordion.Item
@@ -85,7 +87,7 @@ const Feedbacks = () => {
                         <h6>{item.products.title}</h6>
                       </Link>
                       <span className="h5 p-0 m-0">
-                        Tutar:{" "}
+                        {t("myOrders.total")}{" "}
                         {(
                           item.products.price * currencyObj[currency].value
                         ).toFixed(2)}{" "}
@@ -115,7 +117,7 @@ const Feedbacks = () => {
                           <span>{userProfile.last_name[0]}.....</span>
                         </div>
                         <div className="mid" style={{ fontSize: "13px" }}>
-                          Tarih: {item.created_at.substring(0, 10)} -{" "}
+                          {t("myOrders.date")} {item.created_at.substring(0, 10)} -{" "}
                           {item.created_at.substring(11, 16)}
                         </div>
                         <div className="bot">

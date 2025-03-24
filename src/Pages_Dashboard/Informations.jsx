@@ -6,11 +6,12 @@ import { FaEyeSlash } from "react-icons/fa6";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import supabase from "../helpers/supabaseClient";
+import { useTranslate } from "../helpers/Language/Translator";
 
 const Informations = () => {
   const { userProfile, session, setPrivacyStatus, privacyStatus } = UserAuth();
   const mUserProfile = useMemo(() => userProfile, [userProfile]);
-
+  const t = useTranslate()
   const [phone, setPhone] = useState("");
 
   const handlePhoneSubmit = async (e) => {
@@ -31,20 +32,11 @@ const Informations = () => {
   const handlePrivacy = async () => {
     if (privacyStatus == true) {
       setPrivacyStatus(false);
-      // const {data,error} = await supabase.from("user_settings").update({"privacy_status":false}).eq("user_setting_id",mUserProfile.id)
-      // if(error) console.error(error)
-      // console.log(data)
     } else {
-      setPrivacyStatus(true);
-      // const {data,error} = await supabase.from("user_settings").update({"privacy_status":true}).eq("user_setting_id",mUserProfile.id)
-      // if(error) console.error(error)
-      //   console.log(data)
+      setPrivacyStatus(true);    
     }
   };
-  // useEffect(()=>{
-  //   setPrivacyStatus(mUserProfile.user_settings.privacy_status)
-
-  // },[])
+ 
   return (
     <div className="Information-profile text-center d-flex justify-content-center align-items-start h-100 ">
       <Accordion
@@ -54,7 +46,7 @@ const Informations = () => {
       >
         <Accordion.Item className="bg-custom" eventKey="1">
           <Accordion.Header className="bg-custom">
-            <LuUserRound className="bg-custom" /> <span className="bg-custom">Kişisel Bilgiler</span>
+            <LuUserRound className="bg-custom" /> <span className=" ms-2 bg-custom">{t("informations.personal")}</span>
           </Accordion.Header>
           <Accordion.Body className="bg-custom p-3 ">
             <div className="d-flex flex-column gap-3 w-100 ">
@@ -71,7 +63,7 @@ const Informations = () => {
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
                     style={{ left: "14px", fontSize: "12px" }}
                   >
-                    Ad Soyad:{" "}
+                    {t("informations.name")}{" "}
                   </div>
                 </div>
                 <div className="position-relative w-100">
@@ -86,7 +78,7 @@ const Informations = () => {
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
                     style={{ left: "14px", fontSize: "12px" }}
                   >
-                    E-Posta Adresi:{" "}
+                    {t("informations.email")}{" "}
                   </div>
                 </div>
               </div>
@@ -103,7 +95,7 @@ const Informations = () => {
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
                     style={{ left: "14px", fontSize: "12px" }}
                   >
-                    Doğum Tarihi:
+                    {t("informations.date")}
                   </div>
                 </div>
                 <div className="position-relative w-100">
@@ -119,7 +111,7 @@ const Informations = () => {
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
                     style={{ left: "14px", fontSize: "12px" }}
                   >
-                    Telefon Numarası:
+                    {t("informations.phone")}
                   </div>
                   {mUserProfile.phone_number ? (
                     " "
@@ -176,10 +168,10 @@ const Informations = () => {
                               className="btn btn-danger"
                               data-bs-dismiss="modal"
                             >
-                              İptal
+                              {t("cancel")}
                             </button>
                             <button type="submit" className="btn btn-success">
-                              Ekle
+                              {t("continue")}
                             </button>
                           </div>
                         </form>
@@ -193,7 +185,7 @@ const Informations = () => {
                   onClick={handlePrivacy}
                   className="Privacy-button Profile_input_fields w-50 h-100 rounded-2 text-end text-center px-3"
                 >
-                  <FaEyeSlash /> Kişisel Bilgileri Gizle{" "}
+                  <FaEyeSlash /> {t("informations.hideInfos")}{" "}
                 </button>
               </div>
             </div>
@@ -204,7 +196,7 @@ const Informations = () => {
         <Accordion.Item className="bg-custom" eventKey="2">
           <Accordion.Header className="bg-custom">
             <IoShieldCheckmarkOutline className="bg-custom"/>
-            <span className="bg-custom">Güvenlik Tercihleri</span>
+            <span className=" ms-2 bg-custom">{t("informations.security")}</span>
           </Accordion.Header>
           <Accordion.Body className="bg-custom">
             <div className="d-flex flex-column gap-3 w-100">
@@ -222,7 +214,7 @@ const Informations = () => {
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
                     style={{ left: "14px", fontSize: "12px" }}
                   >
-                    Şifre:
+                    {t("informations.password")}
                   </div>
                   <a href="/sifremi-unuttum">
                     <button
@@ -298,7 +290,7 @@ const Informations = () => {
         <Accordion.Item className="bg-custom" eventKey="3">
           <Accordion.Header className="bg-custom text-custom" >
             <IoMdNotificationsOutline className="text-custom" />
-            <span className="text-custom">Bildirim Tercihleri</span>
+            <span className="ms-2 text-custom">{t("informations.notification")}</span>
           </Accordion.Header>
           <Accordion.Body className="bg-custom">
             <div className="d-flex flex-column gap-3 w-100">

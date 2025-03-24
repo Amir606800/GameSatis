@@ -106,6 +106,71 @@ export const TrLanguage = {
     online:"Çevrimiçi",
     offline:"Çevrimdışı"
   },
+  profile:{
+    exit:"ÇIKIŞ YAP",
+    icons:{
+      infos:"Bilgilerim",
+      orders:"Siparişler",
+      comments:"Yorumlarım",
+      products:"İlanlarım",
+      addProduct:"İlan Ekle",
+      favorites:"Favoriler"
+    }
+  },
+  informations:{
+    personal:"Kişisel Bilgiler",
+    security:"Güvenlik Tercihleri",
+    notification:"Bildirim Tercihleri",
+    name:"Ad Soyad:",
+    date:"Doğum Tarihi:",
+    email:"E-Posta Adresi:",
+    phone:"Telefon Numarası:",
+    hideInfos:"Kişisel Bilgileri Gizle",
+    password:"Şifre:",
+    addPhone:"Telefon Numarası ekleme"
+  }, 
+  myOrders:{
+    searchPlaceholder:"Sipariş İD veya ilan başlığı ile ara...",
+    date:"Tarih:",
+    seller:"Satıcı:",
+    priceOne:"Birim Fiyatı:",
+    count:"Adet:",
+    total:"Tutar:",
+    successful:"Tamamlandı",
+    commentPlaceholder:"Yorumlarınız bizim için önemli, lütfen deneyiminizi paylaşın.",
+    comment:"Yorum Yap",
+    noOrder:"Hiç bir siparişiniz yok.",
+    noComment:"Şu ana kadar bir yorum yapmadınız."
+  },
+  listings:{
+    display:"Görüntüle",
+    delete:"Sil",
+    deliverTime:"Teslimat Süresi:",
+    hour:"saat",
+    changes:"için düzenleme",
+  },
+  productInfos:{
+    photoDisplay:"Fotoğrafınız burada görüntülenecek",
+    name:"Ürünün Adı:",
+    photo:"Ürün fotoğrafı:",
+    price:"Ürün Fiyatı ",
+    count:"Ürün Sayı: ",
+    delTime:"Teslimat Süresi (saat): ",
+    features:"Ürün Özellikleri: ",
+    writefeatures:"Lütfen    ( Özellik1,Özellik2)    şeklinde yazınız",
+    desc:"Ürün Açıklaması: ",
+    close:"Kapat",
+    save:"Değişiklikleri Kaydet",
+  },
+  addListing:{
+    title:"Hesap Satış İlanı",
+    chooseGame:"Bir oyun seçiniz",
+    chooseCategory:"Bir Kategori Seç",
+    publish:"İlanı Yayınla"
+  },
+  loading:"Yükleniyor",
+  cancel:"İptal",
+  continue:"Devam Et",
   oyunlarTitle:"Tüm Oyunlar",
   oyunlarSubTitle:"kategorileri",
   oyunlarItems:"Tüm İtemler"

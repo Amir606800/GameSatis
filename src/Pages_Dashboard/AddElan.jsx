@@ -6,12 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { addProduct, fetchProduct } from "../tools/Slices/UserProductSlice";
 import Swal from "sweetalert2";
 import { SettingsContext } from "../Context/SettingsProvider";
+import { useTranslate } from "../helpers/Language/Translator";
 
 const AddElan = () => {
   const { mainCat, subCat, fetchSubCategory } = useContext(CategoryContext);
   const [selMainCat, setSelMainCat] = useState(null);
   const [selSubCat, setSelSubCat] = useState(null);
   const { userProfile } = UserAuth();
+  const t = useTranslate()
   const dispatch = useDispatch();
   const [addedItem, setAddedItem] = useState({
     title: "",
@@ -136,8 +138,8 @@ const AddElan = () => {
   };
   return (
     <div className="Ilan-ekle-profile px-2 pb-2">
-      <div className="head bg-custom py-1 rounded-2 h4 text-center w-100">
-        Hesap Satış İlanı
+      <div className="head bg-custom py-2 mb-3 rounded-2 h4 text-center w-100">
+      {t("addListing.title")}
       </div>
       <div className="main">
         <form
@@ -153,7 +155,7 @@ const AddElan = () => {
             id="gameSelect"
           >
             <option value="" disabled>
-              Bir oyun seçiniz
+            {t("addListing.chooseGame")}
             </option>
             {mainCat.map((item, index) => (
               <option key={index} value={item.name}>
@@ -171,7 +173,7 @@ const AddElan = () => {
               id="subSelect"
             >
               <option value="" disabled>
-                Bir oyun seçiniz
+              {t("addListing.chooseCategory")}
               </option>
               {subCat.map((item, index) => (
                 <option key={index} value={item.name}>
@@ -189,7 +191,7 @@ const AddElan = () => {
                   style={{ minHeight: "8em", minWidth: "8em" }}
                 >
                   {addedItem.image_url == "" ? (
-                    <div>Your Photo wiill be displayed here</div>
+                    <div>{t("productInfos.photoDisplay")}</div>
                   ) : (
                     <img
                       width={200}
@@ -201,20 +203,20 @@ const AddElan = () => {
                 <div className=" w-75 align-content-end text-start ">
                   <div className="list-of-inputs-elements ">
                     <label style={{ width: "120px" }} htmlFor="name_prod">
-                      Ürünün Adı:
+                      {t("productInfos.name")}
                     </label>
                     <input
                       type="text"
                       name="title"
-                      value={addedItem.title}
+                      value={addedItem.title} 
                       onChange={handleInputFields}
                       id="name_prod"
-                      placeholder="Ürünün Adı: "
+                      placeholder={t("productInfos.name")} 
                     />
                   </div>
                   <div className="list-of-inputs-elements mt-3 mt-lg-4">
                     <label style={{ width: "120px" }} htmlFor="photo_prod">
-                      Ürün fotoğrafı:
+                    {t("productInfos.photo")}
                     </label>
                     <input
                       type="text"
@@ -222,14 +224,14 @@ const AddElan = () => {
                       value={addedItem.image_url}
                       onChange={handleInputFields}
                       id="photo_prod"
-                      placeholder="Ürün fotoğrafı: "
+                      placeholder={t("productInfos.photo")}
                     />
                   </div>
                 </div>
               </div>
               <div className="list-of-inputs-elements w-75">
                 <label htmlFor="price_prod">
-                  Ürün Fiyatı ({currencyObj[currency].symbol}):
+                {t("productInfos.price")} ({currencyObj[currency].symbol}):
                 </label>
                 <input
                   type="text"
@@ -237,59 +239,59 @@ const AddElan = () => {
                   value={addedItem.price}
                   onChange={handleInputFields}
                   name="price"
-                  placeholder="Ürün Fiyatı: "
+                  placeholder={t("productInfos.price")}
                 />
               </div>
 
               <div className="list-of-inputs-elements w-75">
-                <label htmlFor="amount_prod">Ürün Sayı (Adet): </label>
+                <label htmlFor="amount_prod">{t("productInfos.count")} </label>
                 <input
                   type="text"
                   name="stock"
                   value={addedItem.stock}
                   onChange={handleInputFields}
-                  placeholder="Ürün Sayı"
+                  placeholder={t("productInfos.count")}
                 />
               </div>
               <div className="list-of-inputs-elements w-75">
-                <label htmlFor="amount_prod">Teslimat Süresi (saat): </label>
+                <label htmlFor="amount_prod">{t("productInfos.delTime")} </label>
                 <input
                   type="text"
                   name="deliver_time"
                   min={1}
                   value={addedItem.deliver_time}
                   onChange={handleInputFields}
-                  placeholder="Teslimat süresi"
+                  placeholder={t("productInfos.delTime")}
                 />
               </div>
               {selSubCat.toLowerCase().includes("hesap") ? (
                 <div className="list-of-inputs-elements w-75">
-                  <label htmlFor="feat_prod">Ürün Özellikleri </label>
+                  <label htmlFor="feat_prod">{t("productInfos.features")} </label>
                   <input
                     style={{ width: "30em" }}
                     type="text"
                     name="features"
                     value={addedItem.features}
                     onChange={handleInputFields}
-                    placeholder="Lütfen    ( Özellik1 , Özellik2)    şeklinde yazınız"
+                    placeholder={t("productInfos.writefeatures")}
                   />
                 </div>
               ) : (
                 ""
               )}
               <div className="list-of-inputs-elements w-75">
-                <label htmlFor="desc_prod">Ürün Açıklaması:</label>
+                <label htmlFor="desc_prod">{t("productInfos.desc")}</label>
                 <textarea
                   type="text"
                   name="description"
                   value={addedItem.description}
                   onChange={handleInputFields}
                   id="desc_prod"
-                  placeholder="Ürün Açıklaması: "
+                  placeholder={t("productInfos.desc")}
                 />
               </div>
               <button className="btn btn-info text-white login-btn-active mt-3">
-                İlanı Yayınla
+              {t("addListing.publish")}
               </button>
             </div>
           )}

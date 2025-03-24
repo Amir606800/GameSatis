@@ -1,8 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { BiTrash } from "react-icons/bi";
-import { BsEye } from "react-icons/bs";
-import { FaPen } from "react-icons/fa";
 import { GoVerified } from "react-icons/go";
 import { IoEye } from "react-icons/io5";
 import { useDispatch } from "react-redux";
@@ -11,9 +9,11 @@ import slugify from "slugify";
 import { deleteProduct } from "../../tools/Slices/UserProductSlice";
 import EditModal from "../../Pages_Dashboard/EditModal";
 import { SettingsContext } from "../../Context/SettingsProvider";
+import { useTranslate } from "../../helpers/Language/Translator";
 
 const ListCard = ({ main }) => {
     const {currency,currencyObj} = useContext(SettingsContext)
+    const t = useTranslate()
   return (
     <div className="col-6 col-md-4 col-lg-3 " style={{height:"fit-content"}}>
       {/* <a href={`/${slugify(main.title).toLowerCase()}`}> */}
@@ -34,11 +34,11 @@ const ListCard = ({ main }) => {
           <div className="d-flex w-100 flex-column flex-xl-row align-items-center justify-content-center gap-3 gap-xl-1" style={{height:"fit-content"}}>
             <Link
               to={`/${slugify(main.title).toLowerCase()}`}
-              className="rounded-2 w-100 d-flex gap-2 fw-bold justify-content-center align-items-center py-1 px-3  text-white"
+              className="rounded-2  d-flex gap-2 fw-bold justify-content-center align-items-center py-1 px-3  text-white"
               style={{ fontSize: "13px",backgroundColor:"#00008F" }}
             >
               <IoEye className="d-none d-sm-block" style={{ fontSize: " 13px" }} />
-              Görüntüle
+              {t("listings.display")}
             </Link>
             <div className="d-flex gap-1 w-100 text-white" style={{height:"fit-content"}}>
             <EditModal listed={false} mainItem={main} />
@@ -56,7 +56,7 @@ const DeleteModal = React.memo(({name,item_id}) => {
     const dispatch = useDispatch()
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-
+    const t = useTranslate()
     const handleDelete = ()=>{
         dispatch(deleteProduct(item_id))
         window.location.reload()
@@ -72,7 +72,7 @@ const DeleteModal = React.memo(({name,item_id}) => {
               }}
             >
               <BiTrash style={{ fontSize: "11px" }} />
-              <span>Sil</span>
+              <span>{t("listings.delete")}</span>
         </div>
   
         <Modal show={show} onHide={handleClose} centered>
@@ -84,10 +84,10 @@ const DeleteModal = React.memo(({name,item_id}) => {
           </Modal.Body>
           <Modal.Footer className="justify-content-around">
             <Button className="fw-bold" variant="danger" onClick={handleClose}>
-              Hayır
+              {t("cancel")}
             </Button>
             <Button className="fw-bold" variant="success" onClick={()=>{handleDelete();handleClose()}}>
-              Evet
+              {t("continue")}
             </Button>
           </Modal.Footer>
         </Modal>

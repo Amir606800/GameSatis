@@ -3,6 +3,7 @@ import { SettingsContext } from "../../Context/SettingsProvider";
 import { useTranslate } from "../../helpers/Language/Translator";
 
 const AboutCard = () => {
+  const {lang} = useContext(SettingsContext)
   const t = useTranslate();
   return (
     <div className="card border-0">
