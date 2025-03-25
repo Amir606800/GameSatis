@@ -92,7 +92,7 @@ const CanliDestek = () => {
               </div>
               <div
               ref={messageListRef}
-                className="mesage-list mt-3 px-2 overflow-y-scroll d-flex flex-column "
+                className="mesage-list mt-3 mb-3 px-2 overflow-y-scroll d-flex flex-column  gap-2"
                 style={{ height: "20em" }}
               >
                 {messagesToDisplay.map((message, index) => (
