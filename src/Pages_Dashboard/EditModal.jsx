@@ -20,7 +20,6 @@ const EditModal = ({ listed, mainItem }) => {
 
   const handleInputFields = (e) => {
     setInitialState({ ...initialState, [e.target.name]: e.target.value });
-    console.log(initialState);
   };
   const checkimageURL = (url) => {
     const pattern = new RegExp(
@@ -38,7 +37,6 @@ const EditModal = ({ listed, mainItem }) => {
 
   const updatedDatas = { ...initialState, features: updatedFeatures };
 
-    console.log(updatedDatas)
     if (!checkimageURL(initialState.image_url)) {
       alert("Lütfen geçerli bir fotoğraf linki giriniz");
       return;
@@ -64,7 +62,6 @@ const EditModal = ({ listed, mainItem }) => {
 
     try {
       const { profiles, ...updatedItem } = updatedDatas;
-      console.log(updatedItem);
       dispatch(updateProduct(updatedItem));
 
       Swal.fire({

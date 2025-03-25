@@ -78,7 +78,6 @@ export const ProductDetails = () => {
         counts[item.rate] = counts[item.rate] + 1;
       });
       setRatingCounts({ ...counts, total: foundedProduct.feedbacks.length });
-      console.log(counts);
     }
   }, [foundedProduct]);
 

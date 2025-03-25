@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { UserAuth } from "../Context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchFeedbacks } from "../tools/Slices/FeedbackSlice";
@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import slugify from "slugify";
 import { SettingsContext } from "../Context/SettingsProvider";
 import { useTranslate } from "../helpers/Language/Translator";
+import PaginationComp from "../Addons/Pagination";
 
 const Feedbacks = () => {
   const { userProfile } = UserAuth();
@@ -17,6 +18,8 @@ const Feedbacks = () => {
   const reloadRef = useRef(false);
   const t = useTranslate()
   const { currency, currencyObj } = useContext(SettingsContext);
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 10;
   useEffect(() => {
     if (userProfile && !reloadRef.current) {
       dispatch(fetchFeedbacks(userProfile.id));
@@ -43,7 +46,7 @@ const Feedbacks = () => {
         {feedbacks.length == 0 || feedbacks == [{}] ? (
           <>{t("loading")}</>
         ) : (
-          feedbacks.map((item, index) => (
+          feedbacks.slice((currentPage-1)*productsPerPage,currentPage*productsPerPage).map((item, index) => (
             <Accordion.Item
               key={index}
               eventKey={index}
@@ -144,6 +147,8 @@ const Feedbacks = () => {
           ))
         )}
       </Accordion>
+      <PaginationComp main={feedbacks} perPage={productsPerPage} current={currentPage} setCurrent={setCurrentPage} />
+
     </div>
   );
 };

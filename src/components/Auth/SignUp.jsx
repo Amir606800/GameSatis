@@ -54,7 +54,6 @@ const SignUpSec = (props) => {
     }
 
     const result = await signUp(email,password)
-    console.log(result);
     
     if (result.success) {
     const user = result.data.user;

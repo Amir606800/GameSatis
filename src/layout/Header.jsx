@@ -14,14 +14,14 @@ import { ProductContext } from "../Context/ProductsProvider";
 import slugify from "slugify";
 import { useTranslate } from "../helpers/Language/Translator";
 const Header = () => {
-  const { userProfile, privacyStatus } = UserAuth();
-  const { currency, currencyObj, theme } = useContext(SettingsContext);
+  const { userProfile } = UserAuth();
+  const { currency, currencyObj, theme, privacy } = useContext(SettingsContext);
   const [searchInputResult, setSearchInputResult] = useState("");
   const { products } = useContext(ProductContext);
   const filteredProducts = products.filter((item) =>
     item.title.toLowerCase().includes(searchInputResult.toLowerCase())
   );
-  const t = useTranslate()
+  const t = useTranslate();
 
   return (
     <>
@@ -38,19 +38,34 @@ const Header = () => {
           }}
         >
           <div className="search-result-list d-flex flex-column gap-3 overflow-y-scroll h-100 w-100 pt-3 pe-3">
-            {filteredProducts.length == 0
-            ? <p className="text-center bg-custom p-2 rounded-3">Sonuç Bulunamadı</p>
-            :filteredProducts.map((item, index) => (
-              <div key={index} className="list-comp d-flex gap-2 align-items-center justify-content-between bg-custom p-2 rounded-3">
-                <img width={60} src={item.image_url} alt={item.title} />
-                <div className="title" style={{fontSize:"12px"}}>{item.title}</div>
-                <Link to={`/${slugify(item.title.toLowerCase())}`}>
-                  <button onClick={()=>{setSearchInputResult("")}} className="btn btn-info text-custom align-content-center fw-bold" style={{fontSize:"10px",minWidth:"9em"}}>
-                    Oyuna Git <FaShare />
-                  </button>
-                </Link>
-              </div>
-            ))}
+            {filteredProducts.length == 0 ? (
+              <p className="text-center bg-custom p-2 rounded-3">
+                Sonuç Bulunamadı
+              </p>
+            ) : (
+              filteredProducts.map((item, index) => (
+                <div
+                  key={index}
+                  className="list-comp d-flex gap-2 align-items-center justify-content-between bg-custom p-2 rounded-3"
+                >
+                  <img width={60} src={item.image_url} alt={item.title} />
+                  <div className="title" style={{ fontSize: "12px" }}>
+                    {item.title}
+                  </div>
+                  <Link to={`/${slugify(item.title.toLowerCase())}`}>
+                    <button
+                      onClick={() => {
+                        setSearchInputResult("");
+                      }}
+                      className="btn btn-info text-custom align-content-center fw-bold"
+                      style={{ fontSize: "10px", minWidth: "9em" }}
+                    >
+                      Oyuna Git <FaShare />
+                    </button>
+                  </Link>
+                </div>
+              ))
+            )}
           </div>
         </div>
       ) : (
@@ -96,9 +111,7 @@ const Header = () => {
                 alt=""
                 width={170}
               />
-              <span className="text-custom">
-                {t("header.siteTitle")}
-              </span>
+              <span className="text-custom">{t("header.siteTitle")}</span>
             </Link>
             <div className="search grid-search d-flex justify-content-center align-items-center mx-lg-0 mx-3 ">
               <div className="position-relative z-3 w-100 ">
@@ -153,7 +166,7 @@ const Header = () => {
                             className="balance fw-bold"
                             style={{ fontSize: "11px", color: "orange" }}
                           >
-                            {privacyStatus ? (
+                            {privacy ? (
                               "#####"
                             ) : (
                               <>
@@ -191,7 +204,9 @@ const Header = () => {
                     style={{ backgroundColor: "#FF5F1F" }}
                   >
                     <FaCartShopping />{" "}
-                    <span style={{ fontWeight: "bolder" }}>{t("header.cart")}</span>
+                    <span style={{ fontWeight: "bolder" }}>
+                      {t("header.cart")}
+                    </span>
                   </Link>
                 ) : (
                   <Authentication />
@@ -211,7 +226,10 @@ const Header = () => {
             <Link to={"/oyunlar"} className="nav-element">
               {t("header.navigation.games")}
             </Link>
-            <Link to="/oyuncu-pazari" className="nav-element"> {t("header.navigation.gameShop")} </Link>
+            <Link to="/oyuncu-pazari" className="nav-element">
+              {" "}
+              {t("header.navigation.gameShop")}{" "}
+            </Link>
             <div className="nav-element">KNIGHT ONLINE</div>
             <Link to={"/oyunlar/League-Of-Legends"} className="nav-element">
               League Of Legends

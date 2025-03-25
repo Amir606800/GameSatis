@@ -34,7 +34,6 @@ const OyuncuPazari = () => {
     const submitVitrinFilter = products.filter(
       (item) => item.is_vitrin == true
     );
-    console.log(checks)
     let filteredProds = submitVitrinFilter.filter(
       (item) =>
         calculateDiscountedPrice(item.price, item.discount) >= sliderValue[0] &&

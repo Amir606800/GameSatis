@@ -19,6 +19,7 @@ import { IoEye } from "react-icons/io5";
 import EditModal from "./EditModal";
 import { SettingsContext } from "../Context/SettingsProvider";
 import { useTranslate } from "../helpers/Language/Translator";
+import PaginationComp from "../Addons/Pagination";
 
 const ListElan = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,10 @@ const ListElan = () => {
   const [search, setSearch] = useState("");
   const t = useTranslate();
   const [listStyle, setListStyle] = useState("stack");
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 12;
+
   useEffect(() => {
     dispatch(fetchUserProducts(session.user.id));
   }, [session]);
@@ -82,7 +87,7 @@ const ListElan = () => {
       <div className="list-siparisler  my-3 " style={{ height: "fit-content" }}>
         {listStyle == "stack" ? (
           <div className="row g-3">
-            {searchedProducts.map((item, index) => (
+            {searchedProducts.slice((currentPage-1)*productsPerPage,currentPage*productsPerPage).map((item, index) => (
               <ListCard main={item} key={index} />
             ))}
           </div>
@@ -93,7 +98,7 @@ const ListElan = () => {
             defaultActiveKey={0}
             flush
           >
-            {searchedProducts.map((item, index) => (
+            {searchedProducts.slice((currentPage-1)*productsPerPage,currentPage*productsPerPage).map((item, index) => (
               <Accordion.Item
                 key={index}
                 eventKey={index}
@@ -207,6 +212,8 @@ const ListElan = () => {
             ))}
           </Accordion>
         )}
+
+        <PaginationComp main={searchedProducts} perPage={productsPerPage} current={currentPage} setCurrent={setCurrentPage} />
       </div>
     </div>
   );
@@ -218,7 +225,6 @@ const DeleteModal = React.memo(({ name, item_id }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const t = useTranslate()
-  console.log(item_id);
 
   const handleDelete = () => {
     dispatch(deleteProduct(item_id));

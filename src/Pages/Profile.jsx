@@ -13,11 +13,11 @@ import { useTranslate } from "../helpers/Language/Translator";
 
 const Profile = React.memo((props) => {
   const navigate = useNavigate();
-  const { userProfile, signOut, privacyStatus } = UserAuth();
-  const { currency, currencyObj } = useContext(SettingsContext);
+  const { userProfile, signOut } = UserAuth();
+  const { currency, currencyObj, privacy } = useContext(SettingsContext);
   const memoizedUserProfile = useMemo(() => userProfile, [userProfile]);
-  const [activeSection,setActiveSection] = useState(0)
-  const t = useTranslate()
+  const [activeSection, setActiveSection] = useState(0);
+  const t = useTranslate();
   const handleCloseAccount = async () => {
     try {
       await signOut();
@@ -104,14 +104,14 @@ const Profile = React.memo((props) => {
               />
               <div className="d-flex flex-column  align-items-start justify-content-center ">
                 <span className="fs-6 fw-bolder m-0 p-0 ">
-                  {privacyStatus ? "#####" : memoizedUserProfile.first_name}{" "}
-                  {privacyStatus ? "#####" : memoizedUserProfile.last_name[0]}.
+                  {privacy ? "#####" : memoizedUserProfile.first_name}{" "}
+                  {privacy ? "#" : memoizedUserProfile.last_name[0]}.
                 </span>
                 <span
                   className="fw-bold mb-1 p-0"
                   style={{ fontSize: "14px", color: "orange" }}
                 >
-                  {privacyStatus ? (
+                  {privacy ? (
                     "#####"
                   ) : (
                     <>
@@ -132,10 +132,15 @@ const Profile = React.memo((props) => {
                 </button>
               </div>
             </div>
-            <Link
-              to={"/profilim"}
-            >
-              <div onClick={()=>{setActiveSection(0)}} className={`top-right cur-pointer h-100 py-2 d-flex justify-content-center align-items-center gap-2 flex-column px-3 ${activeSection == 0?"profile-section-element-active":""} bg-light-dark profile-section-element`}>
+            <Link to={"/profilim"}>
+              <div
+                onClick={() => {
+                  setActiveSection(0);
+                }}
+                className={`top-right cur-pointer h-100 py-2 d-flex justify-content-center align-items-center gap-2 flex-column px-3 ${
+                  activeSection == 0 ? "profile-section-element-active" : ""
+                } bg-light-dark profile-section-element`}
+              >
                 <LuSquarePen className="fs-2" />
                 <span className="fw-bold" style={{ fontSize: "12px" }}>
                   {t("profile.icons.infos")}
@@ -155,8 +160,14 @@ const Profile = React.memo((props) => {
                     style={{ minWidth: "6em", width: "8em", height: "6em" }}
                   >
                     <div
-                      onClick={()=>{setActiveSection(index+1)}}
-                      className={`bg-custom d-flex rounded-3 justify-content-center gap-2 align-items-center ${activeSection == index+1?"profile-section-element-active":""} flex-column profile-section-element w-100 h-100`}
+                      onClick={() => {
+                        setActiveSection(index + 1);
+                      }}
+                      className={`bg-custom d-flex rounded-3 justify-content-center gap-2 align-items-center ${
+                        activeSection == index + 1
+                          ? "profile-section-element-active"
+                          : ""
+                      } flex-column profile-section-element w-100 h-100`}
                     >
                       {item.icon}
                       <span className="fw-bold" style={{ fontSize: "12px" }}>
@@ -185,7 +196,5 @@ const Profile = React.memo((props) => {
     </div>
   );
 });
-
-
 
 export default Profile;

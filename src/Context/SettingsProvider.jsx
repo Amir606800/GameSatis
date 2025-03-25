@@ -82,12 +82,17 @@ const currencyObj = {
 }
 
 export const SettingsProvider = ({children})=>{
-    const getInitialState = (key, defaultValue) => localStorage.getItem(key) || defaultValue;
+    const getInitialState = (key, defaultValue) =>{
+        const value = localStorage.getItem(key);
+        if(value === null) return defaultValue;
+        if(key == "privacy") return value === "true"
+        return value
+    };
 
     const [theme,setTheme] = useState(getInitialState("theme","dark"))
     const [lang,setLang] = useState(getInitialState("lang","tr"))
     const [currency,setCurrency] = useState(getInitialState("currency","TL"))
-
+    const [privacy,setPrivacy] = useState(getInitialState("privacy"),false)
 
     useEffect(()=>{
         document.documentElement.setAttribute("data-bs-theme",theme)
@@ -95,11 +100,12 @@ export const SettingsProvider = ({children})=>{
     },[theme])
     useEffect(()=>{localStorage.setItem("lang",lang)},[lang])
     useEffect(()=>{localStorage.setItem("currency",currency)},[currency])
+    useEffect(()=>{localStorage.setItem("privacy",privacy)},[privacy])
 
 
 
     return(
-        <SettingsContext.Provider value={{theme,setTheme,lang,setLang,currency,setCurrency,currencyObj}}>{children}</SettingsContext.Provider>
+        <SettingsContext.Provider value={{theme,setTheme,lang,setLang,currency,setCurrency,currencyObj,privacy,setPrivacy}}>{children}</SettingsContext.Provider>
     )
 }
 

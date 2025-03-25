@@ -5,7 +5,6 @@ import qaData from "../helpers/QuestionAndAnswer";
 import { MdOutlineStar } from "react-icons/md";
 import { Accordion, AccordionBody } from "react-bootstrap";
 const QuestionAnswer = () => {
-  console.log(qaData);
   const [questionList, setQuestionList] = useState("Üyelik İşlemleri");
   const [search, setSearch] = useState("");
   const qaDataFiltered = qaData.filter(

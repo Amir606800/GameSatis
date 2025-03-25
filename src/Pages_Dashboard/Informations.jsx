@@ -1,19 +1,20 @@
 import { Accordion } from "react-bootstrap";
 import { UserAuth } from "../Context/AuthContext";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { LuSquarePen, LuUserRound } from "react-icons/lu";
 import { FaEyeSlash } from "react-icons/fa6";
 import { IoShieldCheckmarkOutline } from "react-icons/io5";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import supabase from "../helpers/supabaseClient";
 import { useTranslate } from "../helpers/Language/Translator";
+import { SettingsContext } from "../Context/SettingsProvider";
 
 const Informations = () => {
-  const { userProfile, session, setPrivacyStatus, privacyStatus } = UserAuth();
+  const { userProfile, session } = UserAuth();
   const mUserProfile = useMemo(() => userProfile, [userProfile]);
-  const t = useTranslate()
+  const t = useTranslate();
   const [phone, setPhone] = useState("");
-
+  const { privacy, setPrivacy } = useContext(SettingsContext);
   const handlePhoneSubmit = async (e) => {
     e.preventDefault();
     const { data, error } = await supabase
@@ -28,15 +29,8 @@ const Informations = () => {
       alert("Phone number updated successfully!");
     }
   };
+  const handlePrivacy = () => {setPrivacy((prev) => !prev);};
 
-  const handlePrivacy = async () => {
-    if (privacyStatus == true) {
-      setPrivacyStatus(false);
-    } else {
-      setPrivacyStatus(true);    
-    }
-  };
- 
   return (
     <div className="Information-profile text-center d-flex justify-content-center align-items-start h-100 ">
       <Accordion
@@ -46,7 +40,10 @@ const Informations = () => {
       >
         <Accordion.Item className="bg-custom" eventKey="1">
           <Accordion.Header className="bg-custom">
-            <LuUserRound className="bg-custom" /> <span className=" ms-2 bg-custom">{t("informations.personal")}</span>
+            <LuUserRound className="bg-custom" />{" "}
+            <span className=" ms-2 bg-custom">
+              {t("informations.personal")}
+            </span>
           </Accordion.Header>
           <Accordion.Body className="bg-custom p-3 ">
             <div className="d-flex flex-column gap-3 w-100 ">
@@ -57,7 +54,7 @@ const Informations = () => {
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={privacyStatus ? "#####" : mUserProfile.display_name}
+                    value={privacy ? "#####" : mUserProfile.display_name}
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
@@ -72,7 +69,7 @@ const Informations = () => {
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={privacyStatus ? "#####" : session.user.email}
+                    value={privacy ? "#####" : session.user.email}
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
@@ -105,7 +102,7 @@ const Informations = () => {
                     style={{ color: "lightgreen" }}
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={privacyStatus ? "#####" : mUserProfile.phone_number}
+                    value={privacy ? "#####" : mUserProfile.phone_number}
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
@@ -195,8 +192,10 @@ const Informations = () => {
         {/* Security like password */}
         <Accordion.Item className="bg-custom" eventKey="2">
           <Accordion.Header className="bg-custom">
-            <IoShieldCheckmarkOutline className="bg-custom"/>
-            <span className=" ms-2 bg-custom">{t("informations.security")}</span>
+            <IoShieldCheckmarkOutline className="bg-custom" />
+            <span className=" ms-2 bg-custom">
+              {t("informations.security")}
+            </span>
           </Accordion.Header>
           <Accordion.Body className="bg-custom">
             <div className="d-flex flex-column gap-3 w-100">
@@ -288,9 +287,11 @@ const Informations = () => {
 
         {/* Notification section*/}
         <Accordion.Item className="bg-custom" eventKey="3">
-          <Accordion.Header className="bg-custom text-custom" >
+          <Accordion.Header className="bg-custom text-custom">
             <IoMdNotificationsOutline className="text-custom" />
-            <span className="ms-2 text-custom">{t("informations.notification")}</span>
+            <span className="ms-2 text-custom">
+              {t("informations.notification")}
+            </span>
           </Accordion.Header>
           <Accordion.Body className="bg-custom">
             <div className="d-flex flex-column gap-3 w-100">

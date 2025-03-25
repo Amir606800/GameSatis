@@ -7,7 +7,6 @@ const Accessibility = () => {
 
   const { theme, setTheme, lang, setLang, currency, setCurrency, currencyObj} = useContext(SettingsContext);
   const objectKeys = Object.keys(currencyObj)
-console.log(objectKeys)
 
   return (
     <div

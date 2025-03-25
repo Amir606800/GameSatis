@@ -12,13 +12,13 @@ import { useTranslate } from "../helpers/Language/Translator";
 
 function OffCanvas() {
   const [show, setShow] = useState(false);
-  const { currency, currencyObj } = useContext(SettingsContext);
+  const { currency, currencyObj, privacy } = useContext(SettingsContext);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const t = useTranslate()
+  const t = useTranslate();
 
-  const { userProfile, privacyStatus,session } = UserAuth();
+  const { userProfile,  session } = UserAuth();
   return (
     <>
       <Button variant="primary" onClick={handleShow} className="me-2 bg-info">
@@ -34,7 +34,7 @@ function OffCanvas() {
         <Offcanvas.Header closeButton>
           <Offcanvas.Title className="w-100" style={{ height: "2em" }}>
             <Link
-              to={userProfile?"/cart":"/giris-yap"}
+              to={userProfile ? "/cart" : "/giris-yap"}
               className="cart fs-6 px-2 py-1  h-100 rounded-3 text-center align-content-center custom-cursor-hover"
               style={{
                 background: "none",
@@ -52,17 +52,17 @@ function OffCanvas() {
           <div className="top ">
             {userProfile ? (
               <div
-              onClick={() => setShow(false)}
-              style={{ fontSize: "13px", width: "100%", height: "6em" }}
-              className="d-flex align-items-center justify-content-center d-flex gap-1 rounded-1 fw-bold text-white sell"
+                onClick={() => setShow(false)}
+                style={{ fontSize: "13px", width: "100%", height: "6em" }}
+                className="d-flex align-items-center justify-content-center d-flex gap-1 rounded-1 fw-bold text-white sell"
               >
-              <Link className="d-flex flex-row " to={"/profilim"}>
+                <Link className="d-flex flex-row " to={"/profilim"}>
                   <img
                     className="rounded-2"
                     width={50}
                     src={userProfile.profile_photo}
                     alt="profil photo"
-                    />
+                  />
                   <div className="px-3 py-2 rounded-3 bg-custom">
                     <div
                       style={{
@@ -70,14 +70,14 @@ function OffCanvas() {
                         fontFamily: "Roboto,sans-serif",
                       }}
                       className="name fw-bold"
-                      >
+                    >
                       {t("header.account")}
                     </div>
                     <div
                       className="balance fw-bold"
-                      style={{ fontSize: "11px",color:"orange" }}
-                      >
-                      {privacyStatus ? (
+                      style={{ fontSize: "11px", color: "orange" }}
+                    >
+                      {privacy ? (
                         "#####"
                       ) : (
                         <>
@@ -89,17 +89,17 @@ function OffCanvas() {
                       )}
                     </div>
                   </div>
-                  </Link>
-                  <div className="p-3 rounded-3 bg-custom">
-                    {" "}
-                    <CgMail className="fs-6" />
-                  </div>
-
-                  <Link to={"/favoriler"} className="p-3 rounded-3 bg-custom">
-                    {" "}
-                    <BiHeart className="fs-6" />
-                  </Link>
+                </Link>
+                <div className="p-3 rounded-3 bg-custom">
+                  {" "}
+                  <CgMail className="fs-6" />
                 </div>
+
+                <Link to={"/favoriler"} className="p-3 rounded-3 bg-custom">
+                  {" "}
+                  <BiHeart className="fs-6" />
+                </Link>
+              </div>
             ) : (
               ""
             )}
@@ -154,7 +154,7 @@ function OffCanvas() {
               >
                 CS2 SKIN
               </div>
-              
+
               <div
                 style={{
                   color: "#75ba15",
@@ -164,9 +164,11 @@ function OffCanvas() {
                 onClick={() => setShow(false)}
                 className="nav-element rounded-3 w-100 fw-bolder"
               >
-                <span className="fs-6">+</span>{t("header.navigation.balance")}
+                <span className="fs-6">+</span>
+                {t("header.navigation.balance")}
               </div>
-              <Link to={userProfile?"/ilan_ekle":"/giris-yap"}
+              <Link
+                to={userProfile ? "/ilan_ekle" : "/giris-yap"}
                 className="py-2 btn-success btn rounded-3 w-100"
                 onClick={() => setShow(false)}
               >

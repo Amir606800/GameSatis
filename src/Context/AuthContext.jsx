@@ -8,8 +8,7 @@ export const AuthProvider = ({children})=>{
     const [session,setSession] = useState(undefined)
     const [userProfile,setUserProfile] = useState(undefined)
 
-    const [privacyStatus,setPrivacyStatus] = useState(null)
-
+    
     const fetchUserProfile = async (userId)=>{
         const {data , error} = await supabase.from("profiles").select("*,user_settings(*)").eq("id",userId).single();
         
@@ -91,7 +90,7 @@ export const AuthProvider = ({children})=>{
 
         return () => listener.subscription.unsubscribe();
     },[])
-
+ 
     const signOut = async ()=>{
         const {error} = await supabase.auth.signOut();
         if(error){
@@ -104,7 +103,7 @@ export const AuthProvider = ({children})=>{
         }
     }
 
-    return (<AuthContext.Provider value={{session,userProfile,signUp,signIn,signOut,privacyStatus,setPrivacyStatus}}>{children}</AuthContext.Provider>)
+    return (<AuthContext.Provider value={{session,userProfile,signUp,signIn,signOut}}>{children}</AuthContext.Provider>)
 }
 
 export const UserAuth = ()=>{

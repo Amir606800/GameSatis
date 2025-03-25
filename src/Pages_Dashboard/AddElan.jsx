@@ -58,7 +58,6 @@ const AddElan = () => {
 
   const handleInputFields = (e) => {
     setAddedItem({ ...addedItem, [e.target.name]: e.target.value });
-    console.log(addedItem);
   };
 
   const handleMainCat = (e) => {

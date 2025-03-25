@@ -14,10 +14,16 @@ import Loading from "../Addons/Loading";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { FaArrowRightLong } from "react-icons/fa6";
+import { Pagination } from "react-bootstrap";
+import PaginationComp from "../Addons/Pagination";
 
 const Home = () => {
   const { streamData } = useContext(StreamerContext);
   const { products } = useContext(ProductContext);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const productsPerPage = 12;
+
   const sortedProducts = [...products].sort((a, b) => {
     if (a.is_vitrin && !b.is_vitrin) return -1;
     if (!a.is_vitrin && b.is_vitrin) return 1;
@@ -97,10 +103,11 @@ const Home = () => {
         />
         <div className="product-list mb-4" ref={productsGsapRef}>
           <div className="row g-3">
-            {sortedProducts.map((item, index) => (
+            {sortedProducts.slice((currentPage-1)*productsPerPage,currentPage*productsPerPage).map((item, index) => (
               <ProductCard vitrinIndex={11} key={index} keyIndex={index} main={item} />
             ))}
           </div>
+          <PaginationComp main={products} current={currentPage} setCurrent={setCurrentPage} perPage={productsPerPage} />
         </div>
 
         <SplitterAdvert
