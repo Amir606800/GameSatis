@@ -159,8 +159,8 @@ const Header = () => {
                             }}
                             className="name fw-bold"
                           >
-                            {userProfile.first_name}{" "}
-                            {userProfile.last_name.substring(0, 1)}.
+                            {privacy? "###":userProfile.first_name}{" "}
+                            {privacy? "#":userProfile.last_name.substring(0, 1)}.
                           </div>
                           <div
                             className="balance fw-bold"
