@@ -71,7 +71,7 @@ function OffCanvas() {
                       }}
                       className="name fw-bold"
                     >
-                      {privacy?"####":<>userProfile.first_name</>}
+                      {privacy?"####":userProfile.first_name}
                       {privacy?"#":userProfile.last_name.substring(0,1)}
                     </div>
                     <div

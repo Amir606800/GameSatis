@@ -87,7 +87,7 @@ const ListElan = () => {
       <div className="list-siparisler  my-3 " style={{ height: "fit-content" }}>
         {listStyle == "stack" ? (
           <div className="row g-3">
-            {searchedProducts.slice((currentPage-1)*productsPerPage,currentPage*productsPerPage).map((item, index) => (
+            {searchedProducts.reverse().slice((currentPage-1)*productsPerPage,currentPage*productsPerPage).map((item, index) => (
               <ListCard main={item} key={index} />
             ))}
           </div>
@@ -98,7 +98,7 @@ const ListElan = () => {
             defaultActiveKey={0}
             flush
           >
-            {searchedProducts.slice((currentPage-1)*productsPerPage,currentPage*productsPerPage).map((item, index) => (
+            {searchedProducts.reverse().slice((currentPage-1)*productsPerPage,currentPage*productsPerPage).map((item, index) => (
               <Accordion.Item
                 key={index}
                 eventKey={index}

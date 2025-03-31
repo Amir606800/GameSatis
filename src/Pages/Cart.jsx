@@ -158,7 +158,7 @@ const Cart = () => {
                 </div>
                 <div className="content-grid bg-custom p-3 rounded-2">
                   <div className="top d-flex justify-content-between align-items-start">
-                    <div className="h5 fw-bold">{item.products.title}</div>
+                    <Link to={`/${slugify(item.products.title).toLowerCase() }`} className="h5 fw-bold">{item.products.title}</Link>
 
                     <div className="price-1 h4 fw-bolder">
                       {item.products.discount != 0 ? (

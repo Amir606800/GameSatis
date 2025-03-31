@@ -24,7 +24,7 @@ const AddElan = () => {
     category_id: 0,
     profile_id: userProfile.id,
     deliver_time: null,
-    features: [],
+    features: "",
   });
 
   const { currency, currencyObj } = useContext(SettingsContext);
@@ -52,7 +52,7 @@ const AddElan = () => {
       deliver_time: null,
       category_id: againProduct.id,
       profile_id: userProfile.id,
-      features: [],
+      features: "",
     }));
   };
 
@@ -112,16 +112,7 @@ const AddElan = () => {
   
     try {
       dispatch(addProduct({...updatedItem,is_vitrin:userProfile.site_role == "admin"?false:true})); // Use updatedItem instead of addedItem
-      Swal.fire({
-        title: "Successful",
-        text: "Your product successfully added!",
-        icon: "success",
-        background: "#222631",
-        color: "#fff",
-        confirmButtonText: "OK",
-        confirmButtonColor: "#3085d6",
-      });
-  
+      
       setAddedItem({
         title: "",
         image_url: "",
@@ -130,7 +121,18 @@ const AddElan = () => {
         stock: "",
         deliver_time: "",
         features: "",
+        
       });
+      Swal.fire({
+        title: "Successful",
+        text: "Your product successfully added!",
+        icon: "success",
+        background: "#222631",
+        color: "#fff",
+        confirmButtonText: "OK",
+        confirmButtonColor: "#3085d6",
+      }).then(()=>window.location.reload());
+      
     } catch (err) {
       alert(err);
     }

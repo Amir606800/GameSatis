@@ -18,7 +18,7 @@ import NotFoundPage from "./NotFoundPage";
 import supabase from "../helpers/supabaseClient";
 import { UserAuth } from "../Context/AuthContext";
 import { useDispatch, useSelector } from "react-redux";
-import { addCart } from "../tools/Slices/CartSlice";
+import { addCart, fetchCart } from "../tools/Slices/CartSlice";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -36,12 +36,14 @@ export const ProductDetails = () => {
   const { slugName } = useParams();
   const { currency, currencyObj } = useContext(SettingsContext);
   const { wishes } = useSelector((state) => state.wishlist);
+  const { cart } = useSelector((state) => state.cart);
+  const [cartState, setCartState] = useState(false);
   const [thing, setThing] = useState();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const productDetail = useRef();
   const reloadRef = useRef(false);
-  const t = useTranslate()
+  const t = useTranslate();
   const foundedProduct = products.find(
     (item) => slugify(item.title).toLowerCase() === slugName
   );
@@ -52,15 +54,82 @@ export const ProductDetails = () => {
       setThing(thing);
     }
   }, [wishes, products]);
-  
+
+  useEffect(() => {
+    cart.map((item) => {
+      console.log(item.product_id);
+    });
+    if (foundedProduct)
+      setCartState(cart.some((item) => item.product_id === foundedProduct.id));
+    console.log(cartState);
+  }, [cart]);
 
   useEffect(() => {
     if (userProfile && !reloadRef.current) {
       dispatch(fetchWish(userProfile.id));
-      
+      dispatch(fetchCart(userProfile.id));
       reloadRef.current = true;
     }
   }, [userProfile]);
+
+  const handleCartButton = ()=>{
+    {foundedProduct.stock === 0 ? (
+      cartState ? (
+        <Link
+          className="stock-bitmis bg-success fs-3 px-2 py-1 rounded-3"
+          to="/cart"
+        >
+          Sepete Git
+        </Link>
+      ) : (
+        <div className="stock-bitmis bg-danger fs-3 px-2 py-1 rounded-3">
+          Stokta Yok
+        </div>
+      )
+    ) : (
+      <>
+        <div className="amount d-flex align-items-center justify-content-center gap-0 rounded-4 overflow-hidden">
+          <span className="px-3">{t("details.count")}: </span>
+          <div className="d-flex ingredients justify-content-center align-items-center p-2 gap-2">
+            <div
+              onClick={() => {
+                if (count > 1) setCount((prev) => prev - 1);
+              }}
+              className={`p-0 w-25 text-center ${
+                count > 1 ? "decrease btn" : ""
+              }`}
+              style={{ cursor: count > 1 ? "pointer" : "default" }}
+            >
+              -
+            </div>
+            <div className="amount w-50 text-center">{count}</div>
+            <div
+              onClick={() => {
+                if (count < foundedProduct.stock)
+                  setCount((prev) => prev + 1);
+              }}
+              className={`p-0 w-25 text-center ${
+                count < foundedProduct.stock ? "increase btn" : ""
+              }`}
+            >
+              +
+            </div>
+          </div>
+        </div>
+
+        <button
+          onClick={() =>
+            handleAddCart(session, foundedProduct, count)
+          }
+          className="purchase btn btn-success px-3"
+          style={{ width: "8em", fontSize: "15px" }}
+        >
+          {t("details.addCart")}
+        </button>
+      </>
+    )}
+  }
+
 
   const [ratingCounts, setRatingCounts] = useState({
     5: 0,
@@ -79,6 +148,7 @@ export const ProductDetails = () => {
       });
       setRatingCounts({ ...counts, total: foundedProduct.feedbacks.length });
     }
+    console.log(cart);
   }, [foundedProduct]);
 
   const totalWeightedRating = Object.entries(ratingCounts)
@@ -107,14 +177,14 @@ export const ProductDetails = () => {
     }
   }, [foundedProduct]);
 
+  const clipBoard = () => {
+    const location = window.location.href;
 
-  const clipBoard = ()=>{
-    const location = window.location.href
-
-    navigator.clipboard.writeText(location).then(()=>alert("Share Link copied to clipboard!")).catch((err)=>console.error(err))
-  }
-
-
+    navigator.clipboard
+      .writeText(location)
+      .then(() => alert("Share Link copied to clipboard!"))
+      .catch((err) => console.error(err));
+  };
 
   const [count, setCount] = useState(1);
   const handleAddCart = (session, foundedProduct, numberOfItems) => {
@@ -218,7 +288,7 @@ export const ProductDetails = () => {
             <div className="h-100">
               <span className="h5 fw-bolder">{foundedProduct.title}</span>
               <div style={{ fontSize: "13px" }} className="fw-bold mt-1">
-              {t("details.description")}:{" "}
+                {t("details.description")}:{" "}
               </div>
               <div
                 style={{ fontSize: "13px", whiteSpace: "preserve-breaks" }}
@@ -232,7 +302,10 @@ export const ProductDetails = () => {
               className="d-flex w-100 justify-content-between gap-5 align-items-center"
             >
               <div className="left d-flex justify-content-center align-items-center gap-2">
-                <div onClick={clipBoard} className="share-buton btn btn-outline-light text-center">
+                <div
+                  onClick={clipBoard}
+                  className="share-buton btn btn-outline-light text-center"
+                >
                   <IoShareSocialSharp />
                 </div>
                 <div
@@ -336,14 +409,20 @@ export const ProductDetails = () => {
 
                   <span style={{ fontSize: "13px" }}>%100</span>
                 </div>
-                <div style={{ fontSize: "12px" }}>{t("creator.shopFeedbacks")}: (123)</div>
+                <div style={{ fontSize: "12px" }}>
+                  {t("creator.shopFeedbacks")}: (123)
+                </div>
                 <div style={{ fontSize: "12px" }}>
                   {t("creator.shopOtherİtems")}: (342)
                 </div>
               </div>
             </div>
             <div className="likes d-flex justify-content-between align-items-center">
-              <span>{t("creator.totalOperations")}: {foundedProduct.profiles.dislikes + foundedProduct.profiles.likes}</span>
+              <span>
+                {t("creator.totalOperations")}:{" "}
+                {foundedProduct.profiles.dislikes +
+                  foundedProduct.profiles.likes}
+              </span>
               <div className="d-flex gap-2">
                 <div className="text-center align-content-center">
                   <BiSolidLike style={{ fontSize: "14px", color: "green" }} />
@@ -359,12 +438,16 @@ export const ProductDetails = () => {
               {foundedProduct.profiles.is_online ? (
                 <>
                   <GoDotFill color="green" />
-                  <span style={{ fontSize: "14px" }}>{t("creator.online")}</span>
+                  <span style={{ fontSize: "14px" }}>
+                    {t("creator.online")}
+                  </span>
                 </>
               ) : (
                 <>
                   <GoDotFill color="red" />
-                  <span style={{ fontSize: "14px" }}>{t("creator.offline")}</span>
+                  <span style={{ fontSize: "14px" }}>
+                    {t("creator.offline")}
+                  </span>
                 </>
               )}
             </div>
@@ -380,7 +463,7 @@ export const ProductDetails = () => {
                   className="d-flex justify-content-center flex-column"
                   style={{ fontSize: "10px", fontWeight: "bold" }}
                 >
-                  <span style={{width:"13em"}}>{t("details.secure")}</span>{" "}
+                  <span style={{ width: "13em" }}>{t("details.secure")}</span>{" "}
                 </span>
               </div>
               <div className="price">
@@ -414,39 +497,62 @@ export const ProductDetails = () => {
                 </span>
               </div>
             </div>
-            <div className="d-flex w-100 justify-content-center gap-2 align-items-center position-relative" >
-              {foundedProduct.stock == 0? <div className="stock-bitmis bg-danger fs-3 px-2 py-1 rounded-3"> Stokta Yok </div> : ''}
-              
-              <div className="amount align-items-center justify-content-center gap-0 rounded-4 overflow-hidden" style={{display:foundedProduct.stock == 0 ?"none":"flex" }}>
-                <span className="px-3">{t("details.count")}: </span>
-                <div className="d-flex ingredients justify-content-center align-items-center p-2 gap-2 ">
-                  <div
-                    onClick={() => {
-                      count == 1 ? "" : setCount((prev) => prev - 1);
-                    }}
-                    className={`  p-0 w-25 text-center ${
-                      count == 1 ? "" : "decrease btn"
-                    }`}
-                    style={{ cursor: count == 1 ? "default" : "" }}
-                  >
-                    -
-                  </div>
-                  <div className="amount w-50 text-center">{count}</div>
-                  <div
-                    onClick={foundedProduct.stock == count ?"":() => setCount((prev) => prev + 1)}
-                    className={`${foundedProduct.stock == count ?"": "increase btn"}  p-0 w-25 text-center`}
-                  >
-                    +
-                  </div>
+            <div className="d-flex w-100 justify-content-center gap-2 align-items-center position-relative">
+              {cartState || foundedProduct.stock === 0 ? (
+                foundedProduct.stock === 0 ? (
+                  <div className="stock-bitmis bg-danger fs-3 px-3 py-1 rounded-3">
+                  Stokta Yok
                 </div>
-              </div>
-              <button
-                onClick={() => handleAddCart(session, foundedProduct, count)}
-                className="purchase  btn btn-success px-3"
-                style={{ width:"8em",fontSize: "15px", display:foundedProduct.stock == 0 ?"none":"block"  }}
-              >
-                {t("details.addCart")}
-              </button>
+                ) : (
+                  <Link
+                    className="stock-bitmis bg-success fs-3 px-3 py-1 rounded-3"
+                    to="/cart"
+                  >
+                    Sepete Git
+                  </Link>
+                )
+              ) : (
+                <>
+                  <div className="amount d-flex align-items-center justify-content-center gap-0 rounded-4 overflow-hidden">
+                    <span className="px-3">{t("details.count")}: </span>
+                    <div className="d-flex ingredients justify-content-center align-items-center p-2 gap-2">
+                      <div
+                        onClick={() => {
+                          if (count > 1) setCount((prev) => prev - 1);
+                        }}
+                        className={`p-0 w-25 text-center ${
+                          count > 1 ? "decrease btn" : ""
+                        }`}
+                        style={{ cursor: count > 1 ? "pointer" : "default" }}
+                      >
+                        -
+                      </div>
+                      <div className="amount w-50 text-center">{count}</div>
+                      <div
+                        onClick={() => {
+                          if (count < foundedProduct.stock)
+                            setCount((prev) => prev + 1);
+                        }}
+                        className={`p-0 w-25 text-center ${
+                          count < foundedProduct.stock ? "increase btn" : ""
+                        }`}
+                      >
+                        +
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={() =>
+                      handleAddCart(session, foundedProduct, count)
+                    }
+                    className="purchase btn btn-success px-3"
+                    style={{ width: "8em", fontSize: "15px" }}
+                  >
+                    {t("details.addCart")}
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -487,10 +593,15 @@ export const ProductDetails = () => {
             {foundedProduct.description}
           </div>
         </div>
+
+        {/* Elave Productlar  */}
         <IlgiCard />
 
+        {/* Itemin ratingi haqqinda umumi yorum */}
         <div className="card my-3 border-0 bg-custom">
-          <div className="card-head p-3 h3 fw-bolder">{t("details.ratings.userFeedbacks")}</div>
+          <div className="card-head p-3 h3 fw-bolder">
+            {t("details.ratings.userFeedbacks")}
+          </div>
           <hr />
           <div
             className="card-body d-flex flex-lg-row flex-column gap-2 justify-content-between align-items-center"
