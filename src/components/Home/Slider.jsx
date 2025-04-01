@@ -33,24 +33,24 @@ const Slider = () => {
         style={{maxHeight:"30vw",minHeight:"8em",height:"20em",overflow:"hidden"}}
       >
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1501/razergold-bizesat-39570.webp" />
+          <img src="https://img.gamesatis.com/slider/1553/banner_razamanbayrami_v6-2790.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1529/banner_ko_pusindirimleri_v2-50324.webp" />
+          <img src="https://img.gamesatis.com/slider/1554/banner_valorant_flas2-29201.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1525/banner_mlbb_kof_v2-62819.webp" />
+          <img src="https://img.gamesatis.com/slider/1548/banner_mobleg_yeniyildizuyelik_v14-89350.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img  src="https://img.gamesatis.com/slider/1527/banner_pubg_boxerbolt_v2-2181.webp" />
+          <img  src="https://img.gamesatis.com/slider/1552/banner_pubg_godzilla-81301.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1524/banner_lol_maskeliadalet-91907.webp" />
+          <img src="https://img.gamesatis.com/slider/1544/banner_netflix_stoklaryenilendi-26352.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1467/wartune-ultra-elmas-24669.webp" />
+          <img src="https://img.gamesatis.com/slider/1551/banner_pubg_anukhra-63185.webp" />
         </SwiperSlide>
-        <SwiperSlide className="text-center">
+        <SwiperSlide >
           <img src="https://img.gamesatis.com/slider/1499/cs2-hizli-sat-15036.webp" />
         </SwiperSlide>
       </Swiper> 

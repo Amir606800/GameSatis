@@ -12,7 +12,8 @@ const OyuncuPazari = () => {
   const [checks,SetChecks] = useState({
     stok:false,
     satici:false,
-    games:0
+    games:0,
+    latest:false
   })
   useEffect(() => {
     const initialFilter = products.filter((item) => item.is_vitrin == true);
@@ -27,6 +28,27 @@ const OyuncuPazari = () => {
 
   const handleChecks =(e)=>{
     SetChecks({...checks,[e.target.name]:e.target.checked?true:false})
+  }
+
+  const handleOptions = (e)=>{
+    switch(e.target.value){
+      case "latest":
+        const reversed = vitrinProducts.slice().reverse()
+        setVitrinProducts(reversed)
+        break
+      case "priceDec":
+        const decOrder = vitrinProducts.slice().sort((a,b)=>a.price-b.price)
+        setVitrinProducts(decOrder)
+        break
+      case "priceInc":
+        const incOrder = vitrinProducts.slice().sort((a,b)=>b.price-a.price)
+        setVitrinProducts(incOrder)
+        break
+      default:
+        const initialFilter = products.filter((item) => item.is_vitrin == true);
+        setVitrinProducts(initialFilter)
+        break
+    }
   }
 
 
@@ -127,6 +149,15 @@ const OyuncuPazari = () => {
         </form>
       </div>
       <div className="right w-100 g-3 row">
+        <div className="top bg-custom d-flex justify-content-between rounded-2 p-3 px-4  " >
+              <span>Oyuncu Pazari</span>
+              <select onChange={(e)=>handleOptions(e)} name="siralama" id="siralama">
+                <option value="default">Tum Itemler</option>
+                <option value="priceDec">Fiyat Artan</option>
+                <option value="priceInc">Fiyat Azalan</option>
+                <option value="latest">En Yeni</option>
+              </select>
+        </div>
         {vitrinProducts.map((item, index) => (
           <ProductCard main={item} key={index} keyIndex={index} vitrinIndex={5} />
         ))}
