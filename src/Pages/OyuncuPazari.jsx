@@ -20,7 +20,7 @@ const OyuncuPazari = () => {
     setVitrinProducts(initialFilter);
   }, [products]);
 
-  const [sliderValue, setSliderValue] = useState([170, 300]);
+  const [sliderValue, setSliderValue] = useState([10, 500]);
 
   const handleChange = (event, newValue) => {
     setSliderValue(newValue);

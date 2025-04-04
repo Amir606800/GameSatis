@@ -180,7 +180,7 @@ const Informations = () => {
               <div className="d-flex gap-4 w-100 justify-content-center">
                 <button
                   onClick={handlePrivacy}
-                  className="Privacy-button Profile_input_fields w-50 h-100 rounded-2 text-end text-center px-3"
+                  className="Privacy-button Profile_input_fields w-50 h-100 rounded-2 text-end text-center px-3 cur-pointer"
                 >
                   <FaEyeSlash /> {t("informations.hideInfos")}{" "}
                 </button>

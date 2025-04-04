@@ -17,7 +17,7 @@ const fetchWish = createAsyncThunk(
 
 const addWish = createAsyncThunk(
     "addWish",async ({product_id,user_id},{rejectWithValue})=>{
-        const {data,error} = await supabase.from("wishlist").insert({product_id:product_id,profile_id:user_id}).select("*")
+        const {data,error} = await supabase.from("wishlist").insert({product_id:product_id,profile_id:user_id}).select("*,products(*,profiles(*))")
         if(!error) return data[0]
         return rejectWithValue(error)
     }

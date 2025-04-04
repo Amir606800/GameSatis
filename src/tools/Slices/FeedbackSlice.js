@@ -31,8 +31,8 @@ const addFeedback = createAsyncThunk(
         product_id: item.products.id,
         content: commentValues.comment,
         rate: commentValues.rating,
-      }).select("*");
-      if(!error) return data
+      }).select("*,products(*,profiles(*))");
+      if(!error) return data[0]
       return rejectWithValue(error)
     }
 )

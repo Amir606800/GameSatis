@@ -33,7 +33,7 @@ const Slider = () => {
         style={{maxHeight:"30vw",minHeight:"8em",height:"20em",overflow:"hidden"}}
       >
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1553/banner_razamanbayrami_v6-2790.webp" />
+          <img src="https://img.gamesatis.com/slider/1557/banner_lol_yenikostum-25197.webp" />
         </SwiperSlide>
         <SwiperSlide>
           <img src="https://img.gamesatis.com/slider/1554/banner_valorant_flas2-29201.webp" />

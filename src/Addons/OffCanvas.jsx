@@ -9,6 +9,7 @@ import { CgMail } from "react-icons/cg";
 import { BiHeart } from "react-icons/bi";
 import { SettingsContext } from "../Context/SettingsProvider";
 import { useTranslate } from "../helpers/Language/Translator";
+import AddBalanceModal from "../components/Home/AddBalanceModal";
 
 function OffCanvas() {
   const [show, setShow] = useState(false);
@@ -91,10 +92,7 @@ function OffCanvas() {
                     </div>
                   </div>
                 </Link>
-                <div className="p-3 rounded-3 bg-custom">
-                  {" "}
-                  <CgMail className="fs-6" />
-                </div>
+                
 
                 <Link to={"/favoriler"} className="p-3 rounded-3 bg-custom">
                   {" "}
@@ -114,27 +112,19 @@ function OffCanvas() {
               >
                 {t("header.navigation.games")}
               </Link>
-              <div
+              <Link to={"/oyuncu-pazari"}
                 className="nav-element rounded-3 w-100"
                 onClick={() => setShow(false)}
               >
                 {t("header.navigation.gameShop")}
-              </div>
-              <div
+              </Link>
+              <Link to={"/Knight-Online"}
                 className="nav-element rounded-3 w-100"
                 onClick={() => setShow(false)}
               >
                 KNIGHT ONLINE
-              </div>
-              <div
-                className="nav-element rounded-3 w-100 position-relative"
-                onClick={() => setShow(false)}
-              >
-                MOBILE LEGENDS{" "}
-                <span className="position-absolute rounded-pill top-0 end-0 translate-middle-y badge bg-danger">
-                  EN UYGUN
-                </span>{" "}
-              </div>
+              </Link>
+              
               <Link
                 to={"/oyunlar/PUBG-Mobile"}
                 className="nav-element rounded-3 w-100"
@@ -149,25 +139,9 @@ function OffCanvas() {
               >
                 VALORANT VP
               </Link>
-              <div
-                className="nav-element rounded-3 w-100"
-                onClick={() => setShow(false)}
-              >
-                CS2 SKIN
-              </div>
+              
 
-              <div
-                style={{
-                  color: "#75ba15",
-                  border: "2px solid #75ba15",
-                  background: "none",
-                }}
-                onClick={() => setShow(false)}
-                className="nav-element rounded-3 w-100 fw-bolder"
-              >
-                <span className="fs-6">+</span>
-                {t("header.navigation.balance")}
-              </div>
+              <AddBalanceModal settingShow={setShow} mode={"offcanvas"} />
               <Link
                 to={userProfile ? "/ilan_ekle" : "/giris-yap"}
                 className="py-2 btn-success btn rounded-3 w-100"

@@ -13,6 +13,7 @@ import LogoDark from "../assets/Images/gmsrenklikoyuyatay.svg";
 import { ProductContext } from "../Context/ProductsProvider";
 import slugify from "slugify";
 import { useTranslate } from "../helpers/Language/Translator";
+import AddBalanceModal from "../components/Home/AddBalanceModal";
 const Header = () => {
   const { userProfile } = UserAuth();
   const { currency, currencyObj, theme, privacy } = useContext(SettingsContext);
@@ -180,7 +181,6 @@ const Header = () => {
                           </div>
                         </div>
                       </Link>
-                      <CgMail className="fs-5" />
                       <Link to="/favoriler">
                         <BiHeart className="fs-5" />
                       </Link>
@@ -230,7 +230,7 @@ const Header = () => {
               {" "}
               {t("header.navigation.gameShop")}{" "}
             </Link>
-            <div className="nav-element">KNIGHT ONLINE</div>
+            <Link to={"/Knight-Online"} className="nav-element">KNIGHT ONLINE</Link>
             <Link to={"/oyunlar/League-Of-Legends"} className="nav-element">
               League Of Legends
             </Link>
@@ -243,9 +243,7 @@ const Header = () => {
             <Link to={"/oyunlar/Supercell"} className="nav-element">
               Supercell
             </Link>
-            <div style={{ color: "#75ba15" }} className="nav-element fw-bolder">
-              <span className="fs-6">+</span> {t("header.navigation.balance")}
-            </div>
+            <AddBalanceModal mode={"header"} />
           </div>
         </div>
       </div>

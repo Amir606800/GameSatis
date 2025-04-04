@@ -195,5 +195,22 @@ hr {
 }
 
 .cur-pointer {
-  cursor: pointer;
+  cursor: pointer !important;
+}
+
+
+.pagination{
+  gap:10px;
+  .page-item.active .page-link{
+    background-color: #0c88a1;
+    font-weight: bold;
+  }
+  .page-item,.page-link{
+    border-radius: 100%;
+    overflow: hidden; 
+    border: none;
+    width: 35px;
+    align-content: center;
+    text-align: center;
+  }
 }
