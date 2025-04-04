@@ -165,33 +165,33 @@ const Footer = () => {
                   </div>
                   <div>
                     <TfiEmail />
-                    <span> destek@gamesatis.com</span>
+                    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=destek@gamesatis.com" target="_blank" rel="noopener noreferrer"> destek@gamesatis.com</a>
                   </div>
                 </div>
                 <div className="social h-50 d-flex flex-column justify-content-center align-items-center">
                   <h5>{t("footer.social.follow")}</h5>
                   <div className="d-flex gap-2">
-                    <span className="social-icons cur-pointer">
+                    <a href="https://www.instagram.com/gamesatis/" className="social-icons cur-pointer">
                       <FaInstagram />
-                    </span>
-                    <span className="social-icons cur-pointer">
+                    </a>
+                    <a href="https://discord.com/invite/ZtvaNGn" className="social-icons cur-pointer">
                       <IoLogoDiscord />
-                    </span>
-                    <span className="social-icons cur-pointer">
+                    </a>
+                    <a href="https://www.twitch.tv/gamesatiscom/" className="social-icons cur-pointer">
                       <FaTwitch />
-                    </span>
-                    <span className="social-icons cur-pointer">
+                    </a>
+                    <a href="https://x.com/gamesatis" className="social-icons cur-pointer">
                       <FaXTwitter />
-                    </span>
-                    <span className="social-icons cur-pointer">
+                    </a>
+                    <a href="https://www.youtube.com/user/gamesatisTV" className="social-icons cur-pointer">
                       <FaYoutube />
-                    </span>
-                    <span className="social-icons cur-pointer">
+                    </a>
+                    <a href="https://www.facebook.com/gamesatis" className="social-icons cur-pointer">
                       <FaFacebookF />
-                    </span>
-                    <span className="social-icons cur-pointer">
+                    </a>
+                    <a href="https://www.linkedin.com/company/gamesatis" className="social-icons cur-pointer">
                       <FaLinkedinIn />
-                    </span>
+                    </a>
                   </div>
                 </div>
               </div>

@@ -3,6 +3,7 @@ import { FaArrowRotateRight } from "react-icons/fa6";
 import supabase from "../../helpers/supabaseClient";
 import Swal from "sweetalert2";
 import { UserAuth } from "../../Context/AuthContext";
+import { useTranslate } from "../../helpers/Language/Translator";
 
 const SignUpSec = (props) => {
   const [email, setEmail] = useState("");
@@ -11,7 +12,7 @@ const SignUpSec = (props) => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [verCode, setVerCode] = useState("");
-
+  const t=useTranslate()
   const {signUp} = UserAuth()
 
   const resetInputFields = ()=>{
@@ -125,7 +126,7 @@ const SignUpSec = (props) => {
         <input
           onChange={(e) => setFirstName(e.target.value)}
           type="text"
-          placeholder="Ad: "
+          placeholder={t("auth.placeName")}
           required
           value={firstName}
           autoFocus
@@ -133,28 +134,28 @@ const SignUpSec = (props) => {
         <input
           onChange={(e) => setLastName(e.target.value)}
           type="text"
-          placeholder="Soyad: "
+          placeholder={t("auth.placeSur")}
           required
           value={lastName}
         />
         <input
           onChange={(e) => setEmail(e.target.value)}
           type="email"
-          placeholder="E-Posta Adresi: "
+          placeholder={t("auth.placeEmail")}
           value={email}
           required
         />
         <input
           onChange={(e) => setPassword(e.target.value)}
           type="password"
-          placeholder="Şifre: "
+          placeholder={t("auth.placePassw")}
           value={password}
           required
         />
         <input
           onChange={(e) => setPasswordAgain(e.target.value)}
           type="password"
-          placeholder="Şifre Tekrar: "
+          placeholder={t("auth.placePassAgain")}
           value={passwordAgain}
           required
         />
@@ -163,7 +164,7 @@ const SignUpSec = (props) => {
             onChange={(e) => setVerCode(e.target.value)}
             type="text"
             className="w-50"
-            placeholder="Güvenlik kodu:"
+            placeholder={t("auth.placeSec")}
             value={verCode}
             required
           />
@@ -206,8 +207,7 @@ const SignUpSec = (props) => {
           <input type="checkbox" style={{ width: 40 }} />
           <span className="w-100" style={{ fontSize: 15 }}>
             <div>
-              Kampanyalardan haberdar olmak için sms ve elektronik ileti almak
-              istiyorum.
+              {t("auth.services")}
             </div>
           </span>
         </div>
@@ -215,11 +215,11 @@ const SignUpSec = (props) => {
           className=" w-100 btn text-white login-btn-active"
           style={{ padding: "8px" }}
         >
-          Üye Ol
+          {t("auth.signUp")}
         </button>
       </form>
       <div className="mb-3 mt-2">
-        Üye Ol'a basarak Kullanıcı Sözleşmesi ve şartlarını kabul ediyorum.
+        {t("auth.agree")}
       </div>
     </>
   );

@@ -1,7 +1,13 @@
+import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import React, { useEffect, useRef, useState } from "react";
 import { RiCustomerService2Fill, RiMailSendLine } from "react-icons/ri";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const CanliDestek = () => {
+  const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GEMINI_API_KEY) 
+  const model = genAI.getGenerativeModel({model:"gemini-1.5-flash"})
   const [hiddenStat, setHidden] = useState(false);
   useEffect(() => {
     if (hiddenStat) {
@@ -15,17 +21,18 @@ const CanliDestek = () => {
     }
   }, [hiddenStat]);
   
+  useEffect(()=>{},)
 
   const [messagesToDisplay, setMessagesToDisplay] = useState([
-    { sender: "user", content: "Hi, how are you?" },
-    { sender: "computer", content: "I'm good, what about you?" },
+    { sender: "computer", content: "Hi! I am GameBot! How can I help you today?" },
   ]);
-  const computerReply = "I'm here to help!"; 
 
   const [userInput, setUserInput] = useState("");
 
-  const handleSubmitMessage = () => {
+  const handleSubmitMessage = async() => {
     if (userInput.trim()) {
+      const result = await model.generateContent(userInput)
+      const response = await result.response
       setMessagesToDisplay((prevMessages) => [
         ...prevMessages,
         { sender: "user", content: userInput },
@@ -34,7 +41,7 @@ const CanliDestek = () => {
       setTimeout(() => {
         setMessagesToDisplay((prevMessages) => [
           ...prevMessages,
-          { sender: "computer", content: computerReply },
+          { sender: "computer", content: response.text() },
         ]);
       }, 1000); 
       setUserInput("");
@@ -111,7 +118,7 @@ const CanliDestek = () => {
                     <strong className={message.sender == "user"?"bg-info text-white rounded-2 p-1" :"bg-danger text-white rounded-2 p-1"}>
                       {message.sender === "user" ? "User" : "Computer:"}
                     </strong>{" "}
-                    <div className="mt-2" style={{color:"white"}}>{message.content}</div>
+                    <ReactMarkdown remarkPlugins={[remarkGfm]} style={{color:"white"}}>{message.content}</ReactMarkdown>
                   </div>
                 ))}
               </div>

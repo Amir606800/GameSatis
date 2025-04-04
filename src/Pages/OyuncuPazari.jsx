@@ -135,7 +135,7 @@ const OyuncuPazari = () => {
 
           <div className="d-flex flex-row gap-2 mt-3 mb-3">
             <label className="fs-6 fw-bold" htmlFor="games">Oyun: </label>
-            <select defaultValue={0} onChange={(e)=>SetChecks({...checks,games:e.target.value})} name="games" id="games">
+            <select className="" defaultValue={0} onChange={(e)=>SetChecks({...checks,games:e.target.value})} name="games" id="games">
               <option value={0} > Tüm Oyunlar</option>
               {mainCat.map((item,index)=>(
                 <option value={item.id} key={index}>{item.name}</option>
@@ -149,9 +149,9 @@ const OyuncuPazari = () => {
         </form>
       </div>
       <div className="right w-100 g-3 row">
-        <div className="top bg-custom d-flex justify-content-between rounded-2 p-3 px-4  " >
-              <span>Oyuncu Pazari</span>
-              <select onChange={(e)=>handleOptions(e)} name="siralama" id="siralama">
+        <div className="top bg-custom d-flex align-items-center justify-content-between rounded-2 p-3 px-4  " style={{height:"4em"}} >
+              <span className="fw-bold h5 p-0 m-0">Oyuncu Pazari</span>
+              <select className="p-2 rounded-4" onChange={(e)=>handleOptions(e)} name="siralama" id="siralama">
                 <option value="default">Tum Itemler</option>
                 <option value="priceDec">Fiyat Artan</option>
                 <option value="priceInc">Fiyat Azalan</option>

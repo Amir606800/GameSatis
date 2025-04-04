@@ -4,6 +4,7 @@ import supabase from "../../helpers/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import { UserAuth } from "../../Context/AuthContext";
+import { useTranslate } from "../../helpers/Language/Translator";
 
 const Login = (props) => {
   const [email, setEmail] = useState("");
@@ -12,7 +13,7 @@ const Login = (props) => {
   const [inputStatus, setInputStatus] = useState("email");
   const navigate = useNavigate();
   const { session, signIn } = UserAuth();
-
+  const t = useTranslate()
   const resetInputFields = () => {
     setEmail("");
     setPassword("");
@@ -75,7 +76,7 @@ const Login = (props) => {
           className="giris-ePosta"
           style={{ color: "#33FF33" }}
         >
-          E-posta ile Giris
+          {t("auth.emailS")}
         </div>
         <div
           onClick={(e) => {
@@ -86,7 +87,7 @@ const Login = (props) => {
           className="giris-telefon cur-pointer"
           style={{ color: "red"}}
         >
-          Telefon ile Giris
+          {t("auth.passwS")}
         </div>
       </div>
       <form
@@ -97,7 +98,7 @@ const Login = (props) => {
           <input
             onChange={(e) => setEmail(e.target.value)}
             type="email"
-            placeholder="E-Posta Adresi: "
+            placeholder={t("auth.placeEmail")}
             value={email}
             required
           />
@@ -110,7 +111,7 @@ const Login = (props) => {
         <input
           onChange={(e) => setPassword(e.target.value)}
           type="password"
-          placeholder="Şifre: "
+          placeholder={t("auth.placePassw")}
           value={password}
           required
         />
@@ -119,7 +120,7 @@ const Login = (props) => {
             onChange={(e) => setVerCode(e.target.value)}
             type="text"
             className="w-50"
-            placeholder="Güvenlik kodu:"
+            placeholder={t("auth.placeSec")}
             value={verCode}
             required
           />
@@ -138,14 +139,14 @@ const Login = (props) => {
         <div className="w-100  d-flex justify-content-start align-items-center">
           <input type="checkbox" style={{ width: 40 }} />
           <span className="w-100" style={{ fontSize: 16, fontWeight: "bold" }}>
-            Bu cihaz guvenilir
+          {t("auth.trust")}
           </span>
         </div>
         <button
           className=" w-100 btn text-white login-btn-active"
           style={{ padding: "8px" }}
         >
-          Giris Yap
+          {t("auth.login")}
         </button>
         <a className="w-100" href="/email-confirm">
         <button
@@ -154,7 +155,7 @@ const Login = (props) => {
           style={{ padding: "8px" }}
           type="button"
         >
-          Şifremi Unuttum
+          {t("auth.forget")}
         </button>
         </a>
         

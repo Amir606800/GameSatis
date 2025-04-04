@@ -78,7 +78,7 @@ const Home = () => {
 
             <Slider />
 
-            <div
+            <Link to={"/oyunlar/Supercell"}
               className="banner2 d-lg-block d-none hovering-behaviour"
               style={{ transform: "rotate(13deg) translateX(-20px)" }}
             >
@@ -86,7 +86,7 @@ const Home = () => {
                 src="https://img.gamesatis.com/showcase/733/banner_side_supercell_oyunlar_left-24781.webp"
                 alt="Banner3"
               />
-            </div>
+            </Link>
           </div>
         </div>
         <SplitterAdvert

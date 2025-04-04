@@ -230,7 +230,7 @@ const Header = () => {
               {" "}
               {t("header.navigation.gameShop")}{" "}
             </Link>
-            <Link to={"/Knight-Online"} className="nav-element">KNIGHT ONLINE</Link>
+            <Link to={"/oyunlar/Knight-Online"} className="nav-element">KNIGHT ONLINE</Link>
             <Link to={"/oyunlar/League-Of-Legends"} className="nav-element">
               League Of Legends
             </Link>

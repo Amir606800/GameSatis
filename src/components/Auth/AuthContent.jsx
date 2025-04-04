@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import Login from "./Login";
 import SignUpSec from "./SignUp";
+import { useTranslate } from "../../helpers/Language/Translator";
 
 
 const AuthContent=(props)=>{
     const [authState, setAuthState] = useState(true);
-  
+    const t = useTranslate()
     const [randomCharset, setRandomCharset] = useState();
     const generatorRandom = () => {
       setRandomCharset(
@@ -30,7 +31,7 @@ const AuthContent=(props)=>{
                     }}
                     className="login-buton login-btn-active"
                   >
-                    Giris Yap
+                    {t("auth.login")}
                   </button>
                   <button
                     className="sign-buton"
@@ -45,7 +46,7 @@ const AuthContent=(props)=>{
                       
                     }}
                   >
-                    Uye Ol
+                    {t("auth.signUp")}
                   </button>
                 </div>
                 {authState ? (

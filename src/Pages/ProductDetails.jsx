@@ -48,10 +48,14 @@ export const ProductDetails = () => {
     (item) => slugify(item.title).toLowerCase() === slugName
   );
 
+
   useEffect(() => {
-    if (wishes || products) {
-      const thing = wishes.find((item) => item.product_id == foundedProduct.id);
-      setThing(thing);
+    if(foundedProduct){
+
+      if (wishes || products) {
+        const thing = wishes.find((item) => item.product_id == foundedProduct.id);
+        setThing(thing);
+      }
     }
   }, [wishes, products]);
 
@@ -72,63 +76,7 @@ export const ProductDetails = () => {
     }
   }, [userProfile]);
 
-  const handleCartButton = ()=>{
-    {foundedProduct.stock === 0 ? (
-      cartState ? (
-        <Link
-          className="stock-bitmis bg-success fs-3 px-2 py-1 rounded-3"
-          to="/cart"
-        >
-          Sepete Git
-        </Link>
-      ) : (
-        <div className="stock-bitmis bg-danger fs-3 px-2 py-1 rounded-3">
-          Stokta Yok
-        </div>
-      )
-    ) : (
-      <>
-        <div className="amount d-flex align-items-center justify-content-center gap-0 rounded-4 overflow-hidden">
-          <span className="px-3">{t("details.count")}: </span>
-          <div className="d-flex ingredients justify-content-center align-items-center p-2 gap-2">
-            <div
-              onClick={() => {
-                if (count > 1) setCount((prev) => prev - 1);
-              }}
-              className={`p-0 w-25 text-center ${
-                count > 1 ? "decrease btn" : ""
-              }`}
-              style={{ cursor: count > 1 ? "pointer" : "default" }}
-            >
-              -
-            </div>
-            <div className="amount w-50 text-center">{count}</div>
-            <div
-              onClick={() => {
-                if (count < foundedProduct.stock)
-                  setCount((prev) => prev + 1);
-              }}
-              className={`p-0 w-25 text-center ${
-                count < foundedProduct.stock ? "increase btn" : ""
-              }`}
-            >
-              +
-            </div>
-          </div>
-        </div>
-
-        <button
-          onClick={() =>
-            handleAddCart(session, foundedProduct, count)
-          }
-          className="purchase btn btn-success px-3"
-          style={{ width: "8em", fontSize: "15px" }}
-        >
-          {t("details.addCart")}
-        </button>
-      </>
-    )}
-  }
+  
 
 
   const [ratingCounts, setRatingCounts] = useState({
