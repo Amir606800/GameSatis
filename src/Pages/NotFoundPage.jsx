@@ -1,5 +1,6 @@
 import React from "react";
 import Path from "../Addons/Path";
+import IlgiCard from "../components/CardCompon/IlgiCard";
 
 const NotFoundPage = () => {
   return (
@@ -11,6 +12,7 @@ const NotFoundPage = () => {
           alt="404 Not found"
         />
       </div>
+      <IlgiCard />
     </>
   );
 };

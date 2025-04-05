@@ -16,13 +16,13 @@ const ForgotPassword = () => {
     }
   return (
     <>
-    <div  className="container-fluid my-4" style={{width:"30vw",maxWidth:"50em"}}>
+    <div  className="container-fluid my-4" style={{maxWidth:"30em"}}>
             <div className="sign-box  d-flex  w-100 rounded-3">
               <div className="left p-4  w-100 rounded-3">
                 <div className="head h4">
                   Şifre Kurtarma
                 </div>
-                <form onSubmit={handleSubmit} className='login-form mt-4  gap-3 d-flex flex-column'>
+                <form onSubmit={handleSubmit} className='login-form mt-4 w-100 gap-3 d-flex flex-column'>
                     <input value={email} onChange={(e)=>{setEmail(e.target.value)}} type="email" placeholder='E-post Adresiniz:'/>
                     <input value={password} onChange={(e)=>{setPassword(e.target.value)}} type="password" placeholder='Yeni şifreniz: ' />
                     <button className='btn mt-2 w-100 login-btn-active text-white'> Onayla </button>

@@ -235,24 +235,24 @@ const Cart = () => {
                     </div>
                     <div className="right">
                       <div className="d-flex w-100 justify-content-between gap-2 align-items-center">
-                        <div className="amount d-flex align-items-center justify-content-center rounded-3">
+                        <div className="amount   main-back d-flex align-items-center justify-content-center rounded-3">
                           <span className="ms-2" style={{ width: "10em" }}>
                             Adet:{" "}
                           </span>
-                          <div className="d-flex ingredients justify-content-between align-items-center p-2 ">
+                          <div className="d-flex ingredients bg-none gap-1 justify-content-between align-items-center p-2 ">
                             <div
                               onClick={
                                 item.quantity == 1
                                   ? () => {}
                                   : () => handleDecrease(item.id, item.quantity)
                               }
-                              className={` p-0 w-25 text-center ${
-                                item.quantity == 1 ? "" : "decrease btn"
+                              className={`bg-custom p-0 w-25 text-center btn ${
+                                item.quantity == 1 ? "" : "decrease "
                               }`}
                             >
                               -
                             </div>
-                            <div className="amount item-quantity w-50 text-center">
+                            <div className="amount rounded-2 bg-custom item-quantity w-50 text-center">
                               {item.quantity}
                             </div>
                             <div
@@ -262,7 +262,7 @@ const Cart = () => {
                                   handleIncrease(item.id, item.quantity,item) 
                                  :()=>{} 
                               }
-                              className={`${item.products.stock > item.quantity ? "increase btn": ""}  p-0 w-25 text-center`}
+                              className={`${item.products.stock > item.quantity ? "increase ": ""} btn bg-custom p-0 w-25 text-center`}
                             >
                               +
                             </div>

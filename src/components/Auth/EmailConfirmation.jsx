@@ -14,15 +14,14 @@ const EmailConfirmation = () => {
   return (
     <>
       <div
-        className="container-fluid my-4"
-        style={{ width: "30vw", maxWidth: "50em" }}
+        className="container-fluid my-4" style={{maxWidth:"30em"}}
       >
         <div className="sign-box  d-flex  w-100 rounded-3">
           <div className="left p-4  w-100 rounded-3">
             <div className="head h4">Email</div>
             <form
               onSubmit={handleSubmit}
-              className="login-form mt-4  gap-3 d-flex flex-column"
+              className="login-form mt-4 w-100  gap-3 d-flex flex-column"
             >
               <input
                 value={email}
