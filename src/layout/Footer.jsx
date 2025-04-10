@@ -27,8 +27,8 @@ const Footer = () => {
         <div className="main-footer container">
           <div className="row top-row">
             <div className="col">
-              <div className="footer-icons">
-                <IoRocketSharp className="footer-icon" />
+              <div className="footer-icons fs-5">
+                <IoRocketSharp className="footer-icon " />
               </div>
               <div>
                 <h5>{t("footer.topInfos.deliverTitle")}</h5> {t("footer.topInfos.deliverDesc")}
@@ -105,9 +105,9 @@ const Footer = () => {
                         {t("footer.User.supportPublishers")}
                       </Link>
                     </li>
-                    <li>{t("footer.User.publisherApplication")}</li>
+                    {/* <li>{t("footer.User.publisherApplication")}</li>
                     <li>{t("footer.User.userAgreement")}</li>
-                    <li>{t("footer.User.storeRules")}</li>
+                    <li>{t("footer.User.storeRules")}</li> */}
                   </ul>
                 </div>
 
@@ -139,15 +139,14 @@ const Footer = () => {
 
                 {/* Popüler Sayfalar Section */}
                 <div className="col">
-                  <h5>{t("footer.PopularSites.valorant")}</h5>
+                  <h5>Popular</h5>
                   <ul>
-                    <li>{t("footer.PopularSites.valorant")}</li>
-                    <li>{t("footer.PopularSites.knightOnline")}</li>
-                    <li>{t("footer.PopularSites.pubgMobileUC")}</li>
-                    <li>{t("footer.PopularSites.blackDesertOnline")}</li>
-                    <li>{t("footer.PopularSites.leagueOfLegends")}</li>
-                    <li>{t("footer.PopularSites.cs2Skin")}</li>
-                    <li>{t("footer.PopularSites.allGames")}</li>
+                    <li><Link to="/oyunlar/Valorant">{t("footer.PopularSites.valorant")}</Link></li>
+                    <li><Link to="/oyunlar/Knight-Online">{t("footer.PopularSites.knightOnline")}</Link></li>
+                    <li><Link to="/oyunlar/PUBG-Mobile"> {t("footer.PopularSites.pubgMobileUC")}</Link></li>
+                    <li><Link to="/oyunlar/League-Of-Legends">{t("footer.PopularSites.leagueOfLegends")}</Link></li>
+                    <li><Link to="/oyunlar/Supercell">Supercell</Link></li>
+                    <li><Link to="/oyunlar"> {t("footer.PopularSites.allGames")}</Link></li>
                   </ul>
                 </div>
               </div>

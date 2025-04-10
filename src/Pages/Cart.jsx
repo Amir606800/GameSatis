@@ -144,10 +144,10 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        <div className="d-flex gap-3 align-items-center">
+        <div className="d-flex gap-3 align-items-center flex-column flex-lg-row">
           <div className="mt-4 w-75 d-flex flex-column gap-3">
             {cart.map((item, index) => (
-              <div className="cart-row gap-3" key={index}>
+              <div className="cart-row gap-3 d-flex flex-column flex-lg-row align-items-center" key={index}>
                 <div className="image-grid  overflow-hidden">
                   <img
                     width={240}
@@ -156,8 +156,8 @@ const Cart = () => {
                     alt=""
                   />
                 </div>
-                <div className="content-grid bg-custom p-3 rounded-2">
-                  <div className="top d-flex justify-content-between align-items-start">
+                <div className="content-grid w-100 bg-custom p-3 h-100 rounded-2 ">
+                  <div className="top d-flex justify-content-between align-items-center align-items-sm-start flex-column flex-sm-row">
                     <Link to={`/${slugify(item.products.title).toLowerCase() }`} className="h5 fw-bold">{item.products.title}</Link>
 
                     <div className="price-1 h4 fw-bolder">
@@ -189,8 +189,8 @@ const Cart = () => {
                       )}
                     </div>
                   </div>
-                  <div className="botommo d-flex align-items-end justify-content-between h-75">
-                    <div className="left d-flex align-content-end gap-3">
+                  <div className="botommo d-flex align-items-center gap-3 align-items-lg-end justify-content-between flex-column flex-lg-row h-75">
+                    <div className="left d-flex align-content-end flex-column flex-sm-row gap-3">
                       <img
                         width={90}
                         className="rounded-3"
@@ -236,23 +236,23 @@ const Cart = () => {
                     <div className="right">
                       <div className="d-flex w-100 justify-content-between gap-2 align-items-center">
                         <div className="amount   main-back d-flex align-items-center justify-content-center rounded-3">
-                          <span className="ms-2" style={{ width: "10em" }}>
+                          <span className="ms-2 w-100" style={{ maxWidth: "10em" }}>
                             Adet:{" "}
                           </span>
-                          <div className="d-flex ingredients bg-none gap-1 justify-content-between align-items-center p-2 ">
+                          <div className="d-flex ingredients bg-none w-100 gap-1 justify-content-between align-items-center p-2 ">
                             <div
                               onClick={
                                 item.quantity == 1
                                   ? () => {}
                                   : () => handleDecrease(item.id, item.quantity)
                               }
-                              className={`bg-custom p-0 w-25 text-center btn ${
-                                item.quantity == 1 ? "" : "decrease "
+                              className={` p-0  px-2 text-center btn ${
+                                item.quantity == 1 ? "" : "decrease bg-custom"
                               }`}
                             >
                               -
                             </div>
-                            <div className="amount rounded-2 bg-custom item-quantity w-50 text-center">
+                            <div className="amount rounded-2 bg-custom px-2 item-quantity w-50 text-center">
                               {item.quantity}
                             </div>
                             <div
@@ -262,7 +262,7 @@ const Cart = () => {
                                   handleIncrease(item.id, item.quantity,item) 
                                  :()=>{} 
                               }
-                              className={`${item.products.stock > item.quantity ? "increase ": ""} btn bg-custom p-0 w-25 text-center`}
+                              className={`${item.products.stock > item.quantity ? "increase bg-custom": " "} btn  p-0 px-2 text-center`}
                             >
                               +
                             </div>
@@ -282,14 +282,14 @@ const Cart = () => {
             ))}
           </div>
           <div
-            className="mt-4 p-3 final-right bg-custom rounded-2 w-25 "
+            className="mt-4 p-3 final-right bg-custom rounded-2 w-75"
             style={{
               minHeight: "10em",
               maxHeight: "25em",
               height: "fit-content",
             }}
           >
-            <div className="top  d-flex flex-column gap-3">
+            <div className="top w-100 d-flex flex-column gap-3">
               {cart.length != 0 ? (
                 cart.map((item, index) => (
                   <div
@@ -321,8 +321,8 @@ const Cart = () => {
                 <>Loading...</>
               )}
             </div>
-            <div className="d-flex my-3 justify-content-center">
-              <hr style={{ border: "1px solid white", minWidth: "20em" }} />
+            <div className="d-flex my-3 w-100 justify-content-center">
+              <hr className="w-100" style={{ border: "1px solid white", maxWidth: "20em" }} />
             </div>
             <div className="bottom d-flex align-items-center justify-content-between">
               <span style={{ fontSize: "17px", fontWeight: "700" }}>

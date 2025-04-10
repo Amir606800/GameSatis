@@ -36,10 +36,10 @@ const Slider = () => {
           <img src="https://img.gamesatis.com/slider/1557/banner_lol_yenikostum-25197.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1554/banner_valorant_flas2-29201.webp" />
+          <img src="https://img.gamesatis.com/slider/1560/banner_indianajonesgreatcircle_v2-28436.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1548/banner_mobleg_yeniyildizuyelik_v14-89350.webp" />
+          <img src="https://img.gamesatis.com/slider/1545/banner_lol_sanaozelmagaza_v7-47389.webp" />
         </SwiperSlide>
         <SwiperSlide>
           <img  src="https://img.gamesatis.com/slider/1552/banner_pubg_godzilla-81301.webp" />
