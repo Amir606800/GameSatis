@@ -18,6 +18,7 @@ import { addOrders } from "../tools/Slices/OrdersSlice";
 import { Link } from "react-router-dom";
 import slugify from "slugify";
 import { SettingsContext } from "../Context/SettingsProvider";
+import promocodes from "../helpers/Promocode.json";
 
 const Cart = () => {
   const { cart, loading, error } = useSelector((state) => state.cart);
@@ -26,6 +27,33 @@ const Cart = () => {
   const hasFetched = useRef(false);
   const [total, setTotal] = useState(null);
   const { currency, currencyObj } = useContext(SettingsContext);
+  const [promos, setPromos] = useState({
+    promo: "",
+    status: false,
+    error: "",
+    totalPrev:0
+  });
+
+  const handlePromocode = () => {
+    console.log(promos.promo);
+    console.log(total);
+
+    const promot = promos.promo.toLowerCase();
+    if (promocodes[promot]) {
+      const discount = promocodes[promot];
+      const total2 = total - (total * discount) / 100;
+      setPromos({ ...promos,error:"", status: true,totalPrev:total });
+      setTotal(total2);
+    } else {
+      setPromos({ ...promos, error: "Yanlış Promokod" });
+    }
+  };
+  
+  const handlePromoCancel = ()=>{
+    setPromos({...promos,error:"",status:false})
+    setTotal(promos.totalPrev)
+  }
+
   useEffect(() => {
     if (userProfile && !hasFetched.current) {
       dispatch(fetchCart(userProfile.id));
@@ -74,7 +102,6 @@ const Cart = () => {
         .update({ balance: userProfile.balance - total.toFixed(2, 0) })
         .eq("id", userProfile.id);
 
-
       if (!errorBalanceUpdate) {
         dispatch(addOrders({ cart: cart, total: total }));
         dispatch(resetCart(userProfile.id));
@@ -87,8 +114,6 @@ const Cart = () => {
           confirmButtonText: "Tamam",
           confirmButtonColor: "#3085d6",
         }).then(() => window.location.reload());
-
-
       } else {
         console.log(errorBalanceUpdate);
       }
@@ -145,20 +170,30 @@ const Cart = () => {
         </div>
       ) : (
         <div className="d-flex gap-3 align-items-center flex-column flex-lg-row">
-          <div className="mt-4 w-75 d-flex flex-column gap-3">
+          <div className="mt-4 w-75 d-flex flex-column justify-content-start gap-3">
             {cart.map((item, index) => (
-              <div className="cart-row gap-3 d-flex flex-column flex-lg-row align-items-center" key={index}>
-                <div className="image-grid  overflow-hidden">
+              <div
+                className="cart-row gap-3 d-flex flex-column flex-lg-row align-items-center"
+                key={index}
+              >
+                <div
+                  className="image-grid  overflow-hidden"
+                  style={{ width: "100%", maxWidth: "16em", minWidth: "13em" }}
+                >
                   <img
-                    width={240}
-                    className="rounded-2"
+                    className="rounded-2 w-100"
                     src={item.products.image_url}
-                    alt=""
+                    alt={item.products.title}
                   />
                 </div>
                 <div className="content-grid w-100 bg-custom p-3 h-100 rounded-2 ">
-                  <div className="top d-flex justify-content-between align-items-center align-items-sm-start flex-column flex-sm-row">
-                    <Link to={`/${slugify(item.products.title).toLowerCase() }`} className="h5 fw-bold">{item.products.title}</Link>
+                  <div className="top d-flex justify-content-lg-between justify-content-evenly align-items-center align-items-sm-start flex-column flex-sm-row">
+                    <Link
+                      to={`/${slugify(item.products.title).toLowerCase()}`}
+                      className="h5 fw-bold"
+                    >
+                      {item.products.title}
+                    </Link>
 
                     <div className="price-1 h4 fw-bolder">
                       {item.products.discount != 0 ? (
@@ -190,9 +225,9 @@ const Cart = () => {
                     </div>
                   </div>
                   <div className="botommo d-flex align-items-center gap-3 align-items-lg-end justify-content-between flex-column flex-lg-row h-75">
-                    <div className="left d-flex align-content-end flex-column flex-sm-row gap-3">
+                    <div className="left d-flex align-items-center w-100 flex-column justify-content-evenly justify-content-lg-start flex-sm-row gap-3">
                       <img
-                        width={90}
+                        width={100}
                         className="rounded-3"
                         src={item.products.profiles.profile_photo}
                         alt={item.products.profiles.display_name}
@@ -233,10 +268,13 @@ const Cart = () => {
                         </div>
                       </div>
                     </div>
-                    <div className="right">
-                      <div className="d-flex w-100 justify-content-between gap-2 align-items-center">
-                        <div className="amount   main-back d-flex align-items-center justify-content-center rounded-3">
-                          <span className="ms-2 w-100" style={{ maxWidth: "10em" }}>
+                    
+                      <div className="d-flex w-100 justify-content-center flex-wrap gap-5 gap-lg-4 align-items-center">
+                        <div className="amount w-50  main-back d-flex align-items-center justify-content-center rounded-3" style={{minWidth:"9em"}}>
+                          <span
+                            className="ms-2 w-100"
+                            style={{ maxWidth: "10em" }}
+                          >
                             Adet:{" "}
                           </span>
                           <div className="d-flex ingredients bg-none w-100 gap-1 justify-content-between align-items-center p-2 ">
@@ -258,11 +296,19 @@ const Cart = () => {
                             <div
                               onClick={
                                 item.products.stock > item.quantity
-                                ? () =>
-                                  handleIncrease(item.id, item.quantity,item) 
-                                 :()=>{} 
+                                  ? () =>
+                                      handleIncrease(
+                                        item.id,
+                                        item.quantity,
+                                        item
+                                      )
+                                  : () => {}
                               }
-                              className={`${item.products.stock > item.quantity ? "increase bg-custom": " "} btn  p-0 px-2 text-center`}
+                              className={`${
+                                item.products.stock > item.quantity
+                                  ? "increase bg-custom"
+                                  : " "
+                              } btn  p-0 px-2 text-center`}
                             >
                               +
                             </div>
@@ -275,7 +321,6 @@ const Cart = () => {
                           <BsTrash />
                         </button>
                       </div>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -287,6 +332,7 @@ const Cart = () => {
               minHeight: "10em",
               maxHeight: "25em",
               height: "fit-content",
+              maxWidth: "23em",
             }}
           >
             <div className="top w-100 d-flex flex-column gap-3">
@@ -322,28 +368,60 @@ const Cart = () => {
               )}
             </div>
             <div className="d-flex my-3 w-100 justify-content-center">
-              <hr className="w-100" style={{ border: "1px solid white", maxWidth: "20em" }} />
+              <hr
+                className="w-100"
+                style={{ border: "1px solid white" }}
+              />
             </div>
-            <div className="bottom d-flex align-items-center justify-content-between">
-              <span style={{ fontSize: "17px", fontWeight: "700" }}>
-                Ödenecek Tutar:
-              </span>
-              <span style={{ fontSize: "25px", fontWeight: "700" }}>
-                {cart.length == 0 ? (
-                  <>Loading...</>
+            <div className="bottom d-flex align-items-center flex-column gap-2 justify-content-between">
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  promos.status?handlePromoCancel():handlePromocode();
+                }}
+                className="promocode w-100 d-flex justify-content-center align-items-center gap-4"
+              >
+                <div className="d-flex flex-column w-50 align-items-center justify-content-center">
+
+                <input
+                  onChange={(e) => {
+                    setPromos({ ...promos, promo: e.target.value });
+                  }}
+                  value={promos.promo}
+                  type="text"
+                  placeholder="Promocode: "
+                  className="w-100  border-0 py-1 px-2"
+                  disabled={promos.status ? true : false}
+                  />
+                  <div className="error text-danger w-100">{promos.error}</div>
+                  </div>
+                {promos.status ? (
+                  <button className="btn main-back">Cancel</button>
                 ) : (
-                  <>
-                    {total ? (
-                      <>
-                        {(total * currencyObj[currency].value).toFixed(2)}{" "}
-                        {currencyObj[currency].symbol}{" "}
-                      </>
-                    ) : (
-                      "loading..."
-                    )}
-                  </>
+                  <button className="btn main-back">Apply</button>
                 )}
-              </span>
+              </form>
+              <div className="w-100 d-flex justify-content-between align-items-center">
+                <span style={{ fontSize: "17px", fontWeight: "700" }}>
+                  Ödenecek Tutar:
+                </span>
+                <span style={{ fontSize: "25px", fontWeight: "700" }}>
+                  {cart.length == 0 ? (
+                    <>Loading...</>
+                  ) : (
+                    <>
+                      {total ? (
+                        <>
+                          {(total * currencyObj[currency].value).toFixed(2)}{" "}
+                          {currencyObj[currency].symbol}{" "}
+                        </>
+                      ) : (
+                        "loading..."
+                      )}
+                    </>
+                  )}
+                </span>
+              </div>
             </div>
             <div
               style={{ width: "100%" }}

@@ -1,6 +1,13 @@
 // Detail Page responsivness
 @media (max-width: 1060px) {
   // For Tablet Screens
+
+  .cart-page {
+    .final-right {
+      max-width: 75% !important;
+    }
+  }
+
   .detail-page {
     .area {
       grid-template-areas:
@@ -69,7 +76,7 @@
 
 //Header responsiveness for smaller screens
 @media (max-width: 991px) {
-  .search-result{
+  .search-result {
     top: 18em !important;
     width: 100% !important;
     max-width: 94% !important;
@@ -126,10 +133,9 @@
               width: 60%;
               min-width: 8em;
             }
-            .content{
-              
-              .left{
-                justify-content: center  !important;
+            .content {
+              .left {
+                justify-content: center !important;
                 flex-direction: column !important;
               }
             }
@@ -144,10 +150,9 @@
           flex-wrap: nowrap !important;
         }
       }
-      
     }
 
-    @media (max-width:655px) {
+    @media (max-width: 655px) {
       .Information-profile {
         .Wrapped-div {
           flex-wrap: wrap !important;
