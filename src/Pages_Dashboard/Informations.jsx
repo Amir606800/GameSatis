@@ -8,6 +8,7 @@ import { IoMdNotificationsOutline } from "react-icons/io";
 import supabase from "../helpers/supabaseClient";
 import { useTranslate } from "../helpers/Language/Translator";
 import { SettingsContext } from "../Context/SettingsProvider";
+import ChangeProfileModal from "./ChangeProfileModal";
 
 const Informations = () => {
   const { userProfile, session } = UserAuth();
@@ -86,7 +87,7 @@ const Informations = () => {
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={" "}
+                    value={mUserProfile.DOB}
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"
@@ -177,13 +178,14 @@ const Informations = () => {
                   </div>
                 </div>
               </div>
-              <div className="d-flex gap-4 w-100 justify-content-center">
+              <div className="d-flex gap-4 w-100 align-items-center justify-content-center">
                 <button
                   onClick={handlePrivacy}
-                  className="Privacy-button Profile_input_fields w-50 h-100 rounded-2 text-end text-center px-3 cur-pointer"
+                  className="Privacy-button Profile_input_fields w-25 h-100 rounded-2 text-end text-center px-3 cur-pointer"
                 >
                   <FaEyeSlash /> {t("informations.hideInfos")}{" "}
                 </button>
+                <ChangeProfileModal />
               </div>
             </div>
           </Accordion.Body>
