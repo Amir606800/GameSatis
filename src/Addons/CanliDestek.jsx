@@ -21,7 +21,6 @@ const CanliDestek = () => {
     }
   }, [hiddenStat]);
   
-  useEffect(()=>{},)
 
   const [messagesToDisplay, setMessagesToDisplay] = useState([
     { sender: "computer", content: "Hi! I am GameBot! How can I help you today?" },
@@ -31,12 +30,14 @@ const CanliDestek = () => {
 
   const handleSubmitMessage = async() => {
     if (userInput.trim()) {
-      const result = await model.generateContent(userInput)
-      const response = await result.response
+      let useInp = userInput
+      setUserInput("");
       setMessagesToDisplay((prevMessages) => [
         ...prevMessages,
-        { sender: "user", content: userInput },
+        { sender: "user", content: useInp },
       ]);
+      const result = await model.generateContent(useInp)
+      const response = await result.response
 
       setTimeout(() => {
         setMessagesToDisplay((prevMessages) => [
@@ -44,7 +45,6 @@ const CanliDestek = () => {
           { sender: "computer", content: response.text() },
         ]);
       }, 1000); 
-      setUserInput("");
     }
   };
 
@@ -64,7 +64,7 @@ const CanliDestek = () => {
         onClick={() => {
           setHidden(true);
         }}
-        className="canli-buton btn btn-info  align-items-center justify-content-center text-white gap-2"
+        className="canli-buton btn btn-info p-2 px-3 align-items-center justify-content-center text-white gap-2"
       >
         <RiCustomerService2Fill />
         <span className="fw-bold ">Canlı Destek</span>

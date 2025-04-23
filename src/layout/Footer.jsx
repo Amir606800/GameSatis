@@ -111,19 +111,6 @@ const Footer = () => {
                   </ul>
                 </div>
 
-                {/* Odeme Section */}
-                <div className="col">
-                  <h5>{t("footer.Payment.paymentMethods")}</h5>
-                  <ul>
-                    <li>{t("footer.Payment.paymentMethods")}</li>
-                    <li>{t("footer.Payment.creditCard")}</li>
-                    <li>{t("footer.Payment.bankTransfer")}</li>
-                    <li>{t("footer.Payment.ininalCard")}</li>
-                    <li>{t("footer.Payment.installments")}</li>
-                    <li>{t("footer.Payment.returnCancelConditions")}</li>
-                  </ul>
-                </div>
-
                 {/* Oyuncu Pazari Section */}
                 <div className="col">
                   <h5>{t("footer.MarketPlace.paymentMethods")}</h5>

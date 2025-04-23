@@ -9,7 +9,7 @@ import {
 } from "swiper/modules";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-
+import BannerIndiana from '/indianaBanner.webp'
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -31,16 +31,16 @@ const Slider = () => {
         style={{maxHeight:"30vw",minHeight:"8em",height:"20em",overflow:"hidden"}}
       >
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1557/banner_lol_yenikostum-25197.webp" />
+          <img src="https://img.gamesatis.com/slider/1565/banner_lol_yazgibozan-74134.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1560/banner_indianajonesgreatcircle_v2-28436.webp" />
+          <img src="https://img.gamesatis.com/slider/1562/banner_valorant_gecepazari_v20-21919.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1545/banner_lol_sanaozelmagaza_v7-47389.webp" />
+          <img src="https://img.gamesatis.com/slider/1533/banner_wartune_epin-41443.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img  src="https://img.gamesatis.com/slider/1552/banner_pubg_godzilla-81301.webp" />
+          <img  src={BannerIndiana} />
         </SwiperSlide>
         <SwiperSlide>
           <img src="https://img.gamesatis.com/slider/1544/banner_netflix_stoklaryenilendi-26352.webp" />

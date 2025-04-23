@@ -4,19 +4,29 @@ import { Button, Modal } from "react-bootstrap";
 import { useTranslate } from "../../helpers/Language/Translator";
 import { SettingsContext } from "../../Context/SettingsProvider";
 import supabase from "../../helpers/supabaseClient";
+import { useNavigate } from "react-router-dom";
 
 const AddBalanceModal = ({mode,settingShow}) => {
   const [show, setShow] = useState(false);
   const { userProfile } = UserAuth();
+  const navigate = useNavigate()
   const {currencyObj,currency} = useContext(SettingsContext)
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [price, setPrice] = useState(0);
   const t = useTranslate();
   const handleSubmit = async () => {
+    if (!userProfile) {
+      navigate('/giris-yap');
+      alert("Please Log in to add balance!")
+      handleClose()
+      return
+    }
     const {error} = await supabase.from("profiles").update({balance:(Number(price)+Number(userProfile.balance))}).eq("id",userProfile.id)
-    if(!error) alert("Balance Successfuly added!")
-    console.error(error)
+    if(error) {console.error(error);return} 
+    alert("Balance Successfuly added!")
+    setPrice(0)
+    handleClose()
   };
   return (
     <>
@@ -62,7 +72,7 @@ const AddBalanceModal = ({mode,settingShow}) => {
               id="balance"
               className="rounded-2 p-1"
               name="balance"
-              type="text"
+              type="number"
               placeholder="Miktar"
             />
           </form>

@@ -6,10 +6,28 @@
   --input-bg: #171a21;
   --desc-color:#121318;
 }
-
+.profile_photo_hover{
+  transition: all .1s;
+}
+.profile_photo_hover:hover{
+  filter: brightness(0.60);
+}
+.profile_photo_hover:hover ~ .photo_pen{
+  display: block !important;
+}
+.photo_pen{
+  display: none;
+}
 input{
   background-color: var(--input-bg) !important;
 }
+
+.custom-modal-width {
+  max-width: 600px; /* Set your desired width */
+  width: 100%; /* Ensure it takes up the full width if smaller than max-width */
+  margin: auto; /* Center the modal */
+}
+
 .User-Profile {
   .login-btn-active {
     background-color: #32a0db !important;
