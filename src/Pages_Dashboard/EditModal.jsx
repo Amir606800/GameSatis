@@ -31,9 +31,14 @@ const EditModal = ({ listed, mainItem }) => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
-    const updatedFeatures = initialState.features
-    ? initialState.features.split(",").map((f) => f.trim()) // Remove extra spaces
-    : [""];
+    let updatedFeatures;
+    if(initialState.features !=null){
+      updatedFeatures = initialState.features
+      ? initialState.features.split(",").map((f) => f.trim()) // Remove extra spaces
+      : [""];
+    }else{
+      updatedFeatures = initialState.features
+    }
 
   const updatedDatas = { ...initialState, features: updatedFeatures };
 

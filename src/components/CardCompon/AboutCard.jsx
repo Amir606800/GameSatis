@@ -13,7 +13,7 @@ const AboutCard = () => {
       >
         {t("header.siteTitle")}
       </div>
-      <div className="card-body overflow-y-scroll" style={{ height: "10em" }}>
+      <div className="card-body overflow-y-scroll" style={{ height: "18em" }}>
         <div id="homepage-desc">
           <div className="about-section-body">
             {lang == "eng" ? (

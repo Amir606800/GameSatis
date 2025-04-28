@@ -87,7 +87,7 @@ const Informations = () => {
                     type="text"
                     readOnly
                     onFocus={(e) => (e.target.style.outline = "none")}
-                    value={mUserProfile.DOB}
+                    value={privacy? "##-##-##": mUserProfile.DOB}
                   />
                   <div
                     className="PlaceHold position-absolute top-50 translate-middle-y text-body-tertiary"

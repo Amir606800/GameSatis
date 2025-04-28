@@ -13,7 +13,7 @@ const AddElan = () => {
   const [selMainCat, setSelMainCat] = useState(null);
   const [selSubCat, setSelSubCat] = useState(null);
   const { userProfile } = UserAuth();
-  const t = useTranslate()
+  const t = useTranslate();
   const dispatch = useDispatch();
   const [addedItem, setAddedItem] = useState({
     title: "",
@@ -24,7 +24,7 @@ const AddElan = () => {
     category_id: 0,
     profile_id: userProfile.id,
     deliver_time: null,
-    features: "",
+    features: null,
   });
 
   const { currency, currencyObj } = useContext(SettingsContext);
@@ -52,7 +52,7 @@ const AddElan = () => {
       deliver_time: null,
       category_id: againProduct.id,
       profile_id: userProfile.id,
-      features: "",
+      features: null,
     }));
   };
 
@@ -68,14 +68,17 @@ const AddElan = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-  
+    let updatedFeatures;
     // Convert features into an array before using it
-    let updatedFeatures = addedItem.features.includes(",")
-      ? addedItem.features.split(",").map((feature) => feature.trim()) // Trim spaces
-      : [addedItem.features];
-  
+    if (addedItem.features != null) {
+      updatedFeatures = addedItem.features.includes(",")
+        ? addedItem.features.split(",").map((feature) => feature.trim()) // Trim spaces
+        : [addedItem.features];
+    } else {
+      updatedFeatures = addedItem.features;
+    }
     const updatedItem = { ...addedItem, features: updatedFeatures };
-  
+
     if (updatedItem.title.trim() === "") {
       alert("Lütfen başlığı doldurun");
       return;
@@ -109,10 +112,15 @@ const AddElan = () => {
       alert("Lütfen açıklama kısmını doldurun!");
       return;
     }
-  
+
     try {
-      dispatch(addProduct({...updatedItem,is_vitrin:userProfile.site_role == "admin"?false:true})); // Use updatedItem instead of addedItem
-      
+      dispatch(
+        addProduct({
+          ...updatedItem,
+          is_vitrin: userProfile.site_role == "admin" ? false : true,
+        })
+      ); // Use updatedItem instead of addedItem
+
       setAddedItem({
         title: "",
         image_url: "",
@@ -120,8 +128,7 @@ const AddElan = () => {
         price: "",
         stock: "",
         deliver_time: "",
-        features: "",
-        
+        features: null,
       });
       Swal.fire({
         title: "Successful",
@@ -131,8 +138,7 @@ const AddElan = () => {
         color: "#fff",
         confirmButtonText: "OK",
         confirmButtonColor: "#3085d6",
-      }).then(()=>window.location.reload());
-      
+      }).then(() => window.location.reload());
     } catch (err) {
       alert(err);
     }
@@ -140,7 +146,7 @@ const AddElan = () => {
   return (
     <div className="Ilan-ekle-profile px-2 pb-2">
       <div className="head bg-custom py-2 mb-3 rounded-2 h4 text-center w-100">
-      {t("addListing.title")}
+        {t("addListing.title")}
       </div>
       <div className="main">
         <form
@@ -156,7 +162,7 @@ const AddElan = () => {
             id="gameSelect"
           >
             <option value="" disabled>
-            {t("addListing.chooseGame")}
+              {t("addListing.chooseGame")}
             </option>
             {mainCat.map((item, index) => (
               <option key={index} value={item.name}>
@@ -174,7 +180,7 @@ const AddElan = () => {
               id="subSelect"
             >
               <option value="" disabled>
-              {t("addListing.chooseCategory")}
+                {t("addListing.chooseCategory")}
               </option>
               {subCat.map((item, index) => (
                 <option key={index} value={item.name}>
@@ -209,15 +215,15 @@ const AddElan = () => {
                     <input
                       type="text"
                       name="title"
-                      value={addedItem.title} 
+                      value={addedItem.title}
                       onChange={handleInputFields}
                       id="name_prod"
-                      placeholder={t("productInfos.name")} 
+                      placeholder={t("productInfos.name")}
                     />
                   </div>
                   <div className="list-of-inputs-elements mt-3 mt-lg-4">
                     <label style={{ width: "120px" }} htmlFor="photo_prod">
-                    {t("productInfos.photo")}
+                      {t("productInfos.photo")}
                     </label>
                     <input
                       type="text"
@@ -232,7 +238,7 @@ const AddElan = () => {
               </div>
               <div className="list-of-inputs-elements w-75">
                 <label htmlFor="price_prod">
-                {t("productInfos.price")} ({currencyObj[currency].symbol}):
+                  {t("productInfos.price")} ({currencyObj[currency].symbol}):
                 </label>
                 <input
                   type="text"
@@ -255,7 +261,9 @@ const AddElan = () => {
                 />
               </div>
               <div className="list-of-inputs-elements w-75">
-                <label htmlFor="amount_prod">{t("productInfos.delTime")} </label>
+                <label htmlFor="amount_prod">
+                  {t("productInfos.delTime")}{" "}
+                </label>
                 <input
                   type="text"
                   name="deliver_time"
@@ -267,7 +275,9 @@ const AddElan = () => {
               </div>
               {selSubCat.toLowerCase().includes("hesap") ? (
                 <div className="list-of-inputs-elements w-75">
-                  <label htmlFor="feat_prod">{t("productInfos.features")} </label>
+                  <label htmlFor="feat_prod">
+                    {t("productInfos.features")}{" "}
+                  </label>
                   <input
                     style={{ width: "30em" }}
                     type="text"
@@ -292,7 +302,7 @@ const AddElan = () => {
                 />
               </div>
               <button className="btn btn-info text-white login-btn-active mt-3">
-              {t("addListing.publish")}
+                {t("addListing.publish")}
               </button>
             </div>
           )}

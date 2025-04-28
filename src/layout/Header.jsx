@@ -85,10 +85,6 @@ const Header = () => {
                 <Link to="/donate">Donate</Link>
               </li>
               <span>|</span>
-              <li>Blog</li>
-              <span>|</span>
-              <li>{t("header.topComments")}</li>
-              <span>|</span>
               <li>
                 <Link to={"/yardim-destek"}>{t("header.topQA")}</Link>
               </li>
@@ -99,8 +95,8 @@ const Header = () => {
         <hr />
         <div className="pb-1 container-fluid">
           <div className="mid-head  gap-2 py-3">
-            <Link
-              to="/"
+            <a
+              href="/"
               className="brand grid-logo d-flex flex-wrap align-items-center h-auto my-3 my-lg-0 mx-3 mx-lg-0 text-decoration-none justify-content-between justify-content-lg-evenly text-light"
             >
               <img
@@ -113,7 +109,7 @@ const Header = () => {
                 width={170}
               />
               <span className="text-custom">{t("header.siteTitle")}</span>
-            </Link>
+            </a>
             <div className="search grid-search d-flex justify-content-center align-items-center mx-lg-0 mx-3 ">
               <div className="position-relative z-3 w-100 ">
                 <IoIosSearch className="lupa  position-absolute top-50 translate-middle-y" />

@@ -76,7 +76,7 @@ const OyuncuPazari = () => {
   if (products.length == 0) return <Loading />;
   return (
     <div className="container-fluid d-flex flex-row my-4 gap-3">
-      <div className="left-filter w-25 d-flex flex-column align-items-center position-sticky top-50 tra " style={{height:"fit-content"}}>
+      <div className="left-filter w-25 d-flex flex-column align-items-center position-sticky my-4 " style={{height:"fit-content",top:"10vw"}}>
         <form
           onSubmit={(e) => {
             e.preventDefault();
