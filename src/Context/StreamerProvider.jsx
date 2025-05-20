@@ -9,7 +9,7 @@ export const StreamerProvider = ({ children }) => {
   const [filteredStreamer, setFilteredStream] = useState(streamData);
   useEffect(() => {
     axios
-      .get("https://mocki.io/v1/738b7e83-b507-4380-bae6-33a42082264b ")
+      .get("https://mocki.io/v1/8b251419-746c-49dd-adae-f3fc6cd984d2")
       .then((res) => setStrmData(res.data.donators))
       .catch((err) => console.log(err));
   }, []);

@@ -107,10 +107,10 @@ const CanliDestek = () => {
                     key={index}
                     className={`${
                       message.sender === "user" ? "text-end" : "text-start"
-                    }  p-2 rounded-3 `}
+                    }  p-2 rounded-3 bg-dark-custom`}
                     style={{
                       
-                      backgroundColor: " #555555",
+                      
                       width: "fit-content",
                       alignSelf: message.sender === "user" ? "end" : "start",
                     }}

@@ -9,7 +9,7 @@ import {
 } from "swiper/modules";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import BannerIndiana from '/indianaBanner.webp'
+import BannerIndiana from "/indianaBanner.webp";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
@@ -18,7 +18,6 @@ import "swiper/css/autoplay";
 const Slider = () => {
   return (
     <>
-
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay]}
         spaceBetween={50}
@@ -28,30 +27,38 @@ const Slider = () => {
         loop={true}
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
-        style={{maxHeight:"30vw",minHeight:"8em",height:"20em",overflow:"hidden"}}
+        style={{
+          maxHeight: "30vw",
+          minHeight: "8em",
+          height: "20em",
+          overflow: "hidden",
+        }}
       >
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1565/banner_lol_yazgibozan-74134.webp" />
+          <img src="/banner_fortnite_galaktiksavas-99699.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1562/banner_valorant_gecepazari_v20-21919.webp" />
+          <img src="/banner_lol_ruhcicegi-25431.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1533/banner_wartune_epin-41443.webp" />
+          <img src="/banner_mlbb_narutodevam-68890.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img  src={BannerIndiana} />
+          <img src={BannerIndiana} />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1544/banner_netflix_stoklaryenilendi-26352.webp" />
+          <img src="/banner_pubg_rpa13_v2-74285.webp" />
         </SwiperSlide>
         <SwiperSlide>
-          <img src="https://img.gamesatis.com/slider/1551/banner_pubg_anukhra-63185.webp" />
+          <img src="/banner_pubg_shelby-66084.webp" />
         </SwiperSlide>
-        <SwiperSlide >
-          <img src="https://img.gamesatis.com/slider/1499/cs2-hizli-sat-15036.webp" />
+        <SwiperSlide>
+          <img src="/banner_valorant_iyiligipaylas2025-66950.webp" />
         </SwiperSlide>
-      </Swiper> 
+        <SwiperSlide>
+          <img src="/banner_steam_yaratiktoplama-64356.webp" />
+        </SwiperSlide>
+      </Swiper>
     </>
   );
 };
